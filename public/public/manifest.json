@@ -1,6 +1,6 @@
 {
-  "name": "<% APP-LONG-NAME %>",
-  "short_name": "<% APP-SHORT-NAME %>",
+  "name": "% APP-LONG-NAME %",
+  "short_name": "% APP-SHORT-NAME %",
   "icons": [
     {
       "src": "./img/icons/192x192.png",
