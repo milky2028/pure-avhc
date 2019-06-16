@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve:pure": "vue-cli-service serve --mode pure --open",
+    "serve:avhc": "vue-cli-service serve --mode avhc --open",
     "build": "vue-cli-service build --mode production --dest dist --target app --modern",
+    "build:avhc": "vue-cli-service build --mode avhcprod --dest dist --target app --modern",
+    "build:pure": "vue-cli-service build --mode pureprod --dest dist --target app --modern",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -17,10 +20,12 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@types/node": "^12.0.8",
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-pwa": "^3.8.0",
     "@vue/cli-plugin-typescript": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
+    "prerender-spa-plugin": "^3.4.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "typescript": "^3.4.3",
