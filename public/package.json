@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve:pure": "vue-cli-service serve --mode pure --open",
     "serve:avhc": "vue-cli-service serve --mode avhc --open",
-    "build": "vue-cli-service build --mode production --dest dist --target app --modern",
+    "serve:pure": "vue-cli-service serve --mode pure --open",
     "build:avhc": "vue-cli-service build --mode avhcprod --dest dist --target app --modern",
     "build:pure": "vue-cli-service build --mode pureprod --dest dist --target app --modern",
     "lint": "vue-cli-service lint"
