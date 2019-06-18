@@ -17,3 +17,21 @@ body, html {
   padding: 0;
 }
 </style>
+
+<script lang="ts">
+import Vue from 'vue';
+export default Vue.extend({
+  created() {
+    console.log(this.doThing());
+    this.doAnotherThing();
+  },
+  methods: {
+    doThing() {
+      return 'thing';
+    },
+    doAnotherThing() {
+      return 10;
+    }
+  }
+});
+</script>
