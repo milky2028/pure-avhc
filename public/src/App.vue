@@ -1,10 +1,15 @@
 <template>
   <div id="app">
+    <app-toolbar></app-toolbar>
     <router-view/>
   </div>
 </template>
 
-<style lang="scss">
+<style>
+:root {
+  --primary-color: #000E33;
+}
+
 * {
   box-sizing: border-box;
   outline: transparent;
@@ -20,18 +25,11 @@ body, html {
 
 <script lang="ts">
 import Vue from 'vue';
+import AppToolbar from './components/AppToolbar.vue';
+
 export default Vue.extend({
-  created() {
-    console.log(this.doThing());
-    this.doAnotherThing();
-  },
-  methods: {
-    doThing() {
-      return 'thing';
-    },
-    doAnotherThing() {
-      return 10;
-    }
+  components: {
+    AppToolbar
   }
 });
 </script>

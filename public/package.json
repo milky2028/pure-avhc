@@ -23,8 +23,6 @@
     "@vue/cli-plugin-typescript": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
     "prerender-spa-plugin": "^3.4.0",
-    "sass": "^1.18.0",
-    "sass-loader": "^7.1.0",
     "tslint": "^5.17.0",
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.6.10"
