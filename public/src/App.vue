@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-toolbar></app-toolbar>
+    <av-toolbar></av-toolbar>
     <router-view/>
   </div>
 </template>
@@ -25,11 +25,11 @@ body, html {
 
 <script lang="ts">
 import Vue from 'vue';
-import AppToolbar from './components/AppToolbar.vue';
+import AvToolbar from './components/AvToolbar.vue';
 
 export default Vue.extend({
   components: {
-    AppToolbar
+    AvToolbar
   }
 });
 </script>
