@@ -1,0 +1,11 @@
+{
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "semi": true,
+      "singleQuote": true,
+      "bracketSpacing": true,
+      "jsxBracketSameLine": true,
+      "arrowParens": "always"
+    }
+  }
+}
