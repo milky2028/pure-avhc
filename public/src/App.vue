@@ -7,7 +7,7 @@
 
 <style>
 :root {
-  --primary-color: #000E33;
+  --primary-color: #000e33;
 }
 
 * {
@@ -17,9 +17,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
+  overscroll-behavior: none;
 }
 </style>
 
