@@ -1,5 +1,5 @@
 <template>
-  <button :class="$style['icon-wrapper']">
+  <button :class="$style['icon-wrapper']" @click="onClick">
     <slot></slot>
   </button>
 </template>
@@ -9,12 +9,19 @@
   cursor: pointer;
   font-family: 'Material Icons';
   color: white;
-  font-size: 24px;
+  font-size: 22px;
 }
 </style>
 
 <script lang="ts">
 import Vue from 'vue';
 
-export default Vue.extend({});
+export default Vue.extend({
+  methods: {
+    onClick(e: Event) {
+      const target = e.target as HTMLButtonElement;
+      this.$emit('icon-click', e);
+    }
+  }
+});
 </script>

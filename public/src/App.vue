@@ -26,6 +26,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
 body {
   overscroll-behavior: none;
 }
