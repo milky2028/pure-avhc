@@ -6,6 +6,7 @@
 
 <style module>
 .nav {
+  padding: 8px 12px;
   width: 100%;
   color: white;
   position: fixed;
