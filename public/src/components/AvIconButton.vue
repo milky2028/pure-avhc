@@ -6,6 +6,7 @@
 
 <style module>
 .icon-wrapper {
+  cursor: pointer;
   font-family: 'Material Icons';
   color: white;
   font-size: 24px;
