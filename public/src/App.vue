@@ -6,6 +6,8 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
+
 :root {
   --primary-color: #000a23;
 }

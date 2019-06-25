@@ -1,8 +1,10 @@
 <template>
-  <nav class="nav">Nav</nav>
+  <nav :class="$style.nav">
+    <av-icon-button>menu</av-icon-button>
+  </nav>
 </template>
 
-<style scoped>
+<style module>
 .nav {
   width: 100%;
   color: white;
@@ -17,6 +19,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-export default Vue.extend({});
+import AvIconButton from '../components/AvIconButton.vue';
+
+export default Vue.extend({
+  components: {
+    AvIconButton
+  }
+});
 </script>
 
