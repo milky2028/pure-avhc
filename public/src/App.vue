@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <main>
     <av-toolbar></av-toolbar>
     <router-view/>
-  </div>
+  </main>
 </template>
 
 <style>
@@ -11,16 +11,20 @@
 }
 
 * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
   box-sizing: border-box;
   outline: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body,
-html {
-  margin: 0;
-  padding: 0;
+body {
   overscroll-behavior: none;
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
-  <nav class="nav"></nav>
+  <nav class="nav">Nav</nav>
 </template>
 
 <style scoped>
 .nav {
+  width: 100%;
+  color: white;
   position: fixed;
   display: flex;
   justify-content: space-between;
