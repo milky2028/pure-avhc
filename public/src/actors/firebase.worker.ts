@@ -1,8 +1,8 @@
 import * as Comlink from 'comlink';
 
-export default class FirebaseWorker {
+class FirebaseWorker {
   public sayHello() {
-    console.log('hello!');
+    return 'hello';
   }
 }
 

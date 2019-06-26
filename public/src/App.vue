@@ -40,10 +40,18 @@ body {
 <script lang="ts">
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
+import * as Comlink from 'comlink';
+// @ts-ignore
+import FirebaseWorker from 'worker-loader!./actors/firebase.worker';
 
 export default Vue.extend({
   components: {
     AvToolbar
+  },
+  async mounted() {
+    const FirebaseFacade = Comlink.wrap(new FirebaseWorker());
+    const instance = await new FirebaseFacade();
+    console.log(await instance.sayHello());
   }
 });
 </script>
