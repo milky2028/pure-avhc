@@ -50,6 +50,7 @@ export default Vue.extend({
   },
   async mounted() {
     const FirebaseFacade = Comlink.wrap(new FirebaseWorker());
+    // @ts-ignore
     const instance = await new FirebaseFacade();
     console.log(await instance.sayHello());
   }
