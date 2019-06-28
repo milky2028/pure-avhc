@@ -21,14 +21,15 @@
   background-color: var(--primary-color);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   display: grid;
+  grid-template-rows: 39px 1fr;
   grid-template-columns: 24px 1fr 24px;
   grid-template-areas: 'menu logo right';
   align-items: center;
+  transition: all 150ms ease;
 }
 
 .expanded {
-  height: 35vh;
-  grid-template-rows: 39px 1fr;
+  height: 40vh;
 }
 
 .right-nav-container {
@@ -39,6 +40,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import AvIconButton from '../components/AvIconButton.vue';
+import { mapState, mapActions } from 'vuex';
 
 export default Vue.extend({
   components: {
@@ -48,7 +50,15 @@ export default Vue.extend({
     return {
       isNavbarExpanded: false
     };
+  },
+  computed: {
+    ...mapState('base', ['toolbarLogo'])
+  },
+  methods: {
+    ...mapActions('base', ['getAppBase'])
+  },
+  async beforeMount() {
+    await this.getAppBase();
   }
 });
 </script>
-
