@@ -7,8 +7,8 @@
       <av-icon-button class="icon" v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
     </transition>
     <router-link class="logo-link" to="/">
-      <h1 class="logo-text" v-if="toolbarLogo.type === 'text'">{{ toolbarLogo.text }}</h1>
-      <img v-if="toolbarLogo.type === 'image'" :src="toolbarLogo.url" :alt="toolBarLogo.alt">
+      <h1 class="logo-text" v-if="appLogoMin.type === 'text'">{{ appLogoMin.text }}</h1>
+      <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
     </router-link>
     <div class="right-nav-container">
       <av-icon-button>
@@ -57,6 +57,7 @@
   font-family: var(--elianto);
   font-size: 28px;
   font-weight: 400;
+  text-transform: uppercase;
 }
 
 .icon {
@@ -93,7 +94,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', ['toolbarLogo'])
+    ...mapState('base', ['appLogoMin'])
   },
   methods: {
     ...mapMutations('base', ['toggleOverlay']),

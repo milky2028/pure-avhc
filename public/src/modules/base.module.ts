@@ -25,7 +25,7 @@ const BaseModule: BaseModule = {
   namespaced: true,
   state: {
     isOverlayShowing: false,
-    toolbarLogo: {
+    appLogoMin: {
       type: '',
       text: '',
       url: '',
