@@ -9,4 +9,5 @@ export default interface AppBase {
   [key: string]: Logo | boolean;
   isOverlayShowing: boolean;
   appLogoMin: Logo;
+  appLogoFull: Logo;
 }

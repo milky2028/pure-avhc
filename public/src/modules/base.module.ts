@@ -30,6 +30,12 @@ const BaseModule: BaseModule = {
       text: '',
       url: '',
       alt: ''
+    },
+    appLogoFull: {
+      type: '',
+      text: '',
+      url: '',
+      alt: ''
     }
   },
   mutations: {
