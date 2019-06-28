@@ -20,9 +20,9 @@
 
 :root {
   --primary-color: #000a23;
-  --accent-color: #25ac6a;;
+  --accent-color: #25ac6a;
   --elianto: 'Elianto', sans-serif;
-  --mat-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --mat-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
