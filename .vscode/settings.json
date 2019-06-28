@@ -7,5 +7,10 @@
       "jsxBracketSameLine": true,
       "arrowParens": "always"
     }
-  }
+  },
+  "prettier.arrowParens": "always",
+  "prettier.jsxBracketSameLine": true,
+  "prettier.singleQuote": true,
+  "prettier.tslintIntegration": true,
+  "prettier.bracketSpacing": true
 }

@@ -1,10 +1,10 @@
 // @ts-ignore
 import Worker from 'worker-loader!../actors/firebase.worker';
 import AppBase from '@/types/AppBase';
-import {IFirebaseWorker} from '@/actors/firebase.worker';
-import {Commit} from 'vuex';
+import { Commit } from 'vuex';
+import WorkerFns from '@/types/WorkerFns';
 
-interface Context {
+export interface Context {
   commit: Commit;
 }
 
@@ -26,9 +26,10 @@ const BaseModule: BaseModule = {
     setAppBase: (state, payload) => (state = payload)
   },
   actions: {
-    async getAppBase({commit}) {
+    async getAppBase({ commit }) {
       const worker = new Worker();
-      worker.postMessage({fn: 'getApplicationBase'});
+      const workerMsg: WorkerFns = { fn: 'getApplicationBase' };
+      worker.postMessage(workerMsg);
       worker.addEventListener('message', (msg: MessageEvent) => {
         commit('setAppBase', msg.data);
       });

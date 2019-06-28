@@ -3,11 +3,7 @@ const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(/* webpackChunkName: 'firestore' */ 'firebase/firestore');
 const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
-export interface IFirebaseWorker {
-  getApplicationBase: () => Promise<() => void>;
-}
-
-class FirebaseWorker implements IFirebaseWorker {
+class FirebaseWorker {
   [key: string]: any;
   private db!: firebase.firestore.Firestore;
   private firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE_CONFIG!);
