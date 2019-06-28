@@ -1,6 +1,6 @@
 // @ts-ignore
 import Worker from 'worker-loader!../actors/firebase.worker';
-import AppBase from '@/types/AppBase';
+import AppBase, { Logo } from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 
@@ -10,9 +10,9 @@ export interface Context {
 
 export interface BaseModule {
   namespaced: true;
-  state: AppBase | {};
+  state: AppBase;
   mutations: {
-    setAppBase: (state: AppBase, payload: AppBase) => void;
+    setAppBase: (state: AppBase, payload: { type: string; data: Logo }) => void;
   };
   actions: {
     getAppBase: (context: Context) => Promise<void>;
@@ -21,9 +21,16 @@ export interface BaseModule {
 
 const BaseModule: BaseModule = {
   namespaced: true,
-  state: {},
+  state: {
+    toolbarLogo: {
+      type: '',
+      text: '',
+      url: '',
+      alt: ''
+    }
+  },
   mutations: {
-    setAppBase: (state, payload) => (state = payload)
+    setAppBase: (state, payload) => (state[payload.type] = payload.data)
   },
   actions: {
     async getAppBase({ commit }) {
@@ -31,7 +38,9 @@ const BaseModule: BaseModule = {
       const workerMsg: WorkerFns = { fn: 'getApplicationBase' };
       worker.postMessage(workerMsg);
       worker.addEventListener('message', (msg: MessageEvent) => {
-        commit('setAppBase', msg.data);
+        Object.keys(msg.data).forEach((key) => {
+          commit('setAppBase', { type: key, data: msg.data[key] });
+        });
       });
     }
   }

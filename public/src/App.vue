@@ -8,8 +8,21 @@
 <style>
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
 
+@font-face {
+  font-family: 'Elianto';
+  src: url('./assets/fonts/elianto.woff2') format('woff2'),
+    url('./assets/fonts/elianto.woff') format('woff'),
+    url('./assets/fonts/elianto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --primary-color: #000a23;
+  --accent-color: #25ac6a;;
+  --elianto: 'Elianto', sans-serif;
+  --mat-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 * {

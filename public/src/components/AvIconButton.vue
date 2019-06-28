@@ -10,6 +10,12 @@
   font-family: 'Material Icons';
   color: white;
   font-size: 22px;
+  transition: color 100ms var(--mat-ease);
+}
+
+.icon-wrapper:hover,
+.icon-wrapper:focus {
+  color: var(--accent-color);
 }
 </style>
 

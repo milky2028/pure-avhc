@@ -1,8 +1,23 @@
 <template>
   <nav class="nav" :class="isNavbarExpanded ? 'expanded' : ''">
-    <av-icon-button
-      @icon-click="isNavbarExpanded = !isNavbarExpanded"
-    >{{ isNavbarExpanded ? 'close' : 'menu' }}</av-icon-button>
+    <transition name="fade">
+      <av-icon-button
+        class="icon"
+        v-if="!isNavbarExpanded"
+        @icon-click="isNavbarExpanded = !isNavbarExpanded"
+      >menu</av-icon-button>
+    </transition>
+    <transition name="fade">
+      <av-icon-button
+        class="icon"
+        v-if="isNavbarExpanded"
+        @icon-click="isNavbarExpanded = !isNavbarExpanded"
+      >close</av-icon-button>
+    </transition>
+    <router-link class="logo-link" to="/">
+      <h1 class="logo-text" v-if="toolbarLogo.type === 'text'">{{ toolbarLogo.text }}</h1>
+      <img v-if="toolbarLogo.type === 'image'" :src="toolbarLogo.url" :alt="toolBarLogo.alt">
+    </router-link>
     <div class="right-nav-container">
       <av-icon-button>
         <router-link to="/cart">shopping_cart</router-link>
@@ -25,15 +40,48 @@
   grid-template-columns: 24px 1fr 24px;
   grid-template-areas: 'menu logo right';
   align-items: center;
-  transition: all 150ms ease;
+  transition: all 100ms var(--mat-ease);
 }
 
 .expanded {
   height: 40vh;
 }
 
+.logo-link {
+  padding-top: 3px;
+  grid-area: logo;
+  align-self: center;
+  justify-self: center;
+  transition: color 100ms var(--mat-ease);
+}
+
+.logo-link:hover,
+.logo-link:focus {
+  color: var(--accent-color);
+}
+
+.logo-text {
+  font-family: var(--elianto);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.icon {
+  grid-area: menu;
+}
+
 .right-nav-container {
   grid-area: right;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 200ms var(--mat-ease);
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
 
