@@ -2,6 +2,7 @@
   <main>
     <av-toolbar></av-toolbar>
     <router-view/>
+    <av-overlay></av-overlay>
   </main>
 </template>
 
@@ -53,10 +54,12 @@ body {
 <script lang="ts">
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
+import AvOverlay from './components/AvOverlay.vue';
 
 export default Vue.extend({
   components: {
-    AvToolbar
+    AvToolbar,
+    AvOverlay
   }
 });
 </script>

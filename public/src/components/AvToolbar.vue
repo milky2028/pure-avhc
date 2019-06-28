@@ -1,18 +1,10 @@
 <template>
   <nav class="nav" :class="isNavbarExpanded ? 'expanded' : ''">
     <transition name="fade">
-      <av-icon-button
-        class="icon"
-        v-if="!isNavbarExpanded"
-        @icon-click="isNavbarExpanded = !isNavbarExpanded"
-      >menu</av-icon-button>
+      <av-icon-button class="icon" v-if="!isNavbarExpanded" @icon-click="onIconClick">menu</av-icon-button>
     </transition>
     <transition name="fade">
-      <av-icon-button
-        class="icon"
-        v-if="isNavbarExpanded"
-        @icon-click="isNavbarExpanded = !isNavbarExpanded"
-      >close</av-icon-button>
+      <av-icon-button class="icon" v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
     </transition>
     <router-link class="logo-link" to="/">
       <h1 class="logo-text" v-if="toolbarLogo.type === 'text'">{{ toolbarLogo.text }}</h1>
@@ -28,6 +20,7 @@
 
 <style scoped>
 .nav {
+  z-index: 20;
   padding: 8px 12px;
   width: 100%;
   color: white;
@@ -88,7 +81,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import AvIconButton from '../components/AvIconButton.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default Vue.extend({
   components: {
@@ -103,7 +96,12 @@ export default Vue.extend({
     ...mapState('base', ['toolbarLogo'])
   },
   methods: {
-    ...mapActions('base', ['getAppBase'])
+    ...mapMutations('base', ['toggleOverlay']),
+    ...mapActions('base', ['getAppBase']),
+    onIconClick() {
+      this.isNavbarExpanded = !this.isNavbarExpanded;
+      this.toggleOverlay();
+    }
   },
   async beforeMount() {
     await this.getAppBase();

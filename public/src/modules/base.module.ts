@@ -13,6 +13,8 @@ export interface BaseModule {
   state: AppBase;
   mutations: {
     setAppBase: (state: AppBase, payload: { type: string; data: Logo }) => void;
+    toggleOverlay: (state: AppBase) => void;
+    setOverlayState: (state: AppBase, payload: boolean) => void;
   };
   actions: {
     getAppBase: (context: Context) => Promise<void>;
@@ -22,6 +24,7 @@ export interface BaseModule {
 const BaseModule: BaseModule = {
   namespaced: true,
   state: {
+    isOverlayShowing: false,
     toolbarLogo: {
       type: '',
       text: '',
@@ -30,7 +33,10 @@ const BaseModule: BaseModule = {
     }
   },
   mutations: {
-    setAppBase: (state, payload) => (state[payload.type] = payload.data)
+    setAppBase: (state, payload) => (state[payload.type] = payload.data),
+    toggleOverlay: (state) =>
+      (state.isOverlayShowing = !state.isOverlayShowing),
+    setOverlayState: (state, payload) => (state.isOverlayShowing = payload)
   },
   actions: {
     async getAppBase({ commit }) {
