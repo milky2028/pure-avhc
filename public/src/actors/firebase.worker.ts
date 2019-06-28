@@ -3,6 +3,8 @@ const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(/* webpackChunkName: 'firestore' */ 'firebase/firestore');
 const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
+declare function postMessage(message: any, options?: PostMessageOptions): void;
+
 class FirebaseWorker {
   [key: string]: any;
   private db!: firebase.firestore.Firestore;
