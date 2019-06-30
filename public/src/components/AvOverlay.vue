@@ -14,16 +14,6 @@
   z-index: 10;
   opacity: 0.6;
 }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 100ms var(--mat-ease);
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
 
 <script lang="ts">

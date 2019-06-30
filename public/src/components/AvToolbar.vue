@@ -7,7 +7,12 @@
       <av-icon-button class="icon" v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
     </transition>
     <router-link class="logo-link" to="/">
-      <h1 class="logo-text" v-if="appLogoMin.type === 'text'">{{ appLogoMin.text }}</h1>
+      <transition name="fade">
+        <h1
+          class="logo-text"
+          v-if="appLogoMin.type === 'text' && !isNavbarExpanded"
+        >{{ appLogoMin.text }}</h1>
+      </transition>
       <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
     </router-link>
     <div class="right-nav-container">
@@ -45,7 +50,7 @@
   grid-area: logo;
   align-self: center;
   justify-self: center;
-  transition: color 100ms var(--mat-ease);
+  transition: color 200ms var(--mat-ease);
 }
 
 .logo-link:hover,
@@ -68,14 +73,10 @@
   grid-area: right;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 200ms var(--mat-ease);
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
+@media (max-width: 825px) {
+  .expanded {
+    height: 100vh;
+  }
 }
 </style>
 

@@ -49,6 +49,16 @@ a:visited {
 body {
   overscroll-behavior: none;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 200ms var(--mat-ease);
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
 
 <script lang="ts">
