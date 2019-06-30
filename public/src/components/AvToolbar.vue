@@ -32,7 +32,7 @@
   position: fixed;
   height: 55px;
   background-color: var(--primary-color);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: var(--basic-shadow);
   display: grid;
   grid-template-rows: 39px 1fr;
   grid-template-columns: 24px 1fr 24px;

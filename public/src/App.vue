@@ -3,11 +3,13 @@
     <av-toolbar></av-toolbar>
     <router-view/>
     <av-overlay></av-overlay>
+    <av-disclaimer></av-disclaimer>
   </main>
 </template>
 
 <style>
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Mukta+Malar:300,400,500,600,800&display=swap');
 
 @font-face {
   font-family: 'Elianto';
@@ -22,7 +24,10 @@
 :root {
   --primary-color: #000a23;
   --accent-color: #25ac6a;
+  --snackbar-color: #2e2e2e;
+  --basic-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   --elianto: 'Elianto', sans-serif;
+  --mukta-malar: 'Mukta Malar', sans-serif;
   --mat-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -65,11 +70,13 @@ body {
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
 import AvOverlay from './components/AvOverlay.vue';
+import AvDisclaimer from './components/AvDisclaimer.vue';
 
 export default Vue.extend({
   components: {
     AvToolbar,
-    AvOverlay
+    AvOverlay,
+    AvDisclaimer
   }
 });
 </script>
