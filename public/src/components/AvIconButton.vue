@@ -15,7 +15,7 @@
 
 .icon-wrapper:hover,
 .icon-wrapper:focus {
-  color: var(--accent-color);
+  color: var(--light-accent);
 }
 </style>
 

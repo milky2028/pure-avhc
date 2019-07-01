@@ -1,23 +1,27 @@
 <template>
   <transition name="fade">
     <div v-if="isDisclaimerShowing" class="disclaimer">
-      <h3>Disclaimer</h3>
-      <p>
-        Statements on this website have not been evaluated by the FDA. Products distributed by {{ legalName }} are not intended to diagnose, treat, cure, or prevent any disease. Consult your physician before using any hemp supplement. Not intended for use by any person under 18 years of age. By entering, you agree to comply with our
-        <router-link class="link" to="privacy-policy">Privacy Policy</router-link>and
-        <router-link class="link" to="terms-and-conditions">Terms and Conditions</router-link>.
-        <!-- <button @click="onDismiss">Dismiss</button> -->
-      </p>
+      <div class="text-container">
+        <h3>Disclaimer</h3>
+        <p>
+          Statements on this website have not been evaluated by the FDA. Products distributed by {{ legalName }} are not intended to diagnose, treat, cure, or prevent any disease. Consult your physician before using any hemp supplement. Not intended for use by any person under 18 years of age. By entering, you agree to comply with our
+          <router-link class="link" to="privacy-policy">Privacy Policy</router-link>and
+          <router-link class="link" to="terms-and-conditions">Terms and Conditions</router-link>.
+        </p>
+      </div>
+      <av-button class="dismiss-btn" icon="close">Dismiss</av-button>
     </div>
   </transition>
 </template>
 
 <style scoped>
 .disclaimer {
+  display: flex;
+  flex-direction: column;
   padding: 16px;
   position: fixed;
   background-color: var(--snackbar-color);
-  height: 220px;
+  height: 225px;
   width: 375px;
   left: 75px;
   bottom: 75px;
@@ -36,6 +40,14 @@ p {
   line-height: 1.2;
 }
 
+.text-container {
+  margin-bottom: 16px;
+}
+
+.dismiss-btn {
+  align-self: flex-end;
+}
+
 @media (max-width: 825px) {
   .disclaimer {
     bottom: 0;
@@ -51,8 +63,14 @@ p {
 import Vue from 'vue';
 import { mapState, mapMutations } from 'vuex';
 import * as idb from 'idb-keyval';
+import AvButton from '../components/AvButton.vue';
+import AvIconButton from '../components/AvIconButton.vue';
 
 export default Vue.extend({
+  components: {
+    AvIconButton,
+    AvButton
+  },
   beforeMount() {
     // this.isDisclaimerShowing = false;
   },

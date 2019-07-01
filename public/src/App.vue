@@ -1,7 +1,7 @@
 <template>
   <main>
     <av-toolbar></av-toolbar>
-    <router-view/>
+    <router-view />
     <av-overlay></av-overlay>
     <av-disclaimer></av-disclaimer>
   </main>
@@ -23,7 +23,8 @@
 
 :root {
   --primary-color: #000a23;
-  --accent-color: #25ac6a;
+  --light-accent: #25ac6a;
+  --dark-accent: #004d40;
   --snackbar-color: #2e2e2e;
   --basic-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   --elianto: 'Elianto', sans-serif;

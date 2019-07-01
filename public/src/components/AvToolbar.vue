@@ -13,7 +13,7 @@
           v-if="appLogoMin.type === 'text' && !isNavbarExpanded"
         >{{ appLogoMin.text }}</h1>
       </transition>
-      <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
+      <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
     </router-link>
     <div class="right-nav-container">
       <av-icon-button>
@@ -55,7 +55,7 @@
 
 .logo-link:hover,
 .logo-link:focus {
-  color: var(--accent-color);
+  color: var(--light-accent);
 }
 
 .logo-text {
