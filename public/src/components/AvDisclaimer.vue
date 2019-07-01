@@ -9,7 +9,7 @@
           <router-link class="link" to="terms-and-conditions">Terms and Conditions</router-link>.
         </p>
       </div>
-      <av-button class="dismiss-btn" icon="close">Dismiss</av-button>
+      <av-button class="dismiss-btn" icon="close" @btn-click="onDismiss">I understand</av-button>
     </div>
   </transition>
 </template>
@@ -21,7 +21,7 @@
   padding: 16px;
   position: fixed;
   background-color: var(--snackbar-color);
-  height: 225px;
+  height: min-content;
   width: 375px;
   left: 75px;
   bottom: 75px;
@@ -82,6 +82,7 @@ export default Vue.extend({
   },
   methods: {
     onDismiss() {
+      console.log('on dmissis');
       this.isDisclaimerShowing = false;
       try {
         idb.set('hasSeenDisclaimer', true);
