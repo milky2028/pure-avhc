@@ -1,7 +1,7 @@
 <template>
   <main>
     <av-toolbar></av-toolbar>
-    <router-view />
+    <router-view/>
     <av-overlay></av-overlay>
     <av-disclaimer></av-disclaimer>
   </main>
@@ -30,6 +30,8 @@
   --elianto: 'Elianto', sans-serif;
   --mukta-malar: 'Mukta Malar', sans-serif;
   --mat-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --mat-enter: cubic-bezier(0, 0, 0.2, 1);
+  --mat-leave: cubic-bezier(0.4, 0, 1, 1);
 }
 
 * {
@@ -58,12 +60,25 @@ body {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 200ms var(--mat-ease);
+  transition: opacity 100ms var(--mat-ease);
 }
 
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.slide-y-enter-active {
+  transition: all 250ms var(--mat-enter);
+}
+
+.slide-y-leave-active {
+  transition: all 250ms var(--mat-leave);
+}
+
+.slide-y-enter,
+.slide-y-leave-to {
+  transform: translateY(calc(100% + 75px));
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <nav class="nav" :class="isNavbarExpanded ? 'expanded' : ''">
-    <transition name="fade">
+    <transition name="fade" mode="out-in">
       <av-icon-button class="icon" v-if="!isNavbarExpanded" @icon-click="onIconClick">menu</av-icon-button>
     </transition>
     <transition name="fade">
@@ -8,12 +8,11 @@
     </transition>
     <router-link class="logo-link" to="/">
       <transition name="fade">
-        <h1
-          class="logo-text"
-          v-if="appLogoMin.type === 'text' && !isNavbarExpanded"
-        >{{ appLogoMin.text }}</h1>
+        <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
+          <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
+        </h1>
       </transition>
-      <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
+      <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
     </router-link>
     <div class="right-nav-container">
       <av-icon-button>
@@ -39,6 +38,10 @@
   grid-template-areas: 'menu logo right';
   align-items: center;
   transition: all 100ms var(--mat-ease);
+}
+
+abbr {
+  text-decoration: none;
 }
 
 .expanded {
@@ -102,7 +105,9 @@ export default Vue.extend({
     ...mapActions('base', ['getAppBase']),
     onIconClick() {
       this.isNavbarExpanded = !this.isNavbarExpanded;
-      this.toggleOverlay();
+      if (window.innerWidth > 825) {
+        this.toggleOverlay();
+      }
     }
   },
   async beforeMount() {
