@@ -25,6 +25,7 @@
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
       </div>
+      <h3 class="subhead copyright">© {{ legalName }} 2019</h3>
     </div>
   </nav>
 </template>
@@ -59,10 +60,11 @@ abbr {
 }
 
 .menu-container {
-  padding: 0 4px;
+  padding: 4px;
   height: 100%;
   grid-area: expanded;
   display: grid;
+  grid-template-rows: 1fr 1fr 15px;
   grid-template-areas:
     'logo menu'
     'main main'
@@ -92,6 +94,12 @@ abbr {
   font-weight: 500;
   line-height: 0.7;
   letter-spacing: 0.15em;
+}
+
+.copyright {
+  grid-area: copyright;
+  font-size: 16px;
+  align-self: end;
 }
 
 .logo-link {
@@ -138,7 +146,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      isNavbarExpanded: false
+      isNavbarExpanded: false,
+      legalName: process.env.VUE_APP_LEGAL_NAME
     };
   },
   computed: {
