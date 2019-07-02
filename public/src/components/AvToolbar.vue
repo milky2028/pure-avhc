@@ -1,10 +1,10 @@
 <template>
   <nav class="nav" :class="isNavbarExpanded ? 'expanded' : ''">
     <transition name="fade" mode="out-in">
-      <av-icon-button class="menu " v-if="!isNavbarExpanded" @icon-click="onIconClick">menu</av-icon-button>
+      <av-icon-button class="menu" v-if="!isNavbarExpanded" @icon-click="onIconClick">menu</av-icon-button>
     </transition>
     <transition name="fade">
-      <av-icon-button class="menu " v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
+      <av-icon-button class="menu" v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
     </transition>
     <router-link class="logo-link" to="/">
       <transition name="fade">
