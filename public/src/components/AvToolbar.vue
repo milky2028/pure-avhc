@@ -1,10 +1,10 @@
 <template>
   <nav class="nav" :class="isNavbarExpanded ? 'expanded' : ''">
     <transition name="fade" mode="out-in">
-      <av-icon-button class="icon" v-if="!isNavbarExpanded" @icon-click="onIconClick">menu</av-icon-button>
+      <av-icon-button class="menu " v-if="!isNavbarExpanded" @icon-click="onIconClick">menu</av-icon-button>
     </transition>
     <transition name="fade">
-      <av-icon-button class="icon" v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
+      <av-icon-button class="menu " v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
     </transition>
     <router-link class="logo-link" to="/">
       <transition name="fade">
@@ -17,6 +17,9 @@
     <div class="right-nav-container">
       <av-icon-button>
         <router-link to="/cart">shopping_cart</router-link>
+      </av-icon-button>
+      <av-icon-button>
+        <router-link to="/orders">person</router-link>
       </av-icon-button>
     </div>
     <div v-if="isNavbarExpanded" class="menu-container">
@@ -42,10 +45,15 @@
   box-shadow: var(--basic-shadow);
   display: grid;
   grid-template-rows: 39px 1fr;
-  grid-template-columns: 24px 1fr 24px;
+  grid-template-columns: 56px 1fr 56px;
   grid-template-areas: 'menu logo right';
   align-items: center;
   transition: all 100ms var(--mat-ease);
+}
+
+.right-nav-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 abbr {
@@ -115,8 +123,9 @@ abbr {
   color: var(--light-accent);
 }
 
-.icon {
+.menu {
   grid-area: menu;
+  justify-self: start;
 }
 
 .right-nav-container {
