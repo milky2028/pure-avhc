@@ -16,7 +16,9 @@ class FirebaseWorker {
   }
 
   public async getApplicationBase() {
-    await this.initializeFirestore();
+    if (!this.db) {
+      await this.initializeFirestore();
+    }
     try {
       return this.db
         .collection('base')
@@ -31,24 +33,32 @@ class FirebaseWorker {
   }
 
   private async initializeApp() {
-    const fb = await Firebase;
-    this.app =
-      fb.apps.length < 1 ? fb.initializeApp(this.firebaseConfig) : fb.app();
+    try {
+      const fb = await Firebase;
+      this.app =
+        fb.apps.length < 1 ? fb.initializeApp(this.firebaseConfig) : fb.app();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   private async initializeFirestore() {
-    await FirestoreImport;
-    const db = this.app.firestore();
-    if (!this.app.firestore) {
-      db.enablePersistence().catch((e) => {
-        if (e.code === 'failed-precondition') {
-          throw e;
-        } else if (e.code === 'unimplemented') {
-          throw e;
-        }
-      });
+    try {
+      await FirestoreImport;
+      const db = this.app.firestore();
+      if (!this.app.firestore) {
+        db.enablePersistence().catch((e) => {
+          if (e.code === 'failed-precondition') {
+            throw e;
+          } else if (e.code === 'unimplemented') {
+            throw e;
+          }
+        });
+      }
+      this.db = db;
+    } catch (e) {
+      console.error(e);
     }
-    this.db = db;
   }
 }
 
