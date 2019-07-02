@@ -11,13 +11,20 @@
         <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
+        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
       </transition>
-      <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
     </router-link>
     <div class="right-nav-container">
       <av-icon-button>
         <router-link to="/cart">shopping_cart</router-link>
       </av-icon-button>
+    </div>
+    <div v-if="isNavbarExpanded" class="menu-container">
+      <div class="large-logo-container">
+        <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
+        <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
+        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
+      </div>
     </div>
   </nav>
 </template>
@@ -46,6 +53,45 @@ abbr {
 
 .expanded {
   height: 40vh;
+  grid-template-areas:
+    'menu logo right'
+    'expanded expanded expanded';
+}
+
+.menu-container {
+  padding: 0 4px;
+  height: 100%;
+  grid-area: expanded;
+  display: grid;
+  grid-template-areas:
+    'logo menu'
+    'main main'
+    'copyright submenu';
+}
+
+.large-logo-container {
+  grid-area: logo;
+}
+
+.logo-text {
+  font-family: var(--elianto);
+  font-size: 28px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.large {
+  font-size: 40px;
+  margin-bottom: 0;
+}
+
+.subhead {
+  font-size: 22px;
+  font-family: var(--mukta-malar);
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 0.7;
+  letter-spacing: 0.15em;
 }
 
 .logo-link {
@@ -61,13 +107,6 @@ abbr {
   color: var(--light-accent);
 }
 
-.logo-text {
-  font-family: var(--elianto);
-  font-size: 28px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
 .icon {
   grid-area: menu;
 }
@@ -79,6 +118,11 @@ abbr {
 @media (max-width: 825px) {
   .expanded {
     height: 100vh;
+  }
+
+  .large,
+  .subhead {
+    text-align: center;
   }
 }
 </style>
@@ -98,7 +142,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', ['appLogoMin'])
+    ...mapState('base', ['appLogoMin', 'appLogoFull'])
   },
   methods: {
     ...mapMutations('base', ['toggleOverlay']),
