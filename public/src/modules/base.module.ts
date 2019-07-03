@@ -4,18 +4,6 @@ import AppBase, { Logo } from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 
-export interface MenuItem {
-  display: string;
-  icon?: Icon;
-  type: 'external' | 'internal';
-  url: string;
-}
-
-export interface Icon {
-  type: 'material' | 'external';
-  data: string;
-}
-
 export interface Context {
   commit: Commit;
 }
