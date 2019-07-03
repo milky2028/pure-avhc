@@ -1,3 +1,4 @@
 export default interface WorkerFns {
-  fn: 'getApplicationBase';
+  fn: 'getDocument';
+  args: 'base' | 'submenu';
 }

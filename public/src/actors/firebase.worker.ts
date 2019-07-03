@@ -1,4 +1,4 @@
-import AppBase from '@/types/AppBase';
+import WorkerFns from '@/types/WorkerFns';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(/* webpackChunkName: 'firestore' */ 'firebase/firestore');
 const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
@@ -15,17 +15,17 @@ class FirebaseWorker {
     this.initializeApp();
   }
 
-  public async getApplicationBase() {
+  public async getDocument(collection: string) {
     if (!this.db) {
       await this.initializeFirestore();
     }
     try {
       return this.db
-        .collection('base')
+        .collection(collection)
         .doc(process.env.VUE_APP_NAME)
         .onSnapshot((doc) => {
-          const appBase = doc.data() as AppBase;
-          postMessage(appBase);
+          const data = doc.data();
+          postMessage({ collection, data });
         });
     } catch (e) {
       throw e;
@@ -64,5 +64,6 @@ class FirebaseWorker {
 
 self.addEventListener('message', async (msg) => {
   const firebaseWorker = new FirebaseWorker();
-  await firebaseWorker[msg.data.fn]();
+  const options: WorkerFns = msg.data;
+  await firebaseWorker[options.fn](options.args);
 });

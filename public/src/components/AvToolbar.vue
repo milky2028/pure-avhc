@@ -11,7 +11,7 @@
         <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
-        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
+        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
       </transition>
     </router-link>
     <div class="right-nav-container">
@@ -26,8 +26,15 @@
       <div class="large-logo-container">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
-        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
+        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </div>
+      <ul class="subhead submenu">
+        <li>
+          <router-link to="/thing">
+            <li>Subhead item #1</li>
+          </router-link>
+        </li>
+      </ul>
       <h3 class="subhead copyright">© {{ legalName }} 2019</h3>
     </div>
   </nav>
@@ -102,6 +109,19 @@ abbr {
   font-weight: 500;
   line-height: 0.7;
   letter-spacing: 0.15em;
+}
+
+a:hover {
+  color: var(--light-accent);
+}
+
+.submenu {
+  grid-area: submenu;
+  font-size: 16px;
+  align-self: end;
+  justify-self: end;
+  list-style: none;
+  display: flex;
 }
 
 .copyright {
