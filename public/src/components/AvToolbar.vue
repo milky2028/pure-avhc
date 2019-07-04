@@ -11,7 +11,7 @@
         <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
-        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
+        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
       </transition>
     </router-link>
     <div class="right-nav-container">
@@ -26,13 +26,14 @@
       <div class="large-logo-container">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
-        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
+        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
       </div>
       <ul class="subhead submenu">
-        <li>
-          <router-link to="/thing">
-            <li>Subhead item #1</li>
+        <li v-for="menuItem of submenu" :key="menuItem.display">
+          <router-link v-if="menuItem.type === 'internal'" :to="menuItem.url">
+            <li>{{ menuItem.display }}</li>
           </router-link>
+          <a v-else :href="menuItem.url">{{ menuItem.display }}</a>
         </li>
       </ul>
       <h3 class="subhead copyright">© {{ legalName }} 2019</h3>
@@ -168,6 +169,7 @@ a:hover {
 import Vue from 'vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
+import WorkerFns from '../types/WorkerFns';
 
 export default Vue.extend({
   components: {
@@ -180,11 +182,11 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', ['appLogoMin', 'appLogoFull'])
+    ...mapState('base', ['appLogoMin', 'appLogoFull', 'submenu'])
   },
   methods: {
     ...mapMutations('base', ['toggleOverlay']),
-    ...mapActions('base', ['getAppBase']),
+    ...mapActions('base', ['getFirestoreData']),
     onIconClick() {
       this.isNavbarExpanded = !this.isNavbarExpanded;
       if (window.innerWidth > 825) {
@@ -193,7 +195,13 @@ export default Vue.extend({
     }
   },
   async beforeMount() {
-    await this.getAppBase();
+    const baseOptions: WorkerFns = { fn: 'getDocuments', collection: 'logos' };
+    this.getFirestoreData(baseOptions);
+    const submenuOptions: WorkerFns = {
+      fn: 'getDocuments',
+      collection: 'submenu'
+    };
+    this.getFirestoreData(submenuOptions);
   }
 });
 </script>

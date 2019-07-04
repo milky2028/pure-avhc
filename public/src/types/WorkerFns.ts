@@ -1,4 +1,7 @@
+import { QueryParams } from './QueryParams';
+
 export default interface WorkerFns {
-  fn: 'getDocument';
-  args: 'base' | 'submenu';
+  fn: 'getDocuments' | 'queryDocuments';
+  collection: 'logos' | 'submenu';
+  query?: QueryParams;
 }

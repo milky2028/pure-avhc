@@ -1,4 +1,5 @@
 import WorkerFns from '@/types/WorkerFns';
+import { QueryParams } from '@/types/QueryParams';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(/* webpackChunkName: 'firestore' */ 'firebase/firestore');
 const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
@@ -15,16 +16,37 @@ class FirebaseWorker {
     this.initializeApp();
   }
 
-  public async getDocument(collection: string) {
+  public async getDocuments(collection: string) {
     if (!this.db) {
       await this.initializeFirestore();
     }
     try {
       return this.db
         .collection(collection)
-        .doc(process.env.VUE_APP_NAME)
-        .onSnapshot((doc) => {
-          const data = doc.data();
+        .where('site', 'array-contains', process.env.VUE_APP_NAME)
+        .onSnapshot((snapshot) => {
+          const data = snapshot.docs.map((doc) => doc.data());
+          postMessage({ collection, data });
+        });
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async queryDocuments(
+    collection: string,
+    { fieldPath, operator, compareValue }: QueryParams
+  ) {
+    if (!this.db) {
+      await this.initializeFirestore();
+    }
+    try {
+      return this.db
+        .collection(collection)
+        .where('site', 'array-contains', process.env.VUE_APP_NAME)
+        .where(fieldPath, operator, compareValue)
+        .onSnapshot((snapshot) => {
+          const data = snapshot.docs.map((doc) => doc.data());
           postMessage({ collection, data });
         });
     } catch (e) {
@@ -38,7 +60,7 @@ class FirebaseWorker {
       this.app =
         fb.apps.length < 1 ? fb.initializeApp(this.firebaseConfig) : fb.app();
     } catch (e) {
-      console.error(e);
+      throw e;
     }
   }
 
@@ -57,13 +79,13 @@ class FirebaseWorker {
       }
       this.db = db;
     } catch (e) {
-      console.error(e);
+      throw e;
     }
   }
 }
 
-self.addEventListener('message', async (msg) => {
+self.addEventListener('message', (msg) => {
   const firebaseWorker = new FirebaseWorker();
   const options: WorkerFns = msg.data;
-  await firebaseWorker[options.fn](options.args);
+  firebaseWorker[options.fn](options.collection, options.query!);
 });

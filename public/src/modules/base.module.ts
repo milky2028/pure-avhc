@@ -3,21 +3,27 @@ import Worker from 'worker-loader!../actors/firebase.worker';
 import AppBase, { Logo } from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
+import { MenuItem } from '@/types/MenuItem';
 
 export interface Context {
   commit: Commit;
+  state?: AppBase;
 }
 
 export interface BaseModule {
   namespaced: true;
   state: AppBase;
   mutations: {
-    setAppBase: (state: AppBase, payload: { type: string; data: Logo }) => void;
+    setBaseData: (
+      state: AppBase,
+      payload: { type: string; data: Logo }
+    ) => void;
     toggleOverlay: (state: AppBase) => void;
     setOverlayState: (state: AppBase, payload: boolean) => void;
+    setSubmenuItems: (state: AppBase, payload: MenuItem) => void;
   };
   actions: {
-    getFirestoreData: (context: Context) => Promise<void>;
+    getFirestoreData: (context: Context, workerMsg: WorkerFns) => Promise<void>;
   };
 }
 
@@ -29,31 +35,51 @@ const BaseModule: BaseModule = {
       type: '',
       text: '',
       url: '',
-      alt: ''
+      alt: '',
+      site: '',
+      size: ''
     },
     appLogoFull: {
       type: '',
       text: '',
-      url: '',
-      alt: ''
+      site: '',
+      size: '',
+      subtext: ''
     },
     submenu: []
   },
   mutations: {
-    setAppBase: (state, payload) => (state[payload.type] = payload.data),
+    setBaseData: (state, payload) => (state[payload.type] = payload.data),
+    setSubmenuItems: (state, payload) =>
+      (state.submenu = [...state.submenu, payload]),
     toggleOverlay: (state) =>
       (state.isOverlayShowing = !state.isOverlayShowing),
     setOverlayState: (state, payload) => (state.isOverlayShowing = payload)
   },
   actions: {
-    async getFirestoreData({ commit }) {
+    async getFirestoreData({ commit }, workerMsg) {
       const worker = new Worker();
-      const workerMsg: WorkerFns = { fn: 'getDocument', args: 'base' };
       worker.postMessage(workerMsg);
       worker.addEventListener('message', (msg: MessageEvent) => {
-        Object.keys(msg.data.data).forEach((key) => {
-          commit('setAppBase', { type: key, data: msg.data.data[key] });
-        });
+        const firestoreData = msg.data.data;
+        switch (msg.data.collection) {
+          case 'logos': {
+            const minLogo = firestoreData.find(
+              (doc: Logo) => doc.size === 'min'
+            );
+            const fullLogo = firestoreData.find(
+              (doc: Logo) => doc.size === 'full'
+            );
+
+            commit('setBaseData', { type: 'appLogoMin', data: minLogo });
+            commit('setBaseData', { type: 'appLogoFull', data: fullLogo });
+            break;
+          }
+          case 'submenu': {
+            commit('setBaseData', { type: 'submenu', data: firestoreData });
+            break;
+          }
+        }
       });
     }
   }
