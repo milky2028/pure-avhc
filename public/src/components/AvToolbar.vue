@@ -134,10 +134,12 @@ a:hover {
 .submenu {
   grid-area: submenu;
   font-size: 16px;
-  align-self: end;
-  justify-self: end;
   list-style: none;
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  justify-content: end;
+  grid-column-gap: 10px;
 }
 
 .copyright {
