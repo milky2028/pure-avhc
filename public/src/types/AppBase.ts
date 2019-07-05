@@ -1,4 +1,4 @@
-import { MenuItem } from './MenuItem';
+import { MenuItem, SubmenuItem } from './MenuItem';
 
 export interface Logo {
   url?: string;
@@ -11,9 +11,9 @@ export interface Logo {
 }
 
 export default interface AppBase {
-  [key: string]: Logo | boolean | MenuItem[];
+  [key: string]: Logo | boolean | SubmenuItem[];
   isOverlayShowing: boolean;
   appLogoMin: Logo;
   appLogoFull: Logo;
-  submenu: MenuItem[];
+  submenu: SubmenuItem[];
 }

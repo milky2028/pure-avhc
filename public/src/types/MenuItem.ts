@@ -1,11 +1,17 @@
+import { Site } from './Site';
+
 export interface MenuItem {
   display: string;
-  icon?: MenuIcon;
   type: 'external' | 'internal';
   url: string;
 }
 
-export interface MenuIcon {
-  type: 'material' | 'external';
-  data: string;
+export interface SubmenuItem {
+  alt: string;
+  icon: string;
+  iconType: 'external' | 'material';
+  linkType: 'external' | 'internal';
+  action: string;
+  site: Site[];
+  url: string;
 }

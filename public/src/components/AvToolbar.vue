@@ -28,8 +28,8 @@
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </div>
-      <ul class="subhead submenu">
-        <li class="icon-link" v-for="menuItem of submenu" :key="menuItem.alt">
+      <ul class="submenu">
+        <li v-for="menuItem of submenu" :key="menuItem.alt">
           <av-icon-button @icon-click="emit(menuItem.action)">
             <a
               v-if="menuItem.linkType === 'external'"
@@ -43,11 +43,19 @@
                 :src="menuItem.icon"
                 :alt="menuItem.alt"
               />
-              <span v-else>{{ menuItem.icon }}</span>
+              <span
+                v-if="menuItem.iconType === 'material'"
+                class="icon-link"
+                :name="menuItem.alt"
+              >{{ menuItem.icon }}</span>
             </a>
             <router-link v-else :to="menuItem.icon">
               <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt" />
-              <span v-else>{{ menuItem.icon }}</span>
+              <span
+                v-if="menuItem.iconType === 'material'"
+                class="icon-link"
+                :name="menuItem.alt"
+              >{{ menuItem.icon }}</span>
             </router-link>
           </av-icon-button>
         </li>
@@ -157,7 +165,8 @@ a:hover {
 }
 
 .icon-link {
-  width: 20px;
+  width: 16px;
+  font-size: 18px;
 }
 
 .logo-link:hover,
