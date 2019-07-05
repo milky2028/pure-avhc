@@ -7,6 +7,7 @@ export interface MenuItem {
 }
 
 export interface SubmenuItem {
+  sortOrder: number;
   alt: string;
   icon: string;
   iconType: 'external' | 'material';
