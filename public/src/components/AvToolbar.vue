@@ -11,7 +11,7 @@
         <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
-        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
+        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
       </transition>
     </router-link>
     <div class="right-nav-container">
@@ -26,14 +26,30 @@
       <div class="large-logo-container">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
-        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
+        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </div>
       <ul class="subhead submenu">
-        <li v-for="menuItem of submenu" :key="menuItem.display">
-          <router-link v-if="menuItem.type === 'internal'" :to="menuItem.url">
-            <li>{{ menuItem.display }}</li>
-          </router-link>
-          <a v-else :href="menuItem.url">{{ menuItem.display }}</a>
+        <li class="icon-link" v-for="menuItem of submenu" :key="menuItem.alt">
+          <av-icon-button @icon-click="emit(menuItem.action)">
+            <a
+              v-if="menuItem.linkType === 'external'"
+              :href="menuItem.url"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                class="icon-link"
+                v-if="menuItem.iconType === 'external'"
+                :src="menuItem.icon"
+                :alt="menuItem.alt"
+              />
+              <span v-else>{{ menuItem.icon }}</span>
+            </a>
+            <router-link v-else :to="menuItem.icon">
+              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt" />
+              <span v-else>{{ menuItem.icon }}</span>
+            </router-link>
+          </av-icon-button>
         </li>
       </ul>
       <h3 class="subhead copyright">© {{ legalName }} 2019</h3>
@@ -76,11 +92,10 @@ abbr {
 }
 
 .menu-container {
-  padding: 4px;
   height: 100%;
   grid-area: expanded;
   display: grid;
-  grid-template-rows: 1fr 1fr 15px;
+  grid-template-rows: 1fr 1fr 21px;
   grid-template-areas:
     'logo menu'
     'main main'
@@ -137,6 +152,10 @@ a:hover {
   align-self: center;
   justify-self: center;
   transition: color 200ms var(--mat-ease);
+}
+
+.icon-link {
+  width: 20px;
 }
 
 .logo-link:hover,
