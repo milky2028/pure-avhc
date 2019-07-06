@@ -20,7 +20,6 @@ export interface BaseModule {
     ) => void;
     toggleOverlay: (state: AppBase) => void;
     setOverlayState: (state: AppBase, payload: boolean) => void;
-    setSubmenuItems: (state: AppBase, payload: MenuItem) => void;
   };
   actions: {
     getFirestoreData: (context: Context, workerMsg: WorkerFns) => Promise<void>;
@@ -50,8 +49,6 @@ const BaseModule: BaseModule = {
   },
   mutations: {
     setBaseData: (state, payload) => (state[payload.type] = payload.data),
-    setSubmenuItems: (state, payload) =>
-      (state.submenu = [...state.submenu, payload]),
     toggleOverlay: (state) =>
       (state.isOverlayShowing = !state.isOverlayShowing),
     setOverlayState: (state, payload) => (state.isOverlayShowing = payload)
