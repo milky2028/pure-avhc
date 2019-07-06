@@ -11,7 +11,7 @@
         <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
-        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
+        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
       </transition>
     </router-link>
     <div class="right-nav-container">
@@ -26,10 +26,10 @@
       <div class="large-logo-container">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
-        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
+        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </div>
       <ul class="submenu">
-        <li v-for="menuItem of sortedSubmenuItems" :key="menuItem.alt">
+        <li v-for="menuItem of submenu.sort(sortBySortOrder)" :key="menuItem.alt">
           <av-icon-button @icon-click="emit(menuItem.action)">
             <a
               v-if="menuItem.linkType === 'external'"
@@ -42,7 +42,7 @@
                 v-if="menuItem.iconType === 'external'"
                 :src="menuItem.icon"
                 :alt="menuItem.alt"
-              >
+              />
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
@@ -50,7 +50,7 @@
               >{{ menuItem.icon }}</span>
             </a>
             <router-link v-else :to="menuItem.icon">
-              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt">
+              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt" />
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
@@ -213,15 +213,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', ['appLogoMin', 'appLogoFull', 'submenu']),
-    sortedSubmenuItems() {
-      const sortBySortOrder = (a: SubmenuItem, b: SubmenuItem) => {
-        const aa = a.sortOrder;
-        const bb = b.sortOrder;
-        return aa > bb ? 1 : aa < bb ? -1 : 0;
-      };
-      return this.submenu.sort(sortBySortOrder);
-    }
+    ...mapState('base', ['appLogoMin', 'appLogoFull', 'submenu'])
   },
   methods: {
     ...mapMutations('base', ['toggleOverlay']),
@@ -231,6 +223,11 @@ export default Vue.extend({
       if (window.innerWidth > 825) {
         this.toggleOverlay();
       }
+    },
+    sortBySortOrder(a: SubmenuItem, b: SubmenuItem) {
+      const aa = a.sortOrder;
+      const bb = b.sortOrder;
+      return aa > bb ? 1 : aa < bb ? -1 : 0;
     }
   },
   async beforeMount() {
