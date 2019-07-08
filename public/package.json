@@ -5,6 +5,7 @@
   "scripts": {
     "serve:avhc": "vue-cli-service serve --mode avhc --open",
     "serve:pure": "vue-cli-service serve --mode pure --open",
+    "build": "vue-cli-service build --mode avhcprod --dest dist --target app --modern",
     "build:avhc": "vue-cli-service build --mode avhcprod --dest dist --target app --modern",
     "build:pure": "vue-cli-service build --mode pureprod --dest dist --target app --modern",
     "lint": "vue-cli-service lint"
