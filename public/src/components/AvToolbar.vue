@@ -29,7 +29,7 @@
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </div>
       <ul class="submenu">
-        <li v-for="menuItem of submenu.sort(sortBySortOrder)" :key="menuItem.alt">
+        <li v-for="menuItem of submenu.slice().sort(sortBySortOrder)" :key="menuItem.alt">
           <av-icon-button @icon-click="emit(menuItem.action)">
             <a
               v-if="menuItem.linkType === 'external'"
@@ -147,7 +147,7 @@ a:hover {
   grid-auto-flow: column;
   align-items: end;
   justify-content: end;
-  grid-column-gap: 10px;
+  grid-column-gap: 16px;
 }
 
 .copyright {
@@ -184,6 +184,16 @@ a:hover {
 }
 
 @media (max-width: 825px) {
+  .menu-container {
+    grid-template-rows: 75px 1fr 1fr 32px 32px;
+    grid-template-areas:
+      'logo'
+      'menu'
+      'main'
+      'submenu'
+      'copyright';
+  }
+
   .expanded {
     height: 100vh;
   }
@@ -191,6 +201,15 @@ a:hover {
   .large,
   .subhead {
     text-align: center;
+  }
+
+  .submenu {
+    justify-content: space-around;
+  }
+
+  .icon-link {
+    width: 20px;
+    font-size: 22px;
   }
 }
 </style>
