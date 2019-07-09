@@ -30,7 +30,10 @@
       </router-link>
       <ul class="product-card-container">
         <li v-for="card of [1, 2, 3]">
-          <product-card></product-card>
+          <product-card>
+            CBD
+            <br />Flower
+          </product-card>
         </li>
       </ul>
       <ul class="submenu">
@@ -73,7 +76,7 @@
 <style scoped>
 .nav {
   z-index: 20;
-  padding: 8px 12px 12px;
+  padding: 8px 16px 12px 16px;
   width: 100%;
   color: white;
   position: fixed;
@@ -129,15 +132,6 @@ abbr {
 .large {
   font-size: 40px;
   margin-bottom: 0;
-}
-
-.subhead {
-  font-size: 22px;
-  font-family: var(--mukta-malar);
-  text-transform: uppercase;
-  font-weight: 500;
-  line-height: 0.7;
-  letter-spacing: 0.15em;
 }
 
 a:hover {

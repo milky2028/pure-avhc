@@ -68,6 +68,15 @@ body {
   overscroll-behavior: none;
 }
 
+.subhead {
+  font-size: 22px;
+  font-family: var(--mukta-malar);
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 0.7;
+  letter-spacing: 0.15em;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 100ms var(--mat-ease);
