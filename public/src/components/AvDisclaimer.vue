@@ -29,7 +29,7 @@
   width: 375px;
   left: 75px;
   bottom: 75px;
-  border-radius: 5px;
+  border-radius: var(--rounded-corner);
   box-shadow: var(--basic-shadow);
   color: white;
   font-family: var(--mukta-malar);

@@ -1,7 +1,7 @@
 <template>
   <main>
     <av-toolbar></av-toolbar>
-    <router-view/>
+    <router-view />
     <av-overlay></av-overlay>
     <av-disclaimer></av-disclaimer>
   </main>
@@ -32,6 +32,7 @@
   --mat-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --mat-enter: cubic-bezier(0, 0, 0.2, 1);
   --mat-leave: cubic-bezier(0.4, 0, 1, 1);
+  --rounded-corner: 5px;
 }
 
 * {
@@ -50,8 +51,17 @@
 
 a,
 a:visited {
+  cursor: pointer;
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
 }
 
 body {

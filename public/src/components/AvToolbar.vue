@@ -23,11 +23,16 @@
       </av-icon-button>
     </div>
     <div v-if="isNavbarExpanded" class="menu-container">
-      <div class="large-logo-container">
+      <router-link to="/" class="large-logo-container">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
-      </div>
+      </router-link>
+      <ul class="product-card-container">
+        <li v-for="card of [1, 2, 3]">
+          <product-card></product-card>
+        </li>
+      </ul>
       <ul class="submenu">
         <li v-for="menuItem of submenu.slice().sort(sortBySortOrder)" :key="menuItem.alt">
           <av-icon-button @icon-click="emit(menuItem.action)">
@@ -68,7 +73,7 @@
 <style scoped>
 .nav {
   z-index: 20;
-  padding: 8px 12px;
+  padding: 8px 12px 12px;
   width: 100%;
   color: white;
   position: fixed;
@@ -103,7 +108,7 @@ abbr {
   height: 100%;
   grid-area: expanded;
   display: grid;
-  grid-template-rows: 1fr 1fr 21px;
+  grid-template-rows: 75px 1fr 21px;
   grid-template-areas:
     'logo menu'
     'main main'
@@ -139,10 +144,17 @@ a:hover {
   color: var(--light-accent);
 }
 
+.product-card-container {
+  align-self: center;
+  grid-area: main;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 5vw;
+}
+
 .submenu {
   grid-area: submenu;
   font-size: 16px;
-  list-style: none;
   display: grid;
   grid-auto-flow: column;
   align-items: end;
@@ -217,13 +229,15 @@ a:hover {
 <script lang="ts">
 import Vue from 'vue';
 import AvIconButton from '../components/AvIconButton.vue';
+import ProductCard from '../components/ProductCard.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import { SubmenuItem } from '../types/MenuItem';
 
 export default Vue.extend({
   components: {
-    AvIconButton
+    AvIconButton,
+    ProductCard
   },
   data() {
     return {

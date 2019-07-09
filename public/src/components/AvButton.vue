@@ -15,10 +15,9 @@ button {
   text-transform: uppercase;
   font-family: var(--mukta-malar);
   box-shadow: var(--basic-shadow);
-  cursor: pointer;
   padding: 6px 12px;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: var(--rounded-corner);
   font-weight: 500;
   align-items: center;
   justify-content: space-between;
