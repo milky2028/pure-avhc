@@ -5,7 +5,7 @@
 <style scoped>
 .card {
   background-color: white;
-  height: 135px;
+  height: 15vh;
   width: 100%;
   border-radius: var(--rounded-corner);
 }
