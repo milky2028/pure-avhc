@@ -191,11 +191,11 @@ a:hover {
 
 @media (max-width: 825px) {
   .menu-container {
-    grid-template-rows: 75px 1fr 1fr 32px 32px;
+    grid-template-rows: 75px 2fr 1fr 32px 32px;
     grid-template-areas:
       'logo'
-      'menu'
       'main'
+      'menu'
       'submenu'
       'copyright';
   }
@@ -207,6 +207,10 @@ a:hover {
   .large,
   .subhead {
     text-align: center;
+  }
+
+  .product-card-container {
+    grid-auto-flow: row;
   }
 
   .submenu {

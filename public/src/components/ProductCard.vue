@@ -75,6 +75,12 @@ div {
     transform: scale(1);
   }
 }
+
+@media (max-width: 825px) {
+  .card {
+    height: 12vh;
+  }
+}
 </style>
 
 
