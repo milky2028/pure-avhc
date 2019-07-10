@@ -54,6 +54,7 @@ a:visited {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
+  transition: color 100ms var(--mat-ease);
 }
 
 button {

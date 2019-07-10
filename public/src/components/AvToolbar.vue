@@ -28,6 +28,11 @@
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </router-link>
+      <ul class="menu-links">
+        <li class="subhead" v-for="menuLink of [1, 2, 3]">
+          <router-link to="/">Products</router-link>
+        </li>
+      </ul>
       <ul class="product-card-container">
         <li v-for="card of [1, 2, 3]">
           <product-card>
@@ -138,12 +143,20 @@ a:hover {
   color: var(--light-accent);
 }
 
+.menu-links {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: end;
+  grid-gap: 1vw;
+}
+
 .product-card-container {
   align-self: center;
   grid-area: main;
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 5vw;
+  grid-gap: 4vw;
 }
 
 .submenu {
@@ -191,7 +204,7 @@ a:hover {
 
 @media (max-width: 825px) {
   .menu-container {
-    grid-template-rows: 75px 2fr 1fr 32px 32px;
+    grid-template-rows: 75px 3fr 2fr 32px 32px;
     grid-template-areas:
       'logo'
       'main'
