@@ -28,11 +28,18 @@
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </router-link>
-      <ul class="menu-links">
-        <li class="subhead" v-for="menuLink of [1, 2, 3]">
-          <router-link to="/">Products</router-link>
-        </li>
-      </ul>
+      <div class="menu-link-container">
+        <ul class="menu-links">
+          <li class="subhead" v-for="menuLink of [1, 2, 3]">
+            <router-link to="/">Definitive CBD Guide</router-link>
+          </li>
+        </ul>
+        <ul class="menu-links">
+          <li class="subhead" v-for="menuLink of [1, 2, 3]">
+            <router-link to="/">Products</router-link>
+          </li>
+        </ul>
+      </div>
       <ul class="product-card-container">
         <li v-for="card of [1, 2, 3]">
           <product-card>
@@ -141,6 +148,11 @@ abbr {
 
 a:hover {
   color: var(--light-accent);
+}
+
+.menu-link-container {
+  display: grid;
+  justify-content: end;
 }
 
 .menu-links {
