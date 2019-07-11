@@ -29,14 +29,14 @@
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </router-link>
       <div class="menu-link-container">
-        <ul class="menu-links">
-          <li class="subhead smaller-font" v-for="menuLink of [1, 2, 3]">
+        <ul class="menu-links subhead smaller-font">
+          <li v-for="menuLink of [1, 2, 3]">
             <router-link to="/">Definitive CBD Guide</router-link>
             <span>&nbsp;/&nbsp;</span>
           </li>
         </ul>
-        <ul class="menu-links">
-          <li class="subhead smaller-font" v-for="menuLink of [1, 2, 3]">
+        <ul class="menu-links subhead bottom-menu">
+          <li v-for="menuLink of [1, 2, 3]">
             <router-link to="/">Products</router-link>
             <span>&nbsp;/&nbsp;</span>
           </li>
@@ -159,6 +159,12 @@ a:hover {
   grid-auto-flow: column;
   align-items: center;
   justify-content: end;
+  margin-bottom: -5px;
+}
+
+.bottom-menu {
+  margin-top: -20px;
+  font-size: 18px;
 }
 
 .product-card-container {
@@ -180,7 +186,7 @@ a:hover {
 }
 
 .smaller-font {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .copyright {
