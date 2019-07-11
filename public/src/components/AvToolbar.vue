@@ -289,8 +289,14 @@ export default Vue.extend({
       return aa > bb ? 1 : aa < bb ? -1 : 0;
     },
     getImageUrl(image: string) {
+      const dpr = window.devicePixelRatio;
       const cardHeight = 135;
-      const imageParams = ['f_auto', 'q_auto:low', `h_${cardHeight}`, 'c_fill'];
+      const imageParams = [
+        'f_auto',
+        'q_auto',
+        `h_${cardHeight * dpr}`,
+        'c_fill'
+      ];
       return `${this.imageUrl}${imageParams.join()}${image}`;
     }
   },
@@ -305,8 +311,15 @@ export default Vue.extend({
     this.getFirestoreData(submenuOptions);
 
     const productsOptions: WorkerFns = {
-      fn: 'getDocuments',
-      collection: 'products'
+      fn: 'queryDocuments',
+      collection: 'products',
+      queries: [
+        {
+          fieldPath: 'featured',
+          operator: '==',
+          compareValue: true
+        }
+      ]
     };
     this.getFirestoreData(productsOptions);
   }

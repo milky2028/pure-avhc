@@ -33,22 +33,21 @@ class FirebaseWorker {
     }
   }
 
-  public async queryDocuments(
-    collection: string,
-    { fieldPath, operator, compareValue }: QueryParams
-  ) {
+  public async queryDocuments(collection: string, queries: QueryParams[]) {
     if (!this.db) {
       await this.initializeFirestore();
     }
     try {
-      return this.db
+      let results = this.db
         .collection(collection)
-        .where('site', 'array-contains', process.env.VUE_APP_NAME)
-        .where(fieldPath, operator, compareValue)
-        .onSnapshot((snapshot) => {
-          const data = snapshot.docs.map((doc) => doc.data());
-          postMessage({ collection, data });
-        });
+        .where('site', 'array-contains', process.env.VUE_APP_NAME);
+      queries.forEach(({ fieldPath, operator, compareValue }: QueryParams) => {
+        results = results.where(fieldPath, operator, compareValue);
+      });
+      return results.onSnapshot((snapshot) => {
+        const data = snapshot.docs.map((doc) => doc.data());
+        postMessage({ collection, data });
+      });
     } catch (e) {
       throw e;
     }
@@ -86,6 +85,6 @@ class FirebaseWorker {
 
 self.addEventListener('message', (msg) => {
   const firebaseWorker = new FirebaseWorker();
-  const options: WorkerFns = msg.data;
-  firebaseWorker[options.fn](options.collection, options.query!);
+  const { fn, collection, queries }: WorkerFns = msg.data;
+  firebaseWorker[fn](collection, queries!);
 });
