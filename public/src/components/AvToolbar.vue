@@ -29,16 +29,16 @@
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </router-link>
       <div class="menu-link-container">
-        <ul class="menu-links subhead smaller-font">
-          <li v-for="menuLink of [1, 2, 3]">
+        <ul class="menu-links subhead smaller-font top-menu">
+          <li class="top-menu-links" v-for="menuLink of [1, 2, 3, 4]">
             <router-link to="/">Definitive CBD Guide</router-link>
-            <span>&nbsp;/&nbsp;</span>
+            <span v-if="windowWidth > 825">&nbsp;/&nbsp;</span>
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
-          <li v-for="menuLink of [1, 2, 3]">
+          <li v-for="menuLink of [1, 2, 3, 4, 5]">
             <router-link to="/">Products</router-link>
-            <span>&nbsp;/&nbsp;</span>
+            <span v-if="windowWidth > 825">&nbsp;/&nbsp;</span>
           </li>
         </ul>
       </div>
@@ -242,8 +242,35 @@ a:hover {
     text-align: center;
   }
 
-  .product-card-container {
+  .menu-links {
     grid-auto-flow: row;
+    justify-content: stretch;
+  }
+
+  .product-card-container {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
+
+  .menu-link-container {
+    justify-content: stretch;
+  }
+
+  li {
+    text-align: left;
+  }
+
+  .top-menu-links {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-top: 1px solid white;
+  }
+
+  .bottom-menu {
+    justify-content: start;
+    margin-top: 0;
   }
 
   .submenu {
@@ -273,7 +300,8 @@ export default Vue.extend({
   data() {
     return {
       isNavbarExpanded: false,
-      legalName: process.env.VUE_APP_LEGAL_NAME
+      legalName: process.env.VUE_APP_LEGAL_NAME,
+      windowWidth: window.innerWidth
     };
   },
   computed: {
@@ -334,6 +362,10 @@ export default Vue.extend({
       ]
     };
     this.getFirestoreData(productsOptions);
+
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+    });
   }
 });
 </script>
