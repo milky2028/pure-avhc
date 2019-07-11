@@ -11,7 +11,7 @@
         <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
-        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
+        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
       </transition>
     </router-link>
     <div class="right-nav-container">
@@ -26,7 +26,7 @@
       <router-link to="/" class="large-logo-container">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
-        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
+        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
       </router-link>
       <div class="menu-link-container">
         <ul class="menu-links">
@@ -44,7 +44,7 @@
         <li v-for="card of [1, 2, 3]">
           <product-card>
             CBD
-            <br />Flower
+            <br>Flower
           </product-card>
         </li>
       </ul>
@@ -62,7 +62,7 @@
                 v-if="menuItem.iconType === 'external'"
                 :src="menuItem.icon"
                 :alt="menuItem.alt"
-              />
+              >
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
@@ -70,7 +70,7 @@
               >{{ menuItem.icon }}</span>
             </a>
             <router-link v-else :to="menuItem.icon">
-              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt" />
+              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt">
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
@@ -91,7 +91,7 @@
   padding: 8px 16px 12px 16px;
   width: 100%;
   color: white;
-  position: fixed;
+  position: absolute;
   height: 55px;
   background-color: var(--primary-color);
   box-shadow: var(--basic-shadow);
@@ -226,7 +226,7 @@ a:hover {
   }
 
   .expanded {
-    height: 100vh;
+    height: 100vmax;
   }
 
   .large,
