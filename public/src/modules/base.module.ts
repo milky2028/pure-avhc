@@ -36,7 +36,8 @@ const BaseModule = {
       subtext: ''
     },
     submenu: [],
-    products: []
+    products: [],
+    mainMenu: []
   },
   mutations: {
     setState: (state: AppBase, { type, data }: Mutation) =>
@@ -71,6 +72,11 @@ const BaseModule = {
           }
           case 'products': {
             commit('setState', { type: 'products', data: firestoreData });
+            break;
+          }
+          case 'main-menu': {
+            commit('setState', { type: 'mainMenu', data: firestoreData });
+            break;
           }
         }
       });

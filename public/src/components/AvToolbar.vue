@@ -30,9 +30,9 @@
       </router-link>
       <div class="menu-link-container">
         <ul class="menu-links subhead smaller-font top-menu">
-          <li class="top-menu-links" v-for="menuLink of [1, 2, 3, 4]">
-            <router-link to="/">Definitive CBD Guide</router-link>
-            <span v-if="windowWidth > 825">&nbsp;/&nbsp;</span>
+          <li class="top-menu-links" v-for="(menuLink, i) of mainMenu" :key="menuLink.name">
+            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
+            <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
@@ -310,7 +310,8 @@ export default Vue.extend({
       'appLogoFull',
       'submenu',
       'products',
-      'imageUrl'
+      'imageUrl',
+      'mainMenu'
     ])
   },
   methods: {
@@ -362,6 +363,12 @@ export default Vue.extend({
       ]
     };
     this.getFirestoreData(productsOptions);
+
+    const menuOptions: WorkerFns = {
+      fn: 'getDocuments',
+      collection: 'main-menu'
+    };
+    this.getFirestoreData(menuOptions);
 
     window.addEventListener('resize', () => {
       this.windowWidth = window.innerWidth;
