@@ -9,27 +9,17 @@ export interface Context {
   state?: AppBase;
 }
 
-export interface BaseModule {
-  namespaced: true;
-  state: AppBase;
-  mutations: {
-    setBaseData: (
-      state: AppBase,
-      payload: { type: string; data: Logo }
-    ) => void;
-    toggleOverlay: (state: AppBase) => void;
-    setOverlayState: (state: AppBase, payload: boolean) => void;
-  };
-  actions: {
-    getFirestoreData: (context: Context, workerMsg: WorkerFns) => Promise<void>;
-  };
+interface Mutation {
+  type: string;
+  data: any;
 }
 
-const BaseModule: BaseModule = {
+const BaseModule = {
   namespaced: true,
   state: {
     imageUrl: 'https://res.cloudinary.com/pure-avhc/image/upload/',
     isOverlayShowing: false,
+    isDisclaimerShowing: false,
     appLogoMin: {
       type: '',
       text: '',
@@ -49,13 +39,15 @@ const BaseModule: BaseModule = {
     products: []
   },
   mutations: {
-    setBaseData: (state, payload) => (state[payload.type] = payload.data),
-    toggleOverlay: (state) =>
+    setState: (state: AppBase, { type, data }: Mutation) =>
+      (state[type] = data),
+    toggleOverlay: (state: AppBase) =>
       (state.isOverlayShowing = !state.isOverlayShowing),
-    setOverlayState: (state, payload) => (state.isOverlayShowing = payload)
+    toggleDisclaimer: (state: AppBase) =>
+      (state.isDisclaimerShowing = !state.isDisclaimerShowing)
   },
   actions: {
-    async getFirestoreData({ commit }, workerMsg) {
+    async getFirestoreData({ commit }: Context, workerMsg: WorkerFns) {
       const worker = new Worker();
       worker.postMessage(workerMsg);
       worker.addEventListener('message', (msg: MessageEvent) => {
@@ -69,16 +61,16 @@ const BaseModule: BaseModule = {
               (doc: Logo) => doc.size === 'full'
             );
 
-            commit('setBaseData', { type: 'appLogoMin', data: minLogo });
-            commit('setBaseData', { type: 'appLogoFull', data: fullLogo });
+            commit('setState', { type: 'appLogoMin', data: minLogo });
+            commit('setState', { type: 'appLogoFull', data: fullLogo });
             break;
           }
           case 'submenu': {
-            commit('setBaseData', { type: 'submenu', data: firestoreData });
+            commit('setState', { type: 'submenu', data: firestoreData });
             break;
           }
           case 'products': {
-            commit('setBaseData', { type: 'products', data: firestoreData });
+            commit('setState', { type: 'products', data: firestoreData });
           }
         }
       });

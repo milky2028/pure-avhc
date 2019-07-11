@@ -47,7 +47,7 @@
       </ul>
       <ul class="submenu">
         <li v-for="menuItem of submenu.slice().sort(sortBySortOrder)" :key="menuItem.alt">
-          <av-icon-button @icon-click="emit(menuItem.action)">
+          <av-icon-button @icon-click="$emit(menuItem.action)">
             <a
               v-if="menuItem.linkType === 'external'"
               :href="menuItem.url"
@@ -275,7 +275,7 @@ export default Vue.extend({
     ])
   },
   methods: {
-    ...mapMutations('base', ['toggleOverlay']),
+    ...mapMutations('base', ['toggleDisclaimer']),
     ...mapActions('base', ['getFirestoreData']),
     onIconClick() {
       this.isNavbarExpanded = !this.isNavbarExpanded;
@@ -301,6 +301,7 @@ export default Vue.extend({
     }
   },
   async beforeMount() {
+    this.$on('fda', () => this.toggleDisclaimer());
     const baseOptions: WorkerFns = { fn: 'getDocuments', collection: 'logos' };
     this.getFirestoreData(baseOptions);
 

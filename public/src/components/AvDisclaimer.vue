@@ -78,18 +78,21 @@ export default Vue.extend({
   async mounted() {
     const hasSeenDisclaimer = await idb.get('hasSeenDisclaimer');
     if (!hasSeenDisclaimer) {
-      this.isDisclaimerShowing = true;
+      this.setState({ type: 'isDisclaimerShowing', data: true });
     }
   },
   data() {
     return {
-      isDisclaimerShowing: false,
       legalName: process.env.VUE_APP_LEGAL_NAME
     };
   },
+  computed: {
+    ...mapState('base', ['isDisclaimerShowing'])
+  },
   methods: {
+    ...mapMutations('base', ['setState']),
     onDismiss() {
-      this.isDisclaimerShowing = false;
+      this.setState({ type: 'isDisclaimerShowing', data: false });
       try {
         idb.set('hasSeenDisclaimer', true);
       } catch (e) {
