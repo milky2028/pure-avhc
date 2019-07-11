@@ -66,14 +66,14 @@
                 :name="menuItem.alt"
               >{{ menuItem.icon }}</span>
             </a>
-            <router-link v-else :to="menuItem.icon">
+            <div v-else>
               <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt" />
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
                 :name="menuItem.alt"
               >{{ menuItem.icon }}</span>
-            </router-link>
+            </div>
           </av-icon-button>
         </li>
       </ul>
