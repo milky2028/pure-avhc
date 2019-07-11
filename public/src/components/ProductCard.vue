@@ -8,9 +8,7 @@
       @mouseenter="hoverLeave = false"
     >
       <div class="cover">
-        <h2 class="subhead card-font">
-          <slot></slot>
-        </h2>
+        <h2 class="subhead card-font" v-html="splitTitle(title)"></h2>
       </div>
     </div>
   </router-link>
@@ -64,12 +62,20 @@ a:hover {
 import Vue from 'vue';
 export default Vue.extend({
   props: {
-    url: String
+    url: String,
+    title: String
   },
   data() {
     return {
       hoverLeave: false
     };
+  },
+  methods: {
+    splitTitle(title: string) {
+      const words = title.split(' ');
+      words.splice(1, 0, '<br>');
+      return words.join(' ');
+    }
   }
 });
 </script>

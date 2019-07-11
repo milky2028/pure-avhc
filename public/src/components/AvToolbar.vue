@@ -30,19 +30,19 @@
       </router-link>
       <div class="menu-link-container">
         <ul class="menu-links">
-          <li class="subhead" v-for="menuLink of [1, 2, 3]">
-            <router-link to="/">Definitive CBD Guide</router-link>
+          <li class="subhead smaller-font" v-for="menuLink of [1, 2, 3]">
+            <router-link to="/">Definitive CBD Guide /</router-link>
           </li>
         </ul>
         <ul class="menu-links">
-          <li class="subhead" v-for="menuLink of [1, 2, 3]">
-            <router-link to="/">Products</router-link>
+          <li class="subhead smaller-font" v-for="menuLink of [1, 2, 3]">
+            <router-link to="/">Products /</router-link>
           </li>
         </ul>
       </div>
       <ul class="product-card-container">
         <li id="card" v-for="product of products" :key="product.id">
-          <product-card :url="getImageUrl(product.mainImage)">{{ product.shortName }}</product-card>
+          <product-card :url="getImageUrl(product.mainImage)" :title="product.shortName"></product-card>
         </li>
       </ul>
       <ul class="submenu">
@@ -178,6 +178,10 @@ a:hover {
   grid-column-gap: 16px;
 }
 
+.smaller-font {
+  font-size: 18px;
+}
+
 .copyright {
   grid-area: copyright;
   font-size: 16px;
@@ -275,7 +279,7 @@ export default Vue.extend({
     ])
   },
   methods: {
-    ...mapMutations('base', ['toggleDisclaimer']),
+    ...mapMutations('base', ['toggleOverlay']),
     ...mapActions('base', ['getFirestoreData']),
     onIconClick() {
       this.isNavbarExpanded = !this.isNavbarExpanded;
