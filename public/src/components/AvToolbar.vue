@@ -11,7 +11,7 @@
         <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
-        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt">
+        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
       </transition>
     </router-link>
     <div class="right-nav-container">
@@ -26,7 +26,7 @@
       <router-link to="/" class="large-logo-container">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
-        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt">
+        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </router-link>
       <div class="menu-link-container">
         <ul class="menu-links">
@@ -41,11 +41,8 @@
         </ul>
       </div>
       <ul class="product-card-container">
-        <li v-for="card of [1, 2, 3]">
-          <product-card>
-            CBD
-            <br>Flower
-          </product-card>
+        <li id="card" v-for="product of products" :key="product.id">
+          <product-card :url="getImageUrl(product.mainImage)">{{ product.shortName }}</product-card>
         </li>
       </ul>
       <ul class="submenu">
@@ -62,7 +59,7 @@
                 v-if="menuItem.iconType === 'external'"
                 :src="menuItem.icon"
                 :alt="menuItem.alt"
-              >
+              />
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
@@ -70,7 +67,7 @@
               >{{ menuItem.icon }}</span>
             </a>
             <router-link v-else :to="menuItem.icon">
-              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt">
+              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt" />
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
@@ -269,7 +266,13 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', ['appLogoMin', 'appLogoFull', 'submenu'])
+    ...mapState('base', [
+      'appLogoMin',
+      'appLogoFull',
+      'submenu',
+      'products',
+      'imageUrl'
+    ])
   },
   methods: {
     ...mapMutations('base', ['toggleOverlay']),
@@ -284,16 +287,28 @@ export default Vue.extend({
       const aa = a.sortOrder;
       const bb = b.sortOrder;
       return aa > bb ? 1 : aa < bb ? -1 : 0;
+    },
+    getImageUrl(image: string) {
+      const cardHeight = 135;
+      const imageParams = ['f_auto', 'q_auto:low', `h_${cardHeight}`, 'c_fill'];
+      return `${this.imageUrl}${imageParams.join()}${image}`;
     }
   },
   async beforeMount() {
     const baseOptions: WorkerFns = { fn: 'getDocuments', collection: 'logos' };
     this.getFirestoreData(baseOptions);
+
     const submenuOptions: WorkerFns = {
       fn: 'getDocuments',
       collection: 'submenu'
     };
     this.getFirestoreData(submenuOptions);
+
+    const productsOptions: WorkerFns = {
+      fn: 'getDocuments',
+      collection: 'products'
+    };
+    this.getFirestoreData(productsOptions);
   }
 });
 </script>

@@ -1,16 +1,19 @@
 <template>
-  <div
-    class="card"
-    :class="hoverLeave ? 'hover-leave' : ''"
-    @mouseleave="hoverLeave = true"
-    @mouseenter="hoverLeave = false"
-  >
-    <div class="cover">
-      <h2 class="subhead card-font">
-        <slot></slot>
-      </h2>
+  <router-link to="/">
+    <div
+      class="card"
+      :style="{ backgroundImage: `url(${url})` }"
+      :class="hoverLeave ? 'hover-leave' : ''"
+      @mouseleave="hoverLeave = true"
+      @mouseenter="hoverLeave = false"
+    >
+      <div class="cover">
+        <h2 class="subhead card-font">
+          <slot></slot>
+        </h2>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>
@@ -45,35 +48,8 @@ div {
   line-height: 1;
 }
 
-.card:hover {
-  animation: bubble 350ms forwards var(--mat-enter);
-}
-
-.hover-leave {
-  animation: shrink 150ms var(--mat-leave);
-}
-
-@keyframes bubble {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
-
-  100% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes shrink {
-  from {
-    transform: scale(1.08);
-  }
-  to {
-    transform: scale(1);
-  }
+a:hover {
+  color: white !important;
 }
 
 @media (max-width: 825px) {
@@ -87,6 +63,9 @@ div {
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
+  props: {
+    url: String
+  },
   data() {
     return {
       hoverLeave: false

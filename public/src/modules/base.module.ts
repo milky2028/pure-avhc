@@ -3,7 +3,6 @@ import Worker from 'worker-loader!../actors/firebase.worker';
 import AppBase, { Logo } from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
-import { MenuItem } from '@/types/MenuItem';
 
 export interface Context {
   commit: Commit;
@@ -46,7 +45,8 @@ const BaseModule: BaseModule = {
       size: '',
       subtext: ''
     },
-    submenu: []
+    submenu: [],
+    products: []
   },
   mutations: {
     setBaseData: (state, payload) => (state[payload.type] = payload.data),
@@ -76,6 +76,9 @@ const BaseModule: BaseModule = {
           case 'submenu': {
             commit('setBaseData', { type: 'submenu', data: firestoreData });
             break;
+          }
+          case 'products': {
+            commit('setBaseData', { type: 'products', data: firestoreData });
           }
         }
       });
