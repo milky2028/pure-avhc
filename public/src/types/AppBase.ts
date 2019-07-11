@@ -11,7 +11,8 @@ export interface Logo {
 }
 
 export default interface AppBase {
-  [key: string]: Logo | boolean | SubmenuItem[];
+  [key: string]: Logo | boolean | SubmenuItem[] | string;
+  imageUrl: string;
   isOverlayShowing: boolean;
   appLogoMin: Logo;
   appLogoFull: Logo;

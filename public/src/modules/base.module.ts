@@ -29,6 +29,7 @@ export interface BaseModule {
 const BaseModule: BaseModule = {
   namespaced: true,
   state: {
+    imageUrl: 'https://res.cloudinary.com/pure-avhc/image/upload/',
     isOverlayShowing: false,
     appLogoMin: {
       type: '',
