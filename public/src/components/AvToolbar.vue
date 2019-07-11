@@ -159,12 +159,11 @@ a:hover {
   grid-auto-flow: column;
   align-items: center;
   justify-content: end;
-  margin-bottom: -5px;
 }
 
 .bottom-menu {
-  margin-top: -20px;
-  font-size: 18px;
+  margin-top: -24px;
+  font-size: 16px;
 }
 
 .product-card-container {
@@ -186,7 +185,7 @@ a:hover {
 }
 
 .smaller-font {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .copyright {
