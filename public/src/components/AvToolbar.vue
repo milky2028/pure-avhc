@@ -171,6 +171,7 @@ a:hover {
   grid-area: main;
   display: grid;
   grid-auto-flow: column;
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 4vw;
 }
 
