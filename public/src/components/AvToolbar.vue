@@ -31,12 +31,14 @@
       <div class="menu-link-container">
         <ul class="menu-links">
           <li class="subhead smaller-font" v-for="menuLink of [1, 2, 3]">
-            <router-link to="/">Definitive CBD Guide /</router-link>
+            <router-link to="/">Definitive CBD Guide</router-link>
+            <span>&nbsp;/&nbsp;</span>
           </li>
         </ul>
         <ul class="menu-links">
           <li class="subhead smaller-font" v-for="menuLink of [1, 2, 3]">
-            <router-link to="/">Products /</router-link>
+            <router-link to="/">Products</router-link>
+            <span>&nbsp;/&nbsp;</span>
           </li>
         </ul>
       </div>
@@ -157,7 +159,6 @@ a:hover {
   grid-auto-flow: column;
   align-items: center;
   justify-content: end;
-  grid-gap: 1vw;
 }
 
 .product-card-container {
@@ -279,7 +280,7 @@ export default Vue.extend({
     ])
   },
   methods: {
-    ...mapMutations('base', ['toggleOverlay']),
+    ...mapMutations('base', ['toggleOverlay', 'toggleDisclaimer']),
     ...mapActions('base', ['getFirestoreData']),
     onIconClick() {
       this.isNavbarExpanded = !this.isNavbarExpanded;

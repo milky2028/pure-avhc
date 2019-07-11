@@ -33,6 +33,7 @@
   box-shadow: var(--basic-shadow);
   color: white;
   font-family: var(--mukta-malar);
+  z-index: 11;
 }
 
 h3 {
