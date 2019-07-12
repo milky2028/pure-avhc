@@ -37,7 +37,8 @@ const BaseModule = {
     },
     submenu: [],
     products: [],
-    mainMenu: []
+    mainMenu: [],
+    iconMenu: []
   },
   mutations: {
     setState: (state: AppBase, { type, data }: Mutation) =>
@@ -67,7 +68,10 @@ const BaseModule = {
             break;
           }
           default: {
-            commit('setState', { type: msg.data.collection, data: firestoreData });
+            commit('setState', {
+              type: msg.data.collection,
+              data: firestoreData
+            });
             break;
           }
         }

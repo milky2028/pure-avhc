@@ -30,7 +30,11 @@
       </router-link>
       <div class="menu-link-container">
         <ul class="menu-links subhead smaller-font top-menu">
-          <li class="top-menu-links" v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)" :key="menuLink.name">
+          <li
+            class="top-menu-links"
+            v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)"
+            :key="menuLink.name"
+          >
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
             <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
           </li>
@@ -48,7 +52,7 @@
         </li>
       </ul>
       <ul class="submenu">
-        <li v-for="menuItem of submenu.slice().sort(sortBySortOrder)" :key="menuItem.alt">
+        <li v-for="menuItem of iconMenu.slice().sort(sortBySortOrder)" :key="menuItem.alt">
           <av-icon-button @icon-click="$emit(menuItem.action)">
             <a
               v-if="menuItem.linkType === 'external'"
@@ -308,7 +312,7 @@ export default Vue.extend({
     ...mapState('base', [
       'appLogoMin',
       'appLogoFull',
-      'submenu',
+      'iconMenu',
       'products',
       'imageUrl',
       'mainMenu'
@@ -345,11 +349,11 @@ export default Vue.extend({
     const baseOptions: WorkerFns = { fn: 'getDocuments', collection: 'logos' };
     this.getFirestoreData(baseOptions);
 
-    const submenuOptions: WorkerFns = {
+    const iconMenuOptions: WorkerFns = {
       fn: 'getDocuments',
-      collection: 'submenu'
+      collection: 'iconMenu'
     };
-    this.getFirestoreData(submenuOptions);
+    this.getFirestoreData(iconMenuOptions);
 
     const productsOptions: WorkerFns = {
       fn: 'queryDocuments',
@@ -366,13 +370,14 @@ export default Vue.extend({
 
     const menuOptions: WorkerFns = {
       fn: 'getDocuments',
-      collection: 'main-menu'
+      collection: 'mainMenu'
     };
     this.getFirestoreData(menuOptions);
 
-    window.addEventListener('resize', () => {
-      this.windowWidth = window.innerWidth;
-    });
+    window.addEventListener(
+      'resize',
+      () => (this.windowWidth = window.innerWidth)
+    );
   }
 });
 </script>
