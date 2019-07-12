@@ -40,9 +40,9 @@
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
-          <li v-for="menuLink of [1, 2, 3, 4, 5]">
-            <router-link to="/">Products</router-link>
-            <span v-if="windowWidth > 825">&nbsp;/&nbsp;</span>
+          <li v-for="(menuLink, i) of submenu" :key="menuLink.name">
+            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
+            <span v-if="windowWidth > 825 && !(i === (submenu.length - 1))">&nbsp;/&nbsp;</span>
           </li>
         </ul>
       </div>
@@ -315,7 +315,8 @@ export default Vue.extend({
       'iconMenu',
       'products',
       'imageUrl',
-      'mainMenu'
+      'mainMenu',
+      'submenu'
     ])
   },
   methods: {
@@ -373,6 +374,12 @@ export default Vue.extend({
       collection: 'mainMenu'
     };
     this.getFirestoreData(menuOptions);
+
+    const submenuOptions: WorkerFns = {
+      fn: 'getDocuments',
+      collection: 'submenu'
+    };
+    this.getFirestoreData(submenuOptions);
 
     window.addEventListener(
       'resize',
