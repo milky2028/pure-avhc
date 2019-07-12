@@ -30,7 +30,7 @@
       </router-link>
       <div class="menu-link-container">
         <ul class="menu-links subhead smaller-font top-menu">
-          <li class="top-menu-links" v-for="(menuLink, i) of mainMenu" :key="menuLink.name">
+          <li class="top-menu-links" v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)" :key="menuLink.name">
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
             <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
           </li>
@@ -323,7 +323,7 @@ export default Vue.extend({
         this.toggleOverlay();
       }
     },
-    sortBySortOrder(a: SubmenuItem, b: SubmenuItem) {
+    sortBySortOrder(a: { sortOrder: number }, b: { sortOrder: number }) {
       const aa = a.sortOrder;
       const bb = b.sortOrder;
       return aa > bb ? 1 : aa < bb ? -1 : 0;
