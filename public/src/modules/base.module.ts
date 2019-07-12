@@ -66,16 +66,8 @@ const BaseModule = {
             commit('setState', { type: 'appLogoFull', data: fullLogo });
             break;
           }
-          case 'submenu': {
-            commit('setState', { type: 'submenu', data: firestoreData });
-            break;
-          }
-          case 'products': {
-            commit('setState', { type: 'products', data: firestoreData });
-            break;
-          }
-          case 'main-menu': {
-            commit('setState', { type: 'mainMenu', data: firestoreData });
+          default: {
+            commit('setState', { type: msg.data.collection, data: firestoreData });
             break;
           }
         }
