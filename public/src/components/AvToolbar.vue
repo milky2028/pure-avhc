@@ -34,6 +34,7 @@
             class="top-menu-links"
             v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)"
             :key="menuLink.name"
+            :style="(windowWidth < 825 && (mainMenu.length - 1) === i) ? { borderBottom: '1px solid white'} : {}"
           >
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
             <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
