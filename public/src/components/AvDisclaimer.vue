@@ -97,7 +97,7 @@ export default Vue.extend({
       try {
         idb.set('hasSeenDisclaimer', true);
       } catch (e) {
-        console.error('Error saving to idb');
+        throw new Error('Error saving to idb');
       }
     }
   }
