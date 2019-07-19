@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "aspe-f5783"
+    "avhc": "aspe-f5783",
+    "pure": "pure-cbd-exchange"
   }
 }
