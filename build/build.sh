@@ -1,6 +1,15 @@
 #!/bin/bash
 . ~/.nvm/nvm.sh
 
+error_exit() {
+	echo "Error! $1" 1>&2
+	exit 1
+}
+
+if [ !$1 ]; then 
+  error_exit "Failed to provide a build target"
+fi
+
 BUILD_TARGET=$1
 
 cd ..
