@@ -48,8 +48,15 @@
         </ul>
       </div>
       <ul class="product-card-container">
-        <li id="card" v-for="product of products" :key="product.id">
-          <product-card :url="getImageUrl(product.mainImage)" :title="product.shortName"></product-card>
+        <li
+          id="card"
+          v-for="product of products.filter(product => product.featuredInMenu)"
+          :key="product.id"
+        >
+          <product-card
+            :url="getImageUrl(imageUrl, product.mainImage, 135)"
+            :title="product.shortName"
+          ></product-card>
         </li>
       </ul>
       <ul class="submenu">
@@ -296,6 +303,7 @@ import ProductCard from '../components/ProductCard.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import { SubmenuItem } from '../types/MenuItem';
+import getImageUrl from '../actors/getImageUrl';
 
 export default Vue.extend({
   components: {
@@ -323,6 +331,7 @@ export default Vue.extend({
   methods: {
     ...mapMutations('base', ['toggleOverlay', 'toggleDisclaimer']),
     ...mapActions('base', ['getFirestoreData']),
+    getImageUrl,
     onIconClick() {
       this.isNavbarExpanded = !this.isNavbarExpanded;
       if (window.innerWidth > 825) {
@@ -333,17 +342,6 @@ export default Vue.extend({
       const aa = a.sortOrder;
       const bb = b.sortOrder;
       return aa > bb ? 1 : aa < bb ? -1 : 0;
-    },
-    getImageUrl(image: string) {
-      const dpr = window.devicePixelRatio;
-      const cardHeight = 135;
-      const imageParams = [
-        'f_auto',
-        'q_auto',
-        `h_${cardHeight * dpr}`,
-        'c_fill'
-      ];
-      return `${this.imageUrl}${imageParams.join()}${image}`;
     }
   },
   async beforeMount() {
@@ -357,18 +355,13 @@ export default Vue.extend({
     };
     this.getFirestoreData(iconMenuOptions);
 
-    const productsOptions: WorkerFns = {
-      fn: 'queryDocuments',
-      collection: 'products',
-      queries: [
-        {
-          fieldPath: 'featuredInMenu',
-          operator: '==',
-          compareValue: true
-        }
-      ]
-    };
-    this.getFirestoreData(productsOptions);
+    if (this.products.length < 1) {
+      const productsOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'products'
+      };
+      this.getFirestoreData(productsOptions);
+    }
 
     const menuOptions: WorkerFns = {
       fn: 'getDocuments',
