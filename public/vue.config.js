@@ -16,8 +16,12 @@ module.exports = {
   //     config.plugins.push(...productionPlugins);
   //   }
   // },
+  chainWebpack: (config) => {
+    config.module.rule('js').exclude.add(/\.worker\.js$/);
+    config.output.globalObject('self');
+  },
   productionSourceMap: false,
   css: {
     modules: true
-  },
-}
+  }
+};
