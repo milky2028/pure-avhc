@@ -95,7 +95,7 @@
   padding: 8px 16px 12px 16px;
   width: 100%;
   color: white;
-  position: absolute;
+  position: fixed;
   height: 55px;
   background-color: var(--primary-color);
   box-shadow: var(--basic-shadow);
