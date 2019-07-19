@@ -6,7 +6,7 @@ error_exit() {
 	exit 1
 }
 
-if [ !$1 ]; then 
+if [ -z "$1" ]; then 
   error_exit "Failed to provide a build target"
 fi
 
