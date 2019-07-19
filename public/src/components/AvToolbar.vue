@@ -362,7 +362,7 @@ export default Vue.extend({
       collection: 'products',
       queries: [
         {
-          fieldPath: 'featured',
+          fieldPath: 'featuredInMenu',
           operator: '==',
           compareValue: true
         }
