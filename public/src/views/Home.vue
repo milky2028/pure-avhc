@@ -8,7 +8,14 @@
         :class="(product.sortOrder === 0) ? 'main' : (product.sortOrder === 1) ? 'side1' : 'side2'"
         :style="{ backgroundImage: `url(${getImageUrl(imageUrl, product.mainImage, getImageHeight(product.sortOrder))})` }"
       >
-        <av-button class="btn" v-if="product.sortOrder === 0">Shop</av-button>
+        <!-- <h1 class="subhead larger-font">Really Cool Tagline</h1> -->
+        <av-button
+          longBtn
+          :fullWidth="windowWidth < 825"
+          class="btn"
+          @btn-click="$router.push('/shop')"
+          v-if="product.sortOrder === 0"
+        >Shop Now</av-button>
       </div>
     </div>
   </page-wrapper>
@@ -33,6 +40,7 @@
 .main {
   grid-area: main;
   display: grid;
+  padding: 5vw;
 }
 
 .btn {
@@ -40,9 +48,13 @@
   justify-self: end;
 }
 
+.larger-font {
+  font-size: 26px;
+}
+
 @media (max-width: 825px) {
   .home {
-    height: calc(200vh - 55px);
+    height: calc(200vh - 110px);
     grid-auto-flow: row;
     grid-template-columns: 1fr;
     grid-template-rows: 2fr 1fr 1fr;
@@ -50,6 +62,10 @@
       'main'
       'side1'
       'side2';
+  }
+
+  .btn {
+    justify-self: center;
   }
 }
 </style>
@@ -68,6 +84,11 @@ export default Vue.extend({
     PageWrapper,
     AvButton
   },
+  data() {
+    return {
+      windowWidth: window.innerWidth
+    };
+  },
   computed: {
     ...mapState('base', ['products', 'imageUrl'])
   },
@@ -83,6 +104,11 @@ export default Vue.extend({
     }
   },
   beforeMount() {
+    window.addEventListener(
+      'resize',
+      () => (this.windowWidth = window.innerWidth)
+    );
+
     if (this.products.length < 1) {
       const productsOptions: WorkerFns = {
         fn: 'getDocuments',
