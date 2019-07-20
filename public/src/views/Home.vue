@@ -137,14 +137,13 @@ export default Vue.extend({
     ...mapState('base', ['products', 'imageUrl'])
   },
   methods: {
-    getImageUrl,
     ...mapActions('base', ['getFirestoreData']),
     getImageHeight(sortOrder: number): number {
       const navHeight = 55;
       const windowHeight = window.innerHeight;
       return sortOrder === 0
         ? windowHeight - navHeight
-        : Math.round((windowHeight - navHeight) / 2);
+        : (windowHeight - navHeight) / 2;
     },
     getBackground({
       mainImage,
@@ -156,9 +155,9 @@ export default Vue.extend({
       return {
         backgroundImage: `${
           this.windowWidth < 825
-            ? 'linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%),'
+            ? 'linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%), '
             : ''
-        } url(${getImageUrl(
+        }url(${getImageUrl(
           this.imageUrl,
           mainImage,
           this.getImageHeight(sortOrder)
