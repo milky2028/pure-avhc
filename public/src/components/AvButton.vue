@@ -1,5 +1,5 @@
 <template>
-  <button @click="onClick" :style="getStyles()">
+  <button @click="onClick" :class="{ flat, long, fullWidth, raised: !flat }">
     <span>
       <slot></slot>
     </span>
@@ -23,6 +23,40 @@ button {
   justify-content: space-between;
 }
 
+button:hover.raised {
+  background-color: var(--dark-accent-light-shade);
+}
+
+button:active.raised {
+  box-shadow: none;
+  background-color: var(--dark-accent-dark-shade);
+}
+
+button:hover.flat {
+  background-color: var(--light-accent-faint-shade);
+}
+
+button:active.flat {
+  box-shadow: none;
+  background-color: var(--light-accent-light-shade);
+}
+
+.flat {
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--dark-accent);
+  font-weight: 600;
+}
+
+.long {
+  padding: 6px 60px;
+}
+
+.fullWidth {
+  justify-content: center;
+  width: 100%;
+}
+
 .icon {
   padding: 0 0 2px 5px;
   text-transform: none;
@@ -39,19 +73,14 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     fullWidth: Boolean,
-    longBtn: Boolean,
-    icon: String
+    long: Boolean,
+    icon: String,
+    flat: Boolean
   },
   methods: {
     onClick(e: Event) {
       const target = e.target as HTMLButtonElement;
       this.$emit('btn-click', e);
-    },
-    getStyles() {
-      return {
-        ...(this.longBtn ? { padding: '6px 60px' } : {}),
-        ...(this.fullWidth ? { width: '100%', justifyContent: 'center' } : {})
-      };
     }
   }
 });

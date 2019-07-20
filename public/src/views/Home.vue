@@ -11,9 +11,10 @@
         <div class="tagline-container">
           <h1 class="subhead larger-font">{{ product.tagline }}</h1>
           <h2 class="body-text subtag">{{ product.subtag }}</h2>
+          <av-button flat class="cart-btn">Add to Cart ></av-button>
         </div>
         <av-button
-          longBtn
+          long
           :fullWidth="windowWidth < 825"
           class="btn"
           @btn-click="$router.push('/shop')"
@@ -53,6 +54,9 @@
 
 .tagline-container {
   justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .larger-font {
@@ -64,6 +68,10 @@
   margin-block-end: 0;
   margin-top: 10px;
   text-align: right;
+}
+
+.cart-btn {
+  margin-top: 5px;
 }
 
 @media (max-width: 825px) {
@@ -90,6 +98,10 @@
 
   .subtag {
     text-align: center;
+  }
+
+  .tagline-container {
+    align-items: center;
   }
 }
 </style>

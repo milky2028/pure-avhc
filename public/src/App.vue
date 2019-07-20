@@ -25,6 +25,10 @@
   --primary-color: #000a23;
   --light-accent: #25ac6a;
   --dark-accent: #004d40;
+  --dark-accent-light-shade: #006352;
+  --dark-accent-dark-shade: #004a3e;
+  --light-accent-faint-shade: rgba(37, 172, 106, 0.08);
+  --light-accent-light-shade: rgba(37, 172, 106, 0.15);
   --snackbar-color: #2e2e2e;
   --basic-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   --elianto: 'Elianto', sans-serif;
