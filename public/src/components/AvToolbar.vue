@@ -3,7 +3,7 @@
     <transition name="fade">
       <av-icon-button
         class="menu"
-        @icon-click="onIconClick"
+        @icon-click="toggleNavAndOverlay"
       >{{ isNavbarExpanded ? 'close' : 'menu' }}</av-icon-button>
     </transition>
     <router-link class="logo-link" to="/">
@@ -17,16 +17,19 @@
     <div class="right-nav-container">
       <av-icon-button>
         <router-link
-          @click.native="isNavbarExpanded ? toggleNavbar() : null"
+          @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
           to="/cart"
         >shopping_cart</router-link>
       </av-icon-button>
       <av-icon-button>
-        <router-link @click.native="isNavbarExpanded ? toggleNavbar() : null" to="/orders">person</router-link>
+        <router-link
+          @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
+          to="/orders"
+        >person</router-link>
       </av-icon-button>
     </div>
     <div v-if="isNavbarExpanded" class="menu-container">
-      <router-link to="/" class="large-logo-container" @click.native="toggleNavbar">
+      <router-link to="/" class="large-logo-container" @click.native="toggleNavAndOverlay">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
@@ -36,7 +39,7 @@
           id="card"
           v-for="product of products.filter(product => product.featuredInMenu)"
           :key="product.id"
-          @click="toggleNavbar"
+          @click="toggleNavAndOverlay"
         >
           <product-card
             :url="getImageUrl(imageUrl, product.mainImage, 135)"
@@ -51,14 +54,14 @@
             v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)"
             :key="menuLink.name"
             :style="(windowWidth < 825 && (mainMenu.length - 1) === i) ? { borderBottom: '1px solid white'} : {}"
-            @click="toggleNavbar"
+            @click="toggleNavAndOverlay"
           >
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
             <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
-          <li v-for="(menuLink, i) of submenu" :key="menuLink.name" @click="toggleNavbar">
+          <li v-for="(menuLink, i) of submenu" :key="menuLink.name" @click="toggleNavAndOverlay">
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
             <span v-if="windowWidth > 825 && !(i === (submenu.length - 1))">&nbsp;/&nbsp;</span>
           </li>
@@ -341,16 +344,14 @@ export default Vue.extend({
     ]),
     ...mapActions('base', ['getFirestoreData']),
     getImageUrl,
-    onIconClick() {
-      this.toggleNavbar();
-      if (window.innerWidth > 825) {
-        this.toggleOverlay();
-      }
-    },
     sortBySortOrder(a: { sortOrder: number }, b: { sortOrder: number }) {
       const aa = a.sortOrder;
       const bb = b.sortOrder;
       return aa > bb ? 1 : aa < bb ? -1 : 0;
+    },
+    toggleNavAndOverlay() {
+      this.toggleNavbar();
+      this.toggleOverlay();
     }
   },
   async beforeMount() {
