@@ -78,6 +78,13 @@ body {
   letter-spacing: 0.15em;
 }
 
+.body-text {
+  font-size: 16px;
+  font-family: var(--mukta-malar);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 100ms var(--mat-ease);

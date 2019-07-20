@@ -8,7 +8,10 @@
         :class="(product.sortOrder === 0) ? 'main' : (product.sortOrder === 1) ? 'side1' : 'side2'"
         :style="{ backgroundImage: `url(${getImageUrl(imageUrl, product.mainImage, getImageHeight(product.sortOrder))})` }"
       >
-        <!-- <h1 class="subhead larger-font">Really Cool Tagline</h1> -->
+        <div class="tagline-container">
+          <h1 class="subhead larger-font">{{ product.tagline }}</h1>
+          <h2 class="body-text subtag">{{ product.subtag }}</h2>
+        </div>
         <av-button
           longBtn
           :fullWidth="windowWidth < 825"
@@ -40,7 +43,7 @@
 .main {
   grid-area: main;
   display: grid;
-  padding: 5vw;
+  padding: 4vw;
 }
 
 .btn {
@@ -48,8 +51,19 @@
   justify-self: end;
 }
 
+.tagline-container {
+  justify-self: end;
+}
+
 .larger-font {
+  font-weight: 600;
   font-size: 26px;
+}
+
+.subtag {
+  margin-block-end: 0;
+  margin-top: 10px;
+  text-align: right;
 }
 
 @media (max-width: 825px) {
@@ -66,6 +80,16 @@
 
   .btn {
     justify-self: center;
+  }
+
+  .larger-font {
+    font-size: 28px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .subtag {
+    text-align: center;
   }
 }
 </style>
