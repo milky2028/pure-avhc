@@ -11,7 +11,11 @@
         <div class="tagline-container">
           <h1 class="subhead larger-font">{{ product.tagline }}</h1>
           <h2 class="body-text subtag">{{ product.subtag }}</h2>
-          <av-button flat class="cart-btn">Add to Cart ></av-button>
+          <av-button
+            v-if="windowWidth > 825 && product.sortOrder === 0"
+            flat
+            class="cart-btn"
+          >Add to Cart ></av-button>
         </div>
         <av-button
           long
