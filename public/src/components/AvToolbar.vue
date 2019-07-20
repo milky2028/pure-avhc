@@ -242,6 +242,16 @@ a:hover {
   grid-area: right;
 }
 
+@media (max-width: 1200px) {
+  .top-menu-links {
+    font-size: 14px;
+  }
+
+  .bottom-menu {
+    font-size: 12px;
+  }
+}
+
 @media (max-width: 825px) {
   .menu-container {
     grid-template-rows: 75px 3fr 2fr 32px 32px;
@@ -286,11 +296,13 @@ a:hover {
     width: 100%;
     height: 100%;
     border-top: 1px solid white;
+    font-size: 18px;
   }
 
   .bottom-menu {
     justify-content: start;
     margin-top: 0;
+    font-size: 16px;
   }
 
   .submenu {
