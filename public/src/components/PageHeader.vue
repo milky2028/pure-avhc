@@ -13,6 +13,7 @@ h1 {
   padding-bottom: 1.5vh;
   padding-right: 4vw;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .divider {

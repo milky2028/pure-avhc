@@ -77,7 +77,7 @@ body {
   font-size: 22px;
   font-family: var(--mukta-malar);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 0.7;
   letter-spacing: 0.15em;
 }

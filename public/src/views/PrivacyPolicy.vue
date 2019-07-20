@@ -17,7 +17,7 @@
       </ul>
       <p>Your online privacy is important to {{ legalName }} and our partners. We are your ally in ensuring that your information stays safe, secure, and private.</p>
       <p>
-        <strong class="bold">{{ legalName }}</strong>
+        <strong>{{ legalName }}</strong>&nbsp;
         <em>('we' or 'us' or 'our')</em> is committed to ensuring the security and protection of the personal information that we process, and to provide a compliant and consistent approach to data protection. We have always had a robust and effective data protection program in place which complies with existing law and abides by the data protection principles. However, we recognise our obligations in updating and expanding this program to meet the demands of the
         <a
           href="https://eugdpr.org/"
@@ -27,7 +27,7 @@
       </p>
       <p></p>
       <p>
-        <strong class="bold">{{ legalName }}</strong> is dedicated to safeguarding the personal information under our remit and in developing a data protection regime that is effective, fit for purpose and demonstrates an understanding of, and appreciation for the new regulation. Our preparation and objectives for
+        <strong>{{ legalName }}</strong> is dedicated to safeguarding the personal information under our remit and in developing a data protection regime that is effective, fit for purpose and demonstrates an understanding of, and appreciation for the new regulation. Our preparation and objectives for
         <abbr
           title="General Data Protection Regulation"
         >GDPR</abbr> compliance have been summarised in this statement and include the development and implementation of new data protection roles, policies, procedures, controls and measures to ensure maximum and ongoing compliance.
@@ -37,8 +37,8 @@
         <abbr title="General Data Protection Regulation">GDPR</abbr> Roles and Employees
       </h2>
       <p>
-        <strong class="bold">{{ legalName }}</strong> has designated Tyler Gross as our
-        <strong class="bold">Data Protection Officer (DPO)</strong> and have appointed a data privacy team to develop and implement our roadmap for complying with the new data protection Regulation. The team are responsible for promoting awareness of the
+        <strong>{{ legalName }}</strong> has designated Tyler Gross as our
+        <strong>Data Protection Officer (DPO)</strong> and have appointed a data privacy team to develop and implement our roadmap for complying with the new data protection Regulation. The team are responsible for promoting awareness of the
         <abbr
           title="General Data Protection Regulation"
         >GDPR</abbr> across the organization, assessing our
@@ -53,7 +53,7 @@
 
       <h2>Key Terms</h2>
       <p>
-        <strong class="bold">User/Customer:</strong>Any individual who visits
+        <strong>User/Customer:</strong>Any individual who visits
         <a :href="siteUrl">{{ siteUrl }}</a> via a web browser or its associated domains on any number of devices, such as a laptop, smartphone, desktop computer, smartwatch, or other internet-connected device.
       </p>
 
@@ -98,10 +98,9 @@
       <p>
         This site recognizes and collects, when possible, the domain name of a visitor's server (for example,
         <a
-          class="link"
           href="https://purecbdexchange.com"
         >purecbdexchange.com</a> or
-        <a class="link" href="https://google.com">google.com</a>). We do not automatically collect full email addresses of visitors to our website. The only way we obtain your name or email address is when you choose to provide this information to us, such as when you make purchase or subscribe to a email list. Examples of how you might provide us with such personal information include:
+        <a href="https://google.com">google.com</a>). We do not automatically collect full email addresses of visitors to our website. The only way we obtain your name or email address is when you choose to provide this information to us, such as when you make purchase or subscribe to a email list. Examples of how you might provide us with such personal information include:
       </p>
       <ul>
         <li>Completing a survey or feedback form</li>
@@ -113,7 +112,7 @@
       </ul>
       <p>
         We use
-        <a class="link" href="https://analytics.google.com">Google Universal Analytics</a> to collect website data that allows us to get a better understanding of how our site visitors interact with our online content. If you do nothing during your visit but browse through the website or download information, Google Universal Analytics will automatically gather and store certain information about your visit. This information does not identify you personally and is used in a general way to help us improve our website and tell us the number of visitors to our site each day.
+        <a href="https://analytics.google.com">Google Universal Analytics</a> to collect website data that allows us to get a better understanding of how our site visitors interact with our online content. If you do nothing during your visit but browse through the website or download information, Google Universal Analytics will automatically gather and store certain information about your visit. This information does not identify you personally and is used in a general way to help us improve our website and tell us the number of visitors to our site each day.
       </p>
       <p>Our web client automatically collects and records the following information:</p>
       <ul>
@@ -130,13 +129,13 @@
       <p>Other Services Used:</p>
       <ul>
         <li>
-          <a class="link" href="https://firebase.google.com">Firebase</a>
+          <a href="https://firebase.google.com">Firebase</a>
         </li>
         <li>
-          <a class="link" href="https://shopify.com">Shopify</a>
+          <a href="https://shopify.com">Shopify</a>
         </li>
         <li>
-          <a class="link" href="https://sentry.io">Sentry Error Reporting</a>
+          <a href="https://sentry.io">Sentry Error Reporting</a>
         </li>
       </ul>
 
@@ -159,7 +158,6 @@
       <p>
         If you would like to access, correct, amend or delete any personal information we have about you, register a complaint, or simply want more information, please contact us by emailing
         <a
-          class="link"
           href="mailto:support@purecbdexchange.com?subject=Hello!%20I%20want%20to%20learn%20more%20about%20your%20privacy%20policy&body=Faces...%20Tris3"
         >support@purecbdexchange.com</a>.
       </p>
