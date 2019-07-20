@@ -21,6 +21,7 @@ button {
   font-weight: 500;
   align-items: center;
   justify-content: space-between;
+  transition: all 150ms var(--mat-ease);
 }
 
 button:hover.raised {
