@@ -6,7 +6,7 @@
         :key="product.name"
         class="image"
         :class="(product.sortOrder === 0) ? 'main' : (product.sortOrder === 1) ? 'side1' : 'side2'"
-        :style="{ backgroundImage: `url(${getImageUrl(imageUrl, product.mainImage, getImageHeight(product.sortOrder))})` }"
+        :style="getBackground(product)"
       >
         <div class="tagline-container">
           <h1 class="subhead larger-font">{{ product.tagline }}</h1>
@@ -145,6 +145,19 @@ export default Vue.extend({
       return sortOrder === 0
         ? windowHeight - navHeight
         : Math.round((windowHeight - navHeight) / 2);
+    },
+    getBackground({ mainImage, sortOrder }) {
+      return {
+        backgroundImage: `${
+          this.windowWidth < 825
+            ? 'linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%),'
+            : ''
+        } url(${getImageUrl(
+          this.imageUrl,
+          mainImage,
+          this.getImageHeight(sortOrder)
+        )})`
+      };
     }
   },
   beforeMount() {
