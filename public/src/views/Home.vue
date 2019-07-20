@@ -43,12 +43,12 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  padding: 2vw;
 }
 
 .main {
   grid-area: main;
   display: grid;
-  padding: 4vw;
 }
 
 .btn {
@@ -66,11 +66,15 @@
 .larger-font {
   font-weight: 600;
   font-size: 26px;
+  text-align: right;
+  line-height: 1.2;
 }
 
 .subtag {
+  background-color: var(--primary-color);
+  color: white;
   margin-block-end: 0;
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: right;
 }
 
