@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div v-if="isOverlayShowing" class="overlay"></div>
+    <div v-if="isOverlayShowing" class="overlay" @click="onOverlayClick"></div>
   </transition>
 </template>
 
@@ -28,11 +28,18 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default Vue.extend({
   computed: {
     ...mapState('base', ['isOverlayShowing'])
+  },
+  methods: {
+    ...mapMutations('base', ['toggleOverlay', 'toggleNavbar']),
+    onOverlayClick() {
+      this.toggleOverlay();
+      this.toggleNavbar();
+    }
   }
 });
 </script>

@@ -4,6 +4,6 @@ export default function getImageUrl(
   height = 500
 ) {
   const dpr = window.devicePixelRatio;
-  const imageParams = ['f_auto', 'q_auto', `h_${height * dpr}`, 'c_fill'];
+  const imageParams = ['f_auto', 'q_auto:low', `h_${height * dpr}`, 'c_fill'];
   return `${mainImageUrl}${imageParams.join()}${image}`;
 }

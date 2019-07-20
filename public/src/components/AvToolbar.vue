@@ -312,7 +312,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      isNavbarExpanded: false,
       legalName: process.env.VUE_APP_LEGAL_NAME,
       windowWidth: window.innerWidth
     };
@@ -325,15 +324,20 @@ export default Vue.extend({
       'products',
       'imageUrl',
       'mainMenu',
-      'submenu'
+      'submenu',
+      'isNavbarExpanded'
     ])
   },
   methods: {
-    ...mapMutations('base', ['toggleOverlay', 'toggleDisclaimer']),
+    ...mapMutations('base', [
+      'toggleOverlay',
+      'toggleDisclaimer',
+      'toggleNavbar'
+    ]),
     ...mapActions('base', ['getFirestoreData']),
     getImageUrl,
     onIconClick() {
-      this.isNavbarExpanded = !this.isNavbarExpanded;
+      this.toggleNavbar();
       if (window.innerWidth > 825) {
         this.toggleOverlay();
       }

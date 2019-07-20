@@ -7,7 +7,9 @@
         class="image"
         :class="(product.sortOrder === 0) ? 'main' : (product.sortOrder === 1) ? 'side1' : 'side2'"
         :style="{ backgroundImage: `url(${getImageUrl(imageUrl, product.mainImage, getImageHeight(product.sortOrder))})` }"
-      ></div>
+      >
+        <av-button class="btn" v-if="product.sortOrder === 0">Shop</av-button>
+      </div>
     </div>
   </page-wrapper>
 </template>
@@ -23,12 +25,19 @@
 }
 
 .image {
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .main {
   grid-area: main;
+  display: grid;
+}
+
+.btn {
+  align-self: end;
+  justify-self: end;
 }
 
 @media (max-width: 825px) {
@@ -52,10 +61,12 @@ import PageWrapper from '../components/PageWrapper.vue';
 import { mapState, mapActions } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import getImageUrl from '../actors/getImageUrl';
+import AvButton from '../components/AvButton.vue';
 
 export default Vue.extend({
   components: {
-    PageWrapper
+    PageWrapper,
+    AvButton
   },
   computed: {
     ...mapState('base', ['products', 'imageUrl'])
@@ -68,7 +79,7 @@ export default Vue.extend({
       const windowHeight = window.innerHeight;
       return sortOrder === 0
         ? windowHeight - navHeight
-        : (windowHeight - navHeight) / 2;
+        : Math.round((windowHeight - navHeight) / 2);
     }
   },
   beforeMount() {

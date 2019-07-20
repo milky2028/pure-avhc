@@ -18,6 +18,7 @@ const BaseModule = {
   namespaced: true,
   state: {
     imageUrl: 'https://res.cloudinary.com/pure-avhc/image/upload/',
+    isNavbarExpanded: false,
     isOverlayShowing: false,
     isDisclaimerShowing: false,
     appLogoMin: {
@@ -46,7 +47,9 @@ const BaseModule = {
     toggleOverlay: (state: AppBase) =>
       (state.isOverlayShowing = !state.isOverlayShowing),
     toggleDisclaimer: (state: AppBase) =>
-      (state.isDisclaimerShowing = !state.isDisclaimerShowing)
+      (state.isDisclaimerShowing = !state.isDisclaimerShowing),
+    toggleNavbar: (state: AppBase) =>
+      (state.isNavbarExpanded = !state.isNavbarExpanded)
   },
   actions: {
     async getFirestoreData({ commit }: Context, workerMsg: WorkerFns) {
