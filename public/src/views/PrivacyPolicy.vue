@@ -1,14 +1,18 @@
 <template>
-  <page-wrapper>Privacy Policy</page-wrapper>
+  <page-wrapper withPadding>
+    <article-page title="Privacy Policy">Contentssss</article-page>
+  </page-wrapper>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
+import ArticlePage from '../components/ArticlePage.vue';
 
 export default Vue.extend({
   components: {
-    PageWrapper
+    PageWrapper,
+    ArticlePage
   }
 });
 </script>
