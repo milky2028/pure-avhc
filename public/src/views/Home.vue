@@ -146,7 +146,13 @@ export default Vue.extend({
         ? windowHeight - navHeight
         : Math.round((windowHeight - navHeight) / 2);
     },
-    getBackground({ mainImage, sortOrder }) {
+    getBackground({
+      mainImage,
+      sortOrder
+    }: {
+      mainImage: string;
+      sortOrder: number;
+    }) {
       return {
         backgroundImage: `${
           this.windowWidth < 825
