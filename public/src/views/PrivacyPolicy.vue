@@ -1,9 +1,15 @@
 <template>
-  <page-wrapper></page-wrapper>
+  <page-wrapper>Privacy Policy</page-wrapper>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-export default Vue.extend({});
+import PageWrapper from '../components/PageWrapper.vue';
+
+export default Vue.extend({
+  components: {
+    PageWrapper
+  }
+});
 </script>
 

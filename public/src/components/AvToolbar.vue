@@ -1,10 +1,10 @@
 <template>
   <nav class="nav" :class="isNavbarExpanded ? 'expanded' : ''">
-    <transition name="fade" mode="out-in">
-      <av-icon-button class="menu" v-if="!isNavbarExpanded" @icon-click="onIconClick">menu</av-icon-button>
-    </transition>
     <transition name="fade">
-      <av-icon-button class="menu" v-if="isNavbarExpanded" @icon-click="onIconClick">close</av-icon-button>
+      <av-icon-button
+        class="menu"
+        @icon-click="onIconClick"
+      >{{ isNavbarExpanded ? 'close' : 'menu' }}</av-icon-button>
     </transition>
     <router-link class="logo-link" to="/">
       <transition name="fade">
@@ -16,42 +16,27 @@
     </router-link>
     <div class="right-nav-container">
       <av-icon-button>
-        <router-link to="/cart">shopping_cart</router-link>
+        <router-link
+          @click.native="isNavbarExpanded ? toggleNavbar() : null"
+          to="/cart"
+        >shopping_cart</router-link>
       </av-icon-button>
       <av-icon-button>
-        <router-link to="/orders">person</router-link>
+        <router-link @click.native="isNavbarExpanded ? toggleNavbar() : null" to="/orders">person</router-link>
       </av-icon-button>
     </div>
     <div v-if="isNavbarExpanded" class="menu-container">
-      <router-link to="/" class="large-logo-container">
+      <router-link to="/" class="large-logo-container" @click.native="toggleNavbar">
         <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
         <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
         <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
       </router-link>
-      <div class="menu-link-container">
-        <ul class="menu-links subhead smaller-font top-menu">
-          <li
-            class="top-menu-links"
-            v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)"
-            :key="menuLink.name"
-            :style="(windowWidth < 825 && (mainMenu.length - 1) === i) ? { borderBottom: '1px solid white'} : {}"
-          >
-            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
-          </li>
-        </ul>
-        <ul class="menu-links subhead bottom-menu">
-          <li v-for="(menuLink, i) of submenu" :key="menuLink.name">
-            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span v-if="windowWidth > 825 && !(i === (submenu.length - 1))">&nbsp;/&nbsp;</span>
-          </li>
-        </ul>
-      </div>
       <ul class="product-card-container">
         <li
           id="card"
           v-for="product of products.filter(product => product.featuredInMenu)"
           :key="product.id"
+          @click="toggleNavbar"
         >
           <product-card
             :url="getImageUrl(imageUrl, product.mainImage, 135)"
@@ -59,6 +44,26 @@
           ></product-card>
         </li>
       </ul>
+      <div class="menu-link-container">
+        <ul class="menu-links subhead smaller-font top-menu">
+          <li
+            class="top-menu-links"
+            v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)"
+            :key="menuLink.name"
+            :style="(windowWidth < 825 && (mainMenu.length - 1) === i) ? { borderBottom: '1px solid white'} : {}"
+            @click="toggleNavbar"
+          >
+            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
+            <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
+          </li>
+        </ul>
+        <ul class="menu-links subhead bottom-menu">
+          <li v-for="(menuLink, i) of submenu" :key="menuLink.name" @click="toggleNavbar">
+            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
+            <span v-if="windowWidth > 825 && !(i === (submenu.length - 1))">&nbsp;/&nbsp;</span>
+          </li>
+        </ul>
+      </div>
       <ul class="submenu">
         <li v-for="menuItem of iconMenu.slice().sort(sortBySortOrder)" :key="menuItem.alt">
           <av-icon-button @icon-click="$emit(menuItem.action)">
