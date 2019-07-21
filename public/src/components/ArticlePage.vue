@@ -30,7 +30,11 @@ ul {
   font-family: var(--mukta-malar);
   font-weight: 400;
   line-height: 1.6;
-  list-style: disc inside;
+  list-style: disc;
+}
+
+ul {
+  padding-left: 24px;
 }
 
 strong {
