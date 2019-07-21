@@ -74,7 +74,7 @@
               v-if="menuItem.linkType === 'external'"
               :href="menuItem.url"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               <img
                 class="icon-link"
