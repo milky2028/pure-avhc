@@ -20,6 +20,8 @@
         <strong>{{ legalName }}</strong>&nbsp;
         <em>('we' or 'us' or 'our')</em> is committed to ensuring the security and protection of the personal information that we process, and to provide a compliant and consistent approach to data protection. We have always had a robust and effective data protection program in place which complies with existing law and abides by the data protection principles. However, we recognise our obligations in updating and expanding this program to meet the demands of the
         <a
+          target="_blank"
+          rel="noopener noreferrer"
           href="https://eugdpr.org/"
         >
           <abbr title="General Data Protection Regulation">GDPR</abbr>
@@ -53,8 +55,12 @@
 
       <h2>Key Terms</h2>
       <p>
-        <strong>User/Customer:</strong>Any individual who visits
-        <a :href="siteUrl">{{ siteUrl }}</a> via a web browser or its associated domains on any number of devices, such as a laptop, smartphone, desktop computer, smartwatch, or other internet-connected device.
+        <strong>User/Customer:&nbsp;</strong>Any individual who visits
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          :href="siteUrl"
+        >{{ siteUrl }}</a> via a web browser or its associated domains on any number of devices, such as a laptop, smartphone, desktop computer, smartwatch, or other internet-connected device.
       </p>
 
       <h2>What do we do with your information?</h2>
@@ -69,6 +75,8 @@
       <p>
         You may withdraw your consent at any time by emailing
         <a
+          target="_blank"
+          rel="noopener noreferrer"
           href="mailto:support@purecbdexchange.com?subject=Please%20remove%20my%20data&body=Hello!%0A%0APlease%20remove%20all%20my%20information%20from%20your%20records.%0A%0AThank%20you!"
         >support@purecbdexchange.com</a>.
       </p>
@@ -81,6 +89,8 @@
       <p>
         As an example, if you are located in Canada and your transaction is processed by a payment gateway located in the United States, then your personal information used in completing that transaction may be subject to disclosure under United States legislation, including the
         <a
+          target="_blank"
+          rel="noopener noreferrer"
           href="https://en.wikipedia.org/wiki/Patriot_Act"
         >
           <abbr
@@ -98,9 +108,11 @@
       <p>
         This site recognizes and collects, when possible, the domain name of a visitor's server (for example,
         <a
+          target="_blank"
+          rel="noopener noreferrer"
           href="https://purecbdexchange.com"
         >purecbdexchange.com</a> or
-        <a href="https://google.com">google.com</a>). We do not automatically collect full email addresses of visitors to our website. The only way we obtain your name or email address is when you choose to provide this information to us, such as when you make purchase or subscribe to a email list. Examples of how you might provide us with such personal information include:
+        <a target="_blank" rel="noopener noreferrer" href="https://google.com">google.com</a>). We do not automatically collect full email addresses of visitors to our website. The only way we obtain your name or email address is when you choose to provide this information to us, such as when you make purchase or subscribe to a email list. Examples of how you might provide us with such personal information include:
       </p>
       <ul>
         <li>Completing a survey or feedback form</li>
@@ -112,7 +124,11 @@
       </ul>
       <p>
         We use
-        <a href="https://analytics.google.com">Google Universal Analytics</a> to collect website data that allows us to get a better understanding of how our site visitors interact with our online content. If you do nothing during your visit but browse through the website or download information, Google Universal Analytics will automatically gather and store certain information about your visit. This information does not identify you personally and is used in a general way to help us improve our website and tell us the number of visitors to our site each day.
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://analytics.google.com"
+        >Google Universal Analytics</a> to collect website data that allows us to get a better understanding of how our site visitors interact with our online content. If you do nothing during your visit but browse through the website or download information, Google Universal Analytics will automatically gather and store certain information about your visit. This information does not identify you personally and is used in a general way to help us improve our website and tell us the number of visitors to our site each day.
       </p>
       <p>Our web client automatically collects and records the following information:</p>
       <ul>
@@ -129,13 +145,17 @@
       <p>Other Services Used:</p>
       <ul>
         <li>
-          <a href="https://firebase.google.com">Firebase</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://firebase.google.com">Firebase</a>
         </li>
         <li>
-          <a href="https://shopify.com">Shopify</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://shopify.com">Shopify</a>
         </li>
         <li>
-          <a href="https://sentry.io">Sentry Error Reporting</a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://sentry.io"
+          >Sentry Error Reporting</a>
         </li>
       </ul>
 
@@ -158,6 +178,8 @@
       <p>
         If you would like to access, correct, amend or delete any personal information we have about you, register a complaint, or simply want more information, please contact us by emailing
         <a
+          target="_blank"
+          rel="noopener noreferrer"
           href="mailto:support@purecbdexchange.com?subject=Hello!%20I%20want%20to%20learn%20more%20about%20your%20privacy%20policy&body=Faces...%20Tris3"
         >support@purecbdexchange.com</a>.
       </p>
