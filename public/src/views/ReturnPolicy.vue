@@ -48,7 +48,6 @@
   </page-wrapper>
 </template>
 
-
 <script lang="ts">
 import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';

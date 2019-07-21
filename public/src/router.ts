@@ -5,6 +5,8 @@ const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ './views/PrivacyPolicy.vue');
 const ReturnPolicy = () =>
   import(/* webpackChunkName: "ReturnPolicy" */ './views/ReturnPolicy.vue');
+const TermsAndConditions = () =>
+  import(/* webpackChunkName: "TermsAndConditions" */ './views/TermsAndConditions.vue');
 
 Vue.use(Router);
 
@@ -29,6 +31,11 @@ export default new Router({
       path: '/return-policy',
       name: 'return-policy',
       component: ReturnPolicy
+    },
+    {
+      path: '/terms-and-conditions',
+      name: 'terms-and-conditions',
+      component: TermsAndConditions
     }
   ]
 });
