@@ -183,7 +183,7 @@ a:hover {
 
 .bottom-menu {
   margin-top: -24px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .product-card-container {
@@ -302,7 +302,7 @@ a:hover {
   .bottom-menu {
     justify-content: start;
     margin-top: 0;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .submenu {

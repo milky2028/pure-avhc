@@ -14,18 +14,18 @@ article {
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 22px;
   font-family: var(--mukta-malar);
   text-transform: uppercase;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.15em;
-  padding-top: 1vh;
+  padding-top: 1.5vh;
 }
 
 p,
 ul {
-  padding-top: 1vh;
+  padding-top: 1.5vh;
   font-size: 18px;
   font-family: var(--mukta-malar);
   font-weight: 400;

@@ -12,7 +12,7 @@ h1 {
   font-size: 28px;
   padding-bottom: 1.5vh;
   padding-right: 4vw;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
 }
 
