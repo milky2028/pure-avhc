@@ -3,6 +3,8 @@ import Router from 'vue-router';
 const Home = () => import(/* webpackChunkName: "Home" */ './views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ './views/PrivacyPolicy.vue');
+const ReturnPolicy = () =>
+  import(/* webpackChunkName: "ReturnPolicy" */ './views/ReturnPolicy.vue');
 
 Vue.use(Router);
 
@@ -19,6 +21,11 @@ export default new Router({
       path: '/privacy-policy',
       name: 'privacy-policy',
       component: PrivacyPolicy
+    },
+    {
+      path: '/return-policy',
+      name: 'return-policy',
+      component: ReturnPolicy
     }
   ]
 });
