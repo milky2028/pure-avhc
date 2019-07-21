@@ -70,7 +70,7 @@ ul {
 }
 
 body {
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 .subhead {
