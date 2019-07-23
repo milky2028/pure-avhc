@@ -116,13 +116,13 @@ body {
 <script lang="ts">
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
-import AvOverlay from './components/AvOverlay.vue';
 import AvDisclaimer from './components/AvDisclaimer.vue';
 
 export default Vue.extend({
   components: {
     AvToolbar,
-    AvOverlay,
+    AvOverlay: () =>
+      import(/* webpackChunkName: "AvOverlay" */ './components/AvOverlay.vue'),
     AvDisclaimer
   }
 });
