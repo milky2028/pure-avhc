@@ -7,6 +7,8 @@ const ReturnPolicy = () =>
   import(/* webpackChunkName: "ReturnPolicy" */ './views/ReturnPolicy.vue');
 const TermsAndConditions = () =>
   import(/* webpackChunkName: "TermsAndConditions" */ './views/TermsAndConditions.vue');
+const ShopCBD = () =>
+  import(/* webpackChunkName: "ShopCBD" */ './views/ShopCBD.vue');
 
 Vue.use(Router);
 
@@ -21,6 +23,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/shop-cbd',
+      name: 'shop-cbd',
+      component: ShopCBD
     },
     {
       path: '/privacy-policy',
