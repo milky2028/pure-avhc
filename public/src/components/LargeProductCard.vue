@@ -27,7 +27,7 @@ export default Vue.extend({
     getImageAlt,
     getSrc(id: string) {
       const image = this.images.find(
-        (i: Image) => i.product === id && i.secondaryImage
+        (i: Image) => i.product === id && i.allProductsImage
       );
       return getImageUrl(this.imageUrl, image.url, 500);
     }

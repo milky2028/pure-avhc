@@ -5,5 +5,6 @@ export default interface Image {
   site: string[];
   alt: string;
   mainImage?: boolean;
-  secondaryImage?: boolean;
+  allProductsImage?: boolean;
+  toolbarIamge?: boolean;
 }

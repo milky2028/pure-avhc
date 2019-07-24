@@ -372,7 +372,7 @@ export default Vue.extend({
     },
     getProductUrl(id: string) {
       const image = this.images.find(
-        (i: Image) => i.product === id && i.mainImage
+        (i: Image) => i.product === id && i.toolbarImage
       );
       return image ? image.url : '';
     }
