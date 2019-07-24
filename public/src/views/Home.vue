@@ -44,7 +44,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  padding: 2vw;
+  padding: 2vh;
 }
 
 .main {
