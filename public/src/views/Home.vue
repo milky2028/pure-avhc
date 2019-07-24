@@ -124,6 +124,7 @@ import WorkerFns from '../types/WorkerFns';
 import getImageUrl from '../actors/getImageUrl';
 import getImageAlt from '../actors/getImageAlt';
 import AvButton from '../components/AvButton.vue';
+import Image from '../types/Image';
 
 export default Vue.extend({
   components: {
@@ -149,7 +150,9 @@ export default Vue.extend({
         : (windowHeight - navHeight) / 2;
     },
     getUrlEnding(id: string) {
-      const image = this.images.find((i) => i.product === id && i.mainImage);
+      const image = this.images.find(
+        (i: Image) => i.product === id && i.mainImage
+      );
       return image ? image.url : '';
     },
     getBackground({ id, sortOrder }: { id: string; sortOrder: number }) {

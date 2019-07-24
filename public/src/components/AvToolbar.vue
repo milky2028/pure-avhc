@@ -326,6 +326,7 @@ import WorkerFns from '../types/WorkerFns';
 import { SubmenuItem } from '../types/MenuItem';
 import getImageUrl from '../actors/getImageUrl';
 import getImageAlt from '../actors/getImageAlt';
+import Image from '../types/Image';
 
 export default Vue.extend({
   components: {
@@ -370,7 +371,9 @@ export default Vue.extend({
       this.toggleOverlay();
     },
     getProductUrl(id: string) {
-      const image = this.images.find((i) => i.product === id && i.mainImage);
+      const image = this.images.find(
+        (i: Image) => i.product === id && i.mainImage
+      );
       return image ? image.url : '';
     }
   },

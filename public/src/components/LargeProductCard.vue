@@ -12,6 +12,8 @@ import Vue from 'vue';
 import getImageUrl from '../actors/getImageUrl';
 import { mapState, mapActions } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
+import getImageAlt from '../actors/getImageAlt';
+import Image from '../types/Image';
 
 export default Vue.extend({
   props: {
@@ -22,15 +24,10 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('base', ['getFirestoreData']),
-    getAlt(id: string) {
-      const image = this.images.find(
-        (i) => i.product === id && i.secondaryImage
-      );
-      return image.alt;
-    },
+    getImageAlt,
     getSrc(id: string) {
       const image = this.images.find(
-        (i) => i.product === id && i.secondaryImage
+        (i: Image) => i.product === id && i.secondaryImage
       );
       return getImageUrl(this.imageUrl, image.url, 500);
     }
