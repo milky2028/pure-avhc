@@ -25,7 +25,10 @@ class FirebaseWorker {
         .collection(collection)
         .where('site', 'array-contains', process.env.VUE_APP_NAME)
         .onSnapshot((snapshot) => {
-          const data = snapshot.docs.map((doc) => doc.data());
+          const data = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id
+          }));
           postMessage({ collection, data });
         });
     } catch (e) {
@@ -45,7 +48,10 @@ class FirebaseWorker {
         results = results.where(fieldPath, operator, compareValue);
       });
       return results.onSnapshot((snapshot) => {
-        const data = snapshot.docs.map((doc) => doc.data());
+        const data = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        }));
         postMessage({ collection, data });
       });
     } catch (e) {
