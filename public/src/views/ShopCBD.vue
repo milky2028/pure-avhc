@@ -19,7 +19,7 @@ import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import PageHeader from '../components/PageHeader.vue';
 import LargeProductCard from '../components/LargeProductCard.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 
 export default Vue.extend({
@@ -30,6 +30,9 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('base', ['products'])
+  },
+  methods: {
+    ...mapActions('base', ['getFirestoreData'])
   },
   beforeMount() {
     if (this.products.length < 1) {

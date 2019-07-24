@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <img :src="getSrc(product.id)" :alt="getAlt(product.id)" />
+    <img :src="getSrc(product.id)" :alt="getImageAlt(product.id, images)" />
   </div>
 </template>
 
