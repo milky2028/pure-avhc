@@ -157,11 +157,7 @@ export default Vue.extend({
     },
     getBackground({ id, sortOrder }: { id: string; sortOrder: number }) {
       return {
-        backgroundImage: `${
-          this.windowWidth < 825
-            ? 'linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%), '
-            : ''
-        }url(${getImageUrl(
+        backgroundImage: `linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%), url(${getImageUrl(
           this.imageUrl,
           this.getUrlEnding(id),
           this.getImageHeight(sortOrder)
