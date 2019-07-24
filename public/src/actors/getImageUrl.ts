@@ -1,6 +1,6 @@
 export default function getImageUrl(
-  mainImageUrl: string,
-  image: string,
+  urlBase: string,
+  imageUrl: string,
   height: number
 ) {
   const dpr = window.devicePixelRatio;
@@ -10,5 +10,5 @@ export default function getImageUrl(
     `h_${Math.round(height * dpr)}`,
     'c_fill'
   ];
-  return `${mainImageUrl}${imageParams.join()}${image}`;
+  return `${urlBase}${imageParams.join()}${imageUrl}`;
 }

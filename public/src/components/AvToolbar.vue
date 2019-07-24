@@ -42,7 +42,7 @@
           @click="toggleNavAndOverlay"
         >
           <product-card
-            :url="getImageUrl(imageUrl, product.mainImage, 135)"
+            :url="getImageUrl(imageUrl, getProductUrl(product.id), 135)"
             :title="product.shortName"
           ></product-card>
         </li>
@@ -345,7 +345,8 @@ export default Vue.extend({
       'imageUrl',
       'mainMenu',
       'submenu',
-      'isNavbarExpanded'
+      'isNavbarExpanded',
+      'images'
     ])
   },
   methods: {
@@ -364,6 +365,10 @@ export default Vue.extend({
     toggleNavAndOverlay() {
       this.toggleNavbar();
       this.toggleOverlay();
+    },
+    getProductUrl(id: string) {
+      const image = this.images.find((i) => i.product === id && i.mainImage);
+      return image ? image.url : '';
     }
   },
   async beforeMount() {
@@ -371,11 +376,13 @@ export default Vue.extend({
     const baseOptions: WorkerFns = { fn: 'getDocuments', collection: 'logos' };
     this.getFirestoreData(baseOptions);
 
-    const iconMenuOptions: WorkerFns = {
-      fn: 'getDocuments',
-      collection: 'iconMenu'
-    };
-    this.getFirestoreData(iconMenuOptions);
+    if (this.iconMenu.length < 1) {
+      const iconMenuOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'iconMenu'
+      };
+      this.getFirestoreData(iconMenuOptions);
+    }
 
     if (this.products.length < 1) {
       const productsOptions: WorkerFns = {
@@ -385,17 +392,29 @@ export default Vue.extend({
       this.getFirestoreData(productsOptions);
     }
 
-    const menuOptions: WorkerFns = {
-      fn: 'getDocuments',
-      collection: 'mainMenu'
-    };
-    this.getFirestoreData(menuOptions);
+    if (this.images.length < 1) {
+      const imagesOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'images'
+      };
+      this.getFirestoreData(imagesOptions);
+    }
 
-    const submenuOptions: WorkerFns = {
-      fn: 'getDocuments',
-      collection: 'submenu'
-    };
-    this.getFirestoreData(submenuOptions);
+    if (this.mainMenu.length < 1) {
+      const menuOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'mainMenu'
+      };
+      this.getFirestoreData(menuOptions);
+    }
+
+    if (this.submenu.length < 1) {
+      const submenuOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'submenu'
+      };
+      this.getFirestoreData(submenuOptions);
+    }
 
     window.addEventListener(
       'resize',

@@ -134,7 +134,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', ['products', 'imageUrl'])
+    ...mapState('base', ['products', 'imageUrl', 'images'])
   },
   methods: {
     ...mapActions('base', ['getFirestoreData']),
@@ -145,13 +145,11 @@ export default Vue.extend({
         ? windowHeight - navHeight
         : (windowHeight - navHeight) / 2;
     },
-    getBackground({
-      mainImage,
-      sortOrder
-    }: {
-      mainImage: string;
-      sortOrder: number;
-    }) {
+    getUrlEnding(id: string) {
+      const image = this.images.find((i) => i.product === id && i.mainImage);
+      return image ? image.url : '';
+    },
+    getBackground({ id, sortOrder }: { id: string; sortOrder: number }) {
       return {
         backgroundImage: `${
           this.windowWidth < 825
@@ -159,7 +157,7 @@ export default Vue.extend({
             : ''
         }url(${getImageUrl(
           this.imageUrl,
-          mainImage,
+          this.getUrlEnding(id),
           this.getImageHeight(sortOrder)
         )})`
       };
@@ -177,6 +175,14 @@ export default Vue.extend({
         collection: 'products'
       };
       this.getFirestoreData(productsOptions);
+    }
+
+    if (this.images.length < 1) {
+      const imagesOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'images'
+      };
+      this.getFirestoreData(imagesOptions);
     }
   }
 });

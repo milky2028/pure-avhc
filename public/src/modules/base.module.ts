@@ -39,7 +39,8 @@ const BaseModule = {
     submenu: [],
     products: [],
     mainMenu: [],
-    iconMenu: []
+    iconMenu: [],
+    images: []
   },
   mutations: {
     setState: (state: AppBase, { type, data }: Mutation) =>
