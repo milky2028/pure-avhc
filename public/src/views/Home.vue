@@ -7,6 +7,7 @@
         class="image"
         :class="(product.sortOrder === 0) ? 'main' : (product.sortOrder === 1) ? 'side1' : 'side2'"
         :style="getBackground(product)"
+        :name="getImageAlt(product.id, images)"
       >
         <div class="tagline-container">
           <h1 class="subhead larger-font">{{ product.tagline }}</h1>
@@ -121,6 +122,7 @@ import PageWrapper from '../components/PageWrapper.vue';
 import { mapState, mapActions } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import getImageUrl from '../actors/getImageUrl';
+import getImageAlt from '../actors/getImageAlt';
 import AvButton from '../components/AvButton.vue';
 
 export default Vue.extend({
@@ -138,6 +140,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('base', ['getFirestoreData']),
+    getImageAlt,
     getImageHeight(sortOrder: number): number {
       const navHeight = 55;
       const windowHeight = window.innerHeight;

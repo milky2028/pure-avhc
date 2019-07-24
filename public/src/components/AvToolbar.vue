@@ -44,6 +44,7 @@
           <product-card
             :url="getImageUrl(imageUrl, getProductUrl(product.id), 135)"
             :title="product.shortName"
+            :alt="getImageAlt(product.id, images)"
           ></product-card>
         </li>
       </ul>
@@ -324,6 +325,7 @@ import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import { SubmenuItem } from '../types/MenuItem';
 import getImageUrl from '../actors/getImageUrl';
+import getImageAlt from '../actors/getImageAlt';
 
 export default Vue.extend({
   components: {
@@ -357,6 +359,7 @@ export default Vue.extend({
     ]),
     ...mapActions('base', ['getFirestoreData']),
     getImageUrl,
+    getImageAlt,
     sortBySortOrder(a: { sortOrder: number }, b: { sortOrder: number }) {
       const aa = a.sortOrder;
       const bb = b.sortOrder;

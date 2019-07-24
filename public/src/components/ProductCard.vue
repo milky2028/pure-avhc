@@ -2,6 +2,7 @@
   <router-link to="/">
     <div
       class="card"
+      :name="alt"
       :style="{ backgroundImage: `url(${url})` }"
       :class="hoverLeave ? 'hover-leave' : ''"
       @mouseleave="hoverLeave = true"
@@ -63,7 +64,8 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     url: String,
-    title: String
+    title: String,
+    alt: String
   },
   data() {
     return {
