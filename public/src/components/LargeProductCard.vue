@@ -29,7 +29,7 @@ export default Vue.extend({
       const image = this.images.find(
         (i: Image) => i.product === id && i.allProductsImage
       );
-      return getImageUrl(this.imageUrl, image.url, 500);
+      return getImageUrl(this.imageUrl, image ? image.url : '', 500);
     }
   },
   beforeMount() {
