@@ -10,5 +10,5 @@ export default function getImageUrl(
     `h_${Math.round(height * dpr)}`,
     'c_fill'
   ];
-  return `${urlBase}${imageParams.join()}${imageUrl}`;
+  return imageUrl ? `${urlBase}${imageParams.join()}${imageUrl}` : '';
 }
