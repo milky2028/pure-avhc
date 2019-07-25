@@ -1,6 +1,6 @@
 <template>
-  <page-wrapper withPadding>
-    <page-header>All Products</page-header>
+  <page-wrapper withPadding class="wrapper">
+    <page-header class="header">All Products</page-header>
     <div class="products-container">
       <large-product-card v-for="product of products" :key="product.id" :product="product"></large-product-card>
     </div>
@@ -9,10 +9,25 @@
 
 <style scoped>
 .products-container {
+  padding-right: 4vw;
   display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 3vw;
+  grid-row-gap: 6vmax;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.header {
+  margin-bottom: 4vmax;
+}
+
+@media (max-width: 825px) {
+  .products-container {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+  }
 }
 </style>
-
 
 <script lang="ts">
 import Vue from 'vue';
