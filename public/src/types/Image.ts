@@ -6,5 +6,5 @@ export default interface Image {
   alt: string;
   mainImage?: boolean;
   allProductsImage?: boolean;
-  toolbarIamge?: boolean;
+  toolbarImage?: boolean;
 }
