@@ -44,7 +44,7 @@ button {
 }
 
 button:hover,
-button:focus {
+button:active {
   background-color: black;
   color: white;
 }
