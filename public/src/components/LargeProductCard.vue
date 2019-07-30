@@ -4,6 +4,7 @@
     <div>
       <h2 class="subhead larger-font">{{ product.shortName }}</h2>
       <p class="body-text">{{ product.tagline }}</p>
+      <h3 class="body-text price">{{ getPriceRange(product.sizes) }}</h3>
     </div>
   </div>
 </template>
@@ -32,6 +33,12 @@ img {
   font-weight: 700;
 }
 
+.price {
+  font-weight: 600;
+  color: var(--dark-accent);
+  font-size: 28px;
+}
+
 @media (max-width: 825px) {
   img {
     height: calc((100vmax - 230px) / 2);
@@ -46,6 +53,7 @@ import { mapState, mapActions } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import getImageAlt from '../actors/getImageAlt';
 import Image from '../types/Image';
+import Size from '../types/Size';
 
 export default Vue.extend({
   props: {
@@ -79,6 +87,14 @@ export default Vue.extend({
         this.getImageHeight(),
         this.getImageWidth()
       );
+    },
+    getPriceRange(sizes: Size[]) {
+      if (sizes && sizes.length > 1) {
+        const prices = sizes.map((size) => size.price);
+        return `$${Math.min(...prices)} - $${Math.max(...prices)}`;
+      } else {
+        return `$${sizes[0].price}`;
+      }
     }
   },
   beforeMount() {
