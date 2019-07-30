@@ -93,11 +93,6 @@ export default Vue.extend({
   props: {
     product: Object
   },
-  data() {
-    return {
-      selectedSize: {}
-    };
-  },
   computed: {
     ...mapState('base', ['imageUrl', 'images'])
   },
@@ -135,19 +130,24 @@ export default Vue.extend({
       const lowestPriceSize = sizes.find(
         (size) => size.price === Math.min(...sizes.map((s) => s.price))
       );
-      this.size = lowestPriceSize;
       return lowestPriceSize
         ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}s`
         : '';
     },
     getAllSizes(sizes: Size[]) {
-      const stringifiedSize = sizes.map(
-        (size) =>
-          `${size.measurementValue} ${size.measurement} ${size.masterMeasurement}s`
+      const lowestPriceSize = sizes.find(
+        (size) => size.price === Math.min(...sizes.map((s) => s.price))
       );
-      return stringifiedSize.length === 2
-        ? stringifiedSize.join(' and ')
-        : stringifiedSize.join(', ');
+
+      const stringifiedSize = sizes
+        .filter((size) => !(size === lowestPriceSize))
+        .map((size, i) => {
+          const lastIndex = sizes.length - 2;
+          return i === lastIndex
+            ? ` and ${size.measurementValue} ${size.measurement} ${size.masterMeasurement}s`
+            : `${size.measurementValue} ${size.measurement} ${size.masterMeasurement}s`;
+        });
+      return stringifiedSize.join(', ');
     }
   },
   beforeMount() {
