@@ -6,6 +6,10 @@
       <p class="body-text">{{ product.tagline }}</p>
       <h3 class="body-text price">{{ getPriceRange(product.sizes) }}</h3>
     </div>
+    <div class="btn-container">
+      <elianto-button halfBorderRight borderTop borderBottom class="elianto-btn">Add</elianto-button>
+      <elianto-button halfBorderLeft borderTop borderBottom class="elianto-btn">Buy</elianto-button>
+    </div>
   </div>
 </template>
 
@@ -39,6 +43,10 @@ img {
   font-size: 28px;
 }
 
+.elianto-btn {
+  width: 50%;
+}
+
 @media (max-width: 825px) {
   img {
     height: calc((100vmax - 230px) / 2);
@@ -54,8 +62,12 @@ import WorkerFns from '../types/WorkerFns';
 import getImageAlt from '../actors/getImageAlt';
 import Image from '../types/Image';
 import Size from '../types/Size';
+import EliantoButton from '../components/EliantoButton.vue';
 
 export default Vue.extend({
+  components: {
+    EliantoButton
+  },
   props: {
     product: Object
   },
