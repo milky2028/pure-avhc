@@ -1,5 +1,6 @@
 <template>
   <button
+    @click="$emit('btn-click', $event)"
     :class="{ borderLeft, borderRight, borderBottom, borderTop, halfBorderLeft, halfBorderRight }"
   >
     <slot></slot>

@@ -1,5 +1,5 @@
 <template>
-  <button @click="onClick" :class="{ flat, long, fullWidth, raised: !flat }">
+  <button @click="$emit('btn-click', $event)" :class="{ flat, long, fullWidth, raised: !flat }">
     <span>
       <slot></slot>
     </span>
@@ -77,12 +77,6 @@ export default Vue.extend({
     long: Boolean,
     icon: String,
     flat: Boolean
-  },
-  methods: {
-    onClick(e: Event) {
-      const target = e.target as HTMLButtonElement;
-      this.$emit('btn-click', e);
-    }
   }
 });
 </script>
