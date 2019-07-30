@@ -22,7 +22,7 @@
           long
           :fullWidth="windowWidth < 825"
           class="btn"
-          @btn-click="$router.push('/shop')"
+          @btn-click="$router.push('/shop-cbd')"
           v-if="product.sortOrder === 0"
         >Shop Now</av-button>
       </div>

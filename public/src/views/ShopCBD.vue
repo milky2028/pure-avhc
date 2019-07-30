@@ -18,7 +18,7 @@
 }
 
 .header {
-  margin-bottom: 4vmax;
+  margin-bottom: 3vmax;
 }
 
 @media (max-width: 825px) {

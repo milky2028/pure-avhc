@@ -1,6 +1,9 @@
 <template>
   <div class="card-container">
     <img :src="getSrc(product.id)" :alt="getImageAlt(product.id, images)" />
+    <div>
+      <h2 class="subhead larger-font">{{ product.shortName }}</h2>
+    </div>
   </div>
 </template>
 
@@ -9,6 +12,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: 1fr 1fr 75px;
+  grid-row-gap: 2vh;
   max-height: 70vmax;
 }
 
@@ -16,12 +20,20 @@ img {
   object-fit: cover;
   border-radius: var(--rounded-corner);
   width: 100%;
-  height: calc((100vh - 230px - 6vh) / 2);
+  max-width: 100vmin;
+  height: calc((90vh - 230px) / 2);
+}
+
+.larger-font {
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 @media (max-width: 825px) {
   img {
-    height: calc((100vmax - 230px - 6vh) / 2);
+    height: calc((100vmax - 230px) / 2);
   }
 }
 </style>
@@ -53,7 +65,7 @@ export default Vue.extend({
       const windowWidth = window.innerWidth;
       const vw = windowWidth / 100;
       return windowWidth > 825
-        ? Math.round(windowWidth - 14 * vw) / 3
+        ? (windowWidth - 14 * vw) / 3
         : windowWidth - 8 * vw;
     },
     getSrc(id: string) {
