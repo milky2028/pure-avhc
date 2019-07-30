@@ -6,9 +6,12 @@
     <router-link :to="`products/${product.url}`">
       <div>
         <h2 class="subhead larger-font">{{ product.shortName }}</h2>
-        <p
-          class="body-text tagline"
-        >{{ product.tagline }}. Also available in {{ getAllSizes(product.sizes) }}.</p>
+        <p class="body-text tagline">
+          {{ product.tagline }}. Also available in
+          <span
+            class="other-sizes"
+          >{{ getAllSizes(product.sizes) }}</span>.
+        </p>
         <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
         <h3 class="body-text price">{{ getPriceRange(product.sizes) }}</h3>
       </div>
@@ -54,6 +57,11 @@ img {
   font-weight: 700;
 }
 
+.other-sizes {
+  font-weight: 700;
+  color: var(--dark-accent);
+}
+
 .price {
   font-weight: 600;
   color: var(--dark-accent);
@@ -84,6 +92,11 @@ export default Vue.extend({
   },
   props: {
     product: Object
+  },
+  data() {
+    return {
+      selectedSize: {}
+    };
   },
   computed: {
     ...mapState('base', ['imageUrl', 'images'])
@@ -122,7 +135,10 @@ export default Vue.extend({
       const lowestPriceSize = sizes.find(
         (size) => size.price === Math.min(...sizes.map((s) => s.price))
       );
-      return `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}s`;
+      this.size = lowestPriceSize;
+      return lowestPriceSize
+        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}s`
+        : '';
     },
     getAllSizes(sizes: Size[]) {
       const stringifiedSize = sizes.map(
