@@ -1,11 +1,18 @@
 <template>
   <div class="card-container">
-    <img :src="getSrc(product.id)" :alt="getImageAlt(product.id, images)" />
-    <div>
-      <h2 class="subhead larger-font">{{ product.shortName }}</h2>
-      <p class="body-text">{{ product.tagline }}</p>
-      <h3 class="body-text price">{{ getPriceRange(product.sizes) }}</h3>
-    </div>
+    <router-link :to="`products/${product.url}`">
+      <img :src="getSrc(product.id)" :alt="getImageAlt(product.id, images)" />
+    </router-link>
+    <router-link :to="`products/${product.url}`">
+      <div>
+        <h2 class="subhead larger-font">{{ product.shortName }}</h2>
+        <p
+          class="body-text tagline"
+        >{{ product.tagline }}. Also available in {{ getAllSizes(product.sizes) }}.</p>
+        <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
+        <h3 class="body-text price">{{ getPriceRange(product.sizes) }}</h3>
+      </div>
+    </router-link>
     <div class="btn-container">
       <elianto-button halfBorderRight borderTop borderBottom class="elianto-btn">Add</elianto-button>
       <elianto-button halfBorderLeft borderTop borderBottom class="elianto-btn">Buy</elianto-button>
@@ -17,7 +24,7 @@
 .card-container {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: 1fr 1fr 75px;
+  grid-template-rows: 3fr 1fr 75px;
   grid-row-gap: 2vh;
   max-height: 70vmax;
 }
@@ -27,7 +34,7 @@ img {
   border-radius: var(--rounded-corner);
   width: 100%;
   max-width: 100vmin;
-  height: calc((90vh - 230px) / 2);
+  height: 100%;
 }
 
 .larger-font {
@@ -35,22 +42,27 @@ img {
   line-height: 1.2;
   font-size: 24px;
   font-weight: 700;
+  color: var(--dark-accent);
+}
+
+.tagline {
+  padding-bottom: 6px;
+}
+
+.size {
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .price {
   font-weight: 600;
   color: var(--dark-accent);
   font-size: 28px;
+  line-height: 1;
 }
 
 .elianto-btn {
   width: 50%;
-}
-
-@media (max-width: 825px) {
-  img {
-    height: calc((100vmax - 230px) / 2);
-  }
 }
 </style>
 
@@ -63,10 +75,12 @@ import getImageAlt from '../actors/getImageAlt';
 import Image from '../types/Image';
 import Size from '../types/Size';
 import EliantoButton from '../components/EliantoButton.vue';
+import AvButton from '../components/AvButton.vue';
 
 export default Vue.extend({
   components: {
-    EliantoButton
+    EliantoButton,
+    AvButton
   },
   props: {
     product: Object
@@ -101,12 +115,23 @@ export default Vue.extend({
       );
     },
     getPriceRange(sizes: Size[]) {
-      if (sizes && sizes.length > 1) {
-        const prices = sizes.map((size) => size.price);
-        return `$${Math.min(...prices)} - $${Math.max(...prices)}`;
-      } else {
-        return `$${sizes[0].price}`;
-      }
+      const prices = sizes.map((size) => size.price);
+      return `$${Math.min(...prices)}`;
+    },
+    getSize(sizes: Size[]) {
+      const lowestPriceSize = sizes.find(
+        (size) => size.price === Math.min(...sizes.map((s) => s.price))
+      );
+      return `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}s`;
+    },
+    getAllSizes(sizes: Size[]) {
+      const stringifiedSize = sizes.map(
+        (size) =>
+          `${size.measurementValue} ${size.measurement} ${size.masterMeasurement}s`
+      );
+      return stringifiedSize.length === 2
+        ? stringifiedSize.join(' and ')
+        : stringifiedSize.join(', ');
     }
   },
   beforeMount() {
