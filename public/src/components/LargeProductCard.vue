@@ -3,6 +3,7 @@
     <img :src="getSrc(product.id)" :alt="getImageAlt(product.id, images)" />
     <div>
       <h2 class="subhead larger-font">{{ product.shortName }}</h2>
+      <p class="body-text">{{ product.tagline }}</p>
     </div>
   </div>
 </template>
