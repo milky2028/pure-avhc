@@ -105,11 +105,6 @@ export default Vue.extend({
   props: {
     product: Object
   },
-  data() {
-    return {
-      lowestPriceSize: {}
-    };
-  },
   computed: {
     ...mapState('base', ['imageUrl', 'images'])
   },
@@ -148,7 +143,6 @@ export default Vue.extend({
         (size) => size.price === Math.min(...sizes.map((s) => s.price))
       );
 
-      this.lowestPriceSize = lowestPriceSize;
       return lowestPriceSize
         ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
         : '';
