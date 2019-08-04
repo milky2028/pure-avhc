@@ -81,7 +81,7 @@ ul {
   font-family: var(--mukta-malar);
   font-weight: 700;
   list-style: disc;
-  padding: 5px 0 24px 24px;
+  padding: 5px 0 12px 24px;
   color: var(--dark-accent);
 }
 </style>
