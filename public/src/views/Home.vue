@@ -11,7 +11,9 @@
       >
         <div class="tagline-container">
           <h1 class="subhead larger-font">{{ product.tagline }}</h1>
-          <h2 class="body-text subtag">{{ product.subtag }}</h2>
+          <h2 class="body-text subtag">
+            <span>{{ product.subtag }}</span>
+          </h2>
           <av-button
             v-if="product.sortOrder !== 0 || windowWidth > 825"
             flat
@@ -77,6 +79,7 @@
   margin-block-end: 0;
   margin-top: 5px;
   text-align: right;
+  padding: 0 5px;
 }
 
 .cart-btn {

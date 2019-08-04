@@ -15,7 +15,7 @@ button {
   text-transform: uppercase;
   font-family: var(--elianto);
   font-size: 26px;
-  transition: 100ms ease-in;
+  transition: 50ms var(--mat-ease);
   cursor: pointer;
 }
 

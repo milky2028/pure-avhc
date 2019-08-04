@@ -6,14 +6,16 @@
     <router-link :to="`products/${product.url}`">
       <div>
         <h2 class="subhead larger-font">{{ product.shortName }}</h2>
-        <p class="body-text tagline">
-          {{ product.tagline }}. Also available in
-          <span
-            class="other-sizes"
-          >{{ getAllSizes(product.sizes) }}</span>.
-        </p>
+        <p class="body-text tagline">{{ product.tagline }}.</p>
+        <p class="body-text">Also available in:</p>
+        <ul class="body-text">
+          <li
+            v-for="{ price, measurementValue, measurement, masterMeasurement } in getFilteredSizes(product.sizes)"
+            :key="price"
+          >{{ measurementValue }} {{ measurement }} {{ masterMeasurement }}s</li>
+        </ul>
         <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
-        <h3 class="body-text price">{{ getPriceRange(product.sizes) }}</h3>
+        <h3 class="body-text price">{{ getPrice(product.sizes) }}</h3>
       </div>
     </router-link>
     <div class="btn-container">
@@ -29,7 +31,8 @@
   grid-auto-flow: column;
   grid-template-rows: 3fr 1fr 75px;
   grid-row-gap: 2vh;
-  max-height: 70vmax;
+  max-height: calc(90vh - 102px - 3vmax);
+  min-height: 450px;
 }
 
 img {
@@ -50,6 +53,7 @@ img {
 
 .tagline {
   padding-bottom: 6px;
+  font-size: 20px;
 }
 
 .size {
@@ -72,6 +76,14 @@ img {
 .elianto-btn {
   width: 50%;
 }
+
+ul {
+  font-family: var(--mukta-malar);
+  font-weight: 700;
+  list-style: disc;
+  padding: 5px 0 24px 24px;
+  color: var(--dark-accent);
+}
 </style>
 
 <script lang="ts">
@@ -93,6 +105,11 @@ export default Vue.extend({
   props: {
     product: Object
   },
+  data() {
+    return {
+      lowestPriceSize: {}
+    };
+  },
   computed: {
     ...mapState('base', ['imageUrl', 'images'])
   },
@@ -101,7 +118,7 @@ export default Vue.extend({
     getImageAlt,
     getImageHeight() {
       const vh = window.innerHeight / 100;
-      const fixedHeights = 230;
+      const fixedHeights = 240;
       return (window.innerHeight - fixedHeights - 6 * vh) / 2;
     },
     getImageWidth() {
@@ -122,7 +139,7 @@ export default Vue.extend({
         this.getImageWidth()
       );
     },
-    getPriceRange(sizes: Size[]) {
+    getPrice(sizes: Size[]) {
       const prices = sizes.map((size) => size.price);
       return `$${Math.min(...prices)}`;
     },
@@ -130,24 +147,16 @@ export default Vue.extend({
       const lowestPriceSize = sizes.find(
         (size) => size.price === Math.min(...sizes.map((s) => s.price))
       );
+
+      this.lowestPriceSize = lowestPriceSize;
       return lowestPriceSize
-        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}s`
+        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
         : '';
     },
-    getAllSizes(sizes: Size[]) {
-      const lowestPriceSize = sizes.find(
-        (size) => size.price === Math.min(...sizes.map((s) => s.price))
+    getFilteredSizes(sizes: Size[]) {
+      return sizes.filter(
+        (size) => !(size.price === Math.min(...sizes.map((s) => s.price)))
       );
-
-      const stringifiedSize = sizes
-        .filter((size) => !(size === lowestPriceSize))
-        .map((size, i) => {
-          const lastIndex = sizes.length - 2;
-          return i === lastIndex
-            ? ` and ${size.measurementValue} ${size.measurement} ${size.masterMeasurement}s`
-            : `${size.measurementValue} ${size.measurement} ${size.masterMeasurement}s`;
-        });
-      return stringifiedSize.join(', ');
     }
   },
   beforeMount() {

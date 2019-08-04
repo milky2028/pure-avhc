@@ -13,7 +13,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-column-gap: 3vw;
-  grid-row-gap: 6vmax;
+  grid-row-gap: 8vmax;
   grid-template-columns: repeat(3, 1fr);
 }
 
