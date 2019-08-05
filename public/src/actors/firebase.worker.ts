@@ -29,7 +29,16 @@ class FirebaseWorker {
             ...doc.data(),
             id: doc.id
           }));
-          postMessage({ collection, data });
+          const dataWithTimestamps = data.map((d: { [key: string]: any }) =>
+            Object.entries(d).reduce(
+              (acc, [key, value]) => ({
+                ...acc,
+                [key]: value.toDate ? value.toDate() : value
+              }),
+              {}
+            )
+          );
+          postMessage({ collection, data: dataWithTimestamps });
         });
     } catch (e) {
       throw e;
@@ -52,7 +61,16 @@ class FirebaseWorker {
           ...doc.data(),
           id: doc.id
         }));
-        postMessage({ collection, data });
+        const dataWithTimestamps = data.map((d: { [key: string]: any }) =>
+          Object.entries(d).reduce(
+            (acc, [key, value]) => ({
+              ...acc,
+              [key]: value.toDate ? value.toDate() : value
+            }),
+            {}
+          )
+        );
+        postMessage({ collection, data: dataWithTimestamps });
       });
     } catch (e) {
       throw e;
