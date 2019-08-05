@@ -19,7 +19,13 @@
       </div>
     </router-link>
     <div class="btn-container">
-      <elianto-button halfBorderRight borderTop borderBottom class="elianto-btn">Add</elianto-button>
+      <elianto-button
+        halfBorderRight
+        borderTop
+        borderBottom
+        @btn-click="addToCart(product.sizes)"
+        class="elianto-btn"
+      >{{ getAddBtnText() }}</elianto-button>
       <elianto-button halfBorderLeft borderTop borderBottom class="elianto-btn">Buy</elianto-button>
     </div>
   </div>
@@ -89,13 +95,16 @@ ul {
 <script lang="ts">
 import Vue from 'vue';
 import getImageUrl from '../actors/getImageUrl';
-import { mapState, mapActions } from 'vuex';
+import createRandomId from '../actors/createRandomId';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import getImageAlt from '../actors/getImageAlt';
 import Image from '../types/Image';
 import Size from '../types/Size';
 import EliantoButton from '../components/EliantoButton.vue';
 import AvButton from '../components/AvButton.vue';
+import CartItem from '../types/CartItem';
+import Product from '../types/Product';
 
 export default Vue.extend({
   components: {
@@ -106,10 +115,12 @@ export default Vue.extend({
     product: Object
   },
   computed: {
-    ...mapState('base', ['imageUrl', 'images'])
+    ...mapState('base', ['imageUrl', 'images']),
+    ...mapState('cart', ['cartItems'])
   },
   methods: {
     ...mapActions('base', ['getFirestoreData']),
+    ...mapMutations('cart', ['addItemToCart']),
     getImageAlt,
     getImageHeight() {
       const vh = window.innerHeight / 100;
@@ -149,8 +160,31 @@ export default Vue.extend({
     },
     getFilteredSizes(sizes: Size[]) {
       return sizes.filter(
-        (size) => !(size.price === Math.min(...sizes.map((s) => s.price)))
+        (size) => size.price !== Math.min(...sizes.map((s) => s.price))
       );
+    },
+    addToCart(sizes: Size[]) {
+      const lowestPriceSize = sizes.find(
+        (size) => size.price === Math.min(...sizes.map((s) => s.price))
+      );
+
+      const item: CartItem = {
+        id: createRandomId(),
+        price: lowestPriceSize!.price,
+        quantity: 1,
+        product: this.product.id,
+        size: lowestPriceSize!.masterMeasurement,
+        strain: ''
+      };
+      this.addItemToCart(item);
+    },
+    getAddBtnText() {
+      const productInCart = this.cartItems.find(
+        ({ product }: CartItem) => product === this.product.id
+      );
+      return productInCart && productInCart.quantity
+        ? productInCart.quantity
+        : 'Add';
     }
   },
   beforeMount() {

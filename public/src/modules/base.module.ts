@@ -3,15 +3,12 @@ import Worker from 'worker-loader!../actors/firebase.worker';
 import AppBase, { Logo } from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
+import setState from '../actors/setState';
+import Product from '@/types/Product';
 
-export interface Context {
+interface Context {
   commit: Commit;
   state?: AppBase;
-}
-
-interface Mutation {
-  type: string;
-  data: any;
 }
 
 const BaseModule = {
@@ -43,8 +40,7 @@ const BaseModule = {
     images: []
   },
   mutations: {
-    setState: (state: AppBase, { type, data }: Mutation) =>
-      (state[type] = data),
+    setState,
     toggleOverlay: (state: AppBase) =>
       (state.isOverlayShowing = !state.isOverlayShowing),
     toggleDisclaimer: (state: AppBase) =>
@@ -53,7 +49,7 @@ const BaseModule = {
       (state.isNavbarExpanded = !state.isNavbarExpanded)
   },
   actions: {
-    async getFirestoreData({ commit }: Context, workerMsg: WorkerFns) {
+    getFirestoreData: async ({ commit }: Context, workerMsg: WorkerFns) => {
       const worker = new Worker();
       worker.postMessage(workerMsg);
       worker.addEventListener('message', (msg: MessageEvent) => {
@@ -71,6 +67,17 @@ const BaseModule = {
             commit('setState', { type: 'appLogoFull', data: fullLogo });
             break;
           }
+          // case 'products': {
+          //   const data = firestoreData.map((product: Product) => ({
+          //     ...product,
+          //     dateCreated:
+          //       product && product.dateCreated
+          //         ? product.dateCreated.toDate()
+          //         : null
+          //   }));
+          //   commit('setState', { type: 'products', data });
+          //   break;
+          // }
           default: {
             commit('setState', {
               type: msg.data.collection,

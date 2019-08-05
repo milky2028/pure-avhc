@@ -117,6 +117,7 @@ body {
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
 import AvDisclaimer from './components/AvDisclaimer.vue';
+import { mapActions } from 'vuex';
 
 export default Vue.extend({
   components: {
@@ -124,6 +125,12 @@ export default Vue.extend({
     AvOverlay: () =>
       import(/* webpackChunkName: "AvOverlay" */ './components/AvOverlay.vue'),
     AvDisclaimer
+  },
+  methods: {
+    ...mapActions('cart', ['setCartStateFromSave'])
+  },
+  mounted() {
+    this.setCartStateFromSave();
   }
 });
 </script>

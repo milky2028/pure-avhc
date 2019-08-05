@@ -58,13 +58,13 @@
             @click="toggleNavAndOverlay"
           >
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span v-if="windowWidth > 825 && !(i === (mainMenu.length -1))">&nbsp;/&nbsp;</span>
+            <span v-if="windowWidth > 825 && i !== (mainMenu.length -1)">&nbsp;/&nbsp;</span>
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
           <li v-for="(menuLink, i) of submenu" :key="menuLink.name" @click="toggleNavAndOverlay">
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span v-if="windowWidth > 825 && !(i === (submenu.length - 1))">&nbsp;/&nbsp;</span>
+            <span v-if="windowWidth > 825 && i !== (submenu.length - 1)">&nbsp;/&nbsp;</span>
           </li>
         </ul>
       </div>
