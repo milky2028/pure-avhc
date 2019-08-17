@@ -20,13 +20,10 @@
     </router-link>
     <div class="btn-container">
       <elianto-button
-        halfBorderRight
         borderTop
         borderBottom
         @btn-click="addToCart(product.sizes)"
-        class="elianto-btn"
       >{{ getAddBtnText() }}</elianto-button>
-      <elianto-button halfBorderLeft borderTop borderBottom class="elianto-btn">Buy</elianto-button>
     </div>
   </div>
 </template>
@@ -77,10 +74,6 @@ img {
   color: var(--dark-accent);
   font-size: 28px;
   line-height: 1;
-}
-
-.elianto-btn {
-  width: 50%;
 }
 
 ul {
@@ -184,7 +177,7 @@ export default Vue.extend({
       );
       return productInCart && productInCart.quantity
         ? productInCart.quantity
-        : 'Add';
+        : 'Add to Cart';
     }
   },
   beforeMount() {
