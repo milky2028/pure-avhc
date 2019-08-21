@@ -44,18 +44,18 @@ const CartModule = {
         state.cartItems = [...state.cartItems, item];
       }
 
-      idb.clear();
+      idb.set('cart', {});
       idb.set('cart', state.cartItems);
     },
     removeItemFromCart: (state: CartModuleState, id: string) => {
       state.cartItems = state.cartItems.filter((item) => item.id !== id);
 
-      idb.clear();
+      idb.set('cart', {});
       idb.set('cart', state.cartItems);
     },
     clearCart: (state: CartModuleState) => {
       state.cartItems = [];
-      idb.clear();
+      idb.set('cart', {});
     }
   },
   actions: {
