@@ -1,10 +1,10 @@
 <template>
-  <button :class="$style['icon-wrapper']" @click="onClick">
+  <button class="icon-wrapper" :class="{ black }" @click="onClick">
     <slot></slot>
   </button>
 </template>
 
-<style module>
+<style scoped>
 .icon-wrapper {
   font-family: 'Material Icons';
   color: white;
@@ -16,12 +16,19 @@
 .icon-wrapper:focus {
   color: var(--light-accent);
 }
+
+.black {
+  color: black;
+}
 </style>
 
 <script lang="ts">
 import Vue from 'vue';
 
 export default Vue.extend({
+  props: {
+    black: Boolean
+  },
   methods: {
     onClick(e: Event) {
       const target = e.target as HTMLButtonElement;

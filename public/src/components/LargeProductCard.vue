@@ -19,11 +19,19 @@
       </div>
     </router-link>
     <div class="btn-container">
-      <elianto-button
-        borderTop
-        borderBottom
-        @btn-click="addToCart(product.sizes)"
-      >{{ getAddBtnText() }}</elianto-button>
+      <elianto-button borderTop borderBottom noHover @btn-click="addToCart(product.sizes)">
+        <span class="add-or-subtract-container">
+          <av-icon-button
+            v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
+            black
+          >remove_circle_outline</av-icon-button>
+          <span class="btn-text">{{ getAddBtnText() }}</span>
+          <av-icon-button
+            v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
+            black
+          >add_circle_outline</av-icon-button>
+        </span>
+      </elianto-button>
     </div>
   </div>
 </template>
@@ -83,6 +91,16 @@ ul {
   padding: 5px 0 12px 24px;
   color: var(--dark-accent);
 }
+
+.add-or-subtract-container {
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.btn-text {
+  display: block;
+}
 </style>
 
 <script lang="ts">
@@ -98,11 +116,13 @@ import EliantoButton from '../components/EliantoButton.vue';
 import AvButton from '../components/AvButton.vue';
 import CartItem from '../types/CartItem';
 import Product from '../types/Product';
+import AvIconButton from '../components/AvIconButton.vue';
 
 export default Vue.extend({
   components: {
     EliantoButton,
-    AvButton
+    AvButton,
+    AvIconButton
   },
   props: {
     product: Object
@@ -171,10 +191,13 @@ export default Vue.extend({
       };
       this.addItemToCart(item);
     },
-    getAddBtnText() {
-      const productInCart = this.cartItems.find(
+    getProductInCart(id: string) {
+      return this.cartItems.find(
         ({ product }: CartItem) => product === this.product.id
       );
+    },
+    getAddBtnText() {
+      const productInCart = this.getProductInCart(this.product.id);
       return productInCart && productInCart.quantity
         ? productInCart.quantity
         : 'Add to Cart';

@@ -1,14 +1,15 @@
 <template>
   <button
+    class="elianto-btn"
     @click="$emit('btn-click', $event)"
-    :class="{ borderLeft, borderRight, borderBottom, borderTop, halfBorderLeft, halfBorderRight }"
+    :class="{ borderLeft, borderRight, borderBottom, borderTop, halfBorderLeft, halfBorderRight, hover: !noHover }"
   >
     <slot></slot>
   </button>
 </template>
 
 <style scoped>
-button {
+.elianto-btn {
   width: 100%;
   background-color: white;
   padding: 18px;
@@ -43,8 +44,8 @@ button {
   border-bottom: 3px black solid;
 }
 
-button:hover,
-button:active {
+.hover:hover,
+.hover:active {
   background-color: black;
   color: white;
 }
@@ -60,7 +61,8 @@ export default Vue.extend({
     halfBorderLeft: Boolean,
     halfBorderRight: Boolean,
     borderBottom: Boolean,
-    borderTop: Boolean
+    borderTop: Boolean,
+    noHover: Boolean
   }
 });
 </script>
