@@ -19,7 +19,7 @@
       </div>
     </router-link>
     <div class="btn-container">
-      <elianto-button borderTop borderBottom noHover @btn-click="addToCart(product.sizes)">
+      <elianto-button borderTop borderBottom noHover @btn-click="conditionalAddToCart">
         <span class="add-or-subtract-container">
           <av-icon-button
             v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
@@ -27,6 +27,7 @@
           >remove_circle_outline</av-icon-button>
           <span class="btn-text">{{ getAddBtnText() }}</span>
           <av-icon-button
+            @icon-click="addToCart(product.sizes)"
             v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
             black
           >add_circle_outline</av-icon-button>
@@ -201,6 +202,12 @@ export default Vue.extend({
       return productInCart && productInCart.quantity
         ? productInCart.quantity
         : 'Add to Cart';
+    },
+    conditionalAddToCart() {
+      const product = this.getProductInCart(this.product.id);
+      if (!product || product.quantity === 0) {
+        this.addToCart(this.product.sizes);
+      }
     }
   },
   beforeMount() {
