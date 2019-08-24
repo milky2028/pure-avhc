@@ -15,13 +15,17 @@ button {
   text-transform: uppercase;
   font-family: var(--mukta-malar);
   box-shadow: var(--basic-shadow);
-  padding: 6px 12px;
+  padding: 10px;
   font-size: 18px;
   border-radius: var(--rounded-corner);
   font-weight: 500;
   align-items: center;
   justify-content: space-between;
   transition: all 150ms var(--mat-ease);
+}
+
+span {
+  line-height: 1;
 }
 
 button:hover.raised {
@@ -50,7 +54,7 @@ button:active.flat {
 }
 
 .long {
-  padding: 6px 60px;
+  padding: 12px 60px;
 }
 
 .fullWidth {

@@ -4,7 +4,10 @@
       <h2 class="subhead checkout">
         <router-link to="/cart">Checkout ></router-link>
       </h2>
-      <av-input class="subscribe" width="350px" placeholder="Email: Get 10% off today"></av-input>
+      <div class="subscribe">
+        <av-input width="350px" placeholder="Email: Get 10% off today"></av-input>
+        <av-button>Subscribe</av-button>
+      </div>
     </div>
   </transition>
 </template>
@@ -34,6 +37,9 @@
   grid-area: main;
   justify-self: start;
   grid-area: main;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1vw;
 }
 </style>
 
@@ -41,10 +47,12 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 import AvInput from '../components/AvInput.vue';
+import AvButton from '../components/AvButton.vue';
 
 export default Vue.extend({
   components: {
-    AvInput
+    AvInput,
+    AvButton
   },
   computed: {
     ...mapState('cart', ['cartItems'])
