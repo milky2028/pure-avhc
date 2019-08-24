@@ -47,8 +47,15 @@ const CartModule = {
       idb.set('cart', {});
       idb.set('cart', state.cartItems);
     },
+    decreaseCartItemQuantity: (state: CartModuleState, id: string) => {
+      const cartItem = state.cartItems.find(({ product }) => product === id);
+      cartItem!.quantity--;
+
+      idb.set('cart', {});
+      idb.set('cart', state.cartItems);
+    },
     removeItemFromCart: (state: CartModuleState, id: string) => {
-      state.cartItems = state.cartItems.filter((item) => item.id !== id);
+      state.cartItems = state.cartItems.filter((item) => item.product !== id);
 
       idb.set('cart', {});
       idb.set('cart', state.cartItems);

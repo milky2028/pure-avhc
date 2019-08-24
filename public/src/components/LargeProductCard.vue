@@ -19,13 +19,14 @@
       </div>
     </router-link>
     <div class="btn-container">
-      <elianto-button borderTop borderBottom noHover @btn-click="conditionalAddToCart">
+      <elianto-button borderTop borderBottom noHover>
         <span class="add-or-subtract-container">
           <av-icon-button
+            @icon-click="decreaseCartItemQuantity(product.id)"
             v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
             black
           >remove_circle_outline</av-icon-button>
-          <span class="btn-text">{{ getAddBtnText() }}</span>
+          <span @click="addToCart(product.sizes)" class="btn-text">{{ getAddBtnText() }}</span>
           <av-icon-button
             @icon-click="addToCart(product.sizes)"
             v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
@@ -134,7 +135,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('base', ['getFirestoreData']),
-    ...mapMutations('cart', ['addItemToCart']),
+    ...mapMutations('cart', ['addItemToCart', 'decreaseCartItemQuantity']),
     getImageAlt,
     getImageHeight() {
       const vh = window.innerHeight / 100;
@@ -183,7 +184,6 @@ export default Vue.extend({
       );
 
       const item: CartItem = {
-        id: createRandomId(),
         price: lowestPriceSize!.price,
         quantity: 1,
         product: this.product.id,
@@ -202,12 +202,6 @@ export default Vue.extend({
       return productInCart && productInCart.quantity
         ? productInCart.quantity
         : 'Add to Cart';
-    },
-    conditionalAddToCart() {
-      const product = this.getProductInCart(this.product.id);
-      if (!product || product.quantity === 0) {
-        this.addToCart(this.product.sizes);
-      }
     }
   },
   beforeMount() {
