@@ -4,7 +4,7 @@
     <router-view />
     <av-overlay></av-overlay>
     <av-disclaimer></av-disclaimer>
-    <checkout-prompt v-if="cartItems && cartItems.length > 0"></checkout-prompt>
+    <checkout-prompt></checkout-prompt>
   </main>
 </template>
 

@@ -1,7 +1,11 @@
 <template>
-  <div class="prompt">
-    <h2 class="subhead checkout">Checkout ></h2>
-  </div>
+  <transition name="slide-y">
+    <div class="prompt" v-if="cartItems && cartItems.length > 0">
+      <h2 class="subhead checkout">
+        <router-link to="/cart">Checkout ></router-link>
+      </h2>
+    </div>
+  </transition>
 </template>
 
 <style scoped>
@@ -28,5 +32,9 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 
-export default Vue.extend({});
+export default Vue.extend({
+  computed: {
+    ...mapState('cart', ['cartItems'])
+  }
+});
 </script>
