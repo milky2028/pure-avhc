@@ -5,8 +5,13 @@
         <router-link to="/cart">Checkout ></router-link>
       </h2>
       <div class="subscribe">
-        <av-input width="350px" placeholder="Email: Get 10% off today"></av-input>
-        <av-button>Subscribe</av-button>
+        <av-input
+          @enter="onSubscribe($event)"
+          @on-input="email = $event"
+          width="350px"
+          placeholder="Email: Get 10% off today"
+        ></av-input>
+        <av-button @btn-click="onSubscribe(email)">Subscribe</av-button>
       </div>
     </div>
   </transition>
@@ -56,6 +61,16 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('cart', ['cartItems'])
+  },
+  data() {
+    return {
+      email: ''
+    };
+  },
+  methods: {
+    onSubscribe(event: any) {
+      console.log(event);
+    }
   }
 });
 </script>

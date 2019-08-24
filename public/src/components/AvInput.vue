@@ -1,7 +1,14 @@
 <template>
   <div>
     <label v-if="label" :for="fieldId">{{ label }}</label>
-    <input :placeholder="placeholder" :class="{ darkBackground }" :style="{ width }" />
+    <input
+      @input="$emit('on-input', $event.target.value)"
+      @keyup.enter="$emit('enter', $event.target.value)"
+      @blur="dirty = true"
+      :placeholder="placeholder"
+      :class="{ darkBackground, dirty }"
+      :style="{ width }"
+    />
   </div>
 </template>
 
@@ -26,6 +33,11 @@ export default Vue.extend({
     label: String,
     darkBackground: Boolean,
     width: String
+  },
+  data() {
+    return {
+      dirty: false
+    };
   }
 });
 </script>
