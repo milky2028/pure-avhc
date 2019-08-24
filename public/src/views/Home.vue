@@ -18,6 +18,7 @@
             v-if="product.sortOrder !== 0 || windowWidth > 825"
             flat
             class="cart-btn"
+            @btn-click="$router.push(`/products/${product.url}`)"
           >Shop ></av-button>
         </div>
         <av-button
@@ -170,25 +171,6 @@ export default Vue.extend({
           this.getImageHeight(sortOrder)
         )})`
       };
-    },
-    addToCart(product: Product) {
-      if (product.sortOrder === 0) {
-        const lowestPriceSize = product.sizes.find(
-          (size) =>
-            size.price === Math.min(...product.sizes.map((s) => s.price))
-        );
-
-        const item: CartItem = {
-          price: lowestPriceSize!.price,
-          quantity: 1,
-          product: product.id,
-          size: lowestPriceSize!.masterMeasurement,
-          strain: 'any'
-        };
-        this.addItemToCart(item);
-      } else {
-        this.$router.push(`/products/${product.url}`);
-      }
     }
   },
   beforeMount() {
