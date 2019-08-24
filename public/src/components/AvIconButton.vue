@@ -6,10 +6,11 @@
 
 <style scoped>
 .icon-wrapper {
-  font-family: 'Material Icons';
+  font-family: 'Material Icons' !important;
   color: white;
   font-size: 22px;
   transition: color 100ms var(--mat-ease);
+  text-transform: none !important;
 }
 
 .icon-wrapper:hover,
