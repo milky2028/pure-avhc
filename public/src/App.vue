@@ -28,6 +28,7 @@
   --dark-accent: #004d40;
   --dark-accent-light-shade: #006352;
   --dark-accent-dark-shade: #004a3e;
+  --warn: #d32f2f;
   --light-accent-faint-shade: rgba(37, 172, 106, 0.08);
   --light-accent-light-shade: rgba(37, 172, 106, 0.15);
   --snackbar-color: #2e2e2e;

@@ -23,8 +23,8 @@ const CartModule = {
     cartItems: []
   },
   getters: {
-    computedQuantity: (state: CartModuleState) =>
-      state.cartItems.length > 0
+    totalItemsInCart: (state: CartModuleState) =>
+      state.cartItems && state.cartItems.length > 0
         ? state.cartItems.reduce((acc, { quantity }) => acc + quantity, 0)
         : 0,
     subtotal: (state: CartModuleState) =>

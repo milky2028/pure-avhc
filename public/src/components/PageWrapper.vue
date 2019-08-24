@@ -10,7 +10,7 @@
 }
 
 .withPadding {
-  padding: calc(55px + 3vh) 0 2vh 4vw;
+  padding: calc(55px + 2vh) 0 2vh 4vw;
 }
 </style>
 

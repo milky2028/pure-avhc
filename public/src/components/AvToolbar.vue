@@ -15,12 +15,14 @@
       </transition>
     </router-link>
     <div class="right-nav-container">
-      <av-icon-button>
-        <router-link
-          @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
-          to="/cart"
-        >shopping_cart</router-link>
-      </av-icon-button>
+      <router-link
+        class="cart-button"
+        @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
+        to="/cart"
+      >
+        <av-icon-button class="cart-icon">shopping_cart</av-icon-button>
+        <av-badge class="badge"></av-badge>
+      </router-link>
       <av-icon-button>
         <router-link
           @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
@@ -126,6 +128,20 @@
 .right-nav-container {
   display: flex;
   justify-content: space-between;
+  grid-area: right;
+}
+
+.cart-button {
+  display: grid;
+  grid-template-areas: 'main';
+}
+
+.badge {
+  grid-area: main;
+}
+
+.cart-icon {
+  grid-area: main;
 }
 
 abbr {
@@ -239,10 +255,6 @@ a:hover {
   justify-self: start;
 }
 
-.right-nav-container {
-  grid-area: right;
-}
-
 @media (max-width: 1200px) {
   .top-menu-links {
     font-size: 14px;
@@ -321,6 +333,7 @@ a:hover {
 import Vue from 'vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import ProductCard from '../components/ProductCard.vue';
+import AvBadge from '../components/AvBadge.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import { SubmenuItem } from '../types/MenuItem';
@@ -331,7 +344,8 @@ import Image from '../types/Image';
 export default Vue.extend({
   components: {
     AvIconButton,
-    ProductCard
+    ProductCard,
+    AvBadge
   },
   data() {
     return {
