@@ -18,7 +18,7 @@
             v-if="product.sortOrder !== 0 || windowWidth > 825"
             flat
             class="cart-btn"
-          >{{ product.sortOrder === 0 ? 'Add to Cart' : 'Shop' }} ></av-button>
+          >Shop ></av-button>
         </div>
         <av-button
           long
@@ -26,7 +26,7 @@
           class="btn"
           @btn-click="$router.push('/shop-cbd')"
           v-if="product.sortOrder === 0"
-        >Shop Now</av-button>
+        >Shop All Products</av-button>
       </div>
     </div>
   </page-wrapper>
@@ -122,12 +122,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import getImageUrl from '../actors/getImageUrl';
 import getImageAlt from '../actors/getImageAlt';
 import AvButton from '../components/AvButton.vue';
 import Image from '../types/Image';
+import Size from '../types/Size';
+import CartItem from '../types/CartItem';
+import Product from '../types/Product';
 
 export default Vue.extend({
   components: {
@@ -144,6 +147,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('base', ['getFirestoreData']),
+    ...mapMutations('cart', ['addItemToCart']),
     getImageAlt,
     getImageHeight(sortOrder: number): number {
       const navHeight = 55;
@@ -166,6 +170,25 @@ export default Vue.extend({
           this.getImageHeight(sortOrder)
         )})`
       };
+    },
+    addToCart(product: Product) {
+      if (product.sortOrder === 0) {
+        const lowestPriceSize = product.sizes.find(
+          (size) =>
+            size.price === Math.min(...product.sizes.map((s) => s.price))
+        );
+
+        const item: CartItem = {
+          price: lowestPriceSize!.price,
+          quantity: 1,
+          product: product.id,
+          size: lowestPriceSize!.masterMeasurement,
+          strain: 'any'
+        };
+        this.addItemToCart(item);
+      } else {
+        this.$router.push(`/products/${product.url}`);
+      }
     }
   },
   beforeMount() {

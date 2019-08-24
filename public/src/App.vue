@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main :class="{ bottomPadding: cartItems && cartItems.length > 0 }">
     <av-toolbar></av-toolbar>
     <router-view />
     <av-overlay></av-overlay>
@@ -75,7 +75,7 @@ body {
   overscroll-behavior-y: none;
 }
 
-main {
+.bottomPadding {
   padding-bottom: 55px;
 }
 

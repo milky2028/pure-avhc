@@ -26,9 +26,9 @@
             v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
             black
           >remove_circle_outline</av-icon-button>
-          <span @click="addToCart(product.sizes)" class="btn-text">{{ getAddBtnText() }}</span>
+          <span @click="addToCart(product)" class="btn-text">{{ getAddBtnText() }}</span>
           <av-icon-button
-            @icon-click="addToCart(product.sizes)"
+            @icon-click="addToCart(product)"
             v-if="getProductInCart(product.id) && getProductInCart(product.id).quantity > 0"
             black
           >add_circle_outline</av-icon-button>
@@ -178,17 +178,17 @@ export default Vue.extend({
         (size) => size.price !== Math.min(...sizes.map((s) => s.price))
       );
     },
-    addToCart(sizes: Size[]) {
-      const lowestPriceSize = sizes.find(
-        (size) => size.price === Math.min(...sizes.map((s) => s.price))
+    addToCart(product: Product) {
+      const lowestPriceSize = product.sizes.find(
+        (size) => size.price === Math.min(...product.sizes.map((s) => s.price))
       );
 
       const item: CartItem = {
         price: lowestPriceSize!.price,
         quantity: 1,
-        product: this.product.id,
+        product: product.id,
         size: lowestPriceSize!.masterMeasurement,
-        strain: ''
+        strain: 'any'
       };
       this.addItemToCart(item);
     },

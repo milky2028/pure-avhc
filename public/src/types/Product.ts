@@ -8,7 +8,7 @@ export default interface Product {
   featuredOnHome: boolean;
   name: string;
   site: Site[];
-  size: Size[];
+  sizes: Size[];
   sortOrder: number;
   subtag: string;
   tagline: string;

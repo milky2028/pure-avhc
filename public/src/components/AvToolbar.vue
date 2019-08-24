@@ -8,10 +8,14 @@
     </transition>
     <router-link class="logo-link" to="/">
       <transition name="fade">
-        <h1 class="logo-text" v-if="appLogoMin.type === 'text' && !isNavbarExpanded">
+        <h1 class="logo-text" v-if="appLogoMin && appLogoMin.type === 'text' && !isNavbarExpanded">
           <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
         </h1>
-        <img v-if="appLogoMin.type === 'image'" :src="appLogoMin.url" :alt="appLogoMin.alt" />
+        <img
+          v-if="appLogoMin && appLogoMin.type === 'image'"
+          :src="appLogoMin.url"
+          :alt="appLogoMin.alt"
+        />
       </transition>
     </router-link>
     <div class="right-nav-container">
