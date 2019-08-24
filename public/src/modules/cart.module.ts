@@ -12,6 +12,11 @@ interface CartModuleState {
   cartItems: CartItem[];
 }
 
+const setCartItemsInIdb = (cartItems: CartItem[]) => {
+  idb.set('cart', []);
+  idb.set('cart', cartItems);
+};
+
 const CartModule = {
   namespaced: true,
   state: {
@@ -44,25 +49,26 @@ const CartModule = {
         state.cartItems = [...state.cartItems, item];
       }
 
-      idb.set('cart', {});
-      idb.set('cart', state.cartItems);
+      setCartItemsInIdb(state.cartItems);
     },
     decreaseCartItemQuantity: (state: CartModuleState, id: string) => {
       const cartItem = state.cartItems.find(({ product }) => product === id);
-      cartItem!.quantity--;
+      if (cartItem!.quantity === 1) {
+        state.cartItems = state.cartItems.filter((item) => item.product !== id);
+      } else {
+        cartItem!.quantity--;
+      }
 
-      idb.set('cart', {});
-      idb.set('cart', state.cartItems);
+      setCartItemsInIdb(state.cartItems);
     },
     removeItemFromCart: (state: CartModuleState, id: string) => {
       state.cartItems = state.cartItems.filter((item) => item.product !== id);
 
-      idb.set('cart', {});
-      idb.set('cart', state.cartItems);
+      setCartItemsInIdb(state.cartItems);
     },
     clearCart: (state: CartModuleState) => {
       state.cartItems = [];
-      idb.set('cart', {});
+      setCartItemsInIdb(state.cartItems);
     }
   },
   actions: {

@@ -1,9 +1,10 @@
 <template>
-  <main>
+  <main :class="{ bottomPadding: cartItems && cartItems.length > 0 }">
     <av-toolbar></av-toolbar>
     <router-view />
     <av-overlay></av-overlay>
     <av-disclaimer></av-disclaimer>
+    <checkout-prompt v-if="cartItems && cartItems.length > 0"></checkout-prompt>
   </main>
 </template>
 
@@ -73,6 +74,10 @@ body {
   overscroll-behavior-y: none;
 }
 
+.bottomPadding {
+  padding-bottom: 55px;
+}
+
 .subhead {
   font-size: 22px;
   font-family: var(--mukta-malar);
@@ -117,14 +122,21 @@ body {
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
 import AvDisclaimer from './components/AvDisclaimer.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default Vue.extend({
   components: {
     AvToolbar,
+    AvDisclaimer,
     AvOverlay: () =>
       import(/* webpackChunkName: "AvOverlay" */ './components/AvOverlay.vue'),
-    AvDisclaimer
+    CheckoutPrompt: () =>
+      import(
+        /* webpackChunkName: "CheckoutPrompt" */ './components/CheckoutPrompt.vue'
+      )
+  },
+  computed: {
+    ...mapState('cart', ['cartItems'])
   },
   methods: {
     ...mapActions('cart', ['setCartStateFromSave'])
