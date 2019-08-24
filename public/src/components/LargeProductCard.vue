@@ -42,7 +42,7 @@
 .card-container {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: 3fr 1fr 85px;
+  grid-template-rows: 3fr 1fr 65px;
   grid-row-gap: 2vh;
   max-height: calc(90vh - 102px - 3vmax);
   min-height: 450px;
