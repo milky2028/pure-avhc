@@ -12,7 +12,7 @@
 .elianto-btn {
   width: 100%;
   background-color: white;
-  padding: 18px;
+  padding: 14px;
   text-transform: uppercase;
   font-family: var(--elianto);
   font-size: 26px;
