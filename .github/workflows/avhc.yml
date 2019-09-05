@@ -1,16 +1,13 @@
-name: Node CI
+name: AVHC Build
 
 on:
   push:
     branches:
-    - master
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    name: Run the build
     steps:
       run: pwd
       shell: bash
-      
