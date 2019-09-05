@@ -27,5 +27,5 @@ yarn build:${BUILD_TARGET}
 
 echo "Deploy to firebase"
 cd ${GITHUB_WORKSPACE}/public
-# firebase use ${BUILD_TARGET}
-# firebase deploy
+firebase use ${BUILD_TARGET}
+firebase deploy
