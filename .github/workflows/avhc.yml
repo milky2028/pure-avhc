@@ -9,5 +9,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      run: pwd
-      shell: bash
+      - run: echo "Hello World!"
+        shell: bash
