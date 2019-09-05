@@ -9,5 +9,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: ./build/build.sh avhc
+      - run: ls
         shell: bash
