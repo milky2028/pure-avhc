@@ -1,4 +1,5 @@
 #!/bin/bash
+. ~/.nvm/nvm.sh
 
 error_exit() {
 	echo "Error! $1" 1>&2
@@ -11,22 +12,29 @@ fi
 
 BUILD_TARGET=$1
 
-echo "Install build modules"
-cd ${GITHUB_WORKSPACE}/build
+cd ..
+
+git status
+git pull
+
+yarn global add firebase-tools @vue/cli @vue/cli-service-global typescript
+rm -rf public/node_modules functions/node_modules build/node_modules
+
+cd build
+rm -rf node_modules
 yarn install
 
-echo "Install functions modules"
-cd ${GITHUB_WORKSPACE}/functions
+nvm install 8
+cd ../functions
+rm -rf node_modules
 yarn install
 
-echo "Install client modules"
-cd ${GITHUB_WORKSPACE}/public
+nvm install 10
+cd ../public
+rm -rf node_modules
 yarn install
-
-echo "Build with Vue"
 yarn build:${BUILD_TARGET}
 
-echo "Deploy to firebase"
-cd ${GITHUB_WORKSPACE}
+cd ..
 firebase use ${BUILD_TARGET}
 firebase deploy
