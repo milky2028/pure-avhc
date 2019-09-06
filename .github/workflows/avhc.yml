@@ -26,6 +26,7 @@ jobs:
       - uses: w9jds/firebase-action@v1.0.1
         with:
           args: use avhc
+          env: ${{ secrets.FIREBASE_TOKEN }}
       - uses: w9jds/firebase-action@v1.0.1
         with:
           args: deploy
