@@ -24,6 +24,8 @@ jobs:
       - run: cd ${GITHUB_WORKSPACE}/public && yarn build:avhc
       - run: cd ${GITHUB_WORKSPACE}
       - uses: w9jds/firebase-action@v1.0.1
-        args: use avhc
+        with:
+          args: use avhc
       - uses: w9jds/firebase-action@v1.0.1
-        args: deploy
+        with:
+          args: deploy
