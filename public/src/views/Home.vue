@@ -5,7 +5,7 @@
         v-for="product in products.filter(p => p.featuredOnHome)"
         :key="product.name"
         class="image"
-        :class="(product.sortOrder === 0) ? 'main' : (product.sortOrder === 1) ? 'side1' : 'side2'"
+        :class="{ main: product.sortOrder === 0, side1: product.sortOrder === 1, side2: product.sortOrder > 1 }"
         :style="getBackground(product)"
         :name="getImageAlt(product.id, images)"
       >

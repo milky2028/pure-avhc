@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav" :class="isNavbarExpanded ? 'expanded' : ''">
+  <nav class="nav" :class="{ expanded: isNavbarExpanded }">
     <transition name="fade">
       <av-icon-button
         class="menu"
