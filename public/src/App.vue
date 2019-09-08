@@ -97,6 +97,7 @@ body {
 
 .fade-enter-active,
 .fade-leave-active {
+  opacity: 1;
   transition: opacity 100ms var(--mat-ease);
 }
 

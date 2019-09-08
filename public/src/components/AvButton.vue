@@ -25,6 +25,8 @@ button {
 }
 
 span {
+  width: 100%;
+  text-align: center;
   line-height: 1;
 }
 
