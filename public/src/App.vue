@@ -106,6 +106,10 @@ body {
   opacity: 0;
 }
 
+.fade-move {
+  transition: all 100ms var(--mat-ease);
+}
+
 .slide-y-enter-active {
   transition: all 250ms var(--mat-enter);
 }
