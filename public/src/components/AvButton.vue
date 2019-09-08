@@ -1,6 +1,6 @@
 <template>
   <button @click="$emit('btn-click', $event)" :class="{ flat, long, fullWidth, raised: !flat }">
-    <span :style="{ width: icon ? 'min-content' : '100%' }">
+    <span>
       <slot></slot>
     </span>
     <span class="icon" v-if="icon">{{ icon }}</span>
@@ -10,6 +10,7 @@
 <style scoped>
 button {
   display: flex;
+  justify-content: space-around;
   color: white;
   background-color: var(--dark-accent);
   text-transform: uppercase;
@@ -20,7 +21,6 @@ button {
   border-radius: var(--rounded-corner);
   font-weight: 500;
   align-items: center;
-  justify-content: space-between;
   transition: all 150ms var(--mat-ease);
 }
 
@@ -64,7 +64,6 @@ button:active.flat {
 }
 
 .icon {
-  padding: 0 0 2px 5px;
   text-transform: none;
   font-family: 'Material Icons';
   color: white;
