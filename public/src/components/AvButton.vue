@@ -1,6 +1,6 @@
 <template>
   <button @click="$emit('btn-click', $event)" :class="{ flat, long, fullWidth, raised: !flat }">
-    <span :style="{ width: icon ? null : '100%' }">
+    <span :style="{ width: icon ? 'min-content' : '100%' }">
       <slot></slot>
     </span>
     <span class="icon" v-if="icon">{{ icon }}</span>
