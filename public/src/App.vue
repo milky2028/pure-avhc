@@ -127,13 +127,15 @@ body {
 <script lang="ts">
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
-import AvDisclaimer from './components/AvDisclaimer.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default Vue.extend({
   components: {
     AvToolbar,
-    AvDisclaimer,
+    AvDisclaimer: () =>
+      import(
+        /* webpackChunkName: "AvDisclaimer" */ './components/AvDisclaimer.vue'
+      ),
     AvOverlay: () =>
       import(/* webpackChunkName: "AvOverlay" */ './components/AvOverlay.vue'),
     CheckoutPrompt: () =>
