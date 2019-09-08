@@ -5,6 +5,7 @@
       @input="$emit('on-input', $event.target.value)"
       @keyup.enter="$emit('enter', $event.target.value)"
       @blur="dirty = true"
+      :value="inputValue"
       :placeholder="placeholder"
       :class="{ darkBackground, dirty }"
       :style="{ width }"
@@ -32,7 +33,8 @@ export default Vue.extend({
     placeholder: String,
     label: String,
     darkBackground: Boolean,
-    width: String
+    width: String,
+    inputValue: String
   },
   data() {
     return {
