@@ -126,7 +126,8 @@
   grid-template-columns: 56px 1fr 56px;
   grid-template-areas: 'menu logo right';
   align-items: center;
-  transition: all 100ms var(--mat-ease);
+  transition: all 250ms var(--mat-ease);
+  overflow: hidden;
 }
 
 .right-nav-container {
