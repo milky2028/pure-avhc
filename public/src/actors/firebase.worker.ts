@@ -1,8 +1,10 @@
 import WorkerFns from '@/types/WorkerFns';
 import { QueryParams } from '@/types/QueryParams';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
-const FirestoreImport = import(/* webpackChunkName: 'firestore' */ 'firebase/firestore');
-const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
+const FirestoreImport = import(
+  /* webpackChunkName: 'firestore' */ 'firebase/firestore'
+);
+// const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
 declare function postMessage(message: any, options?: PostMessageOptions): void;
 
@@ -16,7 +18,24 @@ class FirebaseWorker {
     this.initializeApp();
   }
 
-  public async getDocuments(collection: string) {
+  public async addDocument({
+    collection,
+    data
+  }: {
+    collection: string;
+    data: any;
+  }) {
+    if (!this.db) {
+      await this.initializeFirestore();
+    }
+    try {
+      return this.db.collection(collection).add(data);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async getDocuments({ collection }: { collection: string }) {
     if (!this.db) {
       await this.initializeFirestore();
     }
@@ -45,7 +64,13 @@ class FirebaseWorker {
     }
   }
 
-  public async queryDocuments(collection: string, queries: QueryParams[]) {
+  public async queryDocuments({
+    collection,
+    queries
+  }: {
+    collection: string;
+    queries: QueryParams[];
+  }) {
     if (!this.db) {
       await this.initializeFirestore();
     }
@@ -109,6 +134,6 @@ class FirebaseWorker {
 
 self.addEventListener('message', (msg) => {
   const firebaseWorker = new FirebaseWorker();
-  const { fn, collection, queries }: WorkerFns = msg.data;
-  firebaseWorker[fn](collection, queries!);
+  const { fn, collection, queries, data }: WorkerFns = msg.data;
+  firebaseWorker[fn]({ collection, queries: queries!, data });
 });

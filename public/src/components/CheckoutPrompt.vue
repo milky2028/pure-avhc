@@ -146,7 +146,7 @@ export default Vue.extend({
       }
     });
 
-    const idbCanSubscribe = await idb.get('canSubscribe');
+    const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
     this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
   },
   methods: {
