@@ -146,8 +146,8 @@ export default Vue.extend({
       }
     });
 
-    // const idbCanSubscribe = await idb.get('canSubscribe');
-    // this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
+    const idbCanSubscribe = await idb.get('canSubscribe');
+    this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
   },
   methods: {
     onSubscribe(email: string) {
