@@ -139,9 +139,14 @@ export default Vue.extend({
     };
   },
   watch: {
-    $route(to, from) {
+    $route() {
       this.expanded = false;
       this.formError = false;
+    },
+    cartItems(items) {
+      if (items.length === 0) {
+        this.expanded = false;
+      }
     }
   },
   computed: {
