@@ -7,7 +7,7 @@
       <av-icon-button
         v-if="windowWidth < 825 && expanded"
         class="icon"
-        @icon-click="expanded = false"
+        @icon-click="onClose()"
       >close</av-icon-button>
       <transition name="fade">
         <av-input
@@ -24,7 +24,11 @@
         ></av-input>
       </transition>
       <transition name="fade">
-        <av-button v-if="canSubscribe" class="btn" @btn-click="onSubscribe(email)">{{ btnText }}</av-button>
+        <av-button
+          v-if="canSubscribe"
+          class="btn"
+          @btn-click="onSubscribe(email)"
+        >{{ subscribing ? 'Subscribing...' : btnText }}</av-button>
       </transition>
       <transition name="fade">
         <p v-if="formError" class="body-text error">{{ errorMsg }}</p>
@@ -113,6 +117,7 @@ import AvButton from '../components/AvButton.vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import { setTimeout } from 'timers';
 import * as idb from 'idb-keyval';
+import WorkerFns from '../types/WorkerFns';
 
 export default Vue.extend({
   components: {
@@ -124,41 +129,53 @@ export default Vue.extend({
     return {
       email: '',
       expanded: false,
-      windowWidth: window.innerWidth,
+      windowWidth: window ? window.innerWidth : 0,
       canSubscribe: true,
       emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
       formError: false,
       errorMsg: 'Invalid email format',
-      btnText: window.innerWidth > 825 ? 'Subscribe' : 'Get 10% Off',
+      subscribing: false,
       subscribed: false
     };
   },
+  watch: {
+    $route(to, from) {
+      this.expanded = false;
+      this.formError = false;
+    }
+  },
   computed: {
-    ...mapState('cart', ['cartItems'])
+    ...mapState('cart', ['cartItems']),
+    btnText(): string {
+      return this.windowWidth < 825 && !this.expanded
+        ? 'Get 10% Off'
+        : 'Subscribe';
+    }
   },
   async beforeMount() {
-    window.addEventListener('resize', () => {
-      this.windowWidth = window.innerWidth;
-      if (this.windowWidth < 825) {
-        this.btnText = 'Get 10% Off';
-      } else {
-        this.btnText = 'Subscribe';
-      }
-    });
+    window.addEventListener(
+      'resize',
+      () => (this.windowWidth = window.innerWidth)
+    );
 
     // const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
     // this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
   },
   methods: {
     ...mapActions('base', ['addFirestoreData']),
-    async onSubscribe(email: string) {
+    onClose() {
+      this.expanded = false;
+      this.formError = false;
+    },
+    async onSubscribe(email: string): Promise<void> {
       if (this.windowWidth > 825 || this.expanded) {
         const reg = new RegExp(this.emailPattern);
         const isValid = reg.test(email);
         if (isValid) {
-          this.btnText = 'Subscribing...';
+          this.subscribing = true;
           this.formError = false;
 
+          // @ts-ignore;
           const id = await this.addFirestoreData({
             fn: 'addDocument',
             collection: 'subscribers',
@@ -167,6 +184,7 @@ export default Vue.extend({
             }
           });
 
+          this.subscribing = false;
           this.email = '';
           this.expanded = false;
           this.canSubscribe = false;
@@ -178,7 +196,6 @@ export default Vue.extend({
         }
       } else {
         this.expanded = true;
-        this.btnText = 'Subscribe';
       }
     }
   }
