@@ -1,6 +1,5 @@
 import WorkerFns from '@/types/WorkerFns';
 import { QueryParams } from '@/types/QueryParams';
-import { firestore } from 'firebase';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(
   /* webpackChunkName: 'firestore' */ 'firebase/firestore'
@@ -11,6 +10,7 @@ declare function postMessage(message: any, options?: PostMessageOptions): void;
 
 class FirebaseWorker {
   [key: string]: any;
+  private fb!: any;
   private db!: firebase.firestore.Firestore;
   private firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE_CONFIG!);
   private app!: firebase.app.App;
@@ -30,9 +30,10 @@ class FirebaseWorker {
       await this.initializeFirestore();
     }
     try {
-      const { id } = await this.db
-        .collection(collection)
-        .add({ ...data, timestamp: firestore.FieldValue.serverTimestamp() });
+      const { id } = await this.db.collection(collection).add({
+        ...data,
+        timestamp: this.fb.firestore.FieldValue.serverTimestamp()
+      });
       postMessage(id);
     } catch (e) {
       throw e;
@@ -111,9 +112,11 @@ class FirebaseWorker {
 
   private async initializeApp() {
     try {
-      const fb = await Firebase;
+      this.fb = await Firebase;
       this.app =
-        fb.apps.length < 1 ? fb.initializeApp(this.firebaseConfig) : fb.app();
+        this.fb.apps.length < 1
+          ? this.fb.initializeApp(this.firebaseConfig)
+          : this.fb.app();
     } catch (e) {
       throw e;
     }
