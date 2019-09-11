@@ -51,7 +51,7 @@ const BaseModule = {
     addFirestoreData: (
       {  }: Context,
       workerMsg: WorkerFns
-    ): Promise<firebase.firestore.DocumentReference> => {
+    ): Promise<string> => {
       const worker = new Worker();
       worker.postMessage(workerMsg);
 
