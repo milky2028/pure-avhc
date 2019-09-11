@@ -107,7 +107,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvIconButton from '../components/AvIconButton.vue';
@@ -146,11 +146,12 @@ export default Vue.extend({
       }
     });
 
-    const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
-    this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
+    // const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
+    // this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
   },
   methods: {
-    onSubscribe(email: string) {
+    ...mapActions('base', ['addFirestoreData']),
+    async onSubscribe(email: string) {
       if (this.windowWidth > 825 || this.expanded) {
         const reg = new RegExp(this.emailPattern);
         const isValid = reg.test(email);
@@ -158,16 +159,20 @@ export default Vue.extend({
           this.btnText = 'Subscribing...';
           this.formError = false;
 
-          // TODO: Replace this with actual API call promise
-          setTimeout(() => {
-            console.log(email);
-            this.email = '';
-            this.expanded = false;
-            this.canSubscribe = false;
-            this.subscribed = true;
-            setTimeout(() => (this.subscribed = false), 2500);
-            idb.set('canSubscribe', false);
-          }, 3000);
+          const id = await this.addFirestoreData({
+            fn: 'addDocument',
+            collection: 'subscribers',
+            data: {
+              email: this.email
+            }
+          });
+
+          this.email = '';
+          this.expanded = false;
+          this.canSubscribe = false;
+          this.subscribed = true;
+          setTimeout(() => (this.subscribed = false), 2500);
+          idb.set('canSubscribe', false);
         } else {
           this.formError = true;
         }
