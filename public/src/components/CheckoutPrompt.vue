@@ -36,13 +36,19 @@
       <transition name="fade">
         <p v-if="subscribed" class="body-text msg">Subscribed!</p>
       </transition>
+      <transition name="fade">
+        <div v-if="!canSubscribe && !subscribed" class="total-container">
+          <h2 class="subhead total">Subtotal:&nbsp;</h2>
+          <h2 class="subhead total money">${{ subtotal.toFixed(2) }}</h2>
+        </div>
+      </transition>
     </div>
   </transition>
 </template>
 
 <style scoped>
 .prompt {
-  padding: 8px 16px 12px 16px;
+  padding: 12px 16px 12px 16px;
   z-index: 15;
   position: fixed;
   bottom: 0;
@@ -52,7 +58,7 @@
   box-shadow: var(--basic-shadow);
   display: grid;
   grid-template-areas: 'input btn msg checkout';
-  grid-template-columns: 350px 140px 1fr 1fr;
+  grid-template-columns: 360px 140px 1fr 1fr;
   grid-column-gap: 1vw;
   align-items: center;
   overflow: hidden;
@@ -74,6 +80,16 @@
   justify-self: end;
 }
 
+.total-container {
+  grid-area: input;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  justify-self: start;
+  align-self: center;
+}
+
 .msg {
   justify-self: start;
   grid-area: input;
@@ -85,17 +101,26 @@
   color: var(--warn);
 }
 
+.money {
+  color: var(--light-accent);
+}
+
+.total {
+  line-height: 1;
+}
+
 @media (max-width: 825px) {
   .prompt {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'msg icon'
-      'input input'
-      'btn checkout';
+    grid-template-areas: 'btn checkout';
   }
 
   .expanded {
     height: 140px;
+    grid-template-areas:
+      'msg icon'
+      'input input'
+      'btn checkout';
   }
 
   .icon {
@@ -106,12 +131,21 @@
   .msg {
     grid-area: btn;
   }
+
+  .total-container {
+    grid-area: btn;
+    flex-direction: column;
+  }
+
+  .total {
+    font-size: 16px;
+  }
 }
 </style>
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvIconButton from '../components/AvIconButton.vue';
@@ -151,6 +185,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('cart', ['cartItems']),
+    ...mapGetters('cart', ['subtotal']),
     btnText(): string {
       return this.windowWidth < 825 && !this.expanded
         ? 'Get 10% Off'
