@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import axios, { AxiosRequestConfig } from 'axios';
 
-export const addEmailToList = functions.firestore
+export const addSubscriberToMailchimp = functions.firestore
   .document('subscribers/{subscriberId}')
   .onCreate(async (snap) => {
     const documentData = snap.data();
