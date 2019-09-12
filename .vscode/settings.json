@@ -23,5 +23,6 @@
   "editor.multiCursorModifier": "ctrlCmd",
   "liveServer.settings.donotShowInfoMsg": true,
   "debug.toolBarLocation": "docked",
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "typescript.tsdk": "../public/node_modules/typescript/lib"
 }
