@@ -16,10 +16,8 @@ article {
 h2 {
   font-size: 22px;
   font-family: var(--mukta-malar);
-  text-transform: uppercase;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: 0.15em;
   padding-top: 1.5vh;
 }
 
