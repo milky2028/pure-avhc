@@ -77,8 +77,8 @@
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="mailto:support@purecbdexchange.com?subject=Please%20remove%20my%20data&body=Hello!%0A%0APlease%20remove%20all%20my%20information%20from%20your%20records.%0A%0AThank%20you!"
-        >support@purecbdexchange.com</a>.
+          :href="`mailto:${supportEmail}?subject=Please%20remove%20my%20data&body=Hello!%0A%0APlease%20remove%20all%20my%20information%20from%20your%20records.%0A%0AThank%20you!`"
+        >{{ supportEmail }}</a>.
       </p>
 
       <h2>Third Party Services</h2>
@@ -180,8 +180,8 @@
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="mailto:support@purecbdexchange.com?subject=Hello!%20I%20want%20to%20learn%20more%20about%20your%20privacy%20policy&body=Faces...%20Tris3"
-        >support@purecbdexchange.com</a>.
+          :href="`mailto:${supportEmail}?subject=Hello!%20I%20want%20to%20learn%20more%20about%20your%20privacy%20policy&body=Faces...%20Tris3`"
+        >{{ supportEmail }}</a>.
       </p>
     </article-page>
   </page-wrapper>
@@ -196,7 +196,8 @@ export default Vue.extend({
   data() {
     return {
       legalName: process.env.VUE_APP_LEGAL_NAME,
-      siteUrl: process.env.VUE_APP_SITE_URL
+      siteUrl: process.env.VUE_APP_SITE_URL,
+      supportEmail: process.env.VUE_APP_EMAIL
     };
   },
   components: {

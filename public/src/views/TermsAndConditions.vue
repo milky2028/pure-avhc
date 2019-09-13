@@ -112,8 +112,8 @@
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="mailto:support@purecbdeschange.com?subject=Questions%20about%20your%20terms%20and%20conditions&body=Hello!%0A%0AI%20have%20a%20few%20questions%20about%20the%20terms%20and%20conditions%20on%20your%20website..."
-        >support@purecbdexchange.com</a>.
+          :href="`mailto:${supportEmail}?subject=Questions%20about%20your%20terms%20and%20conditions&body=Hello!%0A%0AI%20have%20a%20few%20questions%20about%20the%20terms%20and%20conditions%20on%20your%20website...`"
+        >{{ supportEmail }}</a>.
       </p>
     </article-page>
   </page-wrapper>
@@ -129,7 +129,8 @@ export default Vue.extend({
   data() {
     return {
       legalName: process.env.VUE_APP_LEGAL_NAME,
-      siteUrl: process.env.VUE_APP_SITE_URL
+      siteUrl: process.env.VUE_APP_SITE_URL,
+      supportEmail: process.env.VUE_APP_EMAIL
     };
   },
   components: {

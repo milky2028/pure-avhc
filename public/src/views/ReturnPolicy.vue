@@ -12,8 +12,8 @@
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="mailto:support@purecbdexchange.com?subject=I%20believe%20I%20may%20be%20eligible%20for%20a%20return&body=Hello!%20I%20believe%20my%20item%20may%20have%20been%20lost%20in%20shipping%2C%20and%20I%20understand%20that%20I%20may%20not%20be%20eligible%20for%20a%20return%20in%20any%20other%20case.%0A%0AMy%20order%20number%20is%20(fill%20in%20your%20order%20number%20here).%0A%0AThank%20you"
-        >support@purecbdexchange.com</a>.
+          :href="`mailto:${supportEmail}?subject=I%20believe%20I%20may%20be%20eligible%20for%20a%20return&body=Hello!%20I%20believe%20my%20item%20may%20have%20been%20lost%20in%20shipping%2C%20and%20I%20understand%20that%20I%20may%20not%20be%20eligible%20for%20a%20return%20in%20any%20other%20case.%0A%0AMy%20order%20number%20is%20(fill%20in%20your%20order%20number%20here).%0A%0AThank%20you`"
+        >{{ supportEmail }}</a>.
       </p>
       <p>Generally, {{ legalName }} does not offer returns or refunds. If your item has been lost in shipping or you have not received the item yet, we may be willing to offer you a return, provided that sufficient evidence shows that the item has indeed been lost in transit.</p>
       <p>Additional non-returnable items:</p>
@@ -34,8 +34,8 @@
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="mailto:support@purecbdexchange.com?subject=I%20believe%20I%20may%20be%20eligible%20for%20a%20return&body=Hello!%20I%20believe%20my%20item%20may%20have%20been%20lost%20in%20shipping%2C%20and%20I%20understand%20that%20I%20may%20not%20be%20eligible%20for%20a%20return%20in%20any%20other%20case.%0A%0AMy%20order%20number%20is%20(fill%20in%20your%20order%20number%20here).%0A%0AThank%20you"
-        >support@purecbdexchange.com</a>.
+          :href="`mailto:${supportEmail}?subject=I%20believe%20I%20may%20be%20eligible%20for%20a%20return&body=Hello!%20I%20believe%20my%20item%20may%20have%20been%20lost%20in%20shipping%2C%20and%20I%20understand%20that%20I%20may%20not%20be%20eligible%20for%20a%20return%20in%20any%20other%20case.%0A%0AMy%20order%20number%20is%20(fill%20in%20your%20order%20number%20here).%0A%0AThank%20you`"
+        >{{ supportEmail }}</a>.
       </p>
       <h2>Sale items</h2>
 
@@ -57,7 +57,8 @@ export default Vue.extend({
   data() {
     return {
       legalName: process.env.VUE_APP_LEGAL_NAME,
-      siteUrl: process.env.VUE_APP_SITE_URL
+      siteUrl: process.env.VUE_APP_SITE_URL,
+      supportEmail: process.env.VUE_APP_EMAIL
     };
   },
   components: {
