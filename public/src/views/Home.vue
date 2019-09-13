@@ -15,11 +15,10 @@
             <span>{{ product.subtag }}</span>
           </h2>
           <av-button
-            v-if="product.sortOrder !== 0 || windowWidth > 825"
             flat
             class="cart-btn"
             @btn-click="$router.push(`/products/${product.url}`)"
-          >Shop ></av-button>
+          >Shop {{ getLastWord(product) }} ></av-button>
         </div>
         <av-button
           long
@@ -171,6 +170,10 @@ export default Vue.extend({
           this.getImageHeight(sortOrder)
         )})`
       };
+    },
+    getLastWord(product: Product) {
+      const words = product.name.split(' ');
+      return words[words.length - 1];
     }
   },
   beforeMount() {
