@@ -8,13 +8,16 @@
     </transition>
     <router-link class="logo-link" to="/">
       <transition name="fade">
-        <h1 class="logo-text" v-if="appLogoMin && appLogoMin.type === 'text' && !isNavbarExpanded">
-          <abbr title="Aspen Valley Hemp Company">{{ appLogoMin.text }}</abbr>
+        <h1
+          class="logo-text"
+          v-if="appLogoMinContent && appLogoMinType === 'text' && !isNavbarExpanded"
+        >
+          <abbr :title="legalName">{{ appLogoMinContent }}</abbr>
         </h1>
         <img
-          v-if="appLogoMin && appLogoMin.type === 'image'"
-          :src="appLogoMin.url"
-          :alt="appLogoMin.alt"
+          v-if="appLogoMinContent && appLogoMinType === 'image'"
+          :src="appLogoMinContent"
+          :alt="`${legalName} Company Logo`"
         />
       </transition>
     </router-link>
@@ -36,9 +39,13 @@
     </div>
     <div v-if="isNavbarExpanded" class="menu-container">
       <router-link to="/" class="large-logo-container" @click.native="toggleNavAndOverlay">
-        <h1 class="logo-text large" v-if="appLogoFull.type === 'text'">{{ appLogoFull.text }}</h1>
-        <h2 class="subhead" v-if="appLogoFull.type === 'text'">{{ appLogoFull.subtext }}</h2>
-        <img v-if="appLogoFull.type === 'image'" :src="appLogoFull.url" :alt="appLogoFull.alt" />
+        <h1 class="logo-text large" v-if="appLogoFullType === 'text'">{{ appLogoFullContent }}</h1>
+        <h2 class="subhead" v-if="appLogoFullType === 'text'">{{ appLogoFullSubContent }}</h2>
+        <img
+          v-if="appLogoFullType === 'image'"
+          :src="appLogoFullContent"
+          :alt="`${legalName} Full Company Logo`"
+        />
       </router-link>
       <ul class="product-card-container">
         <li
@@ -355,13 +362,16 @@ export default Vue.extend({
   data() {
     return {
       legalName: process.env.VUE_APP_LEGAL_NAME,
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
+      appLogoMinType: process.env.VUE_APP_LOGO_MIN_TYPE,
+      appLogoMinContent: process.env.VUE_APP_LOGO_MIN_CONTENT,
+      appLogoFullType: process.env.VUE_APP_LOGO_FULL_TYPE,
+      appLogoFullContent: process.env.VUE_APP_LOGO_FULL_CONTENT,
+      appLogoFullSubContent: process.env.VUE_APP_LOGO_FULL_CONTENT_SUB
     };
   },
   computed: {
     ...mapState('base', [
-      'appLogoMin',
-      'appLogoFull',
       'iconMenu',
       'products',
       'imageUrl',

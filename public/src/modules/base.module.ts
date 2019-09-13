@@ -17,21 +17,6 @@ const BaseModule = {
     isNavbarExpanded: false,
     isOverlayShowing: false,
     isDisclaimerShowing: false,
-    appLogoMin: {
-      type: '',
-      text: '',
-      url: '',
-      alt: '',
-      site: '',
-      size: ''
-    },
-    appLogoFull: {
-      type: '',
-      text: '',
-      site: '',
-      size: '',
-      subtext: ''
-    },
     submenu: [],
     products: [],
     mainMenu: [],
@@ -67,18 +52,6 @@ const BaseModule = {
       worker.addEventListener('message', (msg: MessageEvent) => {
         const firestoreData = msg.data.data;
         switch (msg.data.collection) {
-          case 'logos': {
-            const minLogo = firestoreData.find(
-              (doc: Logo) => doc.size === 'min'
-            );
-            const fullLogo = firestoreData.find(
-              (doc: Logo) => doc.size === 'full'
-            );
-
-            commit('setState', { type: 'appLogoMin', data: minLogo });
-            commit('setState', { type: 'appLogoFull', data: fullLogo });
-            break;
-          }
           default: {
             commit('setState', {
               type: msg.data.collection,
