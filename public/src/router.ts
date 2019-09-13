@@ -6,9 +6,15 @@ const PrivacyPolicy = () =>
 const ReturnPolicy = () =>
   import(/* webpackChunkName: "ReturnPolicy" */ './views/ReturnPolicy.vue');
 const TermsAndConditions = () =>
-  import(/* webpackChunkName: "TermsAndConditions" */ './views/TermsAndConditions.vue');
+  import(
+    /* webpackChunkName: "TermsAndConditions" */ './views/TermsAndConditions.vue'
+  );
 const ShopCBD = () =>
   import(/* webpackChunkName: "ShopCBD" */ './views/ShopCBD.vue');
+const FeedbackAndSupport = () =>
+  import(
+    /* webpackChunkName: "FeedbackAndSupport" */ './views/FeedbackAndSupport.vue'
+  );
 
 Vue.use(Router);
 
@@ -43,6 +49,11 @@ export default new Router({
       path: '/terms-and-conditions',
       name: 'terms-and-conditions',
       component: TermsAndConditions
+    },
+    {
+      path: '/support',
+      name: 'support',
+      component: FeedbackAndSupport
     }
   ]
 });
