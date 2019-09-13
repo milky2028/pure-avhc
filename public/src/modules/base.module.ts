@@ -1,6 +1,6 @@
 // @ts-ignore
 import Worker from 'worker-loader!../actors/firebase.worker';
-import AppBase, { Logo } from '@/types/AppBase';
+import AppBase from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import setState from '../actors/setState';

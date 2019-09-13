@@ -408,9 +408,6 @@ export default Vue.extend({
   },
   async beforeMount() {
     this.$on('fda', () => this.toggleDisclaimer());
-    const baseOptions: WorkerFns = { fn: 'getDocuments', collection: 'logos' };
-    this.getFirestoreData(baseOptions);
-
     if (this.iconMenu.length < 1) {
       const iconMenuOptions: WorkerFns = {
         fn: 'getDocuments',
