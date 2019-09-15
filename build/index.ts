@@ -1,13 +1,17 @@
 import dotenv from 'dotenv';
 import path from 'path';
-import { promisify } from 'util';
 import { writeFile } from 'fs';
+import { exec } from 'child_process';
+import { promisify } from 'util';
 
 const main = async (buildTarget: string | undefined): Promise<string> => {
   if (!buildTarget) {
-    throw new Error('Please specify a build target');
+    throw new Error('No build target specified');
   }
   process.chdir('../');
+  const execAsync = promisify(exec);
+  await execAsync(`cp -a build/${buildTarget}-icons/. public/public/`);
+
   const appDir = path.join(process.cwd(), 'public');
   dotenv.config({ path: path.resolve(appDir, `.env.${buildTarget}prod`) });
 
@@ -16,12 +20,12 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
     short_name: process.env.VUE_APP_NAME,
     icons: [
       {
-        src: '/icons/192x192.png',
+        src: '/192x192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: '/icons/512x512.png',
+        src: '/512x512.png',
         sizes: '512x512',
         type: 'image/png'
       }
