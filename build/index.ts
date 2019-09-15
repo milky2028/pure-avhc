@@ -16,12 +16,12 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
     short_name: process.env.VUE_APP_NAME,
     icons: [
       {
-        src: '/img/icons/192x192.png',
+        src: '/icons/192x192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: '/img/icons/512x512.png',
+        src: '/icons/512x512.png',
         sizes: '512x512',
         type: 'image/png'
       }
