@@ -4,12 +4,13 @@
   "description": "Node build scripts",
   "main": "index.js",
   "scripts": {
-    "build-manifest": "tsc && node lib/index.js",
+    "build-manifest:avhc": "tsc && node lib/index.js avhc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tyler Gross",
   "license": "MIT",
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@vue/cli": "^3.11.0",
     "@vue/cli-service-global": "^3.11.0",
     "firebase-tools": "^7.3.1",
