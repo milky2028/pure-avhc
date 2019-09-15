@@ -4,6 +4,7 @@
   "description": "Node build scripts",
   "main": "index.js",
   "scripts": {
+    "build-manifest": "tsc && node lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tyler Gross",
@@ -13,5 +14,8 @@
     "@vue/cli-service-global": "^3.11.0",
     "firebase-tools": "^7.3.1",
     "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0"
   }
 }
