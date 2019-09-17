@@ -1,9 +1,14 @@
 <template>
   <div class="card-container">
-    <router-link :to="`products/${product.url}`">
-      <img :src="getSrc(product.id)" :alt="getImageAlt(product.id, images)" />
+    <router-link :to="`/products/${product.url}`" class="img-container">
+      <h2 v-if="product.disabled" class="subhead sold-out">{{ product.disabled }}</h2>
+      <img
+        :src="getSrc(product.id)"
+        :alt="getImageAlt(product.id, images)"
+        :class="{ disabled: product.disabled }"
+      />
     </router-link>
-    <router-link :to="`products/${product.url}`">
+    <router-link :to="`/products/${product.url}`">
       <div>
         <h2 class="subhead larger-font">{{ product.shortName }}</h2>
         <p class="body-text tagline">{{ product.tagline }}.</p>
@@ -48,12 +53,36 @@
   min-height: 450px;
 }
 
+.disabled {
+  filter: blur(4px);
+}
+
+.img-container {
+  display: grid;
+  grid-template-areas: 'main';
+  justify-content: center;
+  align-items: center;
+}
+
 img {
+  grid-area: main;
   object-fit: cover;
   border-radius: var(--rounded-corner);
   width: 100%;
   max-width: 100vmin;
   height: 100%;
+}
+
+.sold-out {
+  grid-area: main;
+  z-index: 12;
+  text-align: center;
+  color: white;
+  background-color: black;
+  padding: 16px;
+  margin: 22px;
+  border-radius: var(--rounded-corner);
+  line-height: 1.2;
 }
 
 .larger-font {
