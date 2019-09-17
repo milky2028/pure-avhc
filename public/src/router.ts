@@ -15,6 +15,8 @@ const FeedbackAndSupport = () =>
   import(
     /* webpackChunkName: "FeedbackAndSupport" */ './views/FeedbackAndSupport.vue'
   );
+const TestResults = () =>
+  import(/* webpackChunkName: "TestResults" */ './views/TestResults.vue');
 
 Vue.use(Router);
 
@@ -34,6 +36,11 @@ export default new Router({
       path: '/shop-cbd',
       name: 'shop-cbd',
       component: ShopCBD
+    },
+    {
+      path: '/test-results',
+      name: 'test-results',
+      component: TestResults
     },
     {
       path: '/privacy-policy',
