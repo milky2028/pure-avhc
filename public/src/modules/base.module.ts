@@ -21,7 +21,8 @@ const BaseModule = {
     products: [],
     mainMenu: [],
     iconMenu: [],
-    images: []
+    images: [],
+    testResults: []
   },
   mutations: {
     setState,

@@ -8,7 +8,8 @@ export default interface WorkerFns {
     | 'mainMenu'
     | 'iconMenu'
     | 'images'
-    | 'subscribers';
+    | 'subscribers'
+    | 'testResults';
   queries?: QueryParams[];
   data?: any;
 }
