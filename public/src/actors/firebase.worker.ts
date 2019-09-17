@@ -94,15 +94,18 @@ class FirebaseWorker {
           ...doc.data(),
           id: doc.id
         }));
-        const dataWithTimestamps = data.map((d: { [key: string]: any }) =>
-          Object.entries(d).reduce(
-            (acc, [key, value]) => ({
-              ...acc,
-              [key]: value.toDate ? value.toDate() : value
-            }),
-            {}
-          )
-        );
+        const dataWithTimestamps = data.map((d: { [key: string]: any }) => {
+          const entry: { [key: string]: any } = { ...d };
+          for (const key in entry) {
+            if (entry.hasOwnProperty(key)) {
+              const value = entry[key];
+              if (value.toDate) {
+                entry[key] = value.toDate();
+              }
+            }
+          }
+          return entry;
+        });
         postMessage({ collection, data: dataWithTimestamps });
       });
     } catch (e) {
