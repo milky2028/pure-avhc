@@ -1,15 +1,15 @@
 <template>
-  <router-link to="/">
+  <router-link :to="`/products/${product.url}`">
     <div
       class="card"
-      :name="alt"
-      :style="{ backgroundImage: `url(${url})` }"
+      :name="getImageAlt(product.id, images)"
+      :style="{ backgroundImage: `url(${getImageUrl(imageUrl, getProductUrl(product.id), 135)})` }"
       :class="hoverLeave ? 'hover-leave' : ''"
       @mouseleave="hoverLeave = true"
       @mouseenter="hoverLeave = false"
     >
       <div class="cover">
-        <h2 class="subhead card-font" v-html="splitTitle(title)"></h2>
+        <h2 class="subhead card-font" v-html="splitTitle(product.shortName)"></h2>
       </div>
     </div>
   </router-link>
@@ -22,7 +22,6 @@ div {
 
 .card {
   background-color: #fef8f8;
-  background-image: url('https://storage.googleapis.com/pure-243401.appspot.com/1/2018/08/Cigs.jpg');
   background-position: 103% 50%;
   background-size: contain;
   background-repeat: no-repeat;
@@ -61,11 +60,18 @@ a:hover {
 
 <script lang="ts">
 import Vue from 'vue';
+import getImageAlt from '../actors/getImageAlt';
+import getImageUrl from '../actors/getImageUrl';
+import WorkerFns from '../types/WorkerFns';
+import { mapState } from 'vuex';
+import Image from '../types/Image';
+
 export default Vue.extend({
   props: {
-    url: String,
-    title: String,
-    alt: String
+    product: Object
+  },
+  computed: {
+    ...mapState('base', ['images', 'imageUrl'])
   },
   data() {
     return {
@@ -73,10 +79,27 @@ export default Vue.extend({
     };
   },
   methods: {
+    getImageUrl,
+    getImageAlt,
     splitTitle(title: string) {
       const words = title.split(' ');
       words.splice(1, 0, '<br>');
       return words.join(' ');
+    },
+    getProductUrl(id: string) {
+      const image = this.images.find(
+        (i: Image) => i.product === id && i.toolbarImage
+      );
+      return image ? image.url : '';
+    }
+  },
+  beforeMount() {
+    if (this.images.length < 1) {
+      const imagesOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'images'
+      };
+      this.getFirestoreData(imagesOptions);
     }
   }
 });

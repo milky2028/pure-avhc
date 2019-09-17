@@ -54,11 +54,7 @@
           :key="product.id"
           @click="toggleNavAndOverlay"
         >
-          <product-card
-            :url="getImageUrl(imageUrl, getProductUrl(product.id), 135)"
-            :title="product.shortName"
-            :alt="getImageAlt(product.id, images)"
-          ></product-card>
+          <product-card :product="product"></product-card>
         </li>
       </ul>
       <div class="menu-link-container">
@@ -349,9 +345,6 @@ import AvBadge from '../components/AvBadge.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import { SubmenuItem } from '../types/MenuItem';
-import getImageUrl from '../actors/getImageUrl';
-import getImageAlt from '../actors/getImageAlt';
-import Image from '../types/Image';
 
 export default Vue.extend({
   components: {
@@ -374,7 +367,6 @@ export default Vue.extend({
     ...mapState('base', [
       'iconMenu',
       'products',
-      'imageUrl',
       'mainMenu',
       'submenu',
       'isNavbarExpanded',
@@ -388,8 +380,6 @@ export default Vue.extend({
       'toggleNavbar'
     ]),
     ...mapActions('base', ['getFirestoreData']),
-    getImageUrl,
-    getImageAlt,
     sortBySortOrder(a: { sortOrder: number }, b: { sortOrder: number }) {
       const aa = a.sortOrder;
       const bb = b.sortOrder;
@@ -398,12 +388,6 @@ export default Vue.extend({
     toggleNavAndOverlay() {
       this.toggleNavbar();
       this.toggleOverlay();
-    },
-    getProductUrl(id: string) {
-      const image = this.images.find(
-        (i: Image) => i.product === id && i.toolbarImage
-      );
-      return image ? image.url : '';
     }
   },
   async beforeMount() {
@@ -422,14 +406,6 @@ export default Vue.extend({
         collection: 'products'
       };
       this.getFirestoreData(productsOptions);
-    }
-
-    if (this.images.length < 1) {
-      const imagesOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'images'
-      };
-      this.getFirestoreData(imagesOptions);
     }
 
     if (this.mainMenu.length < 1) {
