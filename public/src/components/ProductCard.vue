@@ -63,7 +63,7 @@ import Vue from 'vue';
 import getImageAlt from '../actors/getImageAlt';
 import getImageUrl from '../actors/getImageUrl';
 import WorkerFns from '../types/WorkerFns';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Image from '../types/Image';
 
 export default Vue.extend({
@@ -79,6 +79,7 @@ export default Vue.extend({
     };
   },
   methods: {
+    ...mapActions('base', ['getFirestoreData']),
     getImageUrl,
     getImageAlt,
     splitTitle(title: string) {
