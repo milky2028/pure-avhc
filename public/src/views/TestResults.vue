@@ -7,6 +7,9 @@
         <strong>{{ fullName }}</strong> seeks to maintain transparency with our customers by publishing up-to-date test results that showcase the purity and high quality of our CBD products. We’ll publish these test results as soon as they’re made available by our testing partners. Please feel free to
         <router-link to="/support">contact us</router-link>&nbsp;if you have any questions about how to understand these results or any other quality-related questions.
       </p>
+      <p>
+        <router-link to="/test-results/hemp-license">2019 Colorado State Hemp License</router-link>
+      </p>
       <av-selector
         label="Sort Test Results"
         :options="sortOptions"
