@@ -47,8 +47,8 @@ export default Vue.extend({
       fullName: process.env.VUE_APP_FULL_NAME,
       selectedSortType: 'newest',
       sortOptions: [
-        { id: 0, value: 'newest', display: 'Sort Newest to Oldest' },
-        { id: 1, value: 'oldest', display: 'Sort Oldest to Newest' }
+        { id: 0, value: 'newest', display: 'Newest to Oldest' },
+        { id: 1, value: 'oldest', display: 'Oldest to Newest' }
       ]
     };
   },
