@@ -25,7 +25,12 @@
       ></av-selector>
       <ul>
         <li v-for="res in testResults.slice().sort(sortByDate)" :key="res.title">
-          <router-link :to="`/test-results/${res.url}`">{{ res.title }}</router-link>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            type="application/pdf"
+            :href="`/test-results/${res.url}`"
+          >{{ res.title }}</a>
         </li>
       </ul>
     </article-page>
