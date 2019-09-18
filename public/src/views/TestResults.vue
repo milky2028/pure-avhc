@@ -8,7 +8,12 @@
         <router-link to="/support">contact us</router-link>&nbsp;if you have any questions about how to understand these results or any other quality-related questions.
       </p>
       <p>
-        <router-link to="/test-results/hemp-license">2019 Colorado State Hemp License</router-link>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          type="application/pdf"
+          href="/test-results-files/Hemp-License.pdf"
+        >2019 Colorado State Hemp License</a>
       </p>
       <av-selector
         label="Sort Test Results"
