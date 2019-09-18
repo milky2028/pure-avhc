@@ -10,9 +10,9 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
   }
   process.chdir('../');
   const execAsync = promisify(exec);
-  await execAsync(
-    `cp -a build/${buildTarget}-tests/. public/public/test-results-files/`
-  );
+  // await execAsync(
+  //   `cp -a build/${buildTarget}-tests/. public/public/test-results-files/`
+  // );
   await execAsync(`cp -a build/${buildTarget}-icons/. public/public/`);
 
   const appDir = path.join(process.cwd(), 'public');
