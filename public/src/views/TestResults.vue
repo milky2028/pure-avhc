@@ -24,7 +24,7 @@
         @select-change="selectedSortType = $event"
       ></av-selector>
       <ul>
-        <li v-for="res in testResults.slice().sort(sortByDate)" :key="res.title">
+        <li v-for="res in testResults.slice().sort(sortByDate)" :key="res.id">
           <a
             target="_blank"
             rel="noopener noreferrer"
