@@ -29,7 +29,7 @@
             target="_blank"
             rel="noopener noreferrer"
             type="application/pdf"
-            :href="`/test-results/${res.url}`"
+            :href="`/test-results-files/${res.url}.pdf`"
           >{{ res.title }}</a>
         </li>
       </ul>
