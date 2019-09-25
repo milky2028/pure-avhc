@@ -4,7 +4,7 @@ const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(
   /* webpackChunkName: 'firestore' */ 'firebase/firestore'
 );
-// const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
+const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
 declare function postMessage(message: any, options?: PostMessageOptions): void;
 
@@ -12,6 +12,7 @@ class FirebaseWorker {
   [key: string]: any;
   private fb!: any;
   private db!: firebase.firestore.Firestore;
+  private auth!: firebase.auth.Auth;
   private firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE_CONFIG!);
   private app!: firebase.app.App;
 
@@ -36,7 +37,7 @@ class FirebaseWorker {
       });
       postMessage(id);
     } catch (e) {
-      throw e;
+      throw new Error(e);
     }
   }
 
@@ -68,7 +69,7 @@ class FirebaseWorker {
           postMessage({ collection, data: dataWithTimestamps });
         });
     } catch (e) {
-      throw e;
+      throw new Error(e);
     }
   }
 
@@ -109,7 +110,7 @@ class FirebaseWorker {
         postMessage({ collection, data: dataWithTimestamps });
       });
     } catch (e) {
-      throw e;
+      throw new Error(e);
     }
   }
 
@@ -121,7 +122,7 @@ class FirebaseWorker {
           ? this.fb.initializeApp(this.firebaseConfig)
           : this.fb.app();
     } catch (e) {
-      throw e;
+      throw new Error(e);
     }
   }
 
@@ -132,15 +133,24 @@ class FirebaseWorker {
       if (!this.app.firestore) {
         db.enablePersistence().catch((e) => {
           if (e.code === 'failed-precondition') {
-            throw e;
+            throw new Error(e);
           } else if (e.code === 'unimplemented') {
-            throw e;
+            throw new Error(e);
           }
         });
       }
       this.db = db;
     } catch (e) {
-      throw e;
+      throw new Error(e);
+    }
+  }
+
+  private async initializeAuth() {
+    try {
+      await AuthImport;
+      this.auth = this.app.auth();
+    } catch (e) {
+      throw new Error(e);
     }
   }
 }
