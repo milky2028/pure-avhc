@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Store from '@/store';
 const Home = () => import(/* webpackChunkName: "Home" */ './views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ './views/PrivacyPolicy.vue');
@@ -22,13 +23,12 @@ const Orders = () =>
   import(/* webpackChunkName: "Orders" */ './views/Orders.vue');
 
 Vue.use(Router);
+const store: any = Store;
 
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  scrollBehavior() {
-    return { x: 0, y: 0 };
-  },
+  scrollBehavior: () => ({ x: 0, y: 0 }),
   routes: [
     {
       path: '/',
@@ -43,7 +43,14 @@ export default new Router({
     {
       path: '/orders',
       name: 'orders',
-      component: Orders
+      component: Orders,
+      beforeEnter(to, from, next) {
+        if (!store.state.user.user) {
+          next('/login');
+        } else {
+          next();
+        }
+      }
     },
     {
       path: '/shop-cbd',
