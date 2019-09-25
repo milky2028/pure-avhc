@@ -17,6 +17,9 @@ const FeedbackAndSupport = () =>
   );
 const TestResults = () =>
   import(/* webpackChunkName: "TestResults" */ './views/TestResults.vue');
+const Login = () => import(/* webpackChunkName: "Login" */ './views/Login.vue');
+const Orders = () =>
+  import(/* webpackChunkName: "Orders" */ './views/Orders.vue');
 
 Vue.use(Router);
 
@@ -31,6 +34,16 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: Orders
     },
     {
       path: '/shop-cbd',
