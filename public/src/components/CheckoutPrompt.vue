@@ -11,6 +11,8 @@
       >close</av-icon-button>
       <transition name="fade">
         <av-input
+          type="email"
+          autocomplete="email"
           class="input"
           v-if="canSubscribe && windowWidth > 825 || canSubscribe && expanded"
           @enter="onSubscribe(email)"
