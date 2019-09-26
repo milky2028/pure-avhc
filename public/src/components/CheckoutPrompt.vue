@@ -199,8 +199,8 @@ export default Vue.extend({
       () => (this.windowWidth = window.innerWidth)
     );
 
-    // const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
-    // this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
+    const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
+    this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
   },
   methods: {
     ...mapActions('base', ['addFirestoreData']),
