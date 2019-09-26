@@ -50,12 +50,12 @@ const BaseModule = {
     getFirestoreData: async ({ commit }: Context, workerMsg: WorkerFns) => {
       const worker = new Worker();
       worker.postMessage(workerMsg);
-      worker.addEventListener('message', (msg: MessageEvent) => {
-        const firestoreData = msg.data.data;
-        switch (msg.data.collection) {
+      worker.addEventListener('message', ({ data }: MessageEvent) => {
+        const firestoreData = data.data;
+        switch (data.collection) {
           default: {
             commit('setState', {
-              type: msg.data.collection,
+              type: data.collection,
               data: firestoreData
             });
             break;
