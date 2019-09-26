@@ -57,6 +57,7 @@
   width: 100%;
   box-shadow: var(--basic-shadow);
   display: grid;
+  row-gap: 5px;
   grid-template-areas: 'input btn msg checkout';
   grid-template-columns: 360px 140px 1fr 1fr;
   grid-column-gap: 1vw;
@@ -198,8 +199,8 @@ export default Vue.extend({
       () => (this.windowWidth = window.innerWidth)
     );
 
-    const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
-    this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
+    // const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
+    // this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
   },
   methods: {
     ...mapActions('base', ['addFirestoreData']),
