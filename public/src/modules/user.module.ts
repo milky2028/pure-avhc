@@ -33,17 +33,30 @@ const UserModule = {
       payload: { email: string; password: string }
     ) {
       const worker = new Worker();
-      const workerMsg: WorkerFns = { fn: 'signInWithEmail', payload };
+      const workerMsg: WorkerFns = {
+        fn: 'signInWithEmail',
+        collection: 'auth',
+        payload
+      };
 
       worker.postMessage(workerMsg);
-      worker.addEventListener('message', ({ data }: MessageEvent) => {
-        console.log(data);
-        // commit('setState', { type: 'userId', data: data });
+      return new Promise((resolve, reject) => {
+        worker.addEventListener('message', ({ data }: MessageEvent) => {
+          if (data.collection === 'auth') {
+            if (data.data.code) {
+              reject();
+            } else {
+              commit('setState', { type: 'userId', data });
+              router.push('/orders');
+              resolve();
+            }
+          }
+        });
       });
     },
     signOut({ commit }: Context) {
       const worker = new Worker();
-      const workerMsg: WorkerFns = { fn: 'signOut' };
+      const workerMsg: WorkerFns = { fn: 'signOut', collection: 'auth' };
 
       worker.postMessage(workerMsg);
       commit('setState', { type: 'userId', data: '' });

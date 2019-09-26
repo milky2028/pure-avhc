@@ -45,7 +45,7 @@ export default new Router({
       name: 'orders',
       component: Orders,
       beforeEnter(to, from, next) {
-        if (!store.state.user.user) {
+        if (!store.state.user.userId) {
           next('/login');
         } else {
           next();

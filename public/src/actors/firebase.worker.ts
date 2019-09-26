@@ -114,12 +114,12 @@ class FirebaseWorker {
     }
   }
 
-  public async signOut() {
+  public async signOut({ collection }: { collection: string }) {
     try {
       if (!this.auth) {
-        this.initializeAuth();
+        await this.initializeAuth();
       }
-      this.listenForAuthChanges();
+      this.listenForAuthChanges(collection);
       this.auth.signOut();
     } catch (e) {
       throw new Error(e);
@@ -127,28 +127,33 @@ class FirebaseWorker {
   }
 
   public async signInWithEmail({
-    payload: { email, password }
+    payload: { email, password },
+    collection
   }: {
     payload: { email: string; password: string };
+    collection: string;
   }) {
     try {
       if (!this.auth) {
-        this.initializeAuth();
+        await this.initializeAuth();
       }
-      this.listenForAuthChanges();
-      this.auth.signInWithEmailAndPassword(email, password);
+      this.listenForAuthChanges(collection);
+      await this.auth.signInWithEmailAndPassword(email, password);
     } catch (e) {
+      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
 
-  private async listenForAuthChanges() {
+  private async listenForAuthChanges(collection: string) {
     try {
       if (!this.auth) {
-        this.initializeAuth();
+        await this.initializeAuth();
       }
       this.auth.onAuthStateChanged((userDetails) => {
-        postMessage(userDetails);
+        if (userDetails) {
+          postMessage({ collection, data: userDetails.uid });
+        }
       });
     } catch (e) {
       throw new Error(e);

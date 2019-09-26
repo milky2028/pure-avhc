@@ -19,7 +19,7 @@
           @on-input="email = $event"
           :value="email"
           width="100%"
-          :error="formError"
+          :showError="formError"
           :pattern="emailPattern"
           placeholder="Subscribe via email and get 10% off today"
           required

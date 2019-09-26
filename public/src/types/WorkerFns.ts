@@ -7,14 +7,15 @@ export default interface WorkerFns {
     | 'addDocument'
     | 'signOut'
     | 'signInWithEmail';
-  collection?:
+  collection:
     | 'submenu'
     | 'products'
     | 'mainMenu'
     | 'iconMenu'
     | 'images'
     | 'subscribers'
-    | 'testResults';
+    | 'testResults'
+    | 'auth';
   queries?: QueryParams[];
   payload?: {};
 }
