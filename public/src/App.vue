@@ -151,6 +151,7 @@ export default Vue.extend({
   },
   mounted() {
     this.setCartStateFromSave();
+    window.addEventListener('beforeinstallprompt', (e) => e.preventDefault());
   }
 });
 </script>
