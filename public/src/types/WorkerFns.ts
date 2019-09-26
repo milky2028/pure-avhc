@@ -1,8 +1,13 @@
 import { QueryParams } from './QueryParams';
 
 export default interface WorkerFns {
-  fn: 'getDocuments' | 'queryDocuments' | 'addDocument';
-  collection:
+  fn:
+    | 'getDocuments'
+    | 'queryDocuments'
+    | 'addDocument'
+    | 'signOut'
+    | 'signInWithEmail';
+  collection?:
     | 'submenu'
     | 'products'
     | 'mainMenu'
@@ -11,5 +16,5 @@ export default interface WorkerFns {
     | 'subscribers'
     | 'testResults';
   queries?: QueryParams[];
-  data?: any;
+  payload?: {};
 }

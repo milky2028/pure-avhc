@@ -114,6 +114,47 @@ class FirebaseWorker {
     }
   }
 
+  public async signOut() {
+    try {
+      if (!this.auth) {
+        this.initializeAuth();
+      }
+      this.listenForAuthChanges();
+      this.auth.signOut();
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  public async signInWithEmail({
+    payload: { email, password }
+  }: {
+    payload: { email: string; password: string };
+  }) {
+    try {
+      if (!this.auth) {
+        this.initializeAuth();
+      }
+      this.listenForAuthChanges();
+      this.auth.signInWithEmailAndPassword(email, password);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  private async listenForAuthChanges() {
+    try {
+      if (!this.auth) {
+        this.initializeAuth();
+      }
+      this.auth.onAuthStateChanged((userDetails) => {
+        postMessage(userDetails);
+      });
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
   private async initializeApp() {
     try {
       this.fb = await Firebase;
@@ -157,6 +198,6 @@ class FirebaseWorker {
 
 self.addEventListener('message', (msg) => {
   const firebaseWorker = new FirebaseWorker();
-  const { fn, collection, queries, data }: WorkerFns = msg.data;
-  firebaseWorker[fn]({ collection, queries: queries!, data });
+  const { fn }: WorkerFns = msg.data;
+  firebaseWorker[fn](msg.data);
 });
