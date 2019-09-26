@@ -94,6 +94,7 @@ export default Vue.extend({
     login() {
       const emailReg = new RegExp(this.emailPattern);
       if (emailReg.test(this.email)) {
+        // @ts-ignore;
         this.loginWithEmail({
           email: this.email,
           password: this.password
