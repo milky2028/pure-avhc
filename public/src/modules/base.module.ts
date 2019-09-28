@@ -1,5 +1,5 @@
 // @ts-ignore
-import Worker from 'worker-loader!../functions/firebase.worker';
+import Worker from 'worker-loader!../workers/firebase.worker';
 import AppBase from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
