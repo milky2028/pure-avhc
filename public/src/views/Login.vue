@@ -25,17 +25,21 @@
         type="password"
         placeholder="Password"
         autocomplete="current-password"
-        errorMsg="Invalid email/password combination"
+        :errorMsg="passwordErrorMsg"
         @on-input="password = $event"
-        @enter="login"
+        @enter="onLogin"
         :showError="passwordError"
         :value="password"
       ></av-input>
+      <div class="account-create">
+        <av-switch :value="createAnAccount" @switch="createAnAccount = $event"></av-switch>
+        <p>Create an account?</p>
+      </div>
       <av-button
         :fullWidth="windowWidth < 825"
         :long="windowWidth > 825"
         class="btn"
-        @btn-click="login"
+        @btn-click="onLogin"
       >Login</av-button>
     </article-page>
   </page-wrapper>
@@ -45,6 +49,18 @@
 .field {
   width: 35vw;
   margin-top: 10px;
+}
+
+.account-create {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-items: start;
+}
+
+p {
+  margin-left: 15px;
+  padding: 0;
 }
 
 .btn {
@@ -64,6 +80,7 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
+import AvSwitch from '../components/AvSwitch.vue';
 import { mapActions } from 'vuex';
 
 export default Vue.extend({
@@ -71,7 +88,8 @@ export default Vue.extend({
     PageWrapper,
     ArticlePage,
     AvInput,
-    AvButton
+    AvButton,
+    AvSwitch
   },
   beforeMount() {
     window.addEventListener(
@@ -86,19 +104,37 @@ export default Vue.extend({
       emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
       emailError: false,
       passwordError: false,
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
+      createAnAccount: false,
+      passwordErrorMsg: 'Invalid email/password combination'
     };
   },
   methods: {
-    ...mapActions('user', ['loginWithEmail']),
-    login() {
+    ...mapActions('user', [
+      'loginWithEmail',
+      'createAccountWithEmailAndPassword'
+    ]),
+    onLogin() {
       const emailReg = new RegExp(this.emailPattern);
       if (emailReg.test(this.email)) {
-        // @ts-ignore;
-        this.loginWithEmail({
-          email: this.email,
-          password: this.password
-        }).catch(() => (this.passwordError = true));
+        this.emailError = false;
+        if (this.createAnAccount) {
+          // @ts-ignore;
+          this.createAccountWithEmailAndPassword({
+            email: this.email,
+            password: this.password
+          }).catch(() => (this.passwordError = true));
+        } else {
+          // @ts-ignore;
+          this.loginWithEmail({
+            email: this.email,
+            password: this.password
+          }).catch(() => {
+            // TODO: Parse error messages into something better for users?
+            // console.log(errorMsg);
+            this.passwordError = true;
+          });
+        }
       } else {
         this.emailError = true;
       }

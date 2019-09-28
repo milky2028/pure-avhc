@@ -6,7 +6,8 @@ export default interface WorkerFns {
     | 'queryDocuments'
     | 'addDocument'
     | 'signOut'
-    | 'signInWithEmail';
+    | 'signInWithEmail'
+    | 'createAccountWithEmailAndPassword';
   collection:
     | 'submenu'
     | 'products'

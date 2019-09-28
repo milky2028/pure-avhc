@@ -8,6 +8,11 @@ const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
 declare function postMessage(message: any, options?: PostMessageOptions): void;
 
+interface EmailPayload {
+  payload: { email: string; password: string };
+  collection: string;
+}
+
 class FirebaseWorker {
   [key: string]: any;
   private fb!: any;
@@ -129,16 +134,29 @@ class FirebaseWorker {
   public async signInWithEmail({
     payload: { email, password },
     collection
-  }: {
-    payload: { email: string; password: string };
-    collection: string;
-  }) {
+  }: EmailPayload) {
     try {
       if (!this.auth) {
         await this.initializeAuth();
       }
       this.listenForAuthChanges(collection);
       await this.auth.signInWithEmailAndPassword(email, password);
+    } catch (e) {
+      postMessage({ collection, data: e });
+      throw new Error(e);
+    }
+  }
+
+  public async createAccountWithEmailAndPassword({
+    payload: { email, password },
+    collection
+  }: EmailPayload) {
+    try {
+      if (!this.auth) {
+        await this.initializeAuth();
+      }
+      this.listenForAuthChanges(collection);
+      await this.auth.createUserWithEmailAndPassword(email, password);
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);

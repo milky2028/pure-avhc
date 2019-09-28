@@ -44,7 +44,7 @@ const UserModule = {
         worker.addEventListener('message', ({ data }: MessageEvent) => {
           if (data.collection === 'auth') {
             if (data.data.code) {
-              reject();
+              reject(data.data.message);
             } else {
               commit('setState', { type: 'userId', data });
               router.push('/orders');
@@ -61,6 +61,30 @@ const UserModule = {
       worker.postMessage(workerMsg);
       commit('setState', { type: 'userId', data: '' });
       router.push('/');
+    },
+    createAccountWithEmailAndPassword(
+      { commit }: Context,
+      payload: { email: string; password: string }
+    ) {
+      const worker = new Worker();
+      const workerMsg: WorkerFns = {
+        fn: 'createAccountWithEmailAndPassword',
+        collection: 'auth',
+        payload
+      };
+      worker.postMessage(workerMsg);
+      return new Promise((resolve, reject) => {
+        worker.addEventListener('message', ({ data }: MessageEvent) => {
+          if (data.collection === 'auth') {
+            if (data.code) {
+              reject(data.data.message);
+            } else {
+              commit('setState', { type: 'userId', data });
+              resolve();
+            }
+          }
+        });
+      });
     }
   }
 };
