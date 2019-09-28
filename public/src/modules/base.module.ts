@@ -1,9 +1,9 @@
 // @ts-ignore
-import Worker from 'worker-loader!../actors/firebase.worker';
+import Worker from 'worker-loader!../functions/firebase.worker';
 import AppBase from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
-import setState from '../actors/setState';
+import setState from '../functions/setState';
 
 interface Context {
   commit: Commit;

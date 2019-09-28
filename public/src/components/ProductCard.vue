@@ -60,8 +60,8 @@ a:hover {
 
 <script lang="ts">
 import Vue from 'vue';
-import getImageAlt from '../actors/getImageAlt';
-import getImageUrl from '../actors/getImageUrl';
+import getImageAlt from '../functions/getImageAlt';
+import getImageUrl from '../functions/getImageUrl';
 import WorkerFns from '../types/WorkerFns';
 import { mapState, mapActions } from 'vuex';
 import Image from '../types/Image';

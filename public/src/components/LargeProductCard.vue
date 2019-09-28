@@ -136,11 +136,11 @@ ul {
 
 <script lang="ts">
 import Vue from 'vue';
-import getImageUrl from '../actors/getImageUrl';
-import createRandomId from '../actors/createRandomId';
+import getImageUrl from '../functions/getImageUrl';
+import createRandomId from '../functions/createRandomId';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
-import getImageAlt from '../actors/getImageAlt';
+import getImageAlt from '../functions/getImageAlt';
 import Image from '../types/Image';
 import Size from '../types/Size';
 import EliantoButton from '../components/EliantoButton.vue';

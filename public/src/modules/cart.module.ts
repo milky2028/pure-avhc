@@ -1,7 +1,7 @@
 import CartItem from '@/types/CartItem';
 import * as idb from 'idb-keyval';
 import { Commit } from 'vuex';
-import setState from '../actors/setState';
+import setState from '../functions/setState';
 
 interface Context {
   commit: Commit;

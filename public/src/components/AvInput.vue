@@ -56,7 +56,7 @@ input.dirty:invalid {
 
 <script lang="ts">
 import Vue from 'vue';
-import CreateRandomId from '../actors/createRandomId';
+import CreateRandomId from '../functions/createRandomId';
 
 export default Vue.extend({
   inheritAttrs: false,

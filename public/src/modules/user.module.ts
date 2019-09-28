@@ -1,7 +1,7 @@
 // @ts-ignore
-import Worker from 'worker-loader!../actors/firebase.worker';
+import Worker from 'worker-loader!../functions/firebase.worker';
 import User from '@/types/User';
-import setState from '@/actors/setState';
+import setState from '@/functions/setState';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import router from '@/router';
