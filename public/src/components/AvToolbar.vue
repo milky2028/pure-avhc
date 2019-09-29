@@ -89,7 +89,7 @@
               <img
                 class="icon-link"
                 v-if="menuItem.iconType === 'external'"
-                :src="menuItem.icon"
+                :src="require(`../assets/img/${menuItem.icon}`)"
                 :alt="menuItem.alt"
               />
               <span
