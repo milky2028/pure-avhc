@@ -110,8 +110,14 @@ const UserModule = {
           }
           case 'facebook': {
             const facebook = new fb.auth.FacebookAuthProvider();
-            const userCredentials = auth.signInWithPopup(facebook);
-            console.log(userCredentials);
+            const userCredentials = await auth.signInWithPopup(facebook);
+            if (userCredentials && userCredentials.user) {
+              commit('setState', {
+                type: 'userId',
+                data: userCredentials.user.uid
+              });
+            }
+            break;
           }
         }
       } catch (e) {

@@ -42,10 +42,10 @@
         @btn-click="onLogin"
       >Login</av-button>
       <div class="sign-in-container">
-        <button class="sign-in-btn" @click="signInWithProvider('google')">
+        <button class="sign-in-btn" @click="onProviderLogin('google')">
           <img class="sign-in-icon google" src="../assets/img/google.svg" alt="Google icon" />Sign in with Google
         </button>
-        <button class="sign-in-btn facebook" @click="signInWithProvider('facebook')">
+        <button class="sign-in-btn facebook" @click="onProviderLogin('facebook')">
           <span>
             <img class="sign-in-icon" src="../assets/img/facebook.svg" alt="Facebook icon" />
           </span>
@@ -175,6 +175,14 @@ export default Vue.extend({
       'createAccountWithEmailAndPassword',
       'signInWithProvider'
     ]),
+    onProviderLogin(provider: string) {
+      this.signInWithProvider(provider)
+        .then(() => (this.passwordError = false))
+        .catch((e) => {
+          this.passwordErrorMsg = e;
+          this.passwordError = true;
+        });
+    },
     onLogin() {
       const emailReg = new RegExp(this.emailPattern);
       if (emailReg.test(this.email)) {
@@ -184,17 +192,23 @@ export default Vue.extend({
           this.createAccountWithEmailAndPassword({
             email: this.email,
             password: this.password
-          }).catch(() => (this.passwordError = true));
+          })
+            .then(() => (this.passwordError = false))
+            .catch((e) => {
+              this.passwordErrorMsg = e;
+              this.passwordError = true;
+            });
         } else {
           // @ts-ignore;
           this.loginWithEmail({
             email: this.email,
             password: this.password
-          }).catch(() => {
-            // TODO: Parse error messages into something better for users?
-            // console.log(errorMsg);
-            this.passwordError = true;
-          });
+          })
+            .then(() => (this.passwordError = false))
+            .catch((e) => {
+              this.passwordErrorMsg = e;
+              this.passwordError = true;
+            });
         }
       } else {
         this.emailError = true;
