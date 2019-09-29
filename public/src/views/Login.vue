@@ -43,19 +43,11 @@
       >Login</av-button>
       <div class="sign-in-container">
         <button class="sign-in-btn">
-          <img
-            class="sign-in-icon google"
-            src="https://storage.googleapis.com/aspe-f5783.appspot.com/icons/google.svg"
-            alt="Google icon"
-          />Sign in with Google
+          <img class="sign-in-icon google" src="../assets/img/google.svg" alt="Google icon" />Sign in with Google
         </button>
         <button class="sign-in-btn facebook">
           <span>
-            <img
-              class="sign-in-icon"
-              src="https://storage.googleapis.com/aspe-f5783.appspot.com/icons/facebook.svg"
-              alt="Facebook icon"
-            />
+            <img class="sign-in-icon" src="../assets/img/facebook.svg" alt="Facebook icon" />
           </span>
           <span>Sign in with Facebook</span>
         </button>
