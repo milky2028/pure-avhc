@@ -42,10 +42,10 @@
         @btn-click="onLogin"
       >Login</av-button>
       <div class="sign-in-container">
-        <button class="sign-in-btn" @click="signInWithProvider({ provider: 'google' })">
+        <button class="sign-in-btn" @click="signInWithProvider('google')">
           <img class="sign-in-icon google" src="../assets/img/google.svg" alt="Google icon" />Sign in with Google
         </button>
-        <button class="sign-in-btn facebook">
+        <button class="sign-in-btn facebook" @click="signInWithProvider('facebook')">
           <span>
             <img class="sign-in-icon" src="../assets/img/facebook.svg" alt="Facebook icon" />
           </span>

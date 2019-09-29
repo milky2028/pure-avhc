@@ -5,6 +5,8 @@ import setState from '@/functions/setState';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import router from '@/router';
+const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
+const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
 interface Context {
   commit: Commit;
@@ -86,25 +88,35 @@ const UserModule = {
         });
       });
     },
-    signInWithProvider({ commit }: Context, payload: { provider: string }) {
-      const worker = new Worker();
-      const workerMsg: WorkerFns = {
-        fn: 'signInWithProvider',
-        collection: 'auth',
-        payload
-      };
-      worker.postMessage(workerMsg);
-
-      return new Promise((resolve, reject) => {
-        worker.addEventListener('message', ({ data }: MessageEvent) => {
-          console.log(data);
-          if (data.collection === 'auth') {
-            resolve(data);
-          } else {
-            reject();
+    async signInWithProvider({ commit }: Context, provider: string) {
+      try {
+        const fb = await Firebase;
+        const firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE_CONFIG!);
+        const app =
+          fb.apps.length < 1 ? fb.initializeApp(firebaseConfig) : fb.app();
+        await AuthImport;
+        const auth = app.auth();
+        switch (provider) {
+          case 'google': {
+            const google = new fb.auth.GoogleAuthProvider();
+            const userCredentials = await auth.signInWithPopup(google);
+            if (userCredentials && userCredentials.user) {
+              commit('setState', {
+                type: 'userId',
+                data: userCredentials.user.uid
+              });
+            }
+            break;
           }
-        });
-      });
+          case 'facebook': {
+            const facebook = new fb.auth.FacebookAuthProvider();
+            const userCredentials = auth.signInWithPopup(facebook);
+            console.log(userCredentials);
+          }
+        }
+      } catch (e) {
+        throw new Error(e);
+      }
     }
   }
 };
