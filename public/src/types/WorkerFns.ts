@@ -7,7 +7,8 @@ export default interface WorkerFns {
     | 'addDocument'
     | 'signOut'
     | 'signInWithEmail'
-    | 'createAccountWithEmailAndPassword';
+    | 'createAccountWithEmailAndPassword'
+    | 'signInWithProvider';
   collection:
     | 'submenu'
     | 'products'

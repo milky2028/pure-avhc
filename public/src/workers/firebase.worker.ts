@@ -163,6 +163,33 @@ class FirebaseWorker {
     }
   }
 
+  public async signInWithProvider({
+    payload: { provider, collection }
+  }: {
+    payload: { provider: string; collection: string };
+  }) {
+    try {
+      if (!this.auth) {
+        await this.initializeAuth();
+      }
+      switch (provider) {
+        case 'google': {
+          const google = new this.fb.auth.GoogleAuthProvider();
+          const userCredentials = await this.auth.signInWithPopup(google);
+          postMessage({ userCredentials, provider, collection });
+          break;
+        }
+        case 'facebook': {
+          const facebook = new this.fb.auth.FacebookAuthProvider();
+          const userCredentials = this.auth.signInWithPopup(facebook);
+          postMessage({ userCredentials, provider, collection });
+        }
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
   private async listenForAuthChanges(collection: string) {
     try {
       if (!this.auth) {

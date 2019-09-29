@@ -85,6 +85,26 @@ const UserModule = {
           }
         });
       });
+    },
+    signInWithProvider({ commit }: Context, payload: { provider: string }) {
+      const worker = new Worker();
+      const workerMsg: WorkerFns = {
+        fn: 'signInWithProvider',
+        collection: 'auth',
+        payload
+      };
+      worker.postMessage(workerMsg);
+
+      return new Promise((resolve, reject) => {
+        worker.addEventListener('message', ({ data }: MessageEvent) => {
+          console.log(data);
+          if (data.collection === 'auth') {
+            resolve(data);
+          } else {
+            reject();
+          }
+        });
+      });
     }
   }
 };

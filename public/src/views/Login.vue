@@ -42,7 +42,7 @@
         @btn-click="onLogin"
       >Login</av-button>
       <div class="sign-in-container">
-        <button class="sign-in-btn">
+        <button class="sign-in-btn" @click="signInWithProvider({ provider: 'google' })">
           <img class="sign-in-icon google" src="../assets/img/google.svg" alt="Google icon" />Sign in with Google
         </button>
         <button class="sign-in-btn facebook">
@@ -172,7 +172,8 @@ export default Vue.extend({
   methods: {
     ...mapActions('user', [
       'loginWithEmail',
-      'createAccountWithEmailAndPassword'
+      'createAccountWithEmailAndPassword',
+      'signInWithProvider'
     ]),
     onLogin() {
       const emailReg = new RegExp(this.emailPattern);
