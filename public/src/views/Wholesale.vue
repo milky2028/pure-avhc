@@ -1,5 +1,11 @@
 <template>
   <page-wrapper withPadding>
+    <!-- Form Fields
+    Billing
+    Shipping
+    Contact Email
+    Contact Phone Number
+    Business Name-->
     <article-page title="Wholesale">Wholesale page</article-page>
   </page-wrapper>
 </template>
