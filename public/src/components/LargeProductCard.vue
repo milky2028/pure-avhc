@@ -71,6 +71,7 @@ img {
   width: 100%;
   max-width: 100vmin;
   height: 100%;
+  max-height: 40vmin;
 }
 
 .sold-out {
@@ -131,6 +132,12 @@ ul {
 
 .btn-text {
   display: block;
+}
+
+@media (max-width: 825px) {
+  img {
+    max-height: 40vmax;
+  }
 }
 </style>
 
