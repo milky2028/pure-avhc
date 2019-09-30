@@ -134,7 +134,7 @@ ul {
   display: block;
 }
 
-@media (max-width: 825px) {
+@media (max-width: 835px) {
   img {
     max-height: 40vmax;
   }
@@ -181,7 +181,7 @@ export default Vue.extend({
     getImageWidth() {
       const windowWidth = window.innerWidth;
       const vw = windowWidth / 100;
-      return windowWidth > 825
+      return windowWidth > 835
         ? (windowWidth - 14 * vw) / 3
         : windowWidth - 8 * vw;
     },

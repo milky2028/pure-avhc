@@ -53,7 +53,7 @@ p {
   align-self: flex-end;
 }
 
-@media (max-width: 825px) {
+@media (max-width: 835px) {
   .disclaimer {
     bottom: 0;
     left: 0;

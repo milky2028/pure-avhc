@@ -5,7 +5,7 @@
         <router-link to="/cart">Checkout ></router-link>
       </h2>
       <av-icon-button
-        v-if="windowWidth < 825 && expanded"
+        v-if="windowWidth < 835 && expanded"
         class="icon"
         @icon-click="onClose()"
       >close</av-icon-button>
@@ -14,7 +14,7 @@
           type="email"
           autocomplete="email"
           class="input"
-          v-if="canSubscribe && windowWidth > 825 || canSubscribe && expanded"
+          v-if="canSubscribe && windowWidth > 835 || canSubscribe && expanded"
           @enter="onSubscribe(email)"
           @on-input="email = $event"
           :value="email"
@@ -112,7 +112,7 @@
   line-height: 1;
 }
 
-@media (max-width: 825px) {
+@media (max-width: 835px) {
   .prompt {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'btn checkout';
@@ -190,7 +190,7 @@ export default Vue.extend({
     ...mapState('cart', ['cartItems']),
     ...mapGetters('cart', ['subtotal']),
     btnText(): string {
-      return this.windowWidth < 825 && !this.expanded
+      return this.windowWidth < 835 && !this.expanded
         ? 'Get 10% Off'
         : 'Subscribe';
     }
@@ -211,7 +211,7 @@ export default Vue.extend({
       this.formError = false;
     },
     async onSubscribe(email: string): Promise<void> {
-      if (this.windowWidth > 825 || this.expanded) {
+      if (this.windowWidth > 835 || this.expanded) {
         const reg = new RegExp(this.emailPattern);
         const isValid = reg.test(email);
         if (isValid) {

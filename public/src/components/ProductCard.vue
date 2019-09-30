@@ -50,7 +50,7 @@ a:hover {
   color: white !important;
 }
 
-@media (max-width: 825px) {
+@media (max-width: 835px) {
   .card {
     height: 12vh;
   }

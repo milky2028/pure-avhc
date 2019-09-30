@@ -21,7 +21,7 @@
   margin-bottom: 2vmax;
 }
 
-@media (max-width: 825px) {
+@media (max-width: 835px) {
   .products-container {
     grid-auto-flow: row;
     grid-template-columns: 1fr;

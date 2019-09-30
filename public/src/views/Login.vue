@@ -40,8 +40,8 @@
         <p>Create an account?</p>
       </div>
       <av-button
-        :fullWidth="windowWidth < 825"
-        :long="windowWidth > 825"
+        :fullWidth="windowWidth < 835"
+        :long="windowWidth > 835"
         class="btn"
         @btn-click="onLogin"
       >Login</av-button>
@@ -128,7 +128,7 @@ img {
   filter: brightness(90%);
 }
 
-@media (max-width: 825px) {
+@media (max-width: 835px) {
   .field {
     width: 100%;
   }

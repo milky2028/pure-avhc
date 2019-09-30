@@ -22,7 +22,7 @@
         </div>
         <av-button
           long
-          :fullWidth="windowWidth < 825"
+          :fullWidth="windowWidth < 835"
           class="btn"
           @btn-click="$router.push('/shop-cbd')"
           v-if="product.sortOrder === 0"
@@ -86,7 +86,7 @@
   margin-top: 5px;
 }
 
-@media (max-width: 825px) {
+@media (max-width: 835px) {
   .home {
     height: calc(200vh - 110px);
     grid-auto-flow: row;
@@ -113,6 +113,7 @@
   }
 
   .tagline-container {
+    justify-self: center;
     align-items: center;
   }
 }
