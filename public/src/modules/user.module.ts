@@ -64,6 +64,27 @@ const UserModule = {
       commit('setState', { type: 'userId', data: '' });
       router.push('/');
     },
+    listenForAuthStateChanges({ commit }: Context) {
+      const worker = new Worker();
+      const workerMsg: WorkerFns = {
+        fn: 'listenForAuthStateChanges',
+        collection: 'auth'
+      };
+      worker.postMessage(workerMsg);
+
+      return new Promise((resolve, reject) => {
+        worker.addEventListener('message', ({ data }: MessageEvent) => {
+          if (data.collection === 'auth') {
+            if (data.data.code) {
+              reject(data.data.message);
+            } else {
+              commit('setState', { type: 'userId', data: data.data });
+              resolve();
+            }
+          }
+        });
+      });
+    },
     createAccountWithEmailAndPassword(
       { commit }: Context,
       payload: { email: string; password: string }

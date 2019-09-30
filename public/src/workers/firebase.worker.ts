@@ -124,7 +124,7 @@ class FirebaseWorker {
       if (!this.auth) {
         await this.initializeAuth();
       }
-      this.listenForAuthChanges(collection);
+      this.listenForAuthStateChanges({ collection });
       this.auth.signOut();
     } catch (e) {
       throw new Error(e);
@@ -139,7 +139,7 @@ class FirebaseWorker {
       if (!this.auth) {
         await this.initializeAuth();
       }
-      this.listenForAuthChanges(collection);
+      this.listenForAuthStateChanges({ collection });
       await this.auth.signInWithEmailAndPassword(email, password);
     } catch (e) {
       postMessage({ collection, data: e });
@@ -155,7 +155,7 @@ class FirebaseWorker {
       if (!this.auth) {
         await this.initializeAuth();
       }
-      this.listenForAuthChanges(collection);
+      this.listenForAuthStateChanges({ collection });
       await this.auth.createUserWithEmailAndPassword(email, password);
     } catch (e) {
       postMessage({ collection, data: e });
@@ -163,7 +163,11 @@ class FirebaseWorker {
     }
   }
 
-  private async listenForAuthChanges(collection: string) {
+  public async listenForAuthStateChanges({
+    collection
+  }: {
+    collection: string;
+  }) {
     try {
       if (!this.auth) {
         await this.initializeAuth();

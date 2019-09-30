@@ -141,7 +141,7 @@ import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvSwitch from '../components/AvSwitch.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default Vue.extend({
   components: {
@@ -169,6 +169,16 @@ export default Vue.extend({
       passwordErrorMsg: 'Invalid email/password combination'
     };
   },
+  computed: {
+    ...mapState('user', ['userId'])
+  },
+  watch: {
+    userId(uid: string) {
+      if (uid) {
+        this.$router.push('/orders');
+      }
+    }
+  },
   methods: {
     ...mapActions('user', [
       'loginWithEmail',
@@ -178,7 +188,7 @@ export default Vue.extend({
     onProviderLogin(provider: string) {
       this.signInWithProvider(provider)
         .then(() => (this.passwordError = false))
-        .catch((e) => {
+        .catch((e: string) => {
           this.passwordErrorMsg = e;
           this.passwordError = true;
         });
@@ -194,7 +204,7 @@ export default Vue.extend({
             password: this.password
           })
             .then(() => (this.passwordError = false))
-            .catch((e) => {
+            .catch((e: string) => {
               this.passwordErrorMsg = e;
               this.passwordError = true;
             });
@@ -205,7 +215,7 @@ export default Vue.extend({
             password: this.password
           })
             .then(() => (this.passwordError = false))
-            .catch((e) => {
+            .catch((e: string) => {
               this.passwordErrorMsg = e;
               this.passwordError = true;
             });

@@ -147,10 +147,12 @@ export default Vue.extend({
     ...mapState('cart', ['cartItems'])
   },
   methods: {
-    ...mapActions('cart', ['setCartStateFromSave'])
+    ...mapActions('cart', ['setCartStateFromSave']),
+    ...mapActions('user', ['listenForAuthStateChanges'])
   },
-  mounted() {
+  beforeMount() {
     this.setCartStateFromSave();
+    this.listenForAuthStateChanges();
     window.addEventListener('beforeinstallprompt', (e) => e.preventDefault());
   }
 });

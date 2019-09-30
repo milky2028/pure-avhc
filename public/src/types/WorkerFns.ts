@@ -8,7 +8,8 @@ export default interface WorkerFns {
     | 'signOut'
     | 'signInWithEmail'
     | 'createAccountWithEmailAndPassword'
-    | 'signInWithProvider';
+    | 'signInWithProvider'
+    | 'listenForAuthStateChanges';
   collection:
     | 'submenu'
     | 'products'
