@@ -1,6 +1,10 @@
 <template>
   <page-wrapper withPadding>
     <article-page title="Login">
+      <p class="sign-in-helper">
+        You may also use your
+        <a href="https://purecbdexchange.com">purecbdexchange.com</a> account to sign in here.
+      </p>
       <av-input
         required
         darkBackground
@@ -72,6 +76,11 @@
 p {
   margin-left: 15px;
   padding: 0;
+}
+
+.sign-in-helper {
+  margin-left: 0;
+  font-size: 14px;
 }
 
 .btn {
