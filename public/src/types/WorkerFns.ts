@@ -18,7 +18,8 @@ export default interface WorkerFns {
     | 'images'
     | 'subscribers'
     | 'testResults'
-    | 'auth';
+    | 'auth'
+    | 'wholesale';
   queries?: QueryParams[];
   payload?: {};
 }
