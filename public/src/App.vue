@@ -150,7 +150,7 @@ export default Vue.extend({
     ...mapActions('cart', ['setCartStateFromSave']),
     ...mapActions('user', ['listenForAuthStateChanges'])
   },
-  beforeMount() {
+  mounted() {
     this.setCartStateFromSave();
     this.listenForAuthStateChanges();
     window.addEventListener('beforeinstallprompt', (e) => e.preventDefault());
