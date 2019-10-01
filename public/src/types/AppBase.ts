@@ -3,6 +3,7 @@ import Product from './Product';
 import IconMenuItem from './IconMenuItem';
 import Image from './Image';
 import TestResult from './TestResult';
+import WholesaleCatalog from './WholesaleCatalog';
 
 export interface Logo {
   url?: string;
@@ -23,7 +24,8 @@ export default interface AppBase {
     | Product[]
     | IconMenuItem[]
     | Image[]
-    | TestResult[];
+    | TestResult[]
+    | WholesaleCatalog[];
   imageUrl: string;
   isOverlayShowing: boolean;
   isNavbarExpanded: boolean;
@@ -34,5 +36,5 @@ export default interface AppBase {
   iconMenu: IconMenuItem[];
   images: Image[];
   testResults: TestResult[];
-  wholesaleCatalog: '';
+  wholesaleCatalog: WholesaleCatalog[];
 }

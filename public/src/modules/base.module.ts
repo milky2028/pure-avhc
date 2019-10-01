@@ -26,7 +26,7 @@ const BaseModule: {
     iconMenu: [],
     images: [],
     testResults: [],
-    wholesaleCatalog: ''
+    wholesaleCatalog: []
   },
   mutations: {
     setState,
