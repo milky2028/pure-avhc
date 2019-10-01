@@ -1,11 +1,7 @@
 <template>
   <page-wrapper withPadding>
     <!-- Form Fields
-    Billing
-    Shipping
-    Contact Email
-    Contact Phone Number
-    Business Name-->
+    Billing -->
     <article-page title="Wholesale">
       <p>
         {{ fullName }} provides wholesale purchasing options and pricing to customers seeking to buy hemp and CBD products in large quantities.
