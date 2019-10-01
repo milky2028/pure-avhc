@@ -10,7 +10,10 @@ interface Context {
   state?: AppBase;
 }
 
-const BaseModule = {
+const BaseModule: {
+  [key: string]: any;
+  state: AppBase;
+} = {
   namespaced: true,
   state: {
     imageUrl: 'https://res.cloudinary.com/pure-avhc/image/upload/',
@@ -22,7 +25,8 @@ const BaseModule = {
     mainMenu: [],
     iconMenu: [],
     images: [],
-    testResults: []
+    testResults: [],
+    wholesaleCatalog: ''
   },
   mutations: {
     setState,
