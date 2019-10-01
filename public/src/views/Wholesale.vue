@@ -13,7 +13,13 @@
       </p>
       <p>Account managers are provided to wholesale customers to assist in completing transactions and to ensure that the process goes smoothly. To get started, take a look at our wholesale catalog and fill out the form below.</p>
       <p>
-        <a target="_blank" rel="noopener noreferrer" type="application/pdf" href>Wholesale Catalog</a>
+        <a
+          v-if="wholesaleCatalog && wholesaleCatalog.length > 0"
+          target="_blank"
+          rel="noopener noreferrer"
+          type="application/pdf"
+          :href="wholesaleCatalog[0].url"
+        >Wholesale Catalog</a>
       </p>
       <h2 class="last">Wholesale Application</h2>
       <shipping-form includeCompany></shipping-form>
@@ -32,7 +38,7 @@ import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import ShippingForm from '../components/ShippingForm.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default Vue.extend({
   components: {
@@ -47,6 +53,9 @@ export default Vue.extend({
     return {
       fullName: process.env.VUE_APP_FULL_NAME
     };
+  },
+  computed: {
+    ...mapState('base', ['wholesaleCatalog'])
   },
   mounted() {
     this.getFirestoreData({
