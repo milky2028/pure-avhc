@@ -56,15 +56,10 @@ const BaseModule: {
       worker.postMessage(workerMsg);
       worker.addEventListener('message', ({ data }: MessageEvent) => {
         const firestoreData = data.data;
-        switch (data.collection) {
-          default: {
-            commit('setState', {
-              type: data.collection,
-              data: firestoreData
-            });
-            break;
-          }
-        }
+        commit('setState', {
+          type: data.collection,
+          data: firestoreData
+        });
       });
     }
   }

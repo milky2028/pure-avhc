@@ -1,5 +1,6 @@
 import WorkerFns from '@/types/WorkerFns';
 import { QueryParams } from '@/types/QueryParams';
+import OrderByParams from '@/types/OrderByParams';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(
   /* webpackChunkName: 'firestore' */ 'firebase/firestore'
@@ -80,10 +81,14 @@ class FirebaseWorker {
 
   public async queryDocuments({
     collection,
-    queries
+    queries,
+    limit,
+    orderBy
   }: {
     collection: string;
-    queries: QueryParams[];
+    queries?: QueryParams[];
+    limit?: number;
+    orderBy?: OrderByParams;
   }) {
     if (!this.db) {
       await this.initializeFirestore();
@@ -92,9 +97,19 @@ class FirebaseWorker {
       let results = this.db
         .collection(collection)
         .where('site', 'array-contains', process.env.VUE_APP_NAME);
-      queries.forEach(({ fieldPath, operator, compareValue }: QueryParams) => {
-        results = results.where(fieldPath, operator, compareValue);
-      });
+      if (queries) {
+        queries.forEach(
+          ({ fieldPath, operator, compareValue }: QueryParams) => {
+            results = results.where(fieldPath, operator, compareValue);
+          }
+        );
+      }
+      if (orderBy) {
+        results = results.orderBy(orderBy.field, orderBy.direction);
+      }
+      if (limit) {
+        results = results.limit(limit);
+      }
       return results.onSnapshot((snapshot) => {
         const data = snapshot.docs.map((doc) => ({
           ...doc.data(),

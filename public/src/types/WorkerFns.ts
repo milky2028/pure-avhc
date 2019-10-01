@@ -1,4 +1,5 @@
 import { QueryParams } from './QueryParams';
+import OrderByParams from './OrderByParams';
 
 export default interface WorkerFns {
   fn:
@@ -19,7 +20,9 @@ export default interface WorkerFns {
     | 'subscribers'
     | 'testResults'
     | 'auth'
-    | 'wholesale';
+    | 'wholesaleCatalog';
   queries?: QueryParams[];
+  limit?: number;
+  orderBy?: OrderByParams;
   payload?: {};
 }
