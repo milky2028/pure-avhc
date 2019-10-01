@@ -8,7 +8,7 @@
       @keyup.enter="$emit('enter', $event.target.value)"
       @blur="dirty = true"
       :value="value"
-      :class="{ darkBackground, dirty, showError, morePadding }"
+      :class="{ dark, dirty, showError, morePadding }"
       :style="{ width }"
     />
     <p v-if="useNativeFieldError && showError && errorMsg" class="body-text">{{ errorMsg }}</p>
@@ -39,7 +39,7 @@ input {
   border-color: var(--dark-accent);
 }
 
-.darkBackground {
+.dark {
   color: white;
   background-color: var(--primary-color);
 }
@@ -62,7 +62,7 @@ export default Vue.extend({
   inheritAttrs: false,
   props: {
     label: String,
-    darkBackground: Boolean,
+    dark: Boolean,
     morePadding: Boolean,
     width: String,
     value: String,

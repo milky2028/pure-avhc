@@ -7,7 +7,7 @@
       </p>
       <av-input
         required
-        darkBackground
+        dark
         morePadding
         useNativeFieldError
         type="email"
@@ -22,7 +22,7 @@
       ></av-input>
       <av-input
         required
-        darkBackground
+        dark
         morePadding
         useNativeFieldError
         class="field"
