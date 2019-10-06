@@ -160,7 +160,7 @@ export default Vue.extend({
     AvButton,
     AvSwitch
   },
-  beforeMount() {
+  mounted() {
     window.addEventListener(
       'resize',
       () => (this.windowWidth = window.innerWidth)
