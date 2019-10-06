@@ -4,6 +4,7 @@
     <input
       :id="fieldId"
       v-bind="$attrs"
+      :list="datalist && datalist.length > 0 ? 'list' : ' '"
       @input="$emit('on-input', $event.target.value)"
       @keyup.enter="$emit('enter', $event.target.value)"
       @blur="dirty = true"
@@ -11,6 +12,9 @@
       :class="{ dark, dirty, showError, morePadding }"
       :style="{ width }"
     />
+    <datalist v-if="datalist && datalist.length > 0" id="list">
+      <option v-for="item of datalist" :key="item" :value="item">{{ item }}</option>
+    </datalist>
     <p v-if="useNativeFieldError && showError && errorMsg" class="body-text">{{ errorMsg }}</p>
   </div>
 </template>
@@ -62,6 +66,7 @@ import CreateRandomId from '../functions/createRandomId';
 export default Vue.extend({
   inheritAttrs: false,
   props: {
+    datalist: Array,
     label: String,
     dark: Boolean,
     morePadding: Boolean,
