@@ -106,7 +106,7 @@ export default Vue.extend({
         zipCode: '',
         country: ''
       },
-      errors: []
+      errors: [] as string[]
     };
   },
   computed: {
