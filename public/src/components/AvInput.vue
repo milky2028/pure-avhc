@@ -32,6 +32,7 @@ p {
 }
 
 input {
+  width: 100%;
   background-color: white;
   padding: 10px;
   border-radius: var(--rounded-corner);
