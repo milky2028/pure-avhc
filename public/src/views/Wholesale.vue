@@ -144,6 +144,8 @@ export default Vue.extend({
         ...shippingErrors,
         ...(this.differentBilling ? billingErrors : [])
       ];
+
+      console.log(this.shippingForm, this.billingForm);
     }
   },
   mounted() {
