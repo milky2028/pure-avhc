@@ -1,7 +1,5 @@
 <template>
   <page-wrapper withPadding>
-    <!-- Form Fields
-    Billing -->
     <article-page title="Wholesale">
       <p>
         {{ fullName }} provides wholesale purchasing options and pricing to customers seeking to buy hemp and CBD products in large quantities.
@@ -18,7 +16,22 @@
         >Wholesale Catalog</a>
       </p>
       <h2 class="last">Wholesale Application</h2>
-      <shipping-form includeCompany></shipping-form>
+      <shipping-form includeCompany @form-input="shippingForm = $event"></shipping-form>
+      <div class="switch-container">
+        <av-switch class="switch" @switch="differentBilling = $event"></av-switch>
+        <p class="billing-question">Different billing address?</p>
+      </div>
+      <shipping-form includeCompany isBilling v-if="differentBilling"></shipping-form>
+      <p class="errors" v-if="errors.length > 0" :class="{ topMargin: differentBilling }">
+        The following fields are required:
+        <strong>{{ errors.map((e) => uncamelize(e)).join(', ') }}.</strong>
+      </p>
+      <av-button
+        :class="{ topMargin: differentBilling}"
+        :fullWidth="windowWidth < 835"
+        :long="windowWidth > 835"
+        @btn-click="onSubmit"
+      >Submit</av-button>
     </article-page>
   </page-wrapper>
 </template>
@@ -27,6 +40,27 @@
 .last {
   margin-bottom: 15px;
 }
+
+.switch-container {
+  display: flex;
+  justify-content: start;
+  margin: 16px 0;
+}
+
+.billing-question {
+  padding: 0;
+  margin-left: 16px;
+}
+
+.topMargin {
+  margin-top: 16px;
+}
+
+.errors {
+  padding-top: 0;
+  color: var(--warn);
+  margin-bottom: 16px;
+}
 </style>
 
 <script lang="ts">
@@ -34,24 +68,83 @@ import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import ShippingForm from '../components/ShippingForm.vue';
+import AvSwitch from '../components/AvSwitch.vue';
+import AvButton from '../components/AvButton.vue';
+import uncamelize from '../functions/uncamelize';
 import { mapActions, mapState } from 'vuex';
 
 export default Vue.extend({
   components: {
     PageWrapper,
     ShippingForm,
-    ArticlePage
-  },
-  methods: {
-    ...mapActions('base', ['getFirestoreData'])
+    ArticlePage,
+    AvSwitch,
+    AvButton
   },
   data() {
     return {
-      fullName: process.env.VUE_APP_FULL_NAME
+      fullName: process.env.VUE_APP_FULL_NAME,
+      differentBilling: false,
+      windowWidth: window.innerWidth,
+      shippingForm: {
+        email: '',
+        name: '',
+        company: '',
+        phoneNumber: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        country: ''
+      },
+      billingForm: {
+        name: '',
+        company: '',
+        address: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        country: ''
+      },
+      errors: []
     };
   },
   computed: {
     ...mapState('base', ['wholesaleCatalog'])
+  },
+  methods: {
+    ...mapActions('base', ['getFirestoreData']),
+    uncamelize,
+    capitalizeFirstLetter(text: string) {
+      return text.replace(/^\w/, (c) => c.toUpperCase());
+    },
+    onSubmit() {
+      const unrequiredFields = ['company'];
+      const unrequiredBillingFields = [
+        ...unrequiredFields,
+        'email',
+        'phoneNumber'
+      ];
+      const form = {
+        ...this.shippingForm,
+        ...(this.differentBilling ? this.billingForm : {})
+      };
+
+      const shippingErrors = Object.entries(this.shippingForm)
+        .filter(([key, value]) => !unrequiredFields.includes(key) && !value)
+        .map(([key]) => key);
+
+      const billingErrors = Object.entries(this.shippingForm)
+        .filter(
+          ([key, value]) => !unrequiredBillingFields.includes(key) && !value
+        )
+        .map(([key]) => `billing${this.capitalizeFirstLetter(key)}`);
+
+      this.errors = [
+        ...shippingErrors,
+        ...(this.differentBilling ? billingErrors : [])
+      ];
+    }
   },
   mounted() {
     this.getFirestoreData({
@@ -63,6 +156,11 @@ export default Vue.extend({
         direction: 'desc'
       }
     });
+
+    window.addEventListener(
+      'resize',
+      () => (this.windowWidth = window.innerWidth)
+    );
   }
 });
 </script>
