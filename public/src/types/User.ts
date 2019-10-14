@@ -1,3 +1,8 @@
 export default interface User {
-  firstName: string;
+  isAdmin: boolean;
+  uid: string;
+  email: string;
+  displayName: string;
+  phoneNumber: string;
+  photoUrl: string;
 }

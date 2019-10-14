@@ -1,7 +1,7 @@
 // @ts-ignore
 import Worker from 'worker-loader!../workers/firebase.worker';
 import User from '@/types/User';
-import setState from '@/functions/setState';
+import setState, { setAllStateInObj } from '@/functions/setState';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import router from '@/router';
@@ -10,24 +10,22 @@ const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
 interface Context {
   commit: Commit;
-  state?: UserModuleState;
-}
-
-interface UserModuleState {
-  isAdmin: boolean;
-  userId: string;
-  userDetails: User;
+  state: User;
 }
 
 const UserModule = {
   namespaced: true,
   state: {
     isAdmin: false,
-    userId: '',
-    userDetails: {}
+    uid: '',
+    email: '',
+    displayName: '',
+    phoneNumber: '',
+    photoUrl: ''
   },
   mutations: {
-    setState
+    setState,
+    setAllStateInObj
   },
   actions: {
     loginWithEmail(
@@ -48,7 +46,8 @@ const UserModule = {
             if (data.data.code) {
               reject(data.data.message);
             } else {
-              commit('setState', { type: 'userId', data });
+              const userDetails = data.data;
+              commit('setAllStateInObj', userDetails);
               router.push('/orders');
               resolve();
             }
@@ -61,7 +60,7 @@ const UserModule = {
       const workerMsg: WorkerFns = { fn: 'signOut', collection: 'auth' };
 
       worker.postMessage(workerMsg);
-      commit('setState', { type: 'userId', data: '' });
+      commit('setState', { type: 'uid', data: '' });
       router.push('/');
     },
     listenForAuthStateChanges({ commit }: Context) {
@@ -78,7 +77,8 @@ const UserModule = {
             if (data.data.code) {
               reject(data.data.message);
             } else {
-              commit('setState', { type: 'userId', data: data.data });
+              const userDetails = data.data;
+              commit('setAllStateInObj', userDetails);
               resolve();
             }
           }
@@ -102,7 +102,8 @@ const UserModule = {
             if (data.code) {
               reject(data.data.message);
             } else {
-              commit('setState', { type: 'userId', data });
+              const userDetails = data.data;
+              commit('setAllStateInObj', userDetails);
               resolve();
             }
           }
@@ -122,10 +123,8 @@ const UserModule = {
             const google = new fb.auth.GoogleAuthProvider();
             const userCredentials = await auth.signInWithPopup(google);
             if (userCredentials && userCredentials.user) {
-              commit('setState', {
-                type: 'userId',
-                data: userCredentials.user.uid
-              });
+              const userDetails = userCredentials.user;
+              commit('setAllStateInObj', userDetails);
             }
             break;
           }
@@ -133,10 +132,8 @@ const UserModule = {
             const facebook = new fb.auth.FacebookAuthProvider();
             const userCredentials = await auth.signInWithPopup(facebook);
             if (userCredentials && userCredentials.user) {
-              commit('setState', {
-                type: 'userId',
-                data: userCredentials.user.uid
-              });
+              const userDetails = userCredentials.user;
+              commit('setAllStateInObj', userDetails);
             }
             break;
           }

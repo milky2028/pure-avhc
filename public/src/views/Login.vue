@@ -179,11 +179,11 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('user', ['userId'])
+    ...mapState('user', ['uid'])
   },
   watch: {
-    userId(uid: string) {
-      if (uid) {
+    uid(id: string) {
+      if (id) {
         this.$router.push('/orders');
       }
     }

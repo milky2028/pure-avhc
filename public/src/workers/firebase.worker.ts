@@ -189,7 +189,17 @@ class FirebaseWorker {
       }
       this.auth.onAuthStateChanged((userDetails) => {
         if (userDetails) {
-          postMessage({ collection, data: userDetails.uid });
+          const {
+            email,
+            phoneNumber,
+            displayName,
+            uid,
+            photoURL
+          } = userDetails;
+          postMessage({
+            collection,
+            data: { email, phoneNumber, displayName, uid, photoURL }
+          });
         }
       });
     } catch (e) {
