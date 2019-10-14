@@ -4,5 +4,5 @@ export default interface User {
   email: string;
   displayName: string;
   phoneNumber: string;
-  photoUrl: string;
+  photoURL: string;
 }

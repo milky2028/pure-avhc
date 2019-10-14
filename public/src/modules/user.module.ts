@@ -21,7 +21,7 @@ const UserModule = {
     email: '',
     displayName: '',
     phoneNumber: '',
-    photoUrl: ''
+    photoURL: ''
   },
   mutations: {
     setState,
@@ -60,7 +60,15 @@ const UserModule = {
       const workerMsg: WorkerFns = { fn: 'signOut', collection: 'auth' };
 
       worker.postMessage(workerMsg);
-      commit('setState', { type: 'uid', data: '' });
+      const emptyUser = {
+        isAdmin: false,
+        uid: '',
+        email: '',
+        displayName: '',
+        phoneNumber: '',
+        photoURL: ''
+      };
+      commit('setAllStateInObj', emptyUser);
       router.push('/');
     },
     listenForAuthStateChanges({ commit }: Context) {

@@ -31,10 +31,10 @@
         <av-badge class="badge"></av-badge>
       </router-link>
       <av-icon-button>
-        <router-link
-          @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
-          to="/orders"
-        >person</router-link>
+        <router-link @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null" to="/orders">
+          <img class="profile-picture" v-if="photoURL" :src="photoURL" alt="User profile picture" />
+          <span v-else>person</span>
+        </router-link>
       </av-icon-button>
     </div>
     <div v-if="isNavbarExpanded" class="menu-container">
@@ -142,6 +142,12 @@
 .cart-button {
   display: grid;
   grid-template-areas: 'main';
+}
+
+.profile-picture {
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid white;
 }
 
 .badge {
@@ -371,7 +377,8 @@ export default Vue.extend({
       'submenu',
       'isNavbarExpanded',
       'images'
-    ])
+    ]),
+    ...mapState('user', ['photoURL'])
   },
   methods: {
     ...mapMutations('base', [
