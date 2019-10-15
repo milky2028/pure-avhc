@@ -2,11 +2,10 @@
   <page-wrapper withPadding>
     <article-page title="Login">
       <p class="sign-in-helper">
-        You may also use your
-        <a href="https://purecbdexchange.com">purecbdexchange.com</a> account to sign in here.
+        If you have a
+        <a href="https://purecbdexchange.com">purecbdexchange.com</a> account, you may also use it to sign in here.
       </p>
       <av-input
-        required
         dark
         morePadding
         useNativeFieldError
@@ -16,26 +15,30 @@
         placeholder="Email"
         :pattern="emailPattern"
         @on-input="email = $event"
-        :showError="emailError"
-        errorMsg="Invalid email format"
+        @enter="resettingPassword ? resetPassword() : onLogin()"
+        :showError="Boolean(emailError)"
+        :errorMsg="emailError"
         :value="email"
       ></av-input>
       <av-input
-        required
         dark
         morePadding
         useNativeFieldError
+        v-if="!resettingPassword"
         class="field"
         type="password"
         placeholder="Password"
         autocomplete="current-password"
         :errorMsg="passwordErrorMsg"
         @on-input="password = $event"
-        @enter="onLogin"
-        :showError="passwordError"
+        @enter="resettingPassword ? resetPassword() : onLogin()"
+        :showError="Boolean(passwordErrorMsg)"
         :value="password"
       ></av-input>
-      <div class="account-create">
+      <p class="reset-password" v-if="!resettingPassword">
+        <a @click="resettingPassword = true">Reset Password?</a>
+      </p>
+      <div class="account-create" v-if="!resettingPassword">
         <av-switch :value="createAnAccount" @switch="createAnAccount = $event"></av-switch>
         <p>Create an account?</p>
       </div>
@@ -43,9 +46,9 @@
         :fullWidth="windowWidth < 835"
         :long="windowWidth > 835"
         class="btn"
-        @btn-click="onLogin"
-      >Login</av-button>
-      <div class="sign-in-container">
+        @btn-click="resettingPassword ? resetPassword() : onLogin()"
+      >{{ resettingPassword ? 'Reset Password' : 'Login' }}</av-button>
+      <div v-if="!resettingPassword" class="sign-in-container">
         <button class="sign-in-btn" @click="onProviderLogin('google')">
           <img class="sign-in-icon google" src="../assets/img/google.svg" alt="Google icon" />Sign in with Google
         </button>
@@ -76,6 +79,12 @@
 p {
   margin-left: 15px;
   padding: 0;
+}
+
+.reset-password {
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .sign-in-helper {
@@ -150,7 +159,7 @@ import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvSwitch from '../components/AvSwitch.vue';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 
 export default Vue.extend({
   components: {
@@ -171,11 +180,11 @@ export default Vue.extend({
       email: '',
       password: '',
       emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
-      emailError: false,
-      passwordError: false,
+      emailError: '',
       windowWidth: window.innerWidth,
       createAnAccount: false,
-      passwordErrorMsg: 'Invalid email/password combination'
+      passwordErrorMsg: '',
+      resettingPassword: false
     };
   },
   computed: {
@@ -189,48 +198,71 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapMutations('base', ['setState']),
     ...mapActions('user', [
       'loginWithEmail',
       'createAccountWithEmailAndPassword',
-      'signInWithProvider'
+      'signInWithProvider',
+      'sendPasswordResetEmail'
     ]),
-    onProviderLogin(provider: string) {
-      this.signInWithProvider(provider)
-        .then(() => (this.passwordError = false))
-        .catch((e: string) => {
-          this.passwordErrorMsg = e;
-          this.passwordError = true;
-        });
-    },
-    onLogin() {
+    async resetPassword() {
       const emailReg = new RegExp(this.emailPattern);
       if (emailReg.test(this.email)) {
-        this.emailError = false;
-        if (this.createAnAccount) {
-          // @ts-ignore;
-          this.createAccountWithEmailAndPassword({
-            email: this.email,
-            password: this.password
-          })
-            .then(() => (this.passwordError = false))
-            .catch((e: string) => {
-              this.passwordErrorMsg = e;
-              this.passwordError = true;
-            });
-        } else {
-          // @ts-ignore;
-          this.loginWithEmail({
-            email: this.email,
-            password: this.password
-          })
-            .then(() => (this.passwordError = false))
-            .catch((e: string) => {
-              this.passwordErrorMsg = e;
-              this.passwordError = true;
-            });
+        this.emailError = '';
+        this.setState({ type: 'snackbarMsg', data: 'Sending...' });
+        try {
+          await this.sendPasswordResetEmail(this.email);
+          this.setState({ type: 'snackbarMsg', data: 'Sent!' });
+          setTimeout(() => {
+            this.setState({ type: 'snackbarMsg', data: '' });
+          }, 3000);
+          this.resettingPassword = false;
+        } catch (e) {
+          this.setState({ type: 'snackbarMsg', data: '' });
+          this.emailError = e;
         }
       } else {
-        this.emailError = true;
+        this.emailError = 'Invalid email format';
+      }
+    },
+    async onProviderLogin(provider: string) {
+      try {
+        await this.signInWithProvider(provider);
+        this.passwordErrorMsg = '';
+      } catch (e) {
+        this.passwordErrorMsg = e;
+      }
+    },
+    async onLogin() {
+      const emailReg = new RegExp(this.emailPattern);
+      if (emailReg.test(this.email)) {
+        this.emailError = '';
+        this.setState({ type: 'snackbarMsg', data: 'Authenticating...' });
+        if (this.createAnAccount) {
+          try {
+            await this.createAccountWithEmailAndPassword({
+              email: this.email,
+              password: this.password
+            });
+            this.setState({ type: 'snackbarMsg', data: '' });
+            this.passwordErrorMsg = '';
+          } catch (e) {
+            this.passwordErrorMsg = e;
+          }
+        } else {
+          try {
+            await this.loginWithEmail({
+              email: this.email,
+              password: this.password
+            });
+            this.setState({ type: 'snackbarMsg', data: '' });
+            this.passwordErrorMsg = '';
+          } catch (e) {
+            this.passwordErrorMsg = e;
+          }
+        }
+      } else {
+        this.emailError = 'Invalid email format';
       }
     }
   }

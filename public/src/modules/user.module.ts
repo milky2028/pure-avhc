@@ -48,7 +48,6 @@ const UserModule = {
             } else {
               const userDetails = data.data;
               commit('setAllStateInObj', userDetails);
-              router.push('/orders');
               resolve();
             }
           }

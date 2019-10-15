@@ -36,16 +36,6 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations('base', ['setState'])
-  },
-  watch: {
-    snackbarMsg(msg: string) {
-      if (msg) {
-        setTimeout(
-          () => this.setState({ type: 'snackbarMsg', data: '' }),
-          3500
-        );
-      }
-    }
   }
 });
 </script>
