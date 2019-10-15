@@ -50,7 +50,7 @@
 
 <style scoped>
 .prompt {
-  padding: 12px 16px 12px 16px;
+  padding: 6px 16px 6px 16px;
   z-index: 15;
   position: fixed;
   bottom: 0;
