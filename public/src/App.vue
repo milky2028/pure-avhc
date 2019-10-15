@@ -5,6 +5,7 @@
     <av-overlay></av-overlay>
     <av-disclaimer></av-disclaimer>
     <checkout-prompt></checkout-prompt>
+    <av-snackbar></av-snackbar>
   </main>
 </template>
 
@@ -141,7 +142,9 @@ export default Vue.extend({
     CheckoutPrompt: () =>
       import(
         /* webpackChunkName: "CheckoutPrompt" */ './components/CheckoutPrompt.vue'
-      )
+      ),
+    AvSnackbar: () =>
+      import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
   },
   computed: {
     ...mapState('cart', ['cartItems'])

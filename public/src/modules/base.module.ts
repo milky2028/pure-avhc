@@ -20,6 +20,7 @@ const BaseModule: {
     isNavbarExpanded: false,
     isOverlayShowing: false,
     isDisclaimerShowing: false,
+    snackbarMsg: '',
     submenu: [],
     products: [],
     mainMenu: [],
