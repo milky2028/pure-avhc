@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-y">
-    <div v-if="!snackbarMsg" class="snackbar">
-      <h2>{{ 'snackbarMsg' }}</h2>
+    <div v-if="snackbarMsg" class="snackbar">
+      <h2>{{ snackbarMsg }}</h2>
     </div>
   </transition>
 </template>
