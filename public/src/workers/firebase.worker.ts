@@ -207,6 +207,24 @@ class FirebaseWorker {
     }
   }
 
+  public async sendPasswordResetEmail({
+    collection,
+    payload: { email }
+  }: {
+    collection: string;
+    payload: { email: string };
+  }) {
+    try {
+      if (!this.auth) {
+        await this.initializeAuth();
+      }
+      await this.auth.sendPasswordResetEmail(email);
+    } catch (e) {
+      postMessage({ collection, data: e });
+      throw new Error(e);
+    }
+  }
+
   private async initializeApp() {
     try {
       this.fb = await Firebase;

@@ -10,7 +10,8 @@ export default interface WorkerFns {
     | 'signInWithEmail'
     | 'createAccountWithEmailAndPassword'
     | 'signInWithProvider'
-    | 'listenForAuthStateChanges';
+    | 'listenForAuthStateChanges'
+    | 'sendPasswordResetEmail';
   collection:
     | 'submenu'
     | 'products'

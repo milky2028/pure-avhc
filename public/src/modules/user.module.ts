@@ -55,6 +55,25 @@ const UserModule = {
         });
       });
     },
+    sendPasswordResetEmail({ commit }: Context, email: string) {
+      const worker = new Worker();
+      const workerMsg: WorkerFns = {
+        fn: 'sendPasswordResetEmail',
+        collection: 'auth',
+        payload: { email }
+      };
+
+      worker.postMessage(workerMsg);
+      return new Promise((resolve, reject) => {
+        worker.addEventListener('message', ({ data }: MessageEvent) => {
+          if (data.data.code) {
+            reject(data.data.message);
+          } else {
+            resolve();
+          }
+        });
+      });
+    },
     signOut({ commit }: Context) {
       const worker = new Worker();
       const workerMsg: WorkerFns = { fn: 'signOut', collection: 'auth' };
