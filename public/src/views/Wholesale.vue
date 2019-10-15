@@ -43,7 +43,7 @@
 
 .switch-container {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   margin: 16px 0;
 }
 
