@@ -75,6 +75,7 @@ class FirebaseWorker {
           postMessage({ collection, data: dataWithTimestamps });
         });
     } catch (e) {
+      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
@@ -130,6 +131,7 @@ class FirebaseWorker {
         postMessage({ collection, data: dataWithTimestamps });
       });
     } catch (e) {
+      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
@@ -141,7 +143,9 @@ class FirebaseWorker {
       }
       this.listenForAuthStateChanges({ collection });
       this.auth.signOut();
+      postMessage({ collection, data: 'success' });
     } catch (e) {
+      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
@@ -156,6 +160,7 @@ class FirebaseWorker {
       }
       this.listenForAuthStateChanges({ collection });
       await this.auth.signInWithEmailAndPassword(email, password);
+      postMessage({ collection, data: 'success' });
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);
@@ -172,6 +177,7 @@ class FirebaseWorker {
       }
       this.listenForAuthStateChanges({ collection });
       await this.auth.createUserWithEmailAndPassword(email, password);
+      postMessage({ collection, data: 'success' });
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);
@@ -203,6 +209,7 @@ class FirebaseWorker {
         }
       });
     } catch (e) {
+      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
@@ -219,6 +226,7 @@ class FirebaseWorker {
         await this.initializeAuth();
       }
       await this.auth.sendPasswordResetEmail(email);
+      postMessage({ collection, data: 'success' });
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);
