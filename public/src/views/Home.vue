@@ -177,7 +177,7 @@ export default Vue.extend({
       return words[words.length - 1];
     }
   },
-  beforeMount() {
+  mounted() {
     window.addEventListener(
       'resize',
       () => (this.windowWidth = window.innerWidth)
