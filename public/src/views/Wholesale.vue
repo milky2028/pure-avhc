@@ -120,11 +120,6 @@ export default Vue.extend({
     },
     onSubmit() {
       const unrequiredFields = ['company'];
-      const unrequiredBillingFields = [
-        ...unrequiredFields,
-        'email',
-        'phoneNumber'
-      ];
       const form = {
         ...this.shippingForm,
         ...(this.differentBilling ? this.billingForm : {})
@@ -135,9 +130,7 @@ export default Vue.extend({
         .map(([key]) => key);
 
       const billingErrors = Object.entries(this.shippingForm)
-        .filter(
-          ([key, value]) => !unrequiredBillingFields.includes(key) && !value
-        )
+        .filter(([key, value]) => !unrequiredFields.includes(key) && !value)
         .map(([key]) => `billing${this.capitalizeFirstLetter(key)}`);
 
       this.errors = [
