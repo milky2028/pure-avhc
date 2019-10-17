@@ -8,18 +8,15 @@
     "esbenp.prettier-vscode",
     "firefox-devtools.vscode-firefox-debug",
     "Hennamann.jsx",
-    "ms-azuretools.vscode-docker",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "msjsdiag.debugger-for-chrome",
     "octref.vetur",
     "oderwat.indent-rainbow",
-    "prograhammer.tslint-vue",
     "ritwickdey.LiveServer",
     "sdras.vue-vscode-extensionpack",
     "sdras.vue-vscode-snippets",
     "toba.vsfire",
-    "tombonnike.vscode-status-bar-format-toggle",
-    "xabikos.JavaScriptSnippets"
+    "tombonnike.vscode-status-bar-format-toggle"
   ],
   "unwantedRecommendations": ["eg2.tslint"]
 }
