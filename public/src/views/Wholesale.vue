@@ -15,7 +15,7 @@
           :href="wholesaleCatalog[0].url"
         >Wholesale Catalog</a>
       </p>
-      <h2 class="last">Wholesale Application</h2>
+      <h2 class="last">Wholesale Account Application</h2>
       <shipping-form includeCompany @form-input="shippingForm = $event"></shipping-form>
       <div class="switch-container">
         <av-switch class="switch" @switch="differentBilling = $event"></av-switch>

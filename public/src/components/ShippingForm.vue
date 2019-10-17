@@ -1,27 +1,6 @@
 <template>
   <form>
-    <h2 v-if="isBilling">Billing</h2>
-    <av-input
-      dark
-      morePadding
-      v-if="!isBilling"
-      type="email"
-      autocomplete="email"
-      placeholder="Email"
-      :pattern="emailPattern"
-      @on-input="email = $event; updateForm()"
-      :value="email"
-    ></av-input>
-    <av-input
-      dark
-      morePadding
-      v-if="!isBilling"
-      placeholder="Phone"
-      type="tel"
-      autocomplete="tel"
-      :value="phoneNumber"
-      @on-input="phoneNumber = $event; updateForm()"
-    ></av-input>
+    <h2>{{ isBilling ? 'Billing' : 'Shipping' }}</h2>
     <av-input
       dark
       morePadding
@@ -153,12 +132,9 @@ export default Vue.extend({
   },
   data() {
     return {
-      emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
       states: StateTaxes.map((st) => st.abbr),
-      email: '',
       name: '',
       company: '',
-      phoneNumber: '',
       address: '',
       city: '',
       state: '',
@@ -169,10 +145,8 @@ export default Vue.extend({
   methods: {
     updateForm() {
       const form = {
-        email: this.email,
         name: this.name,
         company: this.company,
-        phoneNumber: this.phoneNumber,
         address: this.address,
         city: this.city,
         state: this.state,
