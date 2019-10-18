@@ -1,5 +1,11 @@
 import * as functions from 'firebase-functions';
+// import * as admin from 'firebase-admin';
 import axios, { AxiosRequestConfig } from 'axios';
+
+export const createWholesaleUser = functions.https.onRequest(async (req) => {
+  // admin.auth().setCustomUserClaims(uid, { isAdmin: true });
+  console.log(req);
+});
 
 export const addSubscriberToMailchimp = functions.firestore
   .document('subscribers/{subscriberId}')
