@@ -55,8 +55,6 @@ export const addSubscriberToMailchimp = functions.firestore
     const documentData = snap.data();
     if (documentData) {
       const apiKey = functions.config().mailchimp.key;
-      console.log(documentData.email);
-
       const config: AxiosRequestConfig = {
         headers: {
           'content-type': 'application/json'
