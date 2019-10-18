@@ -65,7 +65,7 @@
         You are currently signed in with an existing account. You can click the button below to upgrade your account to a wholesale account, or, if you prefer, you can
         <a
           @click="signOut"
-        >sign out</a> and create a new wholesale account with a different email.
+        >sign out</a> and create a new wholesale account with a different email. After your account is created, you'll be signed out. When you sign in again, your new wholesale account will be active.
       </p>
       <av-button
         :class="{ topMargin: differentBilling}"
@@ -125,7 +125,8 @@ import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
 import AvInput from '../components/AvInput.vue';
 import uncamelize from '../functions/uncamelize';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
+const Axios = import(/* webpackChunkName: "axios" */ 'axios');
 
 export default Vue.extend({
   components: {
@@ -169,19 +170,39 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', ['wholesaleCatalog']),
+    ...mapState('base', ['wholesaleCatalog', 'functionsUrl']),
     ...mapState('user', ['uid'])
   },
   methods: {
+    ...mapMutations('base', ['setState', 'closeSnackbar']),
     ...mapActions('base', ['getFirestoreData']),
     ...mapActions('user', ['signOut']),
     uncamelize,
     capitalizeFirstLetter(text: string) {
       return text.replace(/^\w/, (c) => c.toUpperCase());
     },
-    onSubmit() {
+    async onSubmit() {
+      const a = await Axios;
+      const axios = a.default;
       if (this.uid) {
-        console.log('upgrade account');
+        try {
+          const existingUserPayload = {
+            existingUser: true,
+            uid: this.uid
+          };
+          await axios.post(
+            `${this.functionsUrl}/createWholesaleUser`,
+            existingUserPayload
+          );
+          this.signOut();
+          this.setState({
+            type: 'snackbarMsg',
+            data: 'Account upgraded'
+          });
+          setTimeout(() => this.closeSnackbar(), 3500);
+        } catch (e) {
+          // TODO: Catch error
+        }
       } else {
         const unrequiredFields = ['company'];
         const userErrors = Object.entries(this.userInfo)
@@ -203,7 +224,24 @@ export default Vue.extend({
         ];
 
         if (this.errors.length === 0) {
-          console.log(this.shippingForm, this.billingForm, this.userInfo);
+          try {
+            const newUserPayload = {
+              existingUser: false,
+              userInfo: this.userInfo,
+              shippingAddress: this.shippingForm,
+              billingAddress: this.billingForm
+            };
+            await axios.post(
+              `${this.functionsUrl}/createWholesaleUser`,
+              newUserPayload
+            );
+            this.setState({
+              type: 'snackbarMsg',
+              data: 'Wholesale account created'
+            });
+          } catch (e) {
+            // TODO: Catch error
+          }
         }
       }
     }
