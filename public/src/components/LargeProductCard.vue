@@ -144,7 +144,6 @@ ul {
 <script lang="ts">
 import Vue from 'vue';
 import getImageUrl from '../functions/getImageUrl';
-import createRandomId from '../functions/createRandomId';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import getImageAlt from '../functions/getImageAlt';
@@ -229,9 +228,7 @@ export default Vue.extend({
       this.addItemToCart(item);
     },
     getProductInCart(id: string) {
-      return this.cartItems.find(
-        ({ product }: CartItem) => product === this.product.id
-      );
+      return this.cartItems.find(({ product }: CartItem) => product === id);
     },
     getAddBtnText() {
       const productInCart = this.getProductInCart(this.product.id);

@@ -350,7 +350,6 @@ import ProductCard from '../components/ProductCard.vue';
 import AvBadge from '../components/AvBadge.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
-import { SubmenuItem } from '../types/MenuItem';
 
 export default Vue.extend({
   components: {

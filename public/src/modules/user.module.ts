@@ -54,6 +54,7 @@ const UserModule = {
         });
       });
     },
+    // @ts-ignore
     sendPasswordResetEmail({ commit }: Context, email: string) {
       const worker = new Worker();
       const workerMsg: WorkerFns = {

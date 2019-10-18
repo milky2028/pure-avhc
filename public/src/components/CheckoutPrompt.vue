@@ -154,7 +154,6 @@ import AvButton from '../components/AvButton.vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import { setTimeout } from 'timers';
 import * as idb from 'idb-keyval';
-import WorkerFns from '../types/WorkerFns';
 
 export default Vue.extend({
   components: {

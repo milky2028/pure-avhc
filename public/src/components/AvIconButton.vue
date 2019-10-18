@@ -32,7 +32,6 @@ export default Vue.extend({
   },
   methods: {
     onClick(e: Event) {
-      const target = e.target as HTMLButtonElement;
       this.$emit('icon-click', e);
     }
   }

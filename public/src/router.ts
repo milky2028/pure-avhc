@@ -46,6 +46,7 @@ export default new Router({
       path: '/orders',
       name: 'orders',
       component: Orders,
+      // @ts-ignore
       beforeEnter(to, from, next) {
         if (!store.state.user.uid) {
           next('/login');

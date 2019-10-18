@@ -129,8 +129,6 @@ import getImageUrl from '../functions/getImageUrl';
 import getImageAlt from '../functions/getImageAlt';
 import AvButton from '../components/AvButton.vue';
 import Image from '../types/Image';
-import Size from '../types/Size';
-import CartItem from '../types/CartItem';
 import Product from '../types/Product';
 
 export default Vue.extend({
