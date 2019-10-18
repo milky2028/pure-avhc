@@ -4,16 +4,20 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 export const createWholesaleUser = functions.https.onRequest(
   async (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-    res.set('Access-Control-Allow-Methods', 'GET');
-    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    // res.set('Access-Control-Allow-Origin', '*');
+    // res.set('Access-Control-Allow-Methods', 'GET');
+    // res.set('Access-Control-Allow-Headers', 'Content-Type');
     // admin.auth().setCustomUserClaims(uid, { isAdmin: true });
-    console.log(req.body);
-
-    if (req.method === 'OPTIONS') {
-      return res.sendStatus(204);
-    } else {
-      return res.sendStatus(200).send(req.body);
+    console.log(req.body.uid);
+    try {
+      if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+      } else {
+        return res.sendStatus(200);
+      }
+    } catch (e) {
+      console.error(e);
+      return res.status(400).send(e);
     }
   }
 );
