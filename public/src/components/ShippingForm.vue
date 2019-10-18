@@ -145,6 +145,7 @@ export default Vue.extend({
   methods: {
     updateForm() {
       const form = {
+        isBilling: this.isBilling,
         name: this.name,
         company: this.company,
         address: this.address,

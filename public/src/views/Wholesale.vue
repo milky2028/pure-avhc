@@ -126,6 +126,7 @@ import AvButton from '../components/AvButton.vue';
 import AvInput from '../components/AvInput.vue';
 import uncamelize from '../functions/uncamelize';
 import { mapActions, mapState, mapMutations } from 'vuex';
+import WholesaleUserInfo from '../../../shared-types/WholesaleUserInfo';
 const Axios = import(/* webpackChunkName: "axios" */ 'axios');
 
 export default Vue.extend({
@@ -201,7 +202,7 @@ export default Vue.extend({
           });
           setTimeout(() => this.closeSnackbar(), 3500);
         } catch (e) {
-          // TODO: Catch error
+          // TODO: Catch and show error
         }
       } else {
         const unrequiredFields = ['company'];
@@ -210,11 +211,17 @@ export default Vue.extend({
           .map(([key]) => key);
 
         const shippingErrors = Object.entries(this.shippingForm)
-          .filter(([key, value]) => !unrequiredFields.includes(key) && !value)
+          .filter(
+            ([key, value]) =>
+              !unrequiredFields.includes(key) && !value && key === 'isBilling'
+          )
           .map(([key]) => key);
 
         const billingErrors = Object.entries(this.shippingForm)
-          .filter(([key, value]) => !unrequiredFields.includes(key) && !value)
+          .filter(
+            ([key, value]) =>
+              !unrequiredFields.includes(key) && !value && key === 'isBilling'
+          )
           .map(([key]) => `billing${this.capitalizeFirstLetter(key)}`);
 
         this.errors = [
@@ -240,7 +247,7 @@ export default Vue.extend({
               data: 'Wholesale account created'
             });
           } catch (e) {
-            // TODO: Catch error
+            // TODO: Catch and show error
           }
         }
       }
