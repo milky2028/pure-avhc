@@ -198,7 +198,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    ...mapMutations('base', ['setState']),
+    ...mapMutations('base', ['setState', 'closeSnackbar']),
     ...mapActions('user', [
       'loginWithEmail',
       'createAccountWithEmailAndPassword',
@@ -213,12 +213,10 @@ export default Vue.extend({
         try {
           await this.sendPasswordResetEmail(this.email);
           this.setState({ type: 'snackbarMsg', data: 'Sent!' });
-          setTimeout(() => {
-            this.setState({ type: 'snackbarMsg', data: '' });
-          }, 3000);
+          this.closeSnackbar();
           this.resettingPassword = false;
         } catch (e) {
-          this.setState({ type: 'snackbarMsg', data: '' });
+          this.closeSnackbar();
           this.emailError = e;
         }
       } else {
@@ -244,7 +242,7 @@ export default Vue.extend({
               email: this.email,
               password: this.password
             });
-            this.setState({ type: 'snackbarMsg', data: '' });
+            this.closeSnackbar();
             this.passwordErrorMsg = '';
           } catch (e) {
             this.passwordErrorMsg = e;
@@ -255,7 +253,7 @@ export default Vue.extend({
               email: this.email,
               password: this.password
             });
-            this.setState({ type: 'snackbarMsg', data: '' });
+            this.closeSnackbar();
             this.passwordErrorMsg = '';
           } catch (e) {
             this.passwordErrorMsg = e;
