@@ -8,7 +8,6 @@ export const createWholesaleUser = functions.https.onRequest(
     // res.set('Access-Control-Allow-Origin', '*');
     // res.set('Access-Control-Allow-Methods', 'GET');
     // res.set('Access-Control-Allow-Headers', 'Content-Type');
-    console.log(req.body.uid);
     try {
       if (req.method === 'PUT') {
         console.error('Illegal put request');
