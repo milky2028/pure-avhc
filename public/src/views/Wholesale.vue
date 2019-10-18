@@ -126,7 +126,6 @@ import AvButton from '../components/AvButton.vue';
 import AvInput from '../components/AvInput.vue';
 import uncamelize from '../functions/uncamelize';
 import { mapActions, mapState, mapMutations } from 'vuex';
-import WholesaleUserInfo from '../../../shared-types/WholesaleUserInfo';
 const Axios = import(/* webpackChunkName: "axios" */ 'axios');
 
 export default Vue.extend({
