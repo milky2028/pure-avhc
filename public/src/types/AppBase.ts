@@ -27,8 +27,10 @@ export default interface AppBase {
     | TestResult[]
     | WholesaleCatalog[];
   imageUrl: string;
+  functionsUrl: string;
   isOverlayShowing: boolean;
   isNavbarExpanded: boolean;
+  snackbarMsg: string;
   submenu: SubmenuItem[];
   isDisclaimerShowing: boolean;
   products: Product[];
