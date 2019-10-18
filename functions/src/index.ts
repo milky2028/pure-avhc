@@ -2,10 +2,21 @@ import * as functions from 'firebase-functions';
 // import * as admin from 'firebase-admin';
 import axios, { AxiosRequestConfig } from 'axios';
 
-export const createWholesaleUser = functions.https.onRequest(async (req) => {
-  // admin.auth().setCustomUserClaims(uid, { isAdmin: true });
-  console.log(req);
-});
+export const createWholesaleUser = functions.https.onRequest(
+  async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'GET');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    // admin.auth().setCustomUserClaims(uid, { isAdmin: true });
+    console.log(req.body);
+
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(204);
+    } else {
+      return res.sendStatus(200).send(req.body);
+    }
+  }
+);
 
 export const addSubscriberToMailchimp = functions.firestore
   .document('subscribers/{subscriberId}')
