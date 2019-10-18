@@ -17,6 +17,7 @@ const BaseModule: {
   namespaced: true,
   state: {
     imageUrl: 'https://res.cloudinary.com/pure-avhc/image/upload/',
+    functionsUrl: 'https://us-central1-aspe-f5783.cloudfunctions.net/',
     isNavbarExpanded: false,
     isOverlayShowing: false,
     isDisclaimerShowing: false,
