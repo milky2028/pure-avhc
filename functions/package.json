@@ -7,7 +7,7 @@
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
     "serve": "yarn run build && firebase serve --only functions",
-    "emulator": "yarn run build && firebase emulators:start --only functions",
+    "emulator": "yarn run build && firebase emulators:start",
     "shell": "yarn run build && firebase functions:shell",
     "start": "yarn run shell",
     "deploy": "firebase deploy --only functions",
