@@ -126,7 +126,7 @@ import AvButton from '../components/AvButton.vue';
 import AvInput from '../components/AvInput.vue';
 import uncamelize from '../functions/uncamelize';
 import { mapActions, mapState, mapMutations } from 'vuex';
-const Axios = import(/* webpackChunkName: "axios" */ 'axios');
+import post from '../functions/post';
 
 export default Vue.extend({
   components: {
@@ -182,15 +182,13 @@ export default Vue.extend({
       return text.replace(/^\w/, (c) => c.toUpperCase());
     },
     async onSubmit() {
-      const a = await Axios;
-      const axios = a.default;
       if (this.uid) {
         try {
           const existingUserPayload = {
             existingUser: true,
             uid: this.uid
           };
-          await axios.post(
+          await post(
             `${this.functionsUrl}/createWholesaleUser`,
             existingUserPayload
           );
@@ -237,7 +235,7 @@ export default Vue.extend({
               shippingAddress: this.shippingForm,
               billingAddress: this.billingForm
             };
-            await axios.post(
+            await post(
               `${this.functionsUrl}/createWholesaleUser`,
               newUserPayload
             );
