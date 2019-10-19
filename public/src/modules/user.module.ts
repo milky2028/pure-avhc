@@ -150,8 +150,20 @@ const UserModule = {
             const google = new fb.auth.GoogleAuthProvider();
             const userCredentials = await auth.signInWithPopup(google);
             if (userCredentials && userCredentials.user) {
-              const userDetails = userCredentials.user;
-              commit('setAllStateInObj', userDetails);
+              const {
+                email,
+                phoneNumber,
+                displayName,
+                uid,
+                photoURL
+              } = userCredentials.user;
+              commit('setAllStateInObj', {
+                email,
+                phoneNumber,
+                displayName,
+                uid,
+                photoURL
+              });
             }
             break;
           }
@@ -159,8 +171,20 @@ const UserModule = {
             const facebook = new fb.auth.FacebookAuthProvider();
             const userCredentials = await auth.signInWithPopup(facebook);
             if (userCredentials && userCredentials.user) {
-              const userDetails = userCredentials.user;
-              commit('setAllStateInObj', userDetails);
+              const {
+                email,
+                phoneNumber,
+                displayName,
+                uid,
+                photoURL
+              } = userCredentials.user;
+              commit('setAllStateInObj', {
+                email,
+                phoneNumber,
+                displayName,
+                uid,
+                photoURL
+              });
             }
             break;
           }
