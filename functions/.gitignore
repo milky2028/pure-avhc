@@ -6,5 +6,6 @@
 typings/
 
 lib/
+src/credentials
 node_modules/
 .runtimeconfig.json
