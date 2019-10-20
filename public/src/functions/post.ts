@@ -10,7 +10,7 @@ export default async function post(url: string, data: {}) {
     };
     const response = await fetch(url, fetchOptions);
     if (response.status >= 400) {
-      throw new Error(response.statusText);
+      throw new Error(`HTTP Error: ${response.status}: ${response.statusText}`);
     } else {
       return await response.json();
     }
