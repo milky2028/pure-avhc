@@ -12,7 +12,7 @@ export default async function post(url: string, data: {}) {
     if (response.status >= 400) {
       throw new Error(`HTTP Error: ${response.status}: ${response.statusText}`);
     } else {
-      return await response.json();
+      return response;
     }
   } catch (e) {
     throw new Error(e);
