@@ -81,6 +81,7 @@ const UserModule = {
 
       worker.postMessage(workerMsg);
       const emptyUser = {
+        isWholesaleUser: false,
         isAdmin: false,
         uid: '',
         email: '',
@@ -158,12 +159,17 @@ const UserModule = {
                 uid,
                 photoURL
               } = userCredentials.user;
+              const currentUser = auth.currentUser;
+              const isWholesaleUser = currentUser
+                ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
+                : false;
               commit('setAllStateInObj', {
                 email,
                 phoneNumber,
                 displayName,
                 uid,
-                photoURL
+                photoURL,
+                isWholesaleUser
               });
             }
             break;
@@ -179,12 +185,17 @@ const UserModule = {
                 uid,
                 photoURL
               } = userCredentials.user;
+              const currentUser = auth.currentUser;
+              const isWholesaleUser = currentUser
+                ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
+                : false;
               commit('setAllStateInObj', {
                 email,
                 phoneNumber,
                 displayName,
                 uid,
-                photoURL
+                photoURL,
+                isWholesaleUser
               });
             }
             break;

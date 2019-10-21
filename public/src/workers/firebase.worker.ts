@@ -193,7 +193,7 @@ class FirebaseWorker {
       if (!this.auth) {
         await this.initializeAuth();
       }
-      this.auth.onAuthStateChanged((userDetails) => {
+      this.auth.onAuthStateChanged(async (userDetails) => {
         if (userDetails) {
           const {
             email,
@@ -202,6 +202,10 @@ class FirebaseWorker {
             uid,
             photoURL
           } = userDetails;
+          const currentUser = this.auth.currentUser;
+          const isWholesaleUser = currentUser
+            ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
+            : false;
           postMessage({
             collection,
             data: {
@@ -209,7 +213,8 @@ class FirebaseWorker {
               phoneNumber,
               displayName,
               uid,
-              photoURL
+              photoURL,
+              isWholesaleUser
             }
           });
         }
