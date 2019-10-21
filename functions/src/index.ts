@@ -1,13 +1,20 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import axios, { AxiosRequestConfig } from 'axios';
-import WholesaleUserInfo from '../../shared-types/WholesaleUserInfo';
+import WholesaleUserInfo from './types/WholesaleUserInfo';
+import cors from 'cors';
+const c = cors({ origin: true });
+admin.initializeApp();
 
-export const createWholesaleUser = functions.https.onRequest(
-  async (req, res) => {
-    // res.set('Access-Control-Allow-Origin', '*');
-    // res.set('Access-Control-Allow-Methods', 'GET');
-    // res.set('Access-Control-Allow-Headers', 'Content-Type');
+// For Local Testing
+// console.log(process.env);
+// import serviceAccount from './credentials/key.json';
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
+// });
+
+export const createWholesaleUser = functions.https.onRequest((req, res) =>
+  c(req, res, async () => {
     try {
       if (req.method === 'PUT') {
         console.error('Illegal put request');
@@ -28,7 +35,9 @@ export const createWholesaleUser = functions.https.onRequest(
           return res.sendStatus(200);
         } else if (userInfo) {
           const user = await auth.createUser(userInfo);
-          await auth.setCustomUserClaims(user.uid, { isWholesaleUser: true });
+          await auth.setCustomUserClaims(user.uid, {
+            isWholesaleUser: true
+          });
           const shippingDoc = { uid: user.uid, ...shippingAddress };
           const billingDoc = { uid: user.uid, ...billingAddress };
           const addresses = [billingDoc, shippingDoc];
@@ -46,7 +55,7 @@ export const createWholesaleUser = functions.https.onRequest(
       console.error(e);
       return res.status(400).send(e);
     }
-  }
+  })
 );
 
 export const addSubscriberToMailchimp = functions.firestore
