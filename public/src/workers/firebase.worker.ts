@@ -1,6 +1,7 @@
 import WorkerFns from '@/types/WorkerFns';
 import { QueryParams } from '@/types/QueryParams';
 import OrderByParams from '@/types/OrderByParams';
+import PureUser from '@/types/PureUser';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(
   /* webpackChunkName: 'firestore' */ 'firebase/firestore'
@@ -200,11 +201,19 @@ class FirebaseWorker {
             phoneNumber,
             displayName,
             uid,
-            photoURL
-          } = userDetails;
+            photoURL,
+            isWholesaleUser
+          } = userDetails as PureUser;
           postMessage({
             collection,
-            data: { email, phoneNumber, displayName, uid, photoURL }
+            data: {
+              email,
+              phoneNumber,
+              displayName,
+              uid,
+              photoURL,
+              isWholesaleUser
+            }
           });
         }
       });
