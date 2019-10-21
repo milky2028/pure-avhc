@@ -1,6 +1,6 @@
 <template>
   <button
-    class="elianto-btn"
+    class="subhead elianto-btn"
     @click="$emit('btn-click', $event)"
     :class="{ borderLeft, borderRight, borderBottom, borderTop, halfBorderLeft, halfBorderRight, hover: !noHover }"
   >
@@ -13,11 +13,10 @@
   width: 100%;
   background-color: white;
   padding: 14px;
-  text-transform: uppercase;
-  font-family: var(--elianto);
-  font-size: 26px;
+  font-size: 24px;
   transition: 50ms var(--mat-ease);
   cursor: pointer;
+  line-height: 32px;
 }
 
 .borderLeft {
