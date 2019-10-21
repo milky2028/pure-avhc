@@ -1,7 +1,6 @@
 import WorkerFns from '@/types/WorkerFns';
 import { QueryParams } from '@/types/QueryParams';
 import OrderByParams from '@/types/OrderByParams';
-import PureUser from '@/types/PureUser';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(
   /* webpackChunkName: 'firestore' */ 'firebase/firestore'
@@ -144,7 +143,7 @@ class FirebaseWorker {
       }
       this.listenForAuthStateChanges({ collection });
       this.auth.signOut();
-      postMessage({ collection, data: 'success' });
+      postMessage({ collection, data: {} });
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);
@@ -161,7 +160,7 @@ class FirebaseWorker {
       }
       this.listenForAuthStateChanges({ collection });
       await this.auth.signInWithEmailAndPassword(email, password);
-      postMessage({ collection, data: 'success' });
+      postMessage({ collection, data: {} });
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);
@@ -178,7 +177,7 @@ class FirebaseWorker {
       }
       this.listenForAuthStateChanges({ collection });
       await this.auth.createUserWithEmailAndPassword(email, password);
-      postMessage({ collection, data: 'success' });
+      postMessage({ collection, data: {} });
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);
@@ -201,9 +200,8 @@ class FirebaseWorker {
             phoneNumber,
             displayName,
             uid,
-            photoURL,
-            isWholesaleUser
-          } = userDetails as PureUser;
+            photoURL
+          } = userDetails;
           postMessage({
             collection,
             data: {
@@ -211,8 +209,7 @@ class FirebaseWorker {
               phoneNumber,
               displayName,
               uid,
-              photoURL,
-              isWholesaleUser
+              photoURL
             }
           });
         }
@@ -235,7 +232,7 @@ class FirebaseWorker {
         await this.initializeAuth();
       }
       await this.auth.sendPasswordResetEmail(email);
-      postMessage({ collection, data: 'success' });
+      postMessage({ collection, data: {} });
     } catch (e) {
       postMessage({ collection, data: e });
       throw new Error(e);

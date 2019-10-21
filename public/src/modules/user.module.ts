@@ -1,22 +1,23 @@
 // @ts-ignore
 import Worker from 'worker-loader!../workers/firebase.worker';
-import User from '@/types/User';
 import setState, { setAllStateInObj } from '@/functions/setState';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import router from '@/router';
+import PureUser from '@/types/PureUser';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
 interface Context {
   commit: Commit;
-  state: User;
+  state: PureUser;
 }
 
 const UserModule = {
   namespaced: true,
   state: {
     isAdmin: false,
+    isWholesaleUser: false,
     uid: '',
     email: '',
     displayName: '',
