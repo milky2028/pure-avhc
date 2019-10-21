@@ -80,6 +80,7 @@
   margin-top: 5px;
   text-align: right;
   padding: 0 5px;
+  line-height: inherit;
 }
 
 .cart-btn {
