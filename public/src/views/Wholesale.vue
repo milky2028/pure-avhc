@@ -5,7 +5,13 @@
         {{ fullName }} provides wholesale purchasing options and pricing to customers seeking to buy hemp and CBD products in large quantities.
         <strong>Wholesale purchasing options are only available to customers making purchases larger than $1,000.</strong>
       </p>
-      <p>Account managers are provided to wholesale customers to assist in completing transactions and to ensure that the process goes smoothly. To get started, take a look at our wholesale catalog and fill out the form below.</p>
+      <p>
+        Account managers are provided to wholesale customers to assist in completing transactions and to ensure that the process goes smoothly. To get started, take a look at our wholesale catalog and fill out the form below.
+        <strong>
+          If you have any questions, please feel free to
+          <router-link to="/support">contact support</router-link>
+        </strong>
+      </p>
       <p>
         <a
           v-if="wholesaleCatalog && wholesaleCatalog.length > 0"
@@ -57,15 +63,14 @@
         v-if="differentBilling && !uid"
         @form-input="billingForm = $event"
       ></shipping-form>
-      <p class="errors" v-if="errors.length > 0" :class="{ topMargin: differentBilling }">
-        The following fields are required:
-        <strong>{{ errors.map((e) => uncamelize(e)).join(', ') }}.</strong>
-      </p>
       <p class="user-msg" v-if="uid">
         You are currently signed in with an existing account. You can click the button below to upgrade your account to a wholesale account, or, if you prefer, you can
         <a
           @click="signOut"
         >sign out</a> and create a new wholesale account with a different email. After your account is created, you'll be signed out. When you sign in again, your new wholesale account will be active.
+      </p>
+      <p class="errors" v-if="errors.length > 0" :class="{ topMargin: differentBilling }">
+        <strong v-html="errors.join('<br>')"></strong>
       </p>
       <av-button
         :class="{ topMargin: differentBilling}"
@@ -174,7 +179,7 @@ export default Vue.extend({
     ...mapState('user', ['uid'])
   },
   methods: {
-    ...mapMutations('base', ['setState', 'closeSnackbar']),
+    ...mapMutations('base', ['showSnackbar', 'closeSnackbar']),
     ...mapActions('base', ['getFirestoreData']),
     ...mapActions('user', ['signOut']),
     uncamelize,
@@ -184,8 +189,9 @@ export default Vue.extend({
     async onSubmit() {
       if (this.uid) {
         try {
+          this.showSnackbar('Upgrading...');
           const existingUserPayload = {
-            existingUser: true,
+            isExistingUser: true,
             uid: this.uid
           };
           await post(
@@ -193,13 +199,12 @@ export default Vue.extend({
             existingUserPayload
           );
           this.signOut();
-          this.setState({
-            type: 'snackbarMsg',
-            data: 'Account upgraded'
-          });
+          this.showSnackbar('Account upgraded');
           setTimeout(() => this.closeSnackbar(), 3500);
         } catch (e) {
-          // TODO: Catch and show error
+          this.closeSnackbar();
+          this.errors.push('Error upgrading account');
+          throw new Error(e);
         }
       } else {
         const unrequiredFields = ['company'];
@@ -210,27 +215,32 @@ export default Vue.extend({
         const shippingErrors = Object.entries(this.shippingForm)
           .filter(
             ([key, value]) =>
-              !unrequiredFields.includes(key) && !value && key === 'isBilling'
+              !unrequiredFields.includes(key) && !value && key !== 'isBilling'
           )
           .map(([key]) => key);
 
-        const billingErrors = Object.entries(this.shippingForm)
+        const billingErrors = Object.entries(this.billingForm)
           .filter(
             ([key, value]) =>
-              !unrequiredFields.includes(key) && !value && key === 'isBilling'
+              !unrequiredFields.includes(key) && !value && key !== 'isBilling'
           )
           .map(([key]) => `billing${this.capitalizeFirstLetter(key)}`);
 
         this.errors = [
+          ...(userErrors.length > 0 ||
+          shippingErrors.length > 0 ||
+          (this.differentBilling && billingErrors.length > 0)
+            ? ['The following fields are required:']
+            : []),
           ...userErrors,
           ...shippingErrors,
           ...(this.differentBilling ? billingErrors : [])
-        ];
+        ].map((e) => uncamelize(e));
 
         if (this.errors.length === 0) {
           try {
             const newUserPayload = {
-              existingUser: false,
+              isExistingUser: false,
               userInfo: this.userInfo,
               shippingAddress: this.shippingForm,
               billingAddress: this.billingForm
@@ -239,12 +249,9 @@ export default Vue.extend({
               `${this.functionsUrl}/createWholesaleUser`,
               newUserPayload
             );
-            this.setState({
-              type: 'snackbarMsg',
-              data: 'Wholesale account created'
-            });
+            this.showSnackbar('Wholesale account created');
           } catch (e) {
-            // TODO: Catch and show error
+            throw new Error(e);
           }
         }
       }
