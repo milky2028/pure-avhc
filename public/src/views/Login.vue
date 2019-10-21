@@ -198,7 +198,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    ...mapMutations('base', ['setState', 'closeSnackbar']),
+    ...mapMutations('base', ['showSnackbar', 'closeSnackbar']),
     ...mapActions('user', [
       'loginWithEmail',
       'createAccountWithEmailAndPassword',
@@ -209,10 +209,10 @@ export default Vue.extend({
       const emailReg = new RegExp(this.emailPattern);
       if (emailReg.test(this.email)) {
         this.emailError = '';
-        this.setState({ type: 'snackbarMsg', data: 'Sending...' });
+        this.showSnackbar('Sending...');
         try {
           await this.sendPasswordResetEmail(this.email);
-          this.setState({ type: 'snackbarMsg', data: 'Sent!' });
+          this.showSnackbar('Sent!');
           this.closeSnackbar();
           this.resettingPassword = false;
         } catch (e) {
@@ -235,7 +235,7 @@ export default Vue.extend({
       const emailReg = new RegExp(this.emailPattern);
       if (emailReg.test(this.email)) {
         this.emailError = '';
-        this.setState({ type: 'snackbarMsg', data: 'Authenticating...' });
+        this.showSnackbar('Authenticating...');
         if (this.createAnAccount) {
           try {
             await this.createAccountWithEmailAndPassword({

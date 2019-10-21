@@ -32,6 +32,7 @@ const BaseModule: {
   },
   mutations: {
     setState,
+    showSnackbar: (state: AppBase, msg: string) => (state.snackbarMsg = msg),
     closeSnackbar: (state: AppBase) => (state.snackbarMsg = ''),
     toggleOverlay: (state: AppBase) =>
       (state.isOverlayShowing = !state.isOverlayShowing),
