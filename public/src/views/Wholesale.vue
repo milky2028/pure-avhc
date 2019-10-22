@@ -194,6 +194,7 @@ export default Vue.extend({
       return text.replace(/^\w/, (c) => c.toUpperCase());
     },
     async onSubmit() {
+      this.errors = [];
       if (this.uid) {
         try {
           this.showSnackbar('Upgrading...');
@@ -214,6 +215,7 @@ export default Vue.extend({
           throw new Error(e);
         }
       } else {
+        this.showSnackbar('Creating account...');
         const unrequiredFields = ['company'];
         const userErrors = Object.entries(this.userInfo)
           .filter(([, value]) => !value)
@@ -256,8 +258,10 @@ export default Vue.extend({
               `${this.functionsUrl}/createWholesaleUser`,
               newUserPayload
             );
-            this.showSnackbar('Wholesale account created');
+            this.showSnackbar('Account created');
+            setTimeout(() => this.closeSnackbar(), 3500);
           } catch (e) {
+            this.error.push('An error occurred. Please contact support.');
             throw new Error(e);
           }
         }
