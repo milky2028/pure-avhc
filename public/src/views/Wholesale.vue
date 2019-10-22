@@ -40,7 +40,7 @@
           type="tel"
           autocomplete="tel"
           :value="userInfo.phoneNumber"
-          @on-input="userInfo.phoneNumber = $event"
+          @on-input="userInfo.phoneNumber = `${userInfo.phoneNumber.startsWith('+') ? '' : '+'}${$event}`"
         ></av-input>
         <av-input
           dark
