@@ -1,4 +1,4 @@
-import { Address } from 'cluster';
+import Address from './Address';
 
 interface UserInfo {
   email: string;
@@ -10,6 +10,6 @@ export default interface WholesaleUserInfo {
   isExistingUser: boolean;
   uid?: string;
   userInfo: UserInfo;
-  shippingAddress?: Address;
+  shippingAddress: Address;
   billingAddress?: Address;
 }
