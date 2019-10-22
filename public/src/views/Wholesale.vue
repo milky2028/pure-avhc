@@ -3,13 +3,13 @@
     <article-page title="Wholesale">
       <p>
         {{ fullName }} provides wholesale purchasing options and pricing to customers seeking to buy hemp and CBD products in large quantities.
-        <strong>Wholesale purchasing options are only available to customers making purchases larger than $1,000.</strong>
+        <strong>Wholesale purchasing options are only available to customers making purchases larger than $1,000.</strong> If your cart total exceeds this amount, and you've been upgraded to a whoelsale account, wholesale discounts will automatically be applied.
       </p>
       <p>
         Account managers are provided to wholesale customers to assist in completing transactions and to ensure that the process goes smoothly. To get started, take a look at our wholesale catalog and fill out the form below.
         <strong>
           If you have any questions, please feel free to
-          <router-link to="/support">contact support</router-link>
+          <router-link to="/support">contact support</router-link>.
         </strong>
       </p>
       <p>
@@ -55,7 +55,7 @@
       <shipping-form v-if="!uid" includeCompany @form-input="shippingForm = $event"></shipping-form>
       <div v-if="!uid" class="switch-container">
         <av-switch class="switch" @switch="differentBilling = $event"></av-switch>
-        <p class="billing-question">Different billing address?</p>
+        <p class="no-padding billing-question">Different billing address?</p>
       </div>
       <shipping-form
         includeCompany
@@ -63,16 +63,22 @@
         v-if="differentBilling && !uid"
         @form-input="billingForm = $event"
       ></shipping-form>
-      <p class="user-msg" v-if="uid">
+      <p class="no-padding user-msg" v-if="uid && !isWholesaleUser">
         You are currently signed in with an existing account. You can click the button below to upgrade your account to a wholesale account, or, if you prefer, you can
         <a
           @click="signOut"
         >sign out</a> and create a new wholesale account with a different email. After your account is created, you'll be signed out. When you sign in again, your new wholesale account will be active.
       </p>
-      <p class="errors" v-if="errors.length > 0" :class="{ topMargin: differentBilling }">
+      <p class="no-padding" v-if="isWholesaleUser">You are already a wholesale user.</p>
+      <p
+        class="no-padding errors"
+        v-if="errors.length > 0"
+        :class="{ topMargin: differentBilling }"
+      >
         <strong v-html="errors.join('<br>')"></strong>
       </p>
       <av-button
+        v-if="!isWholesaleUser"
         :class="{ topMargin: differentBilling}"
         :fullWidth="windowWidth < 835"
         :long="windowWidth > 835"
@@ -83,6 +89,10 @@
 </template>
 
 <style scoped>
+.no-padding {
+  padding-top: 0;
+}
+
 form {
   display: grid;
   grid-auto-flow: row;
@@ -101,7 +111,6 @@ form {
 }
 
 .billing-question {
-  padding: 0;
   margin-left: 16px;
 }
 
@@ -110,13 +119,11 @@ form {
 }
 
 .errors {
-  padding-top: 0;
   color: var(--warn);
   margin-bottom: 16px;
 }
 
 .user-msg {
-  padding-top: 0;
   margin-bottom: 16px;
 }
 </style>
@@ -176,7 +183,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('base', ['wholesaleCatalog', 'functionsUrl']),
-    ...mapState('user', ['uid'])
+    ...mapState('user', ['uid', 'isWholesaleUser'])
   },
   methods: {
     ...mapMutations('base', ['showSnackbar', 'closeSnackbar']),
