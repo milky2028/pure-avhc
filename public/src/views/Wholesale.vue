@@ -83,7 +83,7 @@
         :fullWidth="windowWidth < 835"
         :long="windowWidth > 835"
         @btn-click="onSubmit"
-      >{{ uid ? 'Upgrade to Wholesale Account' : 'Submit' }}</av-button>
+      >{{ uid ? 'Upgrade to' : 'Create' }} Wholesale Account</av-button>
     </article-page>
   </page-wrapper>
 </template>
@@ -215,7 +215,6 @@ export default Vue.extend({
           throw new Error(e);
         }
       } else {
-        this.showSnackbar('Creating account...');
         const unrequiredFields = ['company'];
         const userErrors = Object.entries(this.userInfo)
           .filter(([, value]) => !value)
@@ -247,6 +246,7 @@ export default Vue.extend({
         ].map((e) => uncamelize(e));
 
         if (this.errors.length === 0) {
+          this.showSnackbar('Creating account...');
           try {
             const newUserPayload = {
               isExistingUser: false,
