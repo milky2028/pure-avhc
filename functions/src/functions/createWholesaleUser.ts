@@ -63,7 +63,7 @@ export const createWholesaleUser = functions.https.onRequest((req, res) =>
         }
       }
     } catch (e) {
-      if (e.errorInfo === 'auth/email-already-exists') {
+      if (e.errorInfo.code === 'auth/email-already-exists') {
         const existingNotLoggedInUser = await auth.getUserByEmail(
           userInfo.email
         );
