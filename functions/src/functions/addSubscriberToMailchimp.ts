@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 import axios, { AxiosRequestConfig } from 'axios';
 
 export const addSubscriberToMailchimp = functions.firestore
@@ -24,6 +25,12 @@ export const addSubscriberToMailchimp = functions.firestore
       };
 
       try {
+        const auth = admin.auth();
+        if (documentData.uid) {
+          await auth.setCustomUserClaims(documentData.uid, {
+            canSubscribe: false
+          });
+        }
         const url =
           'https://us15.api.mailchimp.com/3.0/lists/fdbb4c13c1/members';
         return await axios.post(url, payload, config);
