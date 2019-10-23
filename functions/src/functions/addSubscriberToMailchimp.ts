@@ -25,11 +25,17 @@ export const addSubscriberToMailchimp = functions.firestore
       };
 
       try {
-        const auth = admin.auth();
         if (documentData.uid) {
-          await auth.setCustomUserClaims(documentData.uid, {
-            canSubscribe: false
-          });
+          const firestore = admin.firestore();
+          const userExtrasDoc = firestore
+            .collection('userExtras')
+            .doc(documentData.uid);
+          const docExists = (await userExtrasDoc.get()).exists;
+          if (docExists) {
+            await userExtrasDoc.update({ canSubscribe: false });
+          } else {
+            await userExtrasDoc.set({ canSubscribe: false });
+          }
         }
         const url =
           'https://us15.api.mailchimp.com/3.0/lists/fdbb4c13c1/members';
