@@ -261,7 +261,8 @@ export default Vue.extend({
             this.showSnackbar('Account created');
             setTimeout(() => this.closeSnackbar(), 3500);
           } catch (e) {
-            this.error.push('An error occurred. Please contact support.');
+            this.closeSnackbar();
+            this.errors.push('Error creating account');
             throw new Error(e);
           }
         }
