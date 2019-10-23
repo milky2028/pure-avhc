@@ -165,14 +165,14 @@ export default Vue.extend({
     return {
       email: '',
       expanded: false,
-      windowWidth: window ? window.innerWidth : 0,
+      windowWidth: window.innerWidth,
       canSubscribe: true,
       emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
       formError: false,
       errorMsg: 'Invalid email format',
       subscribing: false,
       subscribed: false,
-      btnText: ''
+      btnText: window.innerWidth < 835 ? 'Get 10% Off' : 'Subscribe'
     };
   },
   watch: {
