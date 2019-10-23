@@ -22,7 +22,7 @@
         >Wholesale Catalog</a>
       </p>
       <h2 class="last">Wholesale Account Application</h2>
-      <form v-if="!uid">
+      <form v-if="!uid && !accountCreated">
         <av-input
           dark
           morePadding
@@ -52,8 +52,12 @@
           :value="userInfo.password"
         ></av-input>
       </form>
-      <shipping-form v-if="!uid" includeCompany @form-input="shippingForm = $event"></shipping-form>
-      <div v-if="!uid" class="switch-container">
+      <shipping-form
+        v-if="!uid && !accountCreated"
+        includeCompany
+        @form-input="shippingForm = $event"
+      ></shipping-form>
+      <div v-if="!uid && !accountCreated" class="switch-container">
         <av-switch class="switch" @switch="differentBilling = $event"></av-switch>
         <p class="no-padding billing-question">Different billing address?</p>
       </div>
@@ -69,7 +73,7 @@
           @click="signOut"
         >sign out</a> and create a new wholesale account with a different email. After your account is created, you'll be signed out. When you sign in again, your new wholesale account will be active.
       </p>
-      <p class="no-padding" v-if="isWholesaleUser">You are already a wholesale user.</p>
+      <p class="no-padding user-msg" v-if="isWholesaleUser || accountCreated">{{ completionMsg }}</p>
       <p
         class="no-padding errors"
         v-if="errors.length > 0"
@@ -78,12 +82,11 @@
         <strong v-html="errors.join('<br>')"></strong>
       </p>
       <av-button
-        v-if="!isWholesaleUser"
         :class="{ topMargin: differentBilling}"
         :fullWidth="windowWidth < 835"
         :long="windowWidth > 835"
         @btn-click="onSubmit"
-      >{{ uid ? 'Upgrade to' : 'Create' }} Wholesale Account</av-button>
+      >{{ isWholesaleUser ? 'Sign Out of' : uid ? 'Upgrade to' : accountCreated ? 'Login to' : 'Create' }} Wholesale Account</av-button>
     </article-page>
   </page-wrapper>
 </template>
@@ -155,6 +158,8 @@ export default Vue.extend({
       fullName: process.env.VUE_APP_FULL_NAME,
       differentBilling: false,
       windowWidth: window.innerWidth,
+      accountCreated: false,
+      completionMsg: `You're already a wholesale user.`,
       userInfo: {
         email: '',
         phoneNumber: '',
@@ -195,7 +200,11 @@ export default Vue.extend({
     },
     async onSubmit() {
       this.errors = [];
-      if (this.uid) {
+      if (this.accountCreated) {
+        this.$router.push('/login');
+      } else if (this.isWholesaleUser) {
+        this.signOut();
+      } else if (this.uid) {
         try {
           this.showSnackbar('Upgrading...');
           const existingUserPayload = {
@@ -259,6 +268,9 @@ export default Vue.extend({
               newUserPayload
             );
             this.showSnackbar('Account created');
+            this.accountCreated = true;
+            this.completionMsg =
+              'Your wholesale account has been created. Log in to use your new wholesale account.';
             setTimeout(() => this.closeSnackbar(), 3500);
           } catch (e) {
             this.closeSnackbar();
