@@ -18,6 +18,7 @@ const UserModule = {
   state: {
     isAdmin: false,
     isWholesaleUser: false,
+    canSubscribe: true,
     uid: '',
     email: '',
     displayName: '',
@@ -82,6 +83,7 @@ const UserModule = {
       worker.postMessage(workerMsg);
       const emptyUser = {
         isWholesaleUser: false,
+        canSubscribe: true,
         isAdmin: false,
         uid: '',
         email: '',
@@ -164,13 +166,17 @@ const UserModule = {
               const isWholesaleUser = currentUser
                 ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
                 : false;
+              const canSubscribe = currentUser
+                ? (await currentUser.getIdTokenResult()).claims.canSubscribe
+                : true;
               commit('setAllStateInObj', {
                 email,
                 phoneNumber,
                 displayName,
                 uid,
                 photoURL,
-                isWholesaleUser
+                isWholesaleUser,
+                canSubscribe
               });
             }
             break;
@@ -190,13 +196,17 @@ const UserModule = {
               const isWholesaleUser = currentUser
                 ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
                 : false;
+              const canSubscribe = currentUser
+                ? (await currentUser.getIdTokenResult()).claims.canSubscribe
+                : true;
               commit('setAllStateInObj', {
                 email,
                 phoneNumber,
                 displayName,
                 uid,
                 photoURL,
-                isWholesaleUser
+                isWholesaleUser,
+                canSubscribe
               });
             }
             break;

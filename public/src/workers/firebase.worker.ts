@@ -213,6 +213,9 @@ class FirebaseWorker {
           const isWholesaleUser = currentUser
             ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
             : false;
+          const canSubscribe = currentUser
+            ? (await currentUser.getIdTokenResult()).claims.canSubscribe
+            : true;
           postMessage({
             collection,
             data: {
@@ -221,7 +224,8 @@ class FirebaseWorker {
               displayName,
               uid,
               photoURL,
-              isWholesaleUser
+              isWholesaleUser,
+              canSubscribe
             }
           });
         }
