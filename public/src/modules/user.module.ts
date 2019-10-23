@@ -5,6 +5,7 @@ import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import router from '@/router';
 import PureUser from '@/types/PureUser';
+import * as idb from 'idb-keyval';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
@@ -92,6 +93,7 @@ const UserModule = {
         photoURL: ''
       };
       commit('setAllStateInObj', emptyUser);
+      idb.clear();
       router.push('/');
     },
     listenForAuthStateChanges({ commit }: Context) {
@@ -167,7 +169,10 @@ const UserModule = {
                 ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
                 : false;
               const canSubscribe = currentUser
-                ? (await currentUser.getIdTokenResult()).claims.canSubscribe
+                ? (await currentUser.getIdTokenResult()).claims.canSubscribe ===
+                  undefined
+                  ? true
+                  : (await currentUser.getIdTokenResult()).claims.canSubscribe
                 : true;
               commit('setAllStateInObj', {
                 email,
@@ -197,7 +202,10 @@ const UserModule = {
                 ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
                 : false;
               const canSubscribe = currentUser
-                ? (await currentUser.getIdTokenResult()).claims.canSubscribe
+                ? (await currentUser.getIdTokenResult()).claims.canSubscribe ===
+                  undefined
+                  ? true
+                  : (await currentUser.getIdTokenResult()).claims.canSubscribe
                 : true;
               commit('setAllStateInObj', {
                 email,

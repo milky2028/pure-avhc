@@ -214,7 +214,10 @@ class FirebaseWorker {
             ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
             : false;
           const canSubscribe = currentUser
-            ? (await currentUser.getIdTokenResult()).claims.canSubscribe
+            ? (await currentUser.getIdTokenResult()).claims.canSubscribe ===
+              undefined
+              ? true
+              : (await currentUser.getIdTokenResult()).claims.canSubscribe
             : true;
           postMessage({
             collection,

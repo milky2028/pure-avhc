@@ -148,7 +148,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvIconButton from '../components/AvIconButton.vue';
@@ -166,7 +166,6 @@ export default Vue.extend({
       email: '',
       expanded: false,
       windowWidth: window.innerWidth,
-      canSubscribe: true,
       emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
       formError: false,
       errorMsg: 'Invalid email format',
@@ -192,7 +191,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('cart', ['cartItems']),
-    ...mapState('user', ['uid']),
+    ...mapState('user', ['uid', 'canSubscribe']),
     ...mapGetters('cart', ['subtotal'])
   },
   async mounted() {
@@ -202,10 +201,14 @@ export default Vue.extend({
     );
 
     const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
-    this.canSubscribe = idbCanSubscribe === undefined ? true : idbCanSubscribe;
+    this.setState({
+      type: 'canSubscribe',
+      data: idbCanSubscribe === undefined ? true : idbCanSubscribe
+    });
   },
   methods: {
     ...mapActions('base', ['addFirestoreData']),
+    ...mapMutations('user', ['setState']),
     onClose() {
       this.expanded = false;
       this.formError = false;
@@ -230,9 +233,9 @@ export default Vue.extend({
           this.subscribing = false;
           this.email = '';
           this.expanded = false;
-          this.canSubscribe = false;
           this.subscribed = true;
           setTimeout(() => (this.subscribed = false), 2500);
+          this.setState({ type: 'canSubscribe', data: false });
           idb.set('canSubscribe', false);
         } else {
           this.formError = true;
