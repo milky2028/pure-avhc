@@ -171,7 +171,8 @@ export default Vue.extend({
       formError: false,
       errorMsg: 'Invalid email format',
       subscribing: false,
-      subscribed: false
+      subscribed: false,
+      btnText: ''
     };
   },
   watch: {
@@ -183,18 +184,18 @@ export default Vue.extend({
       if (items.length === 0) {
         this.expanded = false;
       }
+    },
+    windowWidth(windowWidth: number) {
+      this.btnText =
+        windowWidth < 835 && !this.expanded ? 'Get 10% Off' : 'Subscribe';
     }
   },
   computed: {
     ...mapState('cart', ['cartItems']),
-    ...mapGetters('cart', ['subtotal']),
-    btnText(): string {
-      return this.windowWidth < 835 && !this.expanded
-        ? 'Get 10% Off'
-        : 'Subscribe';
-    }
+    ...mapState('user', ['uid']),
+    ...mapGetters('cart', ['subtotal'])
   },
-  async beforeMount() {
+  async mounted() {
     window.addEventListener(
       'resize',
       () => (this.windowWidth = window.innerWidth)
@@ -217,12 +218,12 @@ export default Vue.extend({
           this.subscribing = true;
           this.formError = false;
 
-          // @ts-ignore;
-          const id = await this.addFirestoreData({
+          await this.addFirestoreData({
             fn: 'addDocument',
             collection: 'subscribers',
             data: {
-              email: this.email
+              email: this.email,
+              uid: this.uid
             }
           });
 
