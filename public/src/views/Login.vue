@@ -245,6 +245,7 @@ export default Vue.extend({
             this.closeSnackbar();
             this.passwordErrorMsg = '';
           } catch (e) {
+            this.closeSnackbar();
             this.passwordErrorMsg = e;
           }
         } else {
@@ -256,6 +257,7 @@ export default Vue.extend({
             this.closeSnackbar();
             this.passwordErrorMsg = '';
           } catch (e) {
+            this.closeSnackbar();
             this.passwordErrorMsg = e;
           }
         }

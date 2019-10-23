@@ -179,8 +179,15 @@ class FirebaseWorker {
       await this.auth.createUserWithEmailAndPassword(email, password);
       postMessage({ collection, data: {} });
     } catch (e) {
-      postMessage({ collection, data: e });
-      throw new Error(e);
+      if (e.code === 'auth/email-already-in-use') {
+        await this.signInWithEmail({
+          payload: { email, password },
+          collection
+        });
+      } else {
+        postMessage({ collection, data: e });
+        throw new Error(e);
+      }
     }
   }
 

@@ -125,10 +125,11 @@ const UserModule = {
         payload
       };
       worker.postMessage(workerMsg);
+
       return new Promise((resolve, reject) => {
         worker.addEventListener('message', ({ data }: MessageEvent) => {
           if (data.collection === 'auth') {
-            if (data.code) {
+            if (data.data.code) {
               reject(data.data.message);
             } else {
               const userDetails = data.data;
