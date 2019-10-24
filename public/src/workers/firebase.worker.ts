@@ -47,6 +47,30 @@ class FirebaseWorker {
     }
   }
 
+  public async getDocumentById({
+    collection,
+    documentId
+  }: {
+    collection: string;
+    documentId: string;
+  }) {
+    if (!this.db) {
+      await this.initializeFirestore();
+    }
+    try {
+      return this.db
+        .collection(collection)
+        .doc(documentId)
+        .onSnapshot((snap) => {
+          const data = snap.data();
+          postMessage({ collection, data });
+        });
+    } catch (e) {
+      postMessage({ collection, data: e });
+      throw new Error(e);
+    }
+  }
+
   public async getDocuments({ collection }: { collection: string }) {
     if (!this.db) {
       await this.initializeFirestore();
@@ -60,18 +84,7 @@ class FirebaseWorker {
             ...doc.data(),
             id: doc.id
           }));
-          const dataWithTimestamps = data.map((d: { [key: string]: any }) => {
-            const entry: { [key: string]: any } = { ...d };
-            for (const key in entry) {
-              if (entry.hasOwnProperty(key)) {
-                const value = entry[key];
-                if (value.toDate) {
-                  entry[key] = value.toDate();
-                }
-              }
-            }
-            return entry;
-          });
+          const dataWithTimestamps = this.processTimestamps(data);
           postMessage({ collection, data: dataWithTimestamps });
         });
     } catch (e) {
@@ -125,18 +138,7 @@ class FirebaseWorker {
           ...doc.data(),
           id: doc.id
         }));
-        const dataWithTimestamps = data.map((d: { [key: string]: any }) => {
-          const entry: { [key: string]: any } = { ...d };
-          for (const key in entry) {
-            if (entry.hasOwnProperty(key)) {
-              const value = entry[key];
-              if (value.toDate) {
-                entry[key] = value.toDate();
-              }
-            }
-          }
-          return entry;
-        });
+        const dataWithTimestamps = this.processTimestamps(data);
         postMessage({ collection, data: dataWithTimestamps });
       });
     } catch (e) {
@@ -265,6 +267,21 @@ class FirebaseWorker {
       postMessage({ collection, data: e });
       throw new Error(e);
     }
+  }
+
+  private processTimestamps(data: any[]) {
+    return data.map((d: { [key: string]: any }) => {
+      const entry: { [key: string]: any } = { ...d };
+      for (const key in entry) {
+        if (entry.hasOwnProperty(key)) {
+          const value = entry[key];
+          if (value.toDate) {
+            entry[key] = value.toDate();
+          }
+        }
+      }
+      return entry;
+    });
   }
 
   private async initializeApp() {
