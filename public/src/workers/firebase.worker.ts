@@ -49,10 +49,10 @@ class FirebaseWorker {
 
   public async getDocumentById({
     collection,
-    documentId
+    payload: { documentId }
   }: {
     collection: string;
-    documentId: string;
+    payload: { documentId: string };
   }) {
     if (!this.db) {
       await this.initializeFirestore();
