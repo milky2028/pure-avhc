@@ -55,12 +55,16 @@ const BaseModule: {
         );
       });
     },
-    getFirestoreData: async ({ commit }: Context, workerMsg: WorkerFns) => {
+    getFirestoreData: async (
+      { commit }: Context,
+      workerMsg: WorkerFns,
+      vModule?: string
+    ) => {
       const worker = new Worker();
       worker.postMessage(workerMsg);
       worker.addEventListener('message', ({ data }: MessageEvent) => {
         const firestoreData = data.data;
-        commit('setState', {
+        commit(`${vModule ? `${vModule}/` : ''}setState`, {
           type: data.collection,
           data: firestoreData
         });
