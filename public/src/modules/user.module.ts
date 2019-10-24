@@ -168,20 +168,13 @@ const UserModule = {
               const isWholesaleUser = currentUser
                 ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
                 : false;
-              const canSubscribe = currentUser
-                ? (await currentUser.getIdTokenResult()).claims.canSubscribe ===
-                  undefined
-                  ? true
-                  : (await currentUser.getIdTokenResult()).claims.canSubscribe
-                : true;
               commit('setAllStateInObj', {
                 email,
                 phoneNumber,
                 displayName,
                 uid,
                 photoURL,
-                isWholesaleUser,
-                canSubscribe
+                isWholesaleUser
               });
             }
             break;
@@ -201,20 +194,13 @@ const UserModule = {
               const isWholesaleUser = currentUser
                 ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
                 : false;
-              const canSubscribe = currentUser
-                ? (await currentUser.getIdTokenResult()).claims.canSubscribe ===
-                  undefined
-                  ? true
-                  : (await currentUser.getIdTokenResult()).claims.canSubscribe
-                : true;
               commit('setAllStateInObj', {
                 email,
                 phoneNumber,
                 displayName,
                 uid,
                 photoURL,
-                isWholesaleUser,
-                canSubscribe
+                isWholesaleUser
               });
             }
             break;
