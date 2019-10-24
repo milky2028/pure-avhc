@@ -84,20 +84,29 @@ class FirebaseWorker {
     collection,
     queries,
     limit,
-    orderBy
+    orderBy,
+    dontQueryBySite
   }: {
     collection: string;
     queries?: QueryParams[];
     limit?: number;
     orderBy?: OrderByParams;
+    dontQueryBySite?: boolean;
   }) {
     if (!this.db) {
       await this.initializeFirestore();
     }
     try {
-      let results = this.db
-        .collection(collection)
-        .where('site', 'array-contains', process.env.VUE_APP_NAME);
+      let results:
+        | firebase.firestore.CollectionReference
+        | firebase.firestore.Query = this.db.collection(collection);
+      if (!dontQueryBySite) {
+        results = results.where(
+          'site',
+          'array-contains',
+          process.env.VUE_APP_NAME
+        );
+      }
       if (queries) {
         queries.forEach(
           ({ fieldPath, operator, compareValue }: QueryParams) => {

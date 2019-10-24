@@ -28,5 +28,6 @@ export default interface WorkerFns {
   queries?: QueryParams[];
   limit?: number;
   orderBy?: OrderByParams;
+  dontQueryBySite?: boolean;
   payload?: {};
 }
