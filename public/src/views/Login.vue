@@ -5,36 +5,38 @@
         If you have a
         <a href="https://purecbdexchange.com">purecbdexchange.com</a> account, you may also use it to sign in here.
       </p>
-      <av-input
-        dark
-        morePadding
-        useNativeFieldError
-        type="email"
-        autocomplete="email"
-        class="field"
-        placeholder="Email"
-        :pattern="emailPattern"
-        @on-input="email = $event"
-        @enter="resettingPassword ? resetPassword() : onLogin()"
-        :showError="Boolean(emailError)"
-        :errorMsg="emailError"
-        :value="email"
-      ></av-input>
-      <av-input
-        dark
-        morePadding
-        useNativeFieldError
-        v-if="!resettingPassword"
-        class="field"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-        :errorMsg="passwordErrorMsg"
-        @on-input="password = $event"
-        @enter="resettingPassword ? resetPassword() : onLogin()"
-        :showError="Boolean(passwordErrorMsg)"
-        :value="password"
-      ></av-input>
+      <form>
+        <av-input
+          dark
+          morePadding
+          useNativeFieldError
+          type="email"
+          autocomplete="email"
+          class="field"
+          placeholder="Email"
+          :pattern="emailPattern"
+          @on-input="email = $event"
+          @enter="resettingPassword ? resetPassword() : onLogin()"
+          :showError="Boolean(emailError)"
+          :errorMsg="emailError"
+          :value="email"
+        ></av-input>
+        <av-input
+          dark
+          morePadding
+          useNativeFieldError
+          v-if="!resettingPassword"
+          class="field"
+          type="password"
+          placeholder="Password"
+          autocomplete="current-password"
+          :errorMsg="passwordErrorMsg"
+          @on-input="password = $event"
+          @enter="resettingPassword ? resetPassword() : onLogin()"
+          :showError="Boolean(passwordErrorMsg)"
+          :value="password"
+        ></av-input>
+      </form>
       <p class="reset-password" v-if="!resettingPassword">
         <a @click="resettingPassword = true">Reset Password?</a>
       </p>
@@ -160,6 +162,7 @@ import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import { mapActions, mapState, mapMutations } from 'vuex';
+import WorkerFns from '../types/WorkerFns';
 
 export default Vue.extend({
   components: {
@@ -199,6 +202,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations('base', ['showSnackbar', 'closeSnackbar']),
+    ...mapActions('base', ['getFirestoreData']),
     ...mapActions('user', [
       'loginWithEmail',
       'createAccountWithEmailAndPassword',
@@ -225,7 +229,14 @@ export default Vue.extend({
     },
     async onProviderLogin(provider: string) {
       try {
-        await this.signInWithProvider(provider);
+        const uid = await this.signInWithProvider(provider);
+        const workerMsg: WorkerFns = {
+          collection: 'userExtras',
+          fn: 'getDocumentById',
+          payload: { documentId: uid },
+          targetModule: 'user'
+        };
+        this.getFirestoreData(workerMsg);
         this.passwordErrorMsg = '';
       } catch (e) {
         this.passwordErrorMsg = e;
@@ -250,12 +261,19 @@ export default Vue.extend({
           }
         } else {
           try {
-            await this.loginWithEmail({
+            const uid = await this.loginWithEmail({
               email: this.email,
               password: this.password
             });
             this.closeSnackbar();
             this.passwordErrorMsg = '';
+            const workerMsg: WorkerFns = {
+              collection: 'userExtras',
+              fn: 'getDocumentById',
+              payload: { documentId: uid },
+              targetModule: 'user'
+            };
+            this.getFirestoreData(workerMsg);
           } catch (e) {
             this.closeSnackbar();
             this.passwordErrorMsg = e;

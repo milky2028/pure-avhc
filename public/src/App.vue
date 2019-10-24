@@ -164,9 +164,10 @@ export default Vue.extend({
       const workerMsg: WorkerFns = {
         collection: 'userExtras',
         fn: 'getDocumentById',
-        payload: { documentId: uid }
+        payload: { documentId: uid },
+        targetModule: 'user'
       };
-      this.getFirestoreData(workerMsg, 'user');
+      this.getFirestoreData(workerMsg);
     }
   }
 });

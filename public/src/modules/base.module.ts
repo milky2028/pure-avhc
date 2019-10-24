@@ -3,7 +3,7 @@ import Worker from 'worker-loader!../workers/firebase.worker';
 import AppBase from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
-import setState from '../functions/setState';
+import setState, { setAllStateInObj } from '../functions/setState';
 
 interface Context {
   commit: Commit;
@@ -32,6 +32,7 @@ const BaseModule: {
   },
   mutations: {
     setState,
+    setAllStateInObj,
     showSnackbar: (state: AppBase, msg: string) => (state.snackbarMsg = msg),
     closeSnackbar: (state: AppBase) => (state.snackbarMsg = ''),
     toggleOverlay: (state: AppBase) =>
@@ -55,19 +56,32 @@ const BaseModule: {
         );
       });
     },
-    getFirestoreData: async (
-      { commit }: Context,
-      workerMsg: WorkerFns,
-      vModule?: string
-    ) => {
+    getFirestoreData: async ({ commit }: Context, workerMsg: WorkerFns) => {
       const worker = new Worker();
       worker.postMessage(workerMsg);
+
       worker.addEventListener('message', ({ data }: MessageEvent) => {
         const firestoreData = data.data;
-        commit(`${vModule ? `${vModule}/` : ''}setState`, {
-          type: data.collection,
-          data: firestoreData
-        });
+        if (Array.isArray(firestoreData)) {
+          commit(
+            `${
+              workerMsg.targetModule ? `${workerMsg.targetModule}/` : ''
+            }setState`,
+            {
+              type: data.collection,
+              data: firestoreData
+            },
+            workerMsg.targetModule ? { root: true } : {}
+          );
+        } else if (typeof firestoreData === 'object') {
+          commit(
+            `${
+              workerMsg.targetModule ? `${workerMsg.targetModule}/` : ''
+            }setAllStateInObj`,
+            firestoreData,
+            workerMsg.targetModule ? { root: true } : {}
+          );
+        }
       });
     }
   }

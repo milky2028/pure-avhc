@@ -30,4 +30,5 @@ export default interface WorkerFns {
   orderBy?: OrderByParams;
   dontQueryBySite?: boolean;
   payload?: {};
+  targetModule?: string;
 }
