@@ -4,13 +4,15 @@ import Address from '../types/Address';
 import cors from 'cors';
 import WholesaleUserInfo from '../types/WholesaleUserInfo';
 const c = cors({ origin: true });
-admin.initializeApp();
 
 // For Local Testing
 // import serviceAccount from '../credentials/key.json';
 // admin.initializeApp({
 //   credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
 // });
+
+// For Production
+admin.initializeApp();
 
 async function addAddresses(
   uid: string,
