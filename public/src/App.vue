@@ -129,6 +129,7 @@ body {
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
 import { mapActions, mapState } from 'vuex';
+import WorkerFns from './types/WorkerFns';
 
 export default Vue.extend({
   components: {
@@ -152,12 +153,22 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('cart', ['setCartStateFromSave']),
-    ...mapActions('user', ['listenForAuthStateChanges'])
+    ...mapActions('user', ['listenForAuthStateChanges']),
+    ...mapActions('base', ['getFirestoreData'])
   },
-  mounted() {
-    this.setCartStateFromSave();
-    this.listenForAuthStateChanges();
+  async mounted() {
     window.addEventListener('beforeinstallprompt', (e) => e.preventDefault());
+    this.setCartStateFromSave();
+    const uid = await this.listenForAuthStateChanges();
+    if (uid) {
+      const workerMsg: WorkerFns = {
+        collection: 'userExtras',
+        fn: 'getDocumentById',
+        dontQueryBySite: true,
+        payload: { documentId: uid }
+      };
+      this.getFirestoreData(workerMsg, 'user');
+    }
   }
 });
 </script>
