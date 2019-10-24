@@ -164,7 +164,6 @@ export default Vue.extend({
       const workerMsg: WorkerFns = {
         collection: 'userExtras',
         fn: 'getDocumentById',
-        dontQueryBySite: true,
         payload: { documentId: uid }
       };
       this.getFirestoreData(workerMsg, 'user');
