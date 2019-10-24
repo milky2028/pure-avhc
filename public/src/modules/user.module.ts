@@ -51,7 +51,7 @@ const UserModule = {
             } else {
               const userDetails = data.data;
               commit('setAllStateInObj', userDetails);
-              resolve();
+              resolve(userDetails.uid);
             }
           }
         });
@@ -112,7 +112,7 @@ const UserModule = {
             } else {
               const userDetails = data.data;
               commit('setAllStateInObj', userDetails);
-              resolve();
+              resolve(userDetails.uid);
             }
           }
         });
@@ -144,6 +144,7 @@ const UserModule = {
         });
       });
     },
+    // @ts-ignore
     async signInWithProvider({ commit }: Context, provider: string) {
       try {
         const fb = await Firebase;
@@ -176,6 +177,7 @@ const UserModule = {
                 photoURL,
                 isWholesaleUser
               });
+              return uid;
             }
             break;
           }
@@ -202,6 +204,7 @@ const UserModule = {
                 photoURL,
                 isWholesaleUser
               });
+              return uid;
             }
             break;
           }
