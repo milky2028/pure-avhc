@@ -4,6 +4,7 @@ import OrderByParams from './OrderByParams';
 export default interface WorkerFns {
   fn:
     | 'getDocuments'
+    | 'getDocumentById'
     | 'queryDocuments'
     | 'addDocument'
     | 'signOut'
