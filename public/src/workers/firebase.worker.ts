@@ -272,12 +272,10 @@ class FirebaseWorker {
   private processTimestamps(data: any[]) {
     return data.map((d: { [key: string]: any }) => {
       const entry: { [key: string]: any } = { ...d };
-      for (const key in entry) {
-        if (entry.hasOwnProperty(key)) {
-          const value = entry[key];
-          if (value.toDate) {
-            entry[key] = value.toDate();
-          }
+      for (const key of Object.keys(entry)) {
+        const value = entry[key];
+        if (value.toDate) {
+          entry[key] = value.toDate();
         }
       }
       return entry;
