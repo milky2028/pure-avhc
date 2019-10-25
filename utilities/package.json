@@ -1,0 +1,14 @@
+{
+  "name": "utilities",
+  "version": "1.0.0",
+  "description": "Node build scripts",
+  "scripts": {
+    "set-claim": "tsc && node lib/setClaim.js"
+  },
+  "author": "Tyler Gross",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.11.7",
+    "typescript": "^3.6.2"
+  }
+}
