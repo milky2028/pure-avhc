@@ -30,7 +30,7 @@
             rel="noopener noreferrer"
             type="application/pdf"
             :href="`/test-results-files/${res.url}.pdf`"
-          >{{ res.title }}</a>
+          >{{ formatDate(res.date) }} - {{ res.title }}</a>
         </li>
       </ul>
     </article-page>
@@ -80,6 +80,14 @@ export default Vue.extend({
       return this.selectedSortType === 'oldest'
         ? a.date.getTime() - b.date.getTime()
         : b.date.getTime() - a.date.getTime();
+    },
+    formatDate(date: Date) {
+      const formatter = new Intl.DateTimeFormat('en-us', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric'
+      });
+      return formatter.format(date);
     }
   }
 });
