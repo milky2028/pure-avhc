@@ -22,8 +22,8 @@ async function main(
   return 'Successfully set custom claim';
 }
 
-const [, , userId, field, fieldValue, type] = process.argv;
-main(userId, field, fieldValue, type)
+const [, , uid, f, fV, t] = process.argv;
+main(uid, f, fV, t)
   .then((res) => {
     console.log(res);
     process.exit(0);
