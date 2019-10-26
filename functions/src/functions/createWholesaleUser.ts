@@ -57,6 +57,7 @@ export const createWholesaleUser = functions.https.onRequest((req, res) =>
           await auth.setCustomUserClaims(user.uid, {
             isWholesaleUser: true
           });
+          await auth.revokeRefreshTokens(user.uid);
           await addAddresses(user.uid, shippingAddress, billingAddress);
           return res.sendStatus(201);
         } else {
@@ -72,6 +73,7 @@ export const createWholesaleUser = functions.https.onRequest((req, res) =>
         await auth.setCustomUserClaims(existingNotLoggedInUser.uid, {
           isWholesaleUser: true
         });
+        await auth.revokeRefreshTokens(existingNotLoggedInUser.uid);
         await addAddresses(
           existingNotLoggedInUser.uid,
           shippingAddress,
