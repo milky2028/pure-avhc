@@ -1,16 +1,36 @@
 <template>
-  <div>
+  <div class="container">
     <img
       v-if="product && products"
       :src="getSrc(product.id, imageUrl, images)"
       :alt="getImageAlt(product.id, images)"
     />
+    <div class="info-container">
+      <h2 class="body-text header">{{ product.name }}</h2>
+      <!-- <p class="body-text">{{ `${cartItem.size}${cartItem.quantity > 1 ? 's' : ''}` }}</p> -->
+    </div>
   </div>
 </template>
 
 <style scoped>
+.container {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+}
+
+.header {
+  color: var(--dark-accent);
+  font-weight: 600;
+}
+
+.info-container {
+  padding: 5px 12px;
+}
+
 img {
   height: 80px;
+  width: 80px;
+  object-fit: cover;
   border-radius: var(--rounded-corner);
 }
 </style>
