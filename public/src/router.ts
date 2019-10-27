@@ -24,6 +24,8 @@ const Orders = () =>
 const Wholesale = () =>
   import(/* webpackChunkName: "Wholesale" */ './views/Wholesale.vue');
 const Cart = () => import(/* webpackChunkName: "Cart" */ './views/Cart.vue');
+const Checkout = () =>
+  import(/* webpackChunkName: "Checkout" */ './views/Checkout.vue');
 
 Vue.use(Router);
 const store: any = Store;
@@ -65,6 +67,11 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: Cart
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: Checkout
     },
     {
       path: '/shop-cbd',
