@@ -154,6 +154,7 @@ import AvButton from '../components/AvButton.vue';
 import CartItem from '../types/CartItem';
 import Product from '../types/Product';
 import AvIconButton from '../components/AvIconButton.vue';
+import createRandomId from '../../../functions/src/functions/createRandomId';
 
 export default Vue.extend({
   components: {
@@ -219,6 +220,7 @@ export default Vue.extend({
       );
 
       const item: CartItem = {
+        id: createRandomId(15),
         price: lowestPriceSize!.price,
         quantity: 1,
         product: product.id,
