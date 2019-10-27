@@ -27,14 +27,20 @@ export default Vue.extend({
   props: {
     cartItem: Object
   },
-  computed: {
-    ...mapState('base', ['products', 'images', 'imageUrl']),
-    product(): Product {
-      // @ts-ignore
-      return this.products.find(
+  data() {
+    return {
+      product: {}
+    };
+  },
+  watch: {
+    products(products: Product[]) {
+      this.product = products.find(
         (product: Product) => product.id === this.cartItem.product
-      );
+      ) as Product;
     }
+  },
+  computed: {
+    ...mapState('base', ['products', 'images', 'imageUrl'])
   },
   methods: {
     getImageAlt,
@@ -44,6 +50,11 @@ export default Vue.extend({
       );
       return getImageUrl(imageUrl, image ? image.url : '', 100);
     }
+  },
+  mounted() {
+    this.product = this.products.find(
+      (product: Product) => product.id === this.cartItem.product
+    );
   }
 });
 </script>
