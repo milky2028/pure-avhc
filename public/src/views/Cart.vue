@@ -1,12 +1,24 @@
 <template>
   <page-wrapper withPadding>
     <article-page title="Cart">
-      <cart-item v-for="item in cartItems" :key="item.id" :cartItem="item"></cart-item>
+      <div class="item-container" v-if="cartItems.length > 0">
+        <cart-item v-for="item in cartItems" :key="item.id" :cartItem="item"></cart-item>
+      </div>
+      <p v-else>Your cart is empty.</p>
     </article-page>
   </page-wrapper>
 </template>
 
 <style scoped>
+.item-container {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 2vh;
+}
+
+p {
+  padding-top: 0;
+}
 </style>
 
 <script lang="ts">
