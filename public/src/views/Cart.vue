@@ -14,7 +14,8 @@ import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import CartItem from '../components/CartItem.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+import WorkerFns from '../types/WorkerFns';
 
 export default Vue.extend({
   components: {
@@ -28,9 +29,29 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('cart', ['cartItems'])
+    ...mapState('cart', ['cartItems']),
+    ...mapState('base', ['products', 'images'])
+  },
+  methods: {
+    ...mapActions('base', ['getFirestoreData'])
   },
   mounted() {
+    if (this.products.length < 1) {
+      const productsOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'products'
+      };
+      this.getFirestoreData(productsOptions);
+    }
+
+    if (this.images.length < 1) {
+      const imagesOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'images'
+      };
+      this.getFirestoreData(imagesOptions);
+    }
+
     window.addEventListener(
       'resize',
       () => (this.windowWidth = window.innerWidth)
