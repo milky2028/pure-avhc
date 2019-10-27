@@ -13,22 +13,16 @@
 import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import CartItem from '../components/CartItem.vue';
-import { mapState } from 'vuex';
 
 export default Vue.extend({
   components: {
     PageWrapper,
-    ArticlePage,
-    CartItem
+    ArticlePage
   },
   data() {
     return {
       windowWidth: window.innerWidth
     };
-  },
-  computed: {
-    ...mapState('cart', ['cartItems'])
   },
   mounted() {
     window.addEventListener(
