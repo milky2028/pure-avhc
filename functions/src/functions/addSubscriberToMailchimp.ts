@@ -1,6 +1,18 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import axios, { AxiosRequestConfig } from 'axios';
+import createRandomId from './createRandomId';
+
+async function updateUserExtras(uid: string) {
+  const firestore = admin.firestore();
+  const userExtrasDoc = firestore.collection('userExtras').doc(uid);
+  const docExists = (await userExtrasDoc.get()).exists;
+  if (docExists) {
+    await userExtrasDoc.update({ canSubscribe: false });
+  } else {
+    await userExtrasDoc.set({ canSubscribe: false });
+  }
+}
 
 export const addSubscriberToMailchimp = functions.firestore
   .document('subscribers/{subscriberId}')
@@ -26,17 +38,16 @@ export const addSubscriberToMailchimp = functions.firestore
 
       try {
         if (documentData.uid) {
-          const firestore = admin.firestore();
-          const userExtrasDoc = firestore
-            .collection('userExtras')
-            .doc(documentData.uid);
-          const docExists = (await userExtrasDoc.get()).exists;
-          if (docExists) {
-            await userExtrasDoc.update({ canSubscribe: false });
-          } else {
-            await userExtrasDoc.set({ canSubscribe: false });
-          }
+          await updateUserExtras(documentData.uid);
+        } else {
+          const auth = admin.auth();
+          const newUser = await auth.createUser({
+            email: documentData.email,
+            password: createRandomId(15)
+          });
+          await updateUserExtras(newUser.uid);
         }
+        // Send user an email with their new account
         const url =
           'https://us15.api.mailchimp.com/3.0/lists/fdbb4c13c1/members';
         return await axios.post(url, payload, config);
