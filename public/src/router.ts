@@ -28,6 +28,8 @@ const Checkout = () =>
   import(/* webpackChunkName: "Checkout" */ './views/Checkout.vue');
 const SingleOrder = () =>
   import(/* webpackChunkName: "SingleOrder" */ './views/SingleOrder.vue');
+const Product = () =>
+  import(/* webpackChunkName: "Product" */ './views/Product.vue');
 
 Vue.use(Router);
 const store: any = Store;
@@ -72,6 +74,11 @@ export default new Router({
           next();
         }
       }
+    },
+    {
+      path: '/products/:productName',
+      name: 'single-product',
+      component: Product
     },
     {
       path: '/wholesale',
