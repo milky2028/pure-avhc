@@ -26,6 +26,8 @@ const Wholesale = () =>
 const Cart = () => import(/* webpackChunkName: "Cart" */ './views/Cart.vue');
 const Checkout = () =>
   import(/* webpackChunkName: "Checkout" */ './views/Checkout.vue');
+const SingleOrder = () =>
+  import(/* webpackChunkName: "SingleOrder" */ './views/SingleOrder.vue');
 
 Vue.use(Router);
 const store: any = Store;
@@ -49,6 +51,19 @@ export default new Router({
       path: '/orders',
       name: 'orders',
       component: Orders,
+      // @ts-ignore
+      beforeEnter(to, from, next) {
+        if (!store.state.user.uid) {
+          next('/login');
+        } else {
+          next();
+        }
+      }
+    },
+    {
+      path: '/orders/:orderId',
+      name: 'single-order',
+      component: SingleOrder,
       // @ts-ignore
       beforeEnter(to, from, next) {
         if (!store.state.user.uid) {
