@@ -1,7 +1,7 @@
 <template>
   <page-wrapper withPadding>
     <article-page title="Cart">
-      <cart-item v-for="item in cartItems" :key="item.id"></cart-item>
+      <cart-item v-for="item in cartItems" :key="item.id" :cartItem="item"></cart-item>
     </article-page>
   </page-wrapper>
 </template>
