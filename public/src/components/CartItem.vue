@@ -6,7 +6,7 @@
       :alt="getImageAlt(product.id, images)"
     />
     <div class="info-container">
-      <h2 class="body-text header">{{ product.name }}</h2>
+      <h2 v-if="product && product.name" class="body-text header">{{ product.name }}</h2>
       <!-- <p class="body-text">{{ `${cartItem.size}${cartItem.quantity > 1 ? 's' : ''}` }}</p> -->
     </div>
   </div>
