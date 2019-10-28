@@ -10,6 +10,11 @@
         <p class="subtotal">Subtotal</p>
         <p class="subtotal">${{ subtotal }}</p>
       </div>
+      <av-button
+        class="clear-btn"
+        :fullWidth="windowWidth < 835"
+        :long="windowWidth > 835"
+      >Clear Cart</av-button>
     </article-page>
   </page-wrapper>
 </template>
@@ -46,6 +51,7 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import CartItem from '../components/CartItem.vue';
 import Divider from '../components/Divider.vue';
+import AvButton from '../components/AvButton.vue';
 import { mapState, mapActions, mapGetters } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 
@@ -54,7 +60,8 @@ export default Vue.extend({
     PageWrapper,
     ArticlePage,
     CartItem,
-    Divider
+    Divider,
+    AvButton
   },
   data() {
     return {
