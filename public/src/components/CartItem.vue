@@ -15,7 +15,7 @@
 <style scoped>
 .container {
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 100px 1fr;
 }
 
 .header {
@@ -29,7 +29,7 @@
 
 img {
   height: 80px;
-  width: 80px;
+  width: 100px;
   object-fit: cover;
   border-radius: var(--rounded-corner);
 }
@@ -68,7 +68,7 @@ export default Vue.extend({
       const image = images.find(
         (i: Image) => i.product === id && i.toolbarImage
       );
-      return getImageUrl(imageUrl, image ? image.url : '', 100);
+      return getImageUrl(imageUrl, image ? image.url : '', 80, 100);
     }
   },
   mounted() {
