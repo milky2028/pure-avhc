@@ -3,7 +3,7 @@
     <h1 class="subhead">
       <slot></slot>
     </h1>
-    <div class="divider"></div>
+    <divider></divider>
   </div>
 </template>
 
@@ -15,18 +15,17 @@ h1 {
   font-weight: 600;
   line-height: 1.2;
 }
-
-.divider {
-  background-color: black;
-  height: 2px;
-  margin-bottom: 1vh;
-}
 </style>
 
 
 <script lang="ts">
 import Vue from 'vue';
+import Divider from '../components/Divider.vue';
 
-export default Vue.extend({});
+export default Vue.extend({
+  components: {
+    Divider
+  }
+});
 </script>
 
