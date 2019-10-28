@@ -3,7 +3,7 @@
     <article-page title="Feedback and Support">
       <h2>Tracking, Order Information, Returns, and Customer Support</h2>
       <p>For fastest results, text messaging is preferred. Second fastest after text messaging is email. We aim to respond to all customer support email claims within 24 - 48 hours.</p>
-      <p>Customer support calls may be made by appointment. Our support number is text-messaing only.</p>
+      <p>Customer support calls may be made by appointment. Our support number is text message only.</p>
       <p>
         <strong>Text:</strong> 530-436-6386
       </p>
@@ -18,7 +18,11 @@
       <h2>Wholesale</h2>
       <p>
         For more information about wholesale purchasing and creating a wholesale account, please visit
-        <router-link to="/wholesale">our wholesale page</router-link>.
+        <router-link to="/wholesale">our wholesale page</router-link>. For wholesale support inquiries, please email <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="mailto:david@purecbdexchange.com?subject=Wholesale%2C%20Support%2C%20Inquiry&body=I%20have%20a%20wholesale%20support%20question..."
+        >david@purecbdexchange.com</a>.
       </p>
       <h2>Partnerships, Advertising, and Events</h2>
       <p>For more information, about partnerships, advertising, marketing, events, and more, please email us at the address below.</p>
