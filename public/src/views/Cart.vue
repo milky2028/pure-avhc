@@ -8,7 +8,7 @@
       <divider class="divider"></divider>
       <div class="subtotal-container">
         <p class="subtotal">Subtotal</p>
-        <p class="subtotal">${{ subtotal }}</p>
+        <p class="subtotal">${{ subtotal.toFixed(2) }}</p>
       </div>
       <av-button
         long
