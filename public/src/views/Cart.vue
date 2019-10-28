@@ -4,26 +4,36 @@
       <div class="item-container" v-if="cartItems.length > 0">
         <cart-item v-for="item in cartItems" :key="item.id" :cartItem="item"></cart-item>
       </div>
-      <p v-else>Your cart is empty.</p>
+      <p v-if="cartItems.length === 0">Your cart is empty.</p>
       <divider class="divider"></divider>
       <div class="subtotal-container">
         <p class="subtotal">Subtotal</p>
         <p class="subtotal">${{ subtotal }}</p>
       </div>
       <av-button
+        long
+        v-if="cartItems.length > 0"
         class="clear-btn"
-        :fullWidth="windowWidth < 835"
-        :long="windowWidth > 835"
+        @btn-click="clearCart"
       >Clear Cart</av-button>
     </article-page>
   </page-wrapper>
 </template>
 
 <style scoped>
+.parent-container {
+  margin-top: 2vh;
+  display: grid;
+  height: 80vh;
+  grid-template-rows: 1fr 1fr;
+  justify-self: end;
+}
+
 .item-container {
   display: grid;
   grid-auto-flow: row;
   row-gap: 2vh;
+  align-items: center;
 }
 
 p {
@@ -43,6 +53,10 @@ p {
   font-weight: 500;
   font-size: 20px;
 }
+
+.clear-btn {
+  margin: 5vh auto;
+}
 </style>
 
 <script lang="ts">
@@ -52,7 +66,7 @@ import ArticlePage from '../components/ArticlePage.vue';
 import CartItem from '../components/CartItem.vue';
 import Divider from '../components/Divider.vue';
 import AvButton from '../components/AvButton.vue';
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 
 export default Vue.extend({
@@ -74,7 +88,8 @@ export default Vue.extend({
     ...mapGetters('cart', ['subtotal'])
   },
   methods: {
-    ...mapActions('base', ['getFirestoreData'])
+    ...mapActions('base', ['getFirestoreData']),
+    ...mapMutations('cart', ['clearCart'])
   },
   mounted() {
     if (this.products.length < 1) {
