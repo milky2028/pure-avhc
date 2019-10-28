@@ -81,6 +81,7 @@
   text-align: right;
   padding: 0 5px;
   line-height: inherit;
+  border-radius: var(--rounded-corner);
 }
 
 .cart-btn {
