@@ -1,0 +1,46 @@
+<template>
+  <page-wrapper withPadding>
+    <article-page title="404 Error">
+      <h2>Page Not Found</h2>
+      <img
+        src="http://giphygifs.s3.amazonaws.com/media/4qANoeI3g45a0/giphy.gif"
+        alt="Wile Coyote with a Wheel Helmet on"
+      />
+      <p>Looks like we couldn't find the page you were looking for. It might be hiding somewhere, but also, maybe not.</p>
+      <p>
+        <router-link to="/">Navigate Home</router-link>
+      </p>
+    </article-page>
+  </page-wrapper>
+</template>
+
+<style scoped>
+img {
+  margin-top: 16px;
+  width: 100%;
+}
+</style>
+
+<script lang="ts">
+import Vue from 'vue';
+import PageWrapper from '../components/PageWrapper.vue';
+import ArticlePage from '../components/ArticlePage.vue';
+
+export default Vue.extend({
+  components: {
+    PageWrapper,
+    ArticlePage
+  },
+  data() {
+    return {
+      windowWidth: window.innerWidth
+    };
+  },
+  mounted() {
+    window.addEventListener(
+      'resize',
+      () => (this.windowWidth = window.innerWidth)
+    );
+  }
+});
+</script>

@@ -34,6 +34,8 @@ const DefinitiveCBDGuide = () =>
   import(
     /* webpackChunkName: "DefinitiveCBDGuide" */ './views/DefinitiveCBDGuide.vue'
   );
+const NotFound = () =>
+  import(/* webpackChunkName: "NotFound" */ './views/NotFound.vue');
 
 Vue.use(Router);
 const store: any = Store;
@@ -133,6 +135,15 @@ export default new Router({
       path: '/support',
       name: 'support',
       component: FeedbackAndSupport
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: NotFound
+    },
+    {
+      path: '*',
+      redirect: '/404'
     }
   ]
 });
