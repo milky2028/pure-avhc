@@ -18,21 +18,46 @@ h2 {
   font-family: var(--mukta-malar);
   font-weight: 700;
   line-height: 1.2;
-  padding-top: 1.5vh;
+  padding-top: 3vh;
+}
+
+h3 {
+  font-size: 18px;
+  font-family: var(--mukta-malar);
+  font-weight: 700;
+  padding-top: 3vh;
+  line-height: 1.2;
 }
 
 p,
-ul {
-  padding-top: 1.5vh;
+ul,
+ol {
+  padding-top: 2vh;
   font-size: 18px;
   font-family: var(--mukta-malar);
   font-weight: 400;
   line-height: 1.6;
-  list-style: disc;
+}
+
+ol,
+ul {
+  padding-left: 24px;
+}
+
+li + p {
+  padding-top: 0;
+}
+
+p + li {
+  padding-top: 16px;
 }
 
 ul {
-  padding-left: 24px;
+  list-style: disc;
+}
+
+ol {
+  font-weight: bold;
 }
 
 strong {
