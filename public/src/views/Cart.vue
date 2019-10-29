@@ -33,7 +33,6 @@
   display: grid;
   grid-auto-flow: row;
   row-gap: 2vh;
-  align-items: center;
 }
 
 p {
@@ -55,7 +54,13 @@ p {
 }
 
 .clear-btn {
-  margin: 5vh auto;
+  margin: 5vh 0;
+}
+
+@media (max-width: 835px) {
+  .clear-btn {
+    margin: 5vh auto;
+  }
 }
 </style>
 
