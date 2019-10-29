@@ -57,13 +57,9 @@ const CartModule = {
       setCartItemsInIdb(state.cartItems);
     },
     addItemToCart: (state: CartModuleState, item: CartItem) => {
-      const productsInCart = state.cartItems.map(({ product }) => product);
-
-      if (productsInCart.includes(item.product)) {
-        const duplicateItem = state.cartItems.find(
-          (product) => product.product === item.product
-        );
-
+      const idsInCart = state.cartItems.map(({ id }) => id);
+      if (idsInCart.includes(item.id)) {
+        const duplicateItem = state.cartItems.find(({ id }) => id === item.id);
         duplicateItem!.quantity++;
         state.cartItems = [...state.cartItems];
       } else {
@@ -74,16 +70,13 @@ const CartModule = {
     },
     setCartItemQuantity(
       state: CartModuleState,
-      { quantity, productId }: { quantity: number; productId: string }
+      { quantity, cartItemId }: { quantity: number; cartItemId: string }
     ) {
-      const cartItem = state.cartItems.find(
-        ({ product }) => product === productId
-      );
-
+      const cartItem = state.cartItems.find(({ id }) => id === cartItemId);
       if (cartItem) {
         if (quantity === 0) {
           state.cartItems = state.cartItems.filter(
-            ({ product }) => product !== productId
+            ({ id }) => id !== cartItemId
           );
         } else {
           cartItem.quantity = quantity;

@@ -11,7 +11,7 @@
         <div class="selector">
           <select
             :value="cartItem.quantity"
-            @change="setCartItemQuantity({ quantity: +$event.target.value, productId: product.id })"
+            @change="setCartItemQuantity({ quantity: +$event.target.value, cartItemId: cartItem.id })"
           >
             <option v-for="option of options" :key="option">{{ option }}</option>
           </select>
@@ -159,7 +159,7 @@ export default Vue.extend({
   },
   mounted() {
     this.product = this.products.find(
-      (product: Product) => product.id === this.cartItem.product
+      ({ id }: Product) => id === this.cartItem.product
     );
   }
 });
