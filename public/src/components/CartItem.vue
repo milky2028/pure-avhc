@@ -10,7 +10,7 @@
       <div class="select-container">
         <div class="selector">
           <select
-            :value="cartItem.quantity"
+            v-model="cartItem.quantity"
             @change="setCartItemQuantity({ quantity: +$event.target.value, cartItemId: cartItem.id })"
           >
             <option v-for="option of options" :key="option">{{ option }}</option>
@@ -22,7 +22,7 @@
           >expand_more</av-icon-button>
         </div>
         <div class="selector" v-if="product">
-          <select :value="cartItem.size" @change="onSizeChange($event.target.value)">
+          <select v-model="cartItem.size" @change="onSizeChange($event.target.value)">
             <option
               v-for="{ masterMeasurement, id } of product.sizes"
               :key="id"
