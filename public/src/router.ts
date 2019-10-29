@@ -30,6 +30,10 @@ const SingleOrder = () =>
   import(/* webpackChunkName: "SingleOrder" */ './views/SingleOrder.vue');
 const Product = () =>
   import(/* webpackChunkName: "Product" */ './views/Product.vue');
+const DefinitiveCBDGuide = () =>
+  import(
+    /* webpackChunkName: "DefinitiveCBDGuide" */ './views/DefinitiveCBDGuide.vue'
+  );
 
 Vue.use(Router);
 const store: any = Store;
@@ -99,6 +103,11 @@ export default new Router({
       path: '/shop-cbd',
       name: 'shop-cbd',
       component: ShopCBD
+    },
+    {
+      path: '/definitive-cbd-guide',
+      name: 'definitive-cbd-guide',
+      component: DefinitiveCBDGuide
     },
     {
       path: '/test-results',
