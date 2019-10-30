@@ -8,33 +8,20 @@
     <div class="info-container">
       <h2 v-if="product && product.name" class="body-text header">{{ product.name }}</h2>
       <div class="select-container">
-        <div class="selector">
-          <select
-            v-model="cartItem.quantity"
-            @change="setCartItemQuantity({ quantity: +$event.target.value, cartItemId: cartItem.id })"
-          >
-            <option v-for="option of options" :key="option">{{ option }}</option>
-          </select>
-          <av-icon-button
-            :style="{ marginLeft: `${String(cartItem.quantity).length / 2}ch` }"
-            class="icon-btn"
-            black
-          >expand_more</av-icon-button>
-        </div>
-        <div class="selector" v-if="product">
-          <select v-model="cartItem.size" @change="onSizeChange($event.target.value)">
-            <option
-              v-for="{ masterMeasurement, id } of product.sizes"
-              :key="id"
-              :value="masterMeasurement"
-            >{{ `${masterMeasurement}${cartItem.quantity > 1 ? 's' : ''}` }}</option>
-          </select>
-          <av-icon-button
-            :style="{ marginLeft: `${String(cartItem.size).length / 2}ch` }"
-            class="icon-btn"
-            black
-          >expand_more</av-icon-button>
-        </div>
+        <small-selector
+          :selectValue="String(cartItem.quantity)"
+          :options="options"
+          @select-changed="setCartItemQuantity({ quantity: +$event, cartItemId: cartItem.id })"
+        ></small-selector>
+        <small-selector
+          v-if="product"
+          :selectValue="String(cartItem.size)"
+          :options="product.sizes"
+          diffKey="id"
+          valueKey="masterMeasurement"
+          :displayValueHandler="this.getDisplayValue"
+          @select-changed="onSizeChange($event)"
+        ></small-selector>
       </div>
     </div>
   </div>
@@ -72,28 +59,6 @@ img {
   align-items: center;
 }
 
-.selector {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-areas: 'main';
-}
-
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  grid-area: main;
-  padding: 2px;
-  border-radius: 0;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  z-index: 10;
-}
-
-.icon-btn {
-  grid-area: main;
-  justify-self: end;
-}
-
 .qty {
   margin-left: 22px;
 }
@@ -106,12 +71,12 @@ import getImageUrl from '../functions/getImageUrl';
 import getImageAlt from '../functions/getImageAlt';
 import { mapState, mapMutations } from 'vuex';
 import Product from '../types/Product';
-import AvIconButton from '../components/AvIconButton.vue';
+import SmallSelector from '../components/SmallSelector.vue';
 import Size from '../types/Size';
 
 export default Vue.extend({
   components: {
-    AvIconButton
+    SmallSelector
   },
   props: {
     cartItem: Object
@@ -140,6 +105,9 @@ export default Vue.extend({
         (i: Image) => i.product === id && i.toolbarImage
       );
       return getImageUrl(imageUrl, image ? image.url : '', 80, 100);
+    },
+    getDisplayValue(value: string) {
+      return `${value}${this.cartItem.quantity > 1 ? 's' : ''}`;
     },
     onSizeChange(newSize: string) {
       const newItemSize = this.product.sizes.find(
