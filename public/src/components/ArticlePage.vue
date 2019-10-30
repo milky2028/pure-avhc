@@ -77,7 +77,7 @@ a:hover {
 
 <script lang="ts">
 import Vue from 'vue';
-import PageHeader from '../components/PageHeader.vue';
+import PageHeader from './PageHeader.vue';
 
 export default Vue.extend({
   props: {
