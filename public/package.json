@@ -1,6 +1,6 @@
 {
-  "name": "pure-avhc",
-  "version": "0.1.0",
+  "name": "public",
+  "version": "1.0.0-0",
   "private": true,
   "scripts": {
     "serve:avhc": "vue-cli-service serve --mode avhc --open",

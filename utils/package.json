@@ -1,6 +1,7 @@
 {
-  "name": "utilities",
-  "version": "1.0.0",
+  "name": "utils",
+  "version": "1.0.0-0",
+  "private": true,
   "description": "Node build scripts",
   "scripts": {
     "set-claim": "tsc && node lib/setClaim.js"
