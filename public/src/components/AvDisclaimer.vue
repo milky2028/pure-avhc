@@ -68,8 +68,8 @@ p {
 import Vue from 'vue';
 import { mapState, mapMutations } from 'vuex';
 import * as idb from 'idb-keyval';
-import AvButton from '../components/AvButton.vue';
-import AvIconButton from '../components/AvIconButton.vue';
+import AvButton from './AvButton.vue';
+import AvIconButton from './AvIconButton.vue';
 
 export default Vue.extend({
   components: {

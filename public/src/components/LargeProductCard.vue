@@ -149,12 +149,12 @@ import WorkerFns from '../types/WorkerFns';
 import getImageAlt from '../functions/getImageAlt';
 import Image from '../types/Image';
 import Size from '../types/Size';
-import EliantoButton from '../components/EliantoButton.vue';
-import AvButton from '../components/AvButton.vue';
+import EliantoButton from './EliantoButton.vue';
+import AvButton from './AvButton.vue';
 import CartItem from '../types/CartItem';
 import Product from '../types/Product';
-import AvIconButton from '../components/AvIconButton.vue';
-import createRandomId from '../../../functions/src/functions/createRandomId';
+import AvIconButton from './AvIconButton.vue';
+import createRandomId from '../functions/createRandomId';
 
 export default Vue.extend({
   components: {

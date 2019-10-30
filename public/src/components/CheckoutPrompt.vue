@@ -149,9 +149,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-import AvInput from '../components/AvInput.vue';
-import AvButton from '../components/AvButton.vue';
-import AvIconButton from '../components/AvIconButton.vue';
+import AvInput from './AvInput.vue';
+import AvButton from './AvButton.vue';
+import AvIconButton from './AvIconButton.vue';
 import { setTimeout } from 'timers';
 import * as idb from 'idb-keyval';
 

@@ -20,7 +20,7 @@ h1 {
 
 <script lang="ts">
 import Vue from 'vue';
-import Divider from '../components/Divider.vue';
+import Divider from './Divider.vue';
 
 export default Vue.extend({
   components: {

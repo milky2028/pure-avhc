@@ -345,9 +345,9 @@ a:hover {
 
 <script lang="ts">
 import Vue from 'vue';
-import AvIconButton from '../components/AvIconButton.vue';
-import ProductCard from '../components/ProductCard.vue';
-import AvBadge from '../components/AvBadge.vue';
+import AvIconButton from './AvIconButton.vue';
+import ProductCard from './ProductCard.vue';
+import AvBadge from './AvBadge.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 
