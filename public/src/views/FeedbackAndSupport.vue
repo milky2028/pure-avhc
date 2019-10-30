@@ -18,7 +18,11 @@
       <h2>Wholesale</h2>
       <p>
         For more information about wholesale purchasing and creating a wholesale account, please visit
-        <router-link to="/wholesale">our wholesale page</router-link>. For wholesale support inquiries, please email <a
+        <router-link to="/wholesale">our wholesale page</router-link>.
+      </p>
+      <p>
+        <strong>Email:&nbsp;</strong>
+        <a
           target="_blank"
           rel="noopener noreferrer"
           href="mailto:david@purecbdexchange.com?subject=Wholesale%2C%20Support%2C%20Inquiry&body=I%20have%20a%20wholesale%20support%20question..."
