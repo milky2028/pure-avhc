@@ -1,6 +1,6 @@
 <template>
   <div class="selector">
-    <select :value="selectValue" @change="$emit('select-changed', $event.target.value)">
+    <select :value="selectValue" @input="$emit('select-changed', $event.target.value)">
       <option
         v-for="option of options"
         :value="valueKey ? option[valueKey] : option"

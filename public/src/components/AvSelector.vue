@@ -1,8 +1,8 @@
 <template>
-  <label for="selector">
+  <label :for="id">
     <span class="body-text label-text">{{ label }}</span>
     <div class="select-container">
-      <select @input="$emit('select-change', $event.target.value)" :value="boundProp">
+      <select :id="id" @input="$emit('select-change', $event.target.value)" :value="boundProp">
         <option v-for="opt of options" :value="opt.value" :key="opt[loopKey]">{{ opt[displayKey] }}</option>
       </select>
       <av-icon-button black>expand_more</av-icon-button>
@@ -40,6 +40,7 @@ select {
 <script lang="ts">
 import Vue from 'vue';
 import AvIconButton from './AvIconButton.vue';
+import createRandomId from '../functions/createRandomId';
 
 export default Vue.extend({
   components: {
@@ -51,6 +52,11 @@ export default Vue.extend({
     loopKey: String,
     displayKey: String,
     boundProp: String
+  },
+  data() {
+    return {
+      id: createRandomId(6)
+    };
   }
 });
 </script>
