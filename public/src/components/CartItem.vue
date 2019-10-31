@@ -18,6 +18,7 @@
           :selectValue="String(cartItem.size)"
           :options="product.sizes"
           diffKey="id"
+          displayKey="masterMeasurement"
           valueKey="masterMeasurement"
           :displayValueHandler="this.getDisplayValue"
           @select-changed="onSizeChange($event)"
