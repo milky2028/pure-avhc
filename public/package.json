@@ -3,12 +3,12 @@
   "version": "1.0.0-0",
   "private": true,
   "scripts": {
-    "serve:avhc": "vue-cli-service serve --mode avhc --open",
-    "serve:pure": "vue-cli-service serve --mode pure --open",
     "build": "vue-cli-service build --mode avhcprod --dest dist --target app --modern",
+    "lint": "vue-cli-service lint",
     "build:avhc": "vue-cli-service build --mode avhcprod --dest dist --target app --modern",
     "build:pure": "vue-cli-service build --mode pureprod --dest dist --target app --modern",
-    "lint": "vue-cli-service lint"
+    "serve:avhc": "vue-cli-service serve --mode avhc --open",
+    "serve:pure": "vue-cli-service serve --mode pure --open"
   },
   "dependencies": {
     "core-js": "^2.6.5",
