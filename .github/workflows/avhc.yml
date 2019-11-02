@@ -14,10 +14,16 @@ jobs:
           fetch-depth: 1
       - uses: actions/setup-node@v1
         with:
+          node-version: '8.x'
+      - run: cd ${GITHUB_WORKSPACE}/functions && yarn
+      - uses: actions/setup-node@v1
+        with:
           node-version: '10.x'
-      - run: yarn install
-      - run: yarn workspace build build-manifest:avhc
-      - run: yarn workspace public build:avhc
+      - run: cd ${GITHUB_WORKSPACE}/build && yarn
+      - run: cd ${GITHUB_WORKSPACE}/build && yarn build-manifest:avhc
+      - run: cd ${GITHUB_WORKSPACE}/public && yarn
+      - run: cd ${GITHUB_WORKSPACE}/public && yarn build:avhc
+      - run: cd ${GITHUB_WORKSPACE}
       - uses: w9jds/firebase-action@v1.0.1
         with:
           args: use avhc
