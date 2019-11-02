@@ -6,6 +6,7 @@
           v-for="(item, i) in cartItems"
           :key="item.id"
           :cartItem="item"
+          :strains="strains.filter(({ products }) => products.includes(item.product))"
           :class="{ borderTop: i}"
         ></cart-item>
       </div>
@@ -88,7 +89,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('cart', ['cartItems']),
-    ...mapState('base', ['products', 'images']),
+    ...mapState('base', ['products', 'images', 'strains']),
     ...mapGetters('cart', ['subtotal'])
   },
   methods: {
@@ -110,6 +111,14 @@ export default Vue.extend({
         collection: 'images'
       };
       this.getFirestoreData(imagesOptions);
+    }
+
+    if (this.strains.length < 1) {
+      const strainOptions: WorkerFns = {
+        fn: 'getDocuments',
+        collection: 'strains'
+      };
+      this.getFirestoreData(strainOptions);
     }
 
     window.addEventListener(
