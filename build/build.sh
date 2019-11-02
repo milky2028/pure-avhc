@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 . ~/.nvm/nvm.sh
 
 error_exit() {
@@ -14,16 +14,26 @@ BUILD_TARGET=$1
 
 cd ..
 
-pwd
-
 git status
 git pull
 
-rm -rf node_modules public/node_modules functions/node_modules build/node_modules
-nvm install 10
-yarn install
-yarn workspace build build-manifest:avhc
-yarn workspace public build:${BUILD_TARGET}
+yarn global add firebase-tools @vue/cli @vue/cli-service-global typescript
+rm -rf public/node_modules functions/node_modules build/node_modules
 
+cd build
+rm -rf node_modules
+yarn install
+
+cd ../functions
+rm -rf node_modules
+yarn install
+
+nvm install 10
+cd ../public
+rm -rf node_modules
+yarn install
+yarn build:${BUILD_TARGET}
+
+cd ..
 firebase use ${BUILD_TARGET}
 firebase deploy
