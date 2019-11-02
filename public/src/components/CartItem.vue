@@ -24,12 +24,13 @@
           @select-changed="onSizeChange($event)"
         ></small-selector>
         <small-selector
-          v-if="product && product.strains && product.strains.length > 0"
+          v-if="strains && strains.length > 0"
           :selectValue="String(cartItem.strain)"
-          :options="product.strains"
+          :options="strains"
           diffKey="id"
           displayKey="name"
           valueKey="type"
+          @select-changed="onStrainChange($event)"
         ></small-selector>
       </div>
     </div>
@@ -88,7 +89,8 @@ export default Vue.extend({
     SmallSelector
   },
   props: {
-    cartItem: Object
+    cartItem: Object,
+    strains: Array
   },
   data() {
     return {
@@ -132,6 +134,14 @@ export default Vue.extend({
           }
         });
       }
+    },
+    onStrainChange(newStrain: string) {
+      this.updateCartItem({
+        cartItemId: this.cartItem.id,
+        newCartItem: {
+          strain: newStrain
+        }
+      });
     }
   },
   mounted() {
