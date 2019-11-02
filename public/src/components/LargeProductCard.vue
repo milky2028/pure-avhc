@@ -17,7 +17,7 @@
           <li
             v-for="{ price, measurementValue, measurement, masterMeasurement } in getFilteredSizes(product.sizes)"
             :key="price"
-          >{{ measurementValue }} {{ measurement }} {{ masterMeasurement }}s</li>
+          >{{ measurementValue }} {{ measurement }} {{ masterMeasurement }}{{ product.pluralizeSizes ? 's' : '' }}</li>
         </ul>
         <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
         <h3 class="body-text price">{{ getPrice(product.sizes) }}</h3>

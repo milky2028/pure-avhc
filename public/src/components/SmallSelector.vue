@@ -16,7 +16,7 @@
       </option>
     </select>
     <av-icon-button
-      :style="{ marginLeft: `${String(selectValue).length / 2}ch` }"
+      :style="{ marginLeft: `${String(selectValue).length / 1.9}ch` }"
       class="icon-btn"
       black
     >expand_more</av-icon-button>
