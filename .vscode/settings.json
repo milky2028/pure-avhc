@@ -26,5 +26,6 @@
   "typescript.tsdk": "../public/node_modules/typescript/lib",
   "eslint.packageManager": "yarn",
   "npm.packageManager": "yarn",
-  "tslint.packageManager": "yarn"
+  "tslint.packageManager": "yarn",
+  "eslint.autoFixOnSave": true
 }
