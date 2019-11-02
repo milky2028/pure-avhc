@@ -55,6 +55,8 @@
 }
 
 .btn {
+  margin-bottom: 8vh;
+  margin-right: 3vw;
   align-self: end;
   justify-self: end;
 }
@@ -101,6 +103,8 @@
   }
 
   .btn {
+    margin-bottom: 10vh;
+    margin-right: 0;
     justify-self: center;
   }
 
