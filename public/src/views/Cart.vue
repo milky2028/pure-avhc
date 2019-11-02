@@ -11,7 +11,7 @@
         ></cart-item>
       </div>
       <p v-if="cartItems.length === 0">Your cart is empty.</p>
-      <divider class="divider"></divider>
+      <divider class="divider" :class="{ marginTop: cartItems.length === 0 }"></divider>
       <div class="subtotal-container">
         <p class="subtotal">Subtotal</p>
         <p class="subtotal">${{ subtotal.toFixed(2) }}</p>
@@ -33,6 +33,10 @@
   height: 80vh;
   grid-template-rows: 1fr 1fr;
   justify-self: end;
+}
+
+.marginTop {
+  margin-top: 1vh;
 }
 
 .borderTop {
