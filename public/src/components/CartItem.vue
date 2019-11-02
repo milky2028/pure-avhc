@@ -38,6 +38,7 @@
 
 <style scoped>
 .container {
+  padding: 2vh 0;
   display: grid;
   grid-template-columns: 100px 1fr;
 }
@@ -61,7 +62,6 @@ img {
 
 .select-container {
   margin-top: 6px;
-  width: 50px;
   display: grid;
   grid-auto-flow: column;
   column-gap: 6px;

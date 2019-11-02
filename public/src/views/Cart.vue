@@ -1,8 +1,13 @@
 <template>
   <page-wrapper withPadding>
     <article-page title="Cart">
-      <div class="item-container" v-if="cartItems.length > 0">
-        <cart-item v-for="item in cartItems" :key="item.id" :cartItem="item"></cart-item>
+      <div v-if="cartItems.length > 0">
+        <cart-item
+          v-for="(item, i) in cartItems"
+          :key="item.id"
+          :cartItem="item"
+          :class="{ borderTop: i}"
+        ></cart-item>
       </div>
       <p v-if="cartItems.length === 0">Your cart is empty.</p>
       <divider class="divider"></divider>
@@ -29,18 +34,12 @@
   justify-self: end;
 }
 
-.item-container {
-  display: grid;
-  grid-auto-flow: row;
-  row-gap: 2vh;
+.borderTop {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 p {
   padding-top: 0;
-}
-
-.divider {
-  margin-top: 16px;
 }
 
 .subtotal-container {
