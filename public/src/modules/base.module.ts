@@ -28,6 +28,7 @@ const BaseModule: {
     iconMenu: [],
     images: [],
     testResults: [],
+    strains: [],
     wholesaleCatalog: []
   },
   mutations: {

@@ -4,6 +4,7 @@ import IconMenuItem from './IconMenuItem';
 import Image from './Image';
 import TestResult from './TestResult';
 import WholesaleCatalog from './WholesaleCatalog';
+import Strain from './Strain';
 
 export interface Logo {
   url?: string;
@@ -25,7 +26,8 @@ export default interface AppBase {
     | IconMenuItem[]
     | Image[]
     | TestResult[]
-    | WholesaleCatalog[];
+    | WholesaleCatalog[]
+    | Strain[];
   imageUrl: string;
   functionsUrl: string;
   isOverlayShowing: boolean;
@@ -37,6 +39,7 @@ export default interface AppBase {
   mainMenu: MenuItem[];
   iconMenu: IconMenuItem[];
   images: Image[];
+  strains: Strain[];
   testResults: TestResult[];
   wholesaleCatalog: WholesaleCatalog[];
 }
