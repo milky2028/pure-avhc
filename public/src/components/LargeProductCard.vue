@@ -216,11 +216,13 @@ export default Vue.extend({
         (size) => size.price === Math.min(...sizes.map((s) => s.price))
       );
 
-      return lowestPriceSize && lowestPriceSize.measurement !== 'gram'
-        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
-        : `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}${
-            lowestPriceSize.measurementValue > 1 ? 's' : ''
-          }`;
+      return lowestPriceSize
+        ? lowestPriceSize.measurement !== 'gram'
+          ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
+          : `${lowestPriceSize.measurementValue} ${
+              lowestPriceSize.measurement
+            }${lowestPriceSize.measurementValue > 1 ? 's' : ''}`
+        : '';
     },
     getFilteredSizes(sizes: Size[]) {
       return sizes.filter(
