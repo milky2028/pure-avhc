@@ -16,9 +16,6 @@ jobs:
         with:
           node-version: '10.x'
       - run: cd ${GITHUB_WORKSPACE}/functions && yarn
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
       - run: cd ${GITHUB_WORKSPACE}/build && yarn
       - run: cd ${GITHUB_WORKSPACE}/build && yarn build-manifest:avhc
       - run: cd ${GITHUB_WORKSPACE}/public && yarn
