@@ -6,9 +6,14 @@
       :alt="getImageAlt(product.id, images)"
     />
     <div class="info-container">
-      <h2 v-if="product && product.name" class="body-text header">
-        {{ product.name }}
-      </h2>
+      <router-link
+        v-if="product && product.name"
+        :to="`/products/${product.url}`"
+      >
+        <h2 class="body-text header">
+          {{ product.name }}
+        </h2></router-link
+      >
       <div class="select-container">
         <small-selector
           :selectValue="String(cartItem.quantity)"
@@ -38,6 +43,7 @@
           valueKey="type"
           @select-changed="onStrainChange($event)"
         ></small-selector>
+        <av-icon-button black>remove_circle_outline</av-icon-button>
       </div>
     </div>
   </div>
@@ -88,11 +94,13 @@ import getImageAlt from '../functions/getImageAlt';
 import { mapState, mapMutations } from 'vuex';
 import Product from '../types/Product';
 import SmallSelector from '../components/SmallSelector.vue';
+import AvIconButton from '../components/AvIconButton.vue';
 import Size from '../types/Size';
 
 export default Vue.extend({
   components: {
-    SmallSelector
+    SmallSelector,
+    AvIconButton
   },
   props: {
     cartItem: Object,
