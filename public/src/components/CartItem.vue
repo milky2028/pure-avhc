@@ -55,7 +55,9 @@
             })
           "
         ></small-selector>
-        <av-icon-button black>remove_circle_outline</av-icon-button>
+        <av-icon-button black @icon-click="removeItemFromCart(cartItem.id)"
+          >remove_circle_outline</av-icon-button
+        >
       </div>
     </div>
   </div>
@@ -135,7 +137,11 @@ export default Vue.extend({
     ...mapState('base', ['products', 'images', 'imageUrl'])
   },
   methods: {
-    ...mapMutations('cart', ['setCartItemQuantity', 'updateCartItem']),
+    ...mapMutations('cart', [
+      'setCartItemQuantity',
+      'updateCartItem',
+      'removeItemFromCart'
+    ]),
     getImageAlt,
     getSrc(id: string, imageUrl: string, images: Image[]): string {
       const image = images.find(
