@@ -18,7 +18,7 @@
           "
         ></small-selector>
         <small-selector
-          v-if="product"
+          v-if="product && product.sizes"
           :selectValue="String(cartItem.size)"
           :options="product.sizes"
           diffKey="id"
