@@ -24,7 +24,8 @@ export default interface WorkerFns {
     | 'auth'
     | 'wholesaleCatalog'
     | 'addresses'
-    | 'userExtras';
+    | 'userExtras'
+    | 'strains';
   queries?: QueryParams[];
   limit?: number;
   orderBy?: OrderByParams;
