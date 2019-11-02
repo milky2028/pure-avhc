@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "workspaces": [
-    "build",
-    "utils",
-    "functions",
-    "public"
-  ]
-}

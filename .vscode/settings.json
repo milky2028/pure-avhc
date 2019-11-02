@@ -23,7 +23,6 @@
   "liveServer.settings.donotShowInfoMsg": true,
   "debug.toolBarLocation": "docked",
   "editor.wordWrap": "on",
-  "typescript.tsdk": "../public/node_modules/typescript/lib",
   "eslint.packageManager": "yarn",
   "npm.packageManager": "yarn",
   "tslint.packageManager": "yarn",

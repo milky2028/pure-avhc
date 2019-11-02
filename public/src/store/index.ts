@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import BaseModule from './modules/base.module';
-import CartModule from './modules/cart.module';
-import UserModule from './modules/user.module';
+import BaseModule from '../modules/base.module';
+import CartModule from '../modules/cart.module';
+import UserModule from '../modules/user.module';
 
 Vue.use(Vuex);
 

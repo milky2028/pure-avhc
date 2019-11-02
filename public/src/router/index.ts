@@ -1,41 +1,42 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Store from '@/store';
-const Home = () => import(/* webpackChunkName: "Home" */ './views/Home.vue');
+const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const PrivacyPolicy = () =>
-  import(/* webpackChunkName: "PrivacyPolicy" */ './views/PrivacyPolicy.vue');
+  import(/* webpackChunkName: "PrivacyPolicy" */ '../views/PrivacyPolicy.vue');
 const ReturnPolicy = () =>
-  import(/* webpackChunkName: "ReturnPolicy" */ './views/ReturnPolicy.vue');
+  import(/* webpackChunkName: "ReturnPolicy" */ '../views/ReturnPolicy.vue');
 const TermsAndConditions = () =>
   import(
-    /* webpackChunkName: "TermsAndConditions" */ './views/TermsAndConditions.vue'
+    /* webpackChunkName: "TermsAndConditions" */ '../views/TermsAndConditions.vue'
   );
 const ShopCBD = () =>
-  import(/* webpackChunkName: "ShopCBD" */ './views/ShopCBD.vue');
+  import(/* webpackChunkName: "ShopCBD" */ '../views/ShopCBD.vue');
 const FeedbackAndSupport = () =>
   import(
-    /* webpackChunkName: "FeedbackAndSupport" */ './views/FeedbackAndSupport.vue'
+    /* webpackChunkName: "FeedbackAndSupport" */ '../views/FeedbackAndSupport.vue'
   );
 const TestResults = () =>
-  import(/* webpackChunkName: "TestResults" */ './views/TestResults.vue');
-const Login = () => import(/* webpackChunkName: "Login" */ './views/Login.vue');
+  import(/* webpackChunkName: "TestResults" */ '../views/TestResults.vue');
+const Login = () =>
+  import(/* webpackChunkName: "Login" */ '../views/Login.vue');
 const Orders = () =>
-  import(/* webpackChunkName: "Orders" */ './views/Orders.vue');
+  import(/* webpackChunkName: "Orders" */ '../views/Orders.vue');
 const Wholesale = () =>
-  import(/* webpackChunkName: "Wholesale" */ './views/Wholesale.vue');
-const Cart = () => import(/* webpackChunkName: "Cart" */ './views/Cart.vue');
+  import(/* webpackChunkName: "Wholesale" */ '../views/Wholesale.vue');
+const Cart = () => import(/* webpackChunkName: "Cart" */ '../views/Cart.vue');
 const Checkout = () =>
-  import(/* webpackChunkName: "Checkout" */ './views/Checkout.vue');
+  import(/* webpackChunkName: "Checkout" */ '../views/Checkout.vue');
 const SingleOrder = () =>
-  import(/* webpackChunkName: "SingleOrder" */ './views/SingleOrder.vue');
+  import(/* webpackChunkName: "SingleOrder" */ '../views/SingleOrder.vue');
 const Product = () =>
-  import(/* webpackChunkName: "Product" */ './views/Product.vue');
+  import(/* webpackChunkName: "Product" */ '../views/Product.vue');
 const DefinitiveCBDGuide = () =>
   import(
-    /* webpackChunkName: "DefinitiveCBDGuide" */ './views/DefinitiveCBDGuide.vue'
+    /* webpackChunkName: "DefinitiveCBDGuide" */ '../views/DefinitiveCBDGuide.vue'
   );
 const NotFound = () =>
-  import(/* webpackChunkName: "NotFound" */ './views/NotFound.vue');
+  import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue');
 
 Vue.use(Router);
 const store: any = Store;

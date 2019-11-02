@@ -12,10 +12,8 @@
     "msjsdiag.debugger-for-chrome",
     "octref.vetur",
     "oderwat.indent-rainbow",
-    "ritwickdey.LiveServer",
     "sdras.vue-vscode-extensionpack",
     "sdras.vue-vscode-snippets",
-    "toba.vsfire",
     "tombonnike.vscode-status-bar-format-toggle"
   ],
   "unwantedRecommendations": ["eg2.tslint"]
