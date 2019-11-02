@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 1
       - uses: actions/setup-node@v1
         with:
-          node-version: '8.x'
+          node-version: '10.x'
       - run: cd ${GITHUB_WORKSPACE}/functions && yarn
       - uses: actions/setup-node@v1
         with:
