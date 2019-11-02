@@ -17,7 +17,7 @@
           <li
             v-for="{ price, measurementValue, measurement, masterMeasurement } in getFilteredSizes(product.sizes)"
             :key="price"
-          >{{ measurementValue }} {{ measurement }} {{ masterMeasurement }}{{ product.pluralizeSizes ? 's' : '' }}</li>
+          >{{ measurementValue }} {{ measurement }}{{ measurement !== 'gram' ? ` ${masterMeasurement}` : '' }}s</li>
         </ul>
         <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
         <h3 class="body-text price">{{ getPrice(product.sizes) }}</h3>
@@ -216,9 +216,11 @@ export default Vue.extend({
         (size) => size.price === Math.min(...sizes.map((s) => s.price))
       );
 
-      return lowestPriceSize
+      return lowestPriceSize && lowestPriceSize.measurement !== 'gram'
         ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
-        : '';
+        : `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}${
+            lowestPriceSize.measurementValue > 1 ? 's' : ''
+          }`;
     },
     getFilteredSizes(sizes: Size[]) {
       return sizes.filter(
