@@ -74,7 +74,6 @@ a:hover {
 }
 </style>
 
-
 <script lang="ts">
 import Vue from 'vue';
 import PageHeader from './PageHeader.vue';
@@ -88,4 +87,3 @@ export default Vue.extend({
   }
 });
 </script>
-
