@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import CartItem from '@/types/CartItem';
 import * as idb from 'idb-keyval';
 import { Commit } from 'vuex';
@@ -43,16 +42,9 @@ const CartModule = {
         cartItemId
       }: { newCartItem: Partial<CartItem>; cartItemId: string }
     ) {
-      const specifiedCartItem = state.cartItems.find(
-        ({ id }) => id === cartItemId
+      state.cartItems = state.cartItems.map((item) =>
+        item.id === cartItemId ? { ...item, ...newCartItem } : { ...item }
       );
-      if (specifiedCartItem) {
-        const index = state.cartItems.indexOf(specifiedCartItem);
-        Vue.set(state.cartItems, index, {
-          ...specifiedCartItem,
-          ...newCartItem
-        });
-      }
 
       setCartItemsInIdb(state.cartItems);
     },
@@ -64,23 +56,6 @@ const CartModule = {
         state.cartItems = [...state.cartItems];
       } else {
         state.cartItems = [...state.cartItems, item];
-      }
-
-      setCartItemsInIdb(state.cartItems);
-    },
-    setCartItemQuantity(
-      state: CartModuleState,
-      { quantity, cartItemId }: { quantity: number; cartItemId: string }
-    ) {
-      const cartItem = state.cartItems.find(({ id }) => id === cartItemId);
-      if (cartItem) {
-        if (quantity === 0) {
-          state.cartItems = state.cartItems.filter(
-            ({ id }) => id !== cartItemId
-          );
-        } else {
-          cartItem.quantity = quantity;
-        }
       }
 
       setCartItemsInIdb(state.cartItems);

@@ -19,7 +19,12 @@
           :selectValue="String(cartItem.quantity)"
           :options="options"
           @select-changed="
-            setCartItemQuantity({ quantity: +$event, cartItemId: cartItem.id })
+            updateCartItem({
+              cartItemId: cartItem.id,
+              newCartItem: {
+                quantity: +$event
+              }
+            })
           "
         ></small-selector>
         <small-selector
@@ -41,7 +46,14 @@
           diffKey="id"
           displayKey="name"
           valueKey="type"
-          @select-changed="onStrainChange($event)"
+          @select-changed="
+            updateCartItem({
+              cartItemId: cartItem.id,
+              newCartItem: {
+                strain: $event
+              }
+            })
+          "
         ></small-selector>
         <av-icon-button black>remove_circle_outline</av-icon-button>
       </div>
@@ -63,7 +75,7 @@
 }
 
 .info-container {
-  padding: 5px 12px;
+  padding: 5px 0 5px 12px;
 }
 
 img {
@@ -148,14 +160,6 @@ export default Vue.extend({
           }
         });
       }
-    },
-    onStrainChange(newStrain: string) {
-      this.updateCartItem({
-        cartItemId: this.cartItem.id,
-        newCartItem: {
-          strain: newStrain
-        }
-      });
     }
   },
   mounted() {
