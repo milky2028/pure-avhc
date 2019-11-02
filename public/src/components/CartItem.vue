@@ -18,10 +18,18 @@
           :selectValue="String(cartItem.size)"
           :options="product.sizes"
           diffKey="id"
-          displayKey="masterMeasurement"
+          displayKey="display"
           valueKey="masterMeasurement"
-          :displayValueHandler="this.getDisplayValue"
+          :displayValueHandler="product.pluralizeSizes ? this.getDisplayValue : null"
           @select-changed="onSizeChange($event)"
+        ></small-selector>
+        <small-selector
+          v-if="product && product.strains && product.strains.length > 0"
+          :selectValue="String(cartItem.strain)"
+          :options="product.strains"
+          diffKey="id"
+          displayKey="name"
+          valueKey="type"
         ></small-selector>
       </div>
     </div>
