@@ -1,0 +1,29 @@
+{
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "semi": true,
+      "singleQuote": true,
+      "bracketSpacing": true,
+      "jsxBracketSameLine": true,
+      "arrowParens": "always"
+    }
+  },
+  "prettier.arrowParens": "always",
+  "prettier.jsxBracketSameLine": true,
+  "prettier.singleQuote": true,
+  "prettier.bracketSpacing": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "files.autoSave": "onFocusChange",
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "editor.tabSize": 2,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "debug.toolBarLocation": "docked",
+  "editor.wordWrap": "on",
+  "eslint.packageManager": "yarn",
+  "npm.packageManager": "yarn",
+  "tslint.packageManager": "yarn"
+}

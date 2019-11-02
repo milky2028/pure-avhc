@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "CoenraadS.bracket-pair-colorizer",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "firefox-devtools.vscode-firefox-debug",
+    "Hennamann.jsx",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "msjsdiag.debugger-for-chrome",
+    "octref.vetur",
+    "oderwat.indent-rainbow",
+    "sdras.vue-vscode-extensionpack",
+    "sdras.vue-vscode-snippets",
+    "tombonnike.vscode-status-bar-format-toggle"
+  ],
+  "unwantedRecommendations": ["eg2.tslint"]
+}
