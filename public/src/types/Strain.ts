@@ -3,4 +3,5 @@ export default interface Strain {
   description: string;
   name: string;
   type: string;
+  products: string[];
 }
