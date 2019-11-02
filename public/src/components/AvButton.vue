@@ -1,5 +1,8 @@
 <template>
-  <button @click="$emit('btn-click', $event)" :class="{ flat, long, fullWidth, raised: !flat }">
+  <button
+    @click="$emit('btn-click', $event)"
+    :class="{ flat, long, fullWidth, raised: !flat }"
+  >
     <span>
       <slot></slot>
     </span>
@@ -84,5 +87,3 @@ export default Vue.extend({
   }
 });
 </script>
-
-

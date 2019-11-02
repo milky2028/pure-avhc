@@ -1,7 +1,9 @@
 <template>
   <div class="card-container">
     <router-link :to="`/products/${product.url}`" class="img-container">
-      <h2 v-if="product.disabled" class="subhead sold-out">{{ product.disabled }}</h2>
+      <h2 v-if="product.disabled" class="subhead sold-out">
+        {{ product.disabled }}
+      </h2>
       <img
         :src="getSrc(product.id)"
         :alt="getImageAlt(product.id, images)"
@@ -15,9 +17,17 @@
         <p class="body-text">Also available in:</p>
         <ul class="body-text">
           <li
-            v-for="{ price, measurementValue, measurement, masterMeasurement } in getFilteredSizes(product.sizes)"
+            v-for="{
+              price,
+              measurementValue,
+              measurement,
+              masterMeasurement
+            } in getFilteredSizes(product.sizes)"
             :key="price"
-          >{{ measurementValue }} {{ measurement }}{{ measurement !== 'gram' ? ` ${masterMeasurement}` : '' }}s</li>
+          >
+            {{ measurementValue }} {{ measurement
+            }}{{ measurement !== 'gram' ? ` ${masterMeasurement}` : '' }}s
+          </li>
         </ul>
         <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
         <h3 class="body-text price">{{ getPrice(product.sizes) }}</h3>
@@ -30,13 +40,17 @@
             @icon-click="decrease(cartItem.id)"
             v-if="cartItem && cartItem.quantity > 0"
             black
-          >remove_circle_outline</av-icon-button>
-          <span @click="addToCart(product)" class="btn-text">{{ getAddBtnText(cartItem) }}</span>
+            >remove_circle_outline</av-icon-button
+          >
+          <span @click="addToCart(product)" class="btn-text">{{
+            getAddBtnText(cartItem)
+          }}</span>
           <av-icon-button
             @icon-click="addToCart(product)"
             v-if="cartItem && cartItem.quantity > 0"
             black
-          >add_circle_outline</av-icon-button>
+            >add_circle_outline</av-icon-button
+          >
         </span>
       </elianto-button>
     </div>
@@ -150,7 +164,6 @@ import getImageAlt from '../functions/getImageAlt';
 import Image from '../types/Image';
 import Size from '../types/Size';
 import EliantoButton from './EliantoButton.vue';
-import AvButton from './AvButton.vue';
 import CartItem from '../types/CartItem';
 import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
@@ -159,7 +172,6 @@ import createRandomId from '../functions/createRandomId';
 export default Vue.extend({
   components: {
     EliantoButton,
-    AvButton,
     AvIconButton
   },
   props: {
@@ -280,4 +292,3 @@ export default Vue.extend({
   }
 });
 </script>
-

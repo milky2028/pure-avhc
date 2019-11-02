@@ -6,12 +6,16 @@
       :alt="getImageAlt(product.id, images)"
     />
     <div class="info-container">
-      <h2 v-if="product && product.name" class="body-text header">{{ product.name }}</h2>
+      <h2 v-if="product && product.name" class="body-text header">
+        {{ product.name }}
+      </h2>
       <div class="select-container">
         <small-selector
           :selectValue="String(cartItem.quantity)"
           :options="options"
-          @select-changed="setCartItemQuantity({ quantity: +$event, cartItemId: cartItem.id })"
+          @select-changed="
+            setCartItemQuantity({ quantity: +$event, cartItemId: cartItem.id })
+          "
         ></small-selector>
         <small-selector
           v-if="product"
@@ -20,7 +24,9 @@
           diffKey="id"
           displayKey="display"
           valueKey="masterMeasurement"
-          :displayValueHandler="product.pluralizeSizes ? this.getDisplayValue : null"
+          :displayValueHandler="
+            product.pluralizeSizes ? this.getDisplayValue : null
+          "
           @select-changed="onSizeChange($event)"
         ></small-selector>
         <small-selector

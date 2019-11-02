@@ -57,7 +57,8 @@ const UserModule = {
         });
       });
     },
-    sendPasswordResetEmail({  }: Context, email: string) {
+    // @ts-ignore
+    sendPasswordResetEmail({ commit }: Context, email: string) {
       const worker = new Worker();
       const workerMsg: WorkerFns = {
         fn: 'sendPasswordResetEmail',

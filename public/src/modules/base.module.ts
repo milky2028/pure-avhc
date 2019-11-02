@@ -45,7 +45,8 @@ const BaseModule: {
   },
   actions: {
     addFirestoreData: (
-      {  }: Context,
+      // @ts-ignore
+      { commit }: Context,
       workerMsg: WorkerFns
     ): Promise<string> => {
       const worker = new Worker();
