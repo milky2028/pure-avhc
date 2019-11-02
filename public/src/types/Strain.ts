@@ -1,5 +1,5 @@
 export default interface Strain {
-  id: number;
+  id: string;
   description: string;
   name: string;
   type: string;
