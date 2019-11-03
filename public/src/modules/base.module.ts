@@ -1,9 +1,8 @@
-// @ts-ignore
-import Worker from 'worker-loader!../workers/firebase.worker';
 import AppBase from '@/types/AppBase';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import setState, { setAllStateInObj } from '../functions/setState';
+import Worker from '../workers/worker.entry';
 
 interface Context {
   commit: Commit;
@@ -49,20 +48,18 @@ const BaseModule: {
       { commit }: Context,
       workerMsg: WorkerFns
     ): Promise<string> => {
-      const worker = new Worker();
-      worker.postMessage(workerMsg);
+      Worker.postMessage(workerMsg);
 
       return new Promise((resolve) => {
-        worker.addEventListener('message', ({ data }: MessageEvent) =>
+        Worker.addEventListener('message', ({ data }: MessageEvent) =>
           resolve(data)
         );
       });
     },
     getFirestoreData: async ({ commit }: Context, workerMsg: WorkerFns) => {
-      const worker = new Worker();
-      worker.postMessage(workerMsg);
+      Worker.postMessage(workerMsg);
 
-      worker.addEventListener('message', ({ data }: MessageEvent) => {
+      Worker.addEventListener('message', ({ data }: MessageEvent) => {
         const firestoreData = data.data;
         if (Array.isArray(firestoreData)) {
           commit(

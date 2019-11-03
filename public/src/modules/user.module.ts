@@ -1,11 +1,10 @@
-// @ts-ignore
-import Worker from 'worker-loader!../workers/firebase.worker';
 import setState, { setAllStateInObj } from '@/functions/setState';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import router from '@/router';
 import PureUser from '@/types/PureUser';
 import * as idb from 'idb-keyval';
+import Worker from '../workers/worker.entry';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
 
@@ -35,16 +34,15 @@ const UserModule = {
       { commit }: Context,
       payload: { email: string; password: string }
     ) {
-      const worker = new Worker();
       const workerMsg: WorkerFns = {
         fn: 'signInWithEmail',
         collection: 'auth',
         payload
       };
 
-      worker.postMessage(workerMsg);
+      Worker.postMessage(workerMsg);
       return new Promise((resolve, reject) => {
-        worker.addEventListener('message', ({ data }: MessageEvent) => {
+        Worker.addEventListener('message', ({ data }: MessageEvent) => {
           if (data.collection === 'auth') {
             if (data.data.code) {
               reject(data.data.message);
@@ -59,16 +57,15 @@ const UserModule = {
     },
     // @ts-ignore
     sendPasswordResetEmail({ commit }: Context, email: string) {
-      const worker = new Worker();
       const workerMsg: WorkerFns = {
         fn: 'sendPasswordResetEmail',
         collection: 'auth',
         payload: { email }
       };
 
-      worker.postMessage(workerMsg);
+      Worker.postMessage(workerMsg);
       return new Promise((resolve, reject) => {
-        worker.addEventListener('message', ({ data }: MessageEvent) => {
+        Worker.addEventListener('message', ({ data }: MessageEvent) => {
           if (data.data.code) {
             reject(data.data.message);
           } else {
@@ -78,10 +75,9 @@ const UserModule = {
       });
     },
     signOut({ commit }: Context) {
-      const worker = new Worker();
       const workerMsg: WorkerFns = { fn: 'signOut', collection: 'auth' };
 
-      worker.postMessage(workerMsg);
+      Worker.postMessage(workerMsg);
       const emptyUser = {
         isWholesaleUser: false,
         canSubscribe: true,
@@ -97,15 +93,14 @@ const UserModule = {
       router.push('/');
     },
     listenForAuthStateChanges({ commit }: Context) {
-      const worker = new Worker();
       const workerMsg: WorkerFns = {
         fn: 'listenForAuthStateChanges',
         collection: 'auth'
       };
-      worker.postMessage(workerMsg);
+      Worker.postMessage(workerMsg);
 
       return new Promise((resolve, reject) => {
-        worker.addEventListener('message', ({ data }: MessageEvent) => {
+        Worker.addEventListener('message', ({ data }: MessageEvent) => {
           if (data.collection === 'auth') {
             if (data.data.code) {
               reject(data.data.message);
@@ -122,16 +117,15 @@ const UserModule = {
       { commit }: Context,
       payload: { email: string; password: string }
     ) {
-      const worker = new Worker();
       const workerMsg: WorkerFns = {
         fn: 'createAccountWithEmailAndPassword',
         collection: 'auth',
         payload
       };
-      worker.postMessage(workerMsg);
+      Worker.postMessage(workerMsg);
 
       return new Promise((resolve, reject) => {
-        worker.addEventListener('message', ({ data }: MessageEvent) => {
+        Worker.addEventListener('message', ({ data }: MessageEvent) => {
           if (data.collection === 'auth') {
             if (data.data.code) {
               reject(data.data.message);
