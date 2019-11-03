@@ -128,18 +128,24 @@ body {
 <script lang="ts">
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
-import AvDisclaimer from './components/AvDisclaimer.vue';
-import CheckoutPrompt from './components/CheckoutPrompt.vue';
-import AvSnackbar from './components/AvSnackbar.vue';
 import { mapActions, mapState } from 'vuex';
 import WorkerFns from './types/WorkerFns';
 
 export default Vue.extend({
   components: {
     AvToolbar,
-    AvDisclaimer,
-    CheckoutPrompt,
-    AvSnackbar
+    AvDisclaimer: () =>
+      import(
+        /* webpackChunkName: "AvDisclaimer" */ './components/AvDisclaimer.vue'
+      ),
+    AvOverlay: () =>
+      import(/* webpackChunkName: "AvOverlay" */ './components/AvOverlay.vue'),
+    CheckoutPrompt: () =>
+      import(
+        /* webpackChunkName: "CheckoutPrompt" */ './components/CheckoutPrompt.vue'
+      ),
+    AvSnackbar: () =>
+      import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
   },
   computed: {
     ...mapState('cart', ['cartItems']),
