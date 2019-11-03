@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Store from '@/store';
-const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
+import Home from '../views/Home.vue';
+// const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ '../views/PrivacyPolicy.vue');
 const ReturnPolicy = () =>
