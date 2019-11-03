@@ -1,9 +1,7 @@
 <template>
   <div class="card-container">
     <router-link :to="`/products/${product.url}`" class="img-container">
-      <h2 v-if="product.disabled" class="subhead sold-out">
-        {{ product.disabled }}
-      </h2>
+      <h2 v-if="product.disabled" class="subhead sold-out">{{ product.disabled }}</h2>
       <img
         :src="getSrc(product.id)"
         :alt="getImageAlt(product.id, images)"
@@ -40,17 +38,13 @@
             @icon-click="decrease(cartItem.id)"
             v-if="cartItem && cartItem.quantity > 0"
             black
-            >remove_circle_outline</av-icon-button
-          >
-          <span @click="addToCart(product)" class="btn-text">{{
-            getAddBtnText(cartItem)
-          }}</span>
+          >remove_circle_outline</av-icon-button>
+          <span @click="addToCart(product)" class="btn-text">{{ getAddBtnText(cartItem) }}</span>
           <av-icon-button
             @icon-click="addToCart(product)"
             v-if="cartItem && cartItem.quantity > 0"
             black
-            >add_circle_outline</av-icon-button
-          >
+          >add_circle_outline</av-icon-button>
         </span>
       </elianto-button>
     </div>
@@ -179,7 +173,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      cartItem: {} as CartItem
+      cartItem: {} as CartItem,
+      vh: window.innerHeight / 100
     };
   },
   computed: {
@@ -197,9 +192,8 @@ export default Vue.extend({
       this.decreaseCartItemQuantity(cartItemId);
     },
     getImageHeight() {
-      const vh = window.innerHeight / 100;
       const fixedHeights = 240;
-      return (window.innerHeight - fixedHeights - 6 * vh) / 2;
+      return (window.innerHeight - fixedHeights - 6 * this.vh) / 2;
     },
     getImageWidth() {
       const windowWidth = window.innerWidth;
