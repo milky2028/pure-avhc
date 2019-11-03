@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "removeComments": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,
