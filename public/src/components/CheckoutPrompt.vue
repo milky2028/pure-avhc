@@ -2,7 +2,7 @@
   <transition name="slide-y">
     <div class="prompt" :class="{ expanded }" v-if="cartItems && cartItems.length > 0">
       <h2 class="subhead checkout">
-        <router-link to="/cart">Checkout ></router-link>
+        <router-link to="/checkout">Checkout ></router-link>
       </h2>
       <av-icon-button
         v-if="windowWidth < 835 && expanded"
