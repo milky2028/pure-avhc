@@ -6,14 +6,9 @@
       :alt="getImageAlt(product.id, images)"
     />
     <div class="info-container">
-      <router-link
-        v-if="product && product.name"
-        :to="`/products/${product.url}`"
-      >
-        <h2 class="body-text header">
-          {{ product.name }}
-        </h2></router-link
-      >
+      <router-link v-if="product && product.name" :to="`/products/${product.url}`">
+        <h2 class="body-text header">{{ product.name }}</h2>
+      </router-link>
       <div class="select-container">
         <small-selector
           :selectValue="String(cartItem.quantity)"
@@ -42,7 +37,7 @@
         <small-selector
           v-if="strains && strains.length > 0"
           :selectValue="String(cartItem.strain)"
-          :options="strains"
+          :options="strains.slice().sort(sortByStrain)"
           diffKey="id"
           displayKey="name"
           valueKey="type"
@@ -55,9 +50,7 @@
             })
           "
         ></small-selector>
-        <av-icon-button black @icon-click="removeItemFromCart(cartItem.id)"
-          >remove_circle_outline</av-icon-button
-        >
+        <av-icon-button black @icon-click="removeItemFromCart(cartItem.id)">remove_circle_outline</av-icon-button>
       </div>
     </div>
   </div>
@@ -91,6 +84,7 @@ img {
   margin-top: 6px;
   display: grid;
   grid-auto-flow: column;
+  grid-template-columns: 4fr 7fr 6fr 3fr;
   column-gap: 6px;
   align-items: center;
 }
@@ -110,6 +104,7 @@ import Product from '../types/Product';
 import SmallSelector from '../components/SmallSelector.vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import Size from '../types/Size';
+import Strain from '../types/Strain';
 
 export default Vue.extend({
   components: {
@@ -148,6 +143,9 @@ export default Vue.extend({
         (i: Image) => i.product === id && i.toolbarImage
       );
       return getImageUrl(imageUrl, image ? image.url : '', 80, 100);
+    },
+    sortByStrain(a: Strain, b: Strain) {
+      return a.name > b.name ? 1 : -1;
     },
     getDisplayValue(value: string) {
       return `${value}${this.cartItem.quantity > 1 ? 's' : ''}`;

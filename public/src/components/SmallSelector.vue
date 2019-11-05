@@ -1,6 +1,10 @@
 <template>
   <div class="selector">
-    <select :value="selectValue" @input="$emit('select-changed', $event.target.value)">
+    <select
+      :value="selectValue"
+      class="border"
+      @input="$emit('select-changed', $event.target.value)"
+    >
       <option
         v-for="option of options"
         :value="valueKey ? option[valueKey] : option"
@@ -15,7 +19,7 @@
         : option }}
       </option>
     </select>
-    <av-icon-button class="icon-btn" black>expand_more</av-icon-button>
+    <av-icon-button class="icon-btn border" black>expand_more</av-icon-button>
   </div>
 </template>
 
@@ -27,19 +31,25 @@
 }
 
 select {
+  width: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
   grid-area: main;
   padding: 2px;
   border-radius: 0;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
   z-index: 10;
 }
 
 .icon-btn {
   grid-area: main;
   justify-self: end;
+  background-color: white;
+  z-index: 11;
+}
+
+.border {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }
 </style>
 
