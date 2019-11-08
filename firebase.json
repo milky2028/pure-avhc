@@ -46,6 +46,15 @@
             "value": "max-age=0"
           }
         ]
+      },
+      {
+        "source": "precache-manifest*.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=0"
+          }
+        ]
       }
     ]
   }
