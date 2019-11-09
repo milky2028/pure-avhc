@@ -1,6 +1,8 @@
 <template>
   <div class="selector">
+    <label class="body-text" :for="id">{{ label }}</label>
     <select
+      :id="id"
       :value="selectValue"
       class="border"
       @input="$emit('select-changed', $event.target.value)"
@@ -27,7 +29,13 @@
 .selector {
   display: grid;
   grid-auto-flow: column;
-  grid-template-areas: 'main';
+  grid-template-areas:
+    'label'
+    'main';
+}
+
+label {
+  font-size: 1.5rem;
 }
 
 select {
@@ -35,7 +43,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   grid-area: main;
-  padding: 2px;
+  padding: 0.25rem;
   border-radius: 0;
   z-index: 10;
 }
@@ -48,26 +56,33 @@ select {
 }
 
 .border {
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 </style>
 
 <script lang="ts">
 import Vue from 'vue';
 import AvIconButton from './AvIconButton.vue';
+import createRandomId from '../functions/createRandomId';
 
 export default Vue.extend({
   components: {
     AvIconButton
   },
   props: {
+    label: String,
     selectValue: String,
     options: Array,
     diffKey: String,
     displayKey: String,
     valueKey: String,
     displayValueHandler: Function
+  },
+  data() {
+    return {
+      id: createRandomId(5)
+    };
   }
 });
 </script>

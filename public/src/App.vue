@@ -24,6 +24,7 @@
 }
 
 :root {
+  font-size: 8px;
   --primary-color: #000a23;
   --light-accent: #25ac6a;
   --dark-accent: #004d40;
@@ -47,7 +48,6 @@
   padding: 0;
   border: 0;
   outline: 0;
-  font-size: 100%;
   vertical-align: baseline;
   background: transparent;
   box-sizing: border-box;

@@ -11,6 +11,7 @@
       </router-link>
       <div class="select-container">
         <small-selector
+          label="Qty"
           :selectValue="String(cartItem.quantity)"
           :options="options"
           @select-changed="
@@ -23,6 +24,7 @@
           "
         ></small-selector>
         <small-selector
+          label="Size"
           v-if="product && product.sizes"
           :selectValue="String(cartItem.size)"
           :options="product.sizes"
@@ -35,6 +37,7 @@
           @select-changed="onSizeChange($event)"
         ></small-selector>
         <small-selector
+          label="Strain"
           v-if="strains && strains.length > 0"
           :selectValue="String(cartItem.strain)"
           :options="strains.slice().sort(sortByStrain)"
@@ -50,8 +53,12 @@
             })
           "
         ></small-selector>
-        <av-icon-button black @icon-click="removeItemFromCart(cartItem.id)">remove_circle_outline</av-icon-button>
       </div>
+      <av-icon-button
+        class="remover-icon"
+        black
+        @icon-click="removeItemFromCart(cartItem.id)"
+      >remove_circle_outline</av-icon-button>
     </div>
   </div>
 </template>
@@ -70,7 +77,14 @@
 }
 
 .info-container {
+  display: grid;
   padding: 5px 0 5px 12px;
+  grid-template-columns: 1fr 32px;
+  grid-template-rows: 3rem 1fr;
+  column-gap: 8px;
+  grid-template-areas:
+    'product-name icon'
+    'selectors icon';
 }
 
 img {
@@ -81,16 +95,21 @@ img {
 }
 
 .select-container {
+  grid-area: selectors;
   margin-top: 6px;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 4fr 7fr 6fr 3fr;
+  grid-template-columns: 4fr 7fr 6fr;
   column-gap: 6px;
   align-items: center;
 }
 
 .qty {
   margin-left: 22px;
+}
+
+.remover-icon {
+  grid-area: icon;
 }
 </style>
 
