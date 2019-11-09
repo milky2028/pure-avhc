@@ -35,10 +35,11 @@
 }
 
 label {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 select {
+  font-size: 2rem;
   width: 100%;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -56,8 +57,8 @@ select {
 }
 
 .border {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }
 </style>
 
