@@ -2,6 +2,7 @@
   <page-wrapper withPadding>
     <article-page v-if="product" :title="product.name">
       <p>{{ product.name }}</p>
+      <router-link to="/products/cbd-hemp-flower">CBD Flower</router-link>
     </article-page>
   </page-wrapper>
 </template>
@@ -38,6 +39,14 @@ export default Vue.extend({
       this.product = this.products.find(
         (p: Product) => p.url === to.params.productName
       );
+
+      if (to.query.strain) {
+        // do a thing;
+      }
+
+      if (to.query.size) {
+        // do a thing
+      }
     }
   },
   computed: {
