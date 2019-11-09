@@ -256,8 +256,8 @@ export default Vue.extend({
     },
     getProductInCart(productId: string, sizeValue: string) {
       return this.cartItems.find(
-        ({ size, product }: CartItem) =>
-          product === productId && size === sizeValue
+        ({ size, product, strain }: CartItem) =>
+          product === productId && size === sizeValue && strain === 'any'
       );
     },
     getAddBtnText(cartItem: CartItem) {
