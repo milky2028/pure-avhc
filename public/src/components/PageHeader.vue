@@ -9,7 +9,7 @@
 
 <style scoped>
 h1 {
-  font-size: 28px;
+  font-size: 3rem;
   padding-bottom: 1.5vh;
   padding-right: 4vw;
   font-weight: 600;

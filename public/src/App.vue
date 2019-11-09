@@ -81,7 +81,7 @@ body {
 }
 
 .subhead {
-  font-size: 22px;
+  font-size: 3rem;
   font-family: var(--mukta-malar);
   text-transform: uppercase;
   font-weight: 600;
@@ -90,7 +90,7 @@ body {
 }
 
 .body-text {
-  font-size: 16px;
+  font-size: 2rem;
   font-family: var(--mukta-malar);
   font-weight: 400;
   line-height: 1.4;

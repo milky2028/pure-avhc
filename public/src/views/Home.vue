@@ -70,7 +70,6 @@
 
 .larger-font {
   font-weight: 600;
-  font-size: 26px;
   text-align: right;
   line-height: 1.2;
 }
@@ -109,7 +108,6 @@
   }
 
   .larger-font {
-    font-size: 28px;
     text-align: center;
     line-height: 1.2;
   }
