@@ -60,8 +60,7 @@ export default new Router({
       path: '/orders',
       name: 'orders',
       component: Orders,
-      // @ts-ignore
-      beforeEnter(to, from, next) {
+      beforeEnter(_, __, next) {
         if (!store.state.user.uid) {
           next('/login');
         } else {
@@ -73,8 +72,7 @@ export default new Router({
       path: '/orders/:orderId',
       name: 'single-order',
       component: SingleOrder,
-      // @ts-ignore
-      beforeEnter(to, from, next) {
+      beforeEnter(_, __, next) {
         if (!store.state.user.uid) {
           next('/login');
         } else {

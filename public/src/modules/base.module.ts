@@ -43,11 +43,7 @@ const BaseModule: {
       (state.isNavbarExpanded = !state.isNavbarExpanded)
   },
   actions: {
-    addFirestoreData: (
-      // @ts-ignore
-      { commit }: Context,
-      workerMsg: WorkerFns
-    ): Promise<string> => {
+    addFirestoreData: (_: Context, workerMsg: WorkerFns): Promise<string> => {
       Worker.postMessage(workerMsg);
 
       return new Promise((resolve) => {
