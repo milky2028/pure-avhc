@@ -8,10 +8,6 @@
       "arrowParens": "always"
     }
   },
-  "prettier.arrowParens": "always",
-  "prettier.jsxBracketSameLine": true,
-  "prettier.singleQuote": true,
-  "prettier.bracketSpacing": true,
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "files.autoSave": "onFocusChange",
