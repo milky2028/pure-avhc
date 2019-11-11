@@ -5,7 +5,7 @@
       :id="id"
       :value="selectValue"
       class="border"
-      @input="$emit('select-changed', $event.target.value)"
+      @input="onSelectChanged($event.target.value)"
     >
       <option
         v-for="option of options"
@@ -63,27 +63,32 @@ select {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
+import { ref, SetupContext, createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+interface Props {
+  label: string;
+  selectValue: string;
+  options: any[];
+  diffKey: string;
+  displayKey: string;
+  valueKey: string;
+  displayValueHandler: Function;
+}
+
+export default createComponent({
   components: {
     AvIconButton
   },
-  props: {
-    label: String,
-    selectValue: String,
-    options: Array,
-    diffKey: String,
-    displayKey: String,
-    valueKey: String,
-    displayValueHandler: Function
-  },
-  data() {
-    return {
-      id: createRandomId(5)
-    };
+  setup(_: Props, { emit }: SetupContext) {
+    const id = ref(createRandomId(5));
+
+    function onSelectChanged(value: string) {
+      emit('select-changed', value);
+    }
+
+    return { id, onSelectChanged };
   }
 });
 </script>
