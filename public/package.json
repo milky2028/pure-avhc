@@ -11,6 +11,7 @@
     "serve:pure": "vue-cli-service serve --mode pure --open"
   },
   "dependencies": {
+    "@vue/composition-api": "^0.3.2",
     "core-js": "^3.3.2",
     "firebase": "^7.2.3",
     "idb-keyval": "^3.2.0",
