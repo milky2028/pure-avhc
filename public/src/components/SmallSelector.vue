@@ -74,12 +74,21 @@ interface Props {
   diffKey: string;
   displayKey: string;
   valueKey: string;
-  displayValueHandler: Function;
+  displayValueHandler: () => void;
 }
 
 export default createComponent({
   components: {
     AvIconButton
+  },
+  props: {
+    label: String,
+    selectValue: String,
+    options: Array,
+    diffKey: String,
+    displayKey: String,
+    valueKey: String,
+    displayValueHandler: Function
   },
   setup(_: Props, { emit }: SetupContext) {
     const id = ref(createRandomId(5));
