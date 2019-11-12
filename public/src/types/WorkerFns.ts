@@ -1,5 +1,6 @@
-import { QueryParams } from './QueryParams';
+import QueryParams from './QueryParams';
 import OrderByParams from './OrderByParams';
+import Collection from './collection';
 
 export default interface WorkerFns {
   fn:
@@ -13,19 +14,7 @@ export default interface WorkerFns {
     | 'signInWithProvider'
     | 'listenForAuthStateChanges'
     | 'sendPasswordResetEmail';
-  collection:
-    | 'submenu'
-    | 'products'
-    | 'mainMenu'
-    | 'iconMenu'
-    | 'images'
-    | 'subscribers'
-    | 'testResults'
-    | 'auth'
-    | 'wholesaleCatalog'
-    | 'addresses'
-    | 'userExtras'
-    | 'strains';
+  collection: Collection;
   queries?: QueryParams[];
   limit?: number;
   orderBy?: OrderByParams;
