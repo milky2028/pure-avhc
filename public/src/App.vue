@@ -130,6 +130,7 @@ import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
 import { mapActions, mapState } from 'vuex';
 import WorkerFns from './types/WorkerFns';
+import useEvent from './use/event';
 
 export default Vue.extend({
   components: {
@@ -157,7 +158,7 @@ export default Vue.extend({
     ...mapActions('base', ['getFirestoreData'])
   },
   async mounted() {
-    window.addEventListener('beforeinstallprompt', (e) => e.preventDefault());
+    useEvent('beforeinstallprompt', (e) => e.preventDefault());
     this.setCartStateFromSave();
     const uid = await this.listenForAuthStateChanges();
     if (uid) {
