@@ -67,13 +67,13 @@
             @click="toggleNavAndOverlay"
           >
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span v-if="windowWidth > 835 && i !== (mainMenu.length -1)">&nbsp;/&nbsp;</span>
+            <span class="slash" v-if="windowWidth > 835 && i !== (mainMenu.length -1)">/</span>
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
           <li v-for="(menuLink, i) of submenu" :key="menuLink.name" @click="toggleNavAndOverlay">
             <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span v-if="windowWidth > 835 && i !== (submenu.length - 1)">&nbsp;/&nbsp;</span>
+            <span class="slash" v-if="windowWidth > 835 && i !== (submenu.length - 1)">/</span>
           </li>
         </ul>
       </div>
@@ -210,6 +210,10 @@ a:hover {
   grid-auto-flow: column;
   align-items: center;
   justify-content: end;
+}
+
+.slash {
+  margin: 0 1ch;
 }
 
 .bottom-menu {

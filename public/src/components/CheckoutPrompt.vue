@@ -40,7 +40,7 @@
       </transition>
       <transition name="fade">
         <div v-if="!canSubscribe && !subscribed" class="total-container">
-          <h2 class="subhead total">Subtotal:&nbsp;</h2>
+          <h2 class="subhead total">Subtotal:</h2>
           <h2 class="subhead total money">${{ subtotal.toFixed(2) }}</h2>
         </div>
       </transition>
@@ -110,6 +110,7 @@
 
 .total {
   line-height: 1;
+  margin-right: 1ch;
 }
 
 @media (max-width: 835px) {
