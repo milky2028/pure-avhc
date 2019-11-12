@@ -75,10 +75,10 @@ a:hover {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageHeader from './PageHeader.vue';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   props: {
     title: String
   },

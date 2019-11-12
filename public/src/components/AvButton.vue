@@ -1,8 +1,5 @@
 <template>
-  <button
-    @click="$emit('btn-click', $event)"
-    :class="{ flat, long, fullWidth, raised: !flat }"
-  >
+  <button @click="$emit('btn-click', $event)" :class="{ flat, long, fullWidth, raised: !flat }">
     <span>
       <slot></slot>
     </span>
@@ -76,9 +73,9 @@ button:active.flat {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   props: {
     fullWidth: Boolean,
     long: Boolean,
