@@ -1,5 +1,5 @@
 import WorkerFns from '@/types/WorkerFns';
-import { QueryParams } from '@/types/QueryParams';
+import QueryParams from '@/types/QueryParams';
 import OrderByParams from '@/types/OrderByParams';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const FirestoreImport = import(
