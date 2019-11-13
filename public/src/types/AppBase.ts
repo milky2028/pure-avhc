@@ -1,7 +1,7 @@
 import { MenuItem, SubmenuItem } from './MenuItem';
 import Product from './Product';
 import IconMenuItem from './IconMenuItem';
-import Image from './Image';
+import Image from './AvImage';
 import TestResult from './TestResult';
 import WholesaleCatalog from './WholesaleCatalog';
 import Strain from './Strain';
