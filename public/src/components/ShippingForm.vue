@@ -118,11 +118,11 @@ form {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
+import { createComponent, reactive } from '@vue/composition-api';
 import StateTaxes from '../data/StateTaxes';
 import AvInput from './AvInput.vue';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     AvInput
   },
@@ -130,8 +130,8 @@ export default Vue.extend({
     includeCompany: Boolean,
     isBilling: Boolean
   },
-  data() {
-    return {
+  setup(_, { emit }) {
+    const state = reactive({
       states: StateTaxes.map((st) => st.abbr),
       name: '',
       company: '',
@@ -140,10 +140,9 @@ export default Vue.extend({
       state: '',
       zipCode: '',
       country: ''
-    };
-  },
-  methods: {
-    updateForm() {
+    });
+
+    function updateForm() {
       const form = {
         isBilling: this.isBilling,
         name: this.name,
@@ -155,7 +154,7 @@ export default Vue.extend({
         country: this.country
       };
 
-      this.$emit('form-input', form);
+      emit('form-input', form);
     }
   }
 });
