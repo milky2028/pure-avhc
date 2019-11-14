@@ -1,7 +1,6 @@
 import AvImage from '@/types/AvImage';
 
 export default function useCDNImages(images: AvImage[], height: number, width?: number, imageType: string, isBackgroundImage: boolean) {
-  // TODO: Need option to statically or onSnapshot fetch documents in FirebaseWorker
   const images = 'thing' // here images are fetched as a promise and return static data;
   const baseImageData = images.find()
   const imageUrlBase = 'https://res.cloudinary.com/pure-avhc/image/upload/';
@@ -30,3 +29,8 @@ getProductUrl(id: string) {
   );
   return image ? image.url : '';
 }
+
+
+// Do I use a snapshot? Or a static get? Maybe a snapshot for images. Either way, the final API will be images: ref<AvImage[]>, loadImages, getImage(product: string, type: string): { url: string, alt: string }
+
+// must load images before getting single image is possible
