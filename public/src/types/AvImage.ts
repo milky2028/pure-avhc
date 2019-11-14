@@ -1,4 +1,4 @@
-export default interface Image {
+export default interface AvImage {
   url: string;
   id: string;
   product: string;
