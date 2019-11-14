@@ -1,3 +1,6 @@
-// @ts-ignore
+import '../types/WebpackWorker';
 import Worker from 'worker-loader!../workers/firebase.worker';
-export default new Worker();
+import FirebaseWorker from './firebase.worker';
+import { wrap } from 'comlink';
+
+export default wrap<FirebaseWorker>(new Worker());

@@ -1,118 +1,113 @@
-import WorkerFns from '@/types/WorkerFns';
+import { expose } from 'comlink';
 import QueryParams from '@/types/QueryParams';
 import OrderByParams from '@/types/OrderByParams';
-const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
-const FirestoreImport = import(
-  /* webpackChunkName: 'firestore' */ 'firebase/firestore'
-);
-const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
+import AvUser from '@/types/PureUser';
 
-declare function postMessage(message: any, options?: PostMessageOptions): void;
+export default class FirebaseWorker {
+  private firebase = import('firebase/app');
+  private fb = this.initializeApp();
+  private db = this.intializeFirestore(this.fb);
+  private auth = this.initializeAuth(this.fb);
 
-interface EmailPayload {
-  payload: { email: string; password: string };
-  collection: string;
-}
-
-class FirebaseWorker {
-  [key: string]: any;
-  private fb!: any;
-  private db!: firebase.firestore.Firestore;
-  private auth!: firebase.auth.Auth;
-  private firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE_CONFIG!);
-  private app!: firebase.app.App;
-
-  constructor() {
-    this.initializeApp();
+  public log() {
+    console.log('Worker?');
   }
 
-  public async addDocument({
-    collection,
-    data
-  }: {
-    collection: string;
-    data: any;
-  }) {
-    if (!this.db) {
-      await this.initializeFirestore();
-    }
+  public async addDocument(
+    collection: string,
+    data: any,
+    callback?: (id: string) => any
+  ) {
     try {
-      const { id } = await this.db.collection(collection).add({
+      const db = await this.db;
+      const { id } = await db.collection(collection).add({
         ...data,
-        timestamp: this.fb.firestore.FieldValue.serverTimestamp()
+        timestamp: (await this.firebase).firestore.FieldValue.serverTimestamp()
       });
-      postMessage(id);
+      if (callback) {
+        callback(id);
+      }
     } catch (e) {
       throw new Error(e);
     }
   }
 
-  public async getDocumentById({
-    collection,
-    payload: { documentId }
-  }: {
-    collection: string;
-    payload: { documentId: string };
-  }) {
-    if (!this.db) {
-      await this.initializeFirestore();
-    }
+  public async getDocumentById(
+    collection: string,
+    documentId: string,
+    snapshotCallback?: (
+      data: firebase.firestore.DocumentData | undefined
+    ) => any
+  ) {
     try {
-      return this.db
-        .collection(collection)
-        .doc(documentId)
-        .onSnapshot((snap) => {
+      const db = await this.db;
+      const doc = db.collection(collection).doc(documentId);
+      if (snapshotCallback) {
+        return doc.onSnapshot((snap) => {
           const data = snap.data();
-          postMessage({ collection, data });
+          snapshotCallback(data);
         });
+      } else {
+        const res = await doc.get();
+        return res.data();
+      }
     } catch (e) {
-      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
 
-  public async getDocuments({ collection }: { collection: string }) {
-    if (!this.db) {
-      await this.initializeFirestore();
-    }
+  public async getDocuments(
+    collection: string,
+    snapshotCallback?: (data: {}[]) => any
+  ) {
     try {
-      return this.db
+      const db = await this.db;
+      const docs = db
         .collection(collection)
-        .where('site', 'array-contains', process.env.VUE_APP_NAME)
-        .onSnapshot((snapshot) => {
+        .where('site', 'array-contains', process.env.VUE_APP_NAME);
+      if (snapshotCallback) {
+        return docs.onSnapshot((snapshot) => {
           const data = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id
           }));
           const dataWithTimestamps = this.processTimestamps(data);
-          postMessage({ collection, data: dataWithTimestamps });
+          snapshotCallback(dataWithTimestamps);
         });
+      } else {
+        const querySnapshot = await docs.get();
+        const data: { id: string; [key: string]: any }[] = [];
+        querySnapshot.forEach((doc) =>
+          data.push({ ...doc.data(), id: doc.id })
+        );
+        return data;
+      }
     } catch (e) {
-      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
 
-  public async queryDocuments({
-    collection,
-    queries,
-    limit,
-    orderBy,
-    dontQueryBySite
-  }: {
-    collection: string;
-    queries?: QueryParams[];
-    limit?: number;
-    orderBy?: OrderByParams;
-    dontQueryBySite?: boolean;
-  }) {
-    if (!this.db) {
-      await this.initializeFirestore();
-    }
+  public async queryDocuments(
+    {
+      collection,
+      queries,
+      limit,
+      orderBy,
+      dontQueryBySite
+    }: {
+      collection: string;
+      queries?: QueryParams[];
+      limit?: number;
+      orderBy?: OrderByParams;
+      dontQueryBySite?: boolean;
+    },
+    snapshotCallback?: (data: {}[]) => any
+  ) {
     try {
+      const db = await this.db;
       let results:
         | firebase.firestore.CollectionReference
-        | firebase.firestore.Query = this.db.collection(collection);
+        | firebase.firestore.Query = db.collection(collection);
       if (!dontQueryBySite) {
         results = results.where(
           'site',
@@ -133,85 +128,68 @@ class FirebaseWorker {
       if (limit) {
         results = results.limit(limit);
       }
-      return results.onSnapshot((snapshot) => {
-        const data = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-        const dataWithTimestamps = this.processTimestamps(data);
-        postMessage({ collection, data: dataWithTimestamps });
-      });
-    } catch (e) {
-      postMessage({ collection, data: e });
-      throw new Error(e);
-    }
-  }
-
-  public async signOut({ collection }: { collection: string }) {
-    try {
-      if (!this.auth) {
-        await this.initializeAuth();
-      }
-      this.listenForAuthStateChanges({ collection });
-      this.auth.signOut();
-      postMessage({ collection, data: {} });
-    } catch (e) {
-      postMessage({ collection, data: e });
-      throw new Error(e);
-    }
-  }
-
-  public async signInWithEmail({
-    payload: { email, password },
-    collection
-  }: EmailPayload) {
-    try {
-      if (!this.auth) {
-        await this.initializeAuth();
-      }
-      this.listenForAuthStateChanges({ collection });
-      await this.auth.signInWithEmailAndPassword(email, password);
-      postMessage({ collection, data: {} });
-    } catch (e) {
-      postMessage({ collection, data: e });
-      throw new Error(e);
-    }
-  }
-
-  public async createAccountWithEmailAndPassword({
-    payload: { email, password },
-    collection
-  }: EmailPayload) {
-    try {
-      if (!this.auth) {
-        await this.initializeAuth();
-      }
-      this.listenForAuthStateChanges({ collection });
-      await this.auth.createUserWithEmailAndPassword(email, password);
-      postMessage({ collection, data: {} });
-    } catch (e) {
-      if (e.code === 'auth/email-already-in-use') {
-        await this.signInWithEmail({
-          payload: { email, password },
-          collection
+      if (snapshotCallback) {
+        return results.onSnapshot((snapshot) => {
+          const data = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id
+          }));
+          const dataWithTimestamps = this.processTimestamps(data);
+          snapshotCallback(dataWithTimestamps);
         });
       } else {
-        postMessage({ collection, data: e });
+        const querySnapshot = await results.get();
+        const data: { id: string; [key: string]: any }[] = [];
+        querySnapshot.forEach((doc) =>
+          data.push({ ...doc.data(), id: doc.id })
+        );
+        return data;
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  public async signInWithEmail(email: string, password: string) {
+    try {
+      const auth = await this.auth;
+      return auth.signInWithEmailAndPassword(email, password);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  public async createAccountWithEmailAndPassword(
+    email: string,
+    password: string
+  ) {
+    try {
+      const auth = await this.auth;
+      return auth.createUserWithEmailAndPassword(email, password);
+    } catch (e) {
+      if (e.code === 'auth/email-already-in-use') {
+        return this.signInWithEmail(email, password);
+      } else {
         throw new Error(e);
       }
     }
   }
 
-  public async listenForAuthStateChanges({
-    collection
-  }: {
-    collection: string;
-  }) {
+  public async signOut() {
     try {
-      if (!this.auth) {
-        await this.initializeAuth();
-      }
-      this.auth.onAuthStateChanged(async (userDetails) => {
+      const auth = await this.auth;
+      return auth.signOut();
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  public async listenForAuthStateChanges(
+    callback: (user: Partial<AvUser>) => any
+  ) {
+    try {
+      const auth = await this.auth;
+      auth.onAuthStateChanged(async (userDetails) => {
         if (userDetails) {
           const {
             email,
@@ -220,104 +198,89 @@ class FirebaseWorker {
             uid,
             photoURL
           } = userDetails;
-          const currentUser = this.auth.currentUser;
-          const isWholesaleUser = currentUser
-            ? (await currentUser.getIdTokenResult()).claims.isWholesaleUser
-            : false;
-          postMessage({
-            collection,
-            data: {
-              email,
-              phoneNumber,
-              displayName,
-              uid,
-              photoURL,
-              isWholesaleUser
-            }
+          const claims = auth.currentUser
+            ? (await auth.currentUser.getIdTokenResult()).claims
+            : null;
+          const isWholesaleUser = claims ? claims.isWholesaleUser : false;
+          const isAdmin = claims ? claims.isAdmin : false;
+          callback({
+            email,
+            phoneNumber,
+            displayName,
+            uid,
+            photoURL,
+            isWholesaleUser,
+            isAdmin
           });
         }
       });
     } catch (e) {
-      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
 
-  public async sendPasswordResetEmail({
-    collection,
-    payload: { email }
-  }: {
-    collection: string;
-    payload: { email: string };
-  }) {
+  public async sendPasswordResetEmail(email: string) {
     try {
-      if (!this.auth) {
-        await this.initializeAuth();
-      }
-      await this.auth.sendPasswordResetEmail(email);
-      postMessage({ collection, data: {} });
+      const auth = await this.auth;
+      return auth.sendPasswordResetEmail(email);
     } catch (e) {
-      postMessage({ collection, data: e });
       throw new Error(e);
     }
   }
 
-  private processTimestamps(data: any[]) {
-    return data.map((d: { [key: string]: any }) => {
-      const entry: { [key: string]: any } = { ...d };
-      for (const key of Object.keys(entry)) {
-        const value = entry[key];
-        if (value.toDate) {
-          entry[key] = value.toDate();
+  private async initializeAuth(firebase: Promise<firebase.app.App>) {
+    try {
+      const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
+      const app = await firebase;
+      await AuthImport;
+      return app.auth();
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  private async intializeFirestore(firebase: Promise<firebase.app.App>) {
+    try {
+      const Firestore = import(
+        /* webpackChunkName: 'firestore' */ 'firebase/firestore'
+      );
+      const app = await firebase;
+      await Firestore;
+      const db = app.firestore();
+      db.enablePersistence().catch((e) => {
+        if (e.code === 'failed-precondition') {
+          throw new Error(e);
+        } else if (e.code === 'unimplemented') {
+          throw new Error(e);
         }
-      }
-      return entry;
-    });
+      });
+      return db;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
   private async initializeApp() {
     try {
-      this.fb = await Firebase;
-      this.app =
-        this.fb.apps.length < 1
-          ? this.fb.initializeApp(this.firebaseConfig)
-          : this.fb.app();
+      const fb = await this.firebase;
+      const firebaseConfig = JSON.parse(process.env
+        .VUE_APP_FIREBASE_CONFIG as string);
+      return fb.initializeApp(firebaseConfig);
     } catch (e) {
       throw new Error(e);
     }
   }
 
-  private async initializeFirestore() {
-    try {
-      await FirestoreImport;
-      const db = this.app.firestore();
-      if (!this.app.firestore) {
-        db.enablePersistence().catch((e) => {
-          if (e.code === 'failed-precondition') {
-            throw new Error(e);
-          } else if (e.code === 'unimplemented') {
-            throw new Error(e);
-          }
-        });
-      }
-      this.db = db;
-    } catch (e) {
-      throw new Error(e);
-    }
-  }
-
-  private async initializeAuth() {
-    try {
-      await AuthImport;
-      this.auth = this.app.auth();
-    } catch (e) {
-      throw new Error(e);
-    }
+  private processTimestamps(data: { [key: string]: any }[]) {
+    return data.map((d) =>
+      Object.fromEntries(
+        Object.entries(d).map(([key, value]) => [
+          key,
+          value.toDate ? value.toDate() : value
+        ])
+      )
+    );
   }
 }
 
-self.addEventListener('message', (msg) => {
-  const firebaseWorker = new FirebaseWorker();
-  const { fn }: WorkerFns = msg.data;
-  firebaseWorker[fn](msg.data);
-});
+expose(FirebaseWorker);
