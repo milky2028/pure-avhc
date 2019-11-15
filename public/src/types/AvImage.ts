@@ -1,4 +1,5 @@
 export default interface AvImage {
+  [key: string]: any;
   url: string;
   id: string;
   product: string;
