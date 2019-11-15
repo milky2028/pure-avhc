@@ -118,7 +118,7 @@ form {
 </style>
 
 <script lang="ts">
-import { createComponent, reactive } from '@vue/composition-api';
+import { createComponent, reactive, toRefs } from '@vue/composition-api';
 import StateTaxes from '../data/StateTaxes';
 import AvInput from './AvInput.vue';
 
@@ -130,7 +130,7 @@ export default createComponent({
     includeCompany: Boolean,
     isBilling: Boolean
   },
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const state = reactive({
       states: StateTaxes.map((st) => st.abbr),
       name: '',
@@ -144,18 +144,20 @@ export default createComponent({
 
     function updateForm() {
       const form = {
-        isBilling: this.isBilling,
-        name: this.name,
-        company: this.company,
-        address: this.address,
-        city: this.city,
-        state: this.state,
-        zipCode: this.zipCode,
-        country: this.country
+        isBilling: props.isBilling,
+        name: state.name,
+        company: state.company,
+        address: state.address,
+        city: state.city,
+        state: state.state,
+        zipCode: state.zipCode,
+        country: state.country
       };
 
       emit('form-input', form);
     }
+
+    return { ...toRefs(state), updateForm };
   }
 });
 </script>
