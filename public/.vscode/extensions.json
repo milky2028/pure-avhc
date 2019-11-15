@@ -16,5 +16,7 @@
     "sdras.vue-vscode-snippets",
     "tombonnike.vscode-status-bar-format-toggle"
   ],
-  "unwantedRecommendations": ["eg2.tslint"]
+  "unwantedRecommendations": [
+    "eg2.tslint"
+  ]
 }

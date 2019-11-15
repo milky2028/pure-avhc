@@ -1,13 +1,4 @@
 {
-  "vetur.format.defaultFormatterOptions": {
-    "prettier": {
-      "semi": true,
-      "singleQuote": true,
-      "bracketSpacing": true,
-      "jsxBracketSameLine": true,
-      "arrowParens": "always"
-    }
-  },
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "files.autoSave": "onFocusChange",
@@ -16,11 +7,29 @@
   "git.autofetch": true,
   "editor.tabSize": 2,
   "editor.multiCursorModifier": "ctrlCmd",
-  "liveServer.settings.donotShowInfoMsg": true,
   "debug.toolBarLocation": "docked",
   "editor.wordWrap": "on",
   "eslint.packageManager": "yarn",
   "npm.packageManager": "yarn",
   "tslint.packageManager": "yarn",
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "vetur.validation.template": false,
+  "eslint.validate": [
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "javascriptreact",
+      "autoFix": true
+    },
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ]
 }
