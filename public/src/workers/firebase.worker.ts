@@ -58,7 +58,7 @@ export default class FirebaseWorker {
 
   public async getDocuments(
     collection: string,
-    snapshotCallback?: (data: {}[]) => any
+    snapshotCallback?: (data: any[]) => any
   ) {
     try {
       const db = await this.db;
@@ -101,7 +101,7 @@ export default class FirebaseWorker {
       orderBy?: OrderByParams;
       dontQueryBySite?: boolean;
     },
-    snapshotCallback?: (data: {}[]) => any
+    snapshotCallback?: (data: any[]) => any
   ) {
     try {
       const db = await this.db;
@@ -263,8 +263,9 @@ export default class FirebaseWorker {
   private async initializeApp() {
     try {
       const fb = await this.firebase;
-      const firebaseConfig = JSON.parse(process.env
-        .VUE_APP_FIREBASE_CONFIG as string);
+      const firebaseConfig = JSON.parse(
+        process.env.VUE_APP_FIREBASE_CONFIG as string
+      );
       return fb.initializeApp(firebaseConfig);
     } catch (e) {
       throw new Error(e);
