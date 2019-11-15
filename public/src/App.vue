@@ -131,8 +131,9 @@ import AvToolbar from './components/AvToolbar.vue';
 import { mapActions, mapState } from 'vuex';
 import WorkerFns from './types/WorkerFns';
 import useEvent from './use/event';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     AvToolbar,
     AvDisclaimer: () =>
@@ -157,8 +158,10 @@ export default Vue.extend({
     ...mapActions('user', ['listenForAuthStateChanges']),
     ...mapActions('base', ['getFirestoreData'])
   },
-  async mounted() {
+  setup() {
     useEvent('beforeinstallprompt', (e) => e.preventDefault());
+  },
+  async mounted() {
     this.setCartStateFromSave();
     const uid = await this.listenForAuthStateChanges();
     if (uid) {
