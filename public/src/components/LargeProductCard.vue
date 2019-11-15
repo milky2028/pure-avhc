@@ -1,7 +1,15 @@
 <template>
   <div class="card-container">
-    <router-link :to="`/products/${product.url}`" class="img-container">
-      <h2 v-if="product.disabled" class="subhead sold-out">{{ product.disabled }}</h2>
+    <router-link
+      :to="`/products/${product.url}`"
+      class="img-container"
+    >
+      <h2
+        v-if="product.disabled"
+        class="subhead sold-out"
+      >
+        {{ product.disabled }}
+      </h2>
       <img
         :src="getSrc(product.id)"
         :alt="getImageAlt(product.id, images)"
@@ -10,9 +18,15 @@
     </router-link>
     <router-link :to="`/products/${product.url}`">
       <div>
-        <h2 class="subhead larger-font">{{ product.shortName }}</h2>
-        <p class="body-text tagline">{{ product.tagline }}.</p>
-        <p class="body-text">Also available in:</p>
+        <h2 class="subhead larger-font">
+          {{ product.shortName }}
+        </h2>
+        <p class="body-text tagline">
+          {{ product.tagline }}.
+        </p>
+        <p class="body-text">
+          Also available in:
+        </p>
         <ul class="body-text">
           <li
             v-for="{
@@ -27,26 +41,37 @@
             }}{{ measurement !== 'gram' ? ` ${masterMeasurement}` : '' }}s
           </li>
         </ul>
-        <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
-        <h3 class="body-text price">{{ getPrice(product.sizes) }}</h3>
+        <h2 class="body-text size">
+          {{ getSize(product.sizes) }}
+        </h2>
+        <h3 class="body-text price">
+          {{ getPrice(product.sizes) }}
+        </h3>
       </div>
     </router-link>
     <div class="btn-container">
-      <elianto-button borderTop borderBottom noHover>
+      <EliantoButton
+        border-top
+        border-bottom
+        no-hover
+      >
         <span class="add-or-subtract-container">
-          <av-icon-button
+          <AvIconButton
+            v-if="cartItem && cartItem.quantity > 0"
+            black
             @icon-click="decrease(cartItem.id)"
+          >remove_circle_outline</AvIconButton>
+          <span
+            class="btn-text"
+            @click="addToCart(product)"
+          >{{ getAddBtnText(cartItem) }}</span>
+          <AvIconButton
             v-if="cartItem && cartItem.quantity > 0"
             black
-          >remove_circle_outline</av-icon-button>
-          <span @click="addToCart(product)" class="btn-text">{{ getAddBtnText(cartItem) }}</span>
-          <av-icon-button
             @icon-click="addToCart(product)"
-            v-if="cartItem && cartItem.quantity > 0"
-            black
-          >add_circle_outline</av-icon-button>
+          >add_circle_outline</AvIconButton>
         </span>
-      </elianto-button>
+      </EliantoButton>
     </div>
   </div>
 </template>

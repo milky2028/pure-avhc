@@ -6,13 +6,18 @@
       :alt="getImageAlt(product.id, images)"
     />
     <div class="info-container">
-      <router-link v-if="product && product.name" :to="`/products/${product.url}`">
-        <h2 class="body-text header">{{ product.name }}</h2>
+      <router-link
+        v-if="product && product.name"
+        :to="`/products/${product.url}`"
+      >
+        <h2 class="body-text header">
+          {{ product.name }}
+        </h2>
       </router-link>
       <div class="select-container">
-        <small-selector
+        <SmallSelector
           label="Qty"
-          :selectValue="String(cartItem.quantity)"
+          :select-value="String(cartItem.quantity)"
           :options="options"
           @select-changed="
             updateCartItem({
@@ -22,28 +27,28 @@
               }
             })
           "
-        ></small-selector>
-        <small-selector
-          label="Size"
+        />
+        <SmallSelector
           v-if="product && product.sizes"
-          :selectValue="String(cartItem.size)"
+          label="Size"
+          :select-value="String(cartItem.size)"
           :options="product.sizes"
-          diffKey="id"
-          displayKey="display"
-          valueKey="masterMeasurement"
-          :displayValueHandler="
+          diff-key="id"
+          display-key="display"
+          value-key="masterMeasurement"
+          :display-value-handler="
             product.pluralizeSizes ? this.getDisplayValue : null
           "
           @select-changed="onSizeChange($event)"
-        ></small-selector>
-        <small-selector
-          label="Strain"
+        />
+        <SmallSelector
           v-if="strains && strains.length > 0"
-          :selectValue="String(cartItem.strain)"
+          label="Strain"
+          :select-value="String(cartItem.strain)"
           :options="strains.slice().sort(sortByStrain)"
-          diffKey="id"
-          displayKey="name"
-          valueKey="type"
+          diff-key="id"
+          display-key="name"
+          value-key="type"
           @select-changed="
             updateCartItem({
               cartItemId: cartItem.id,
@@ -52,13 +57,15 @@
               }
             })
           "
-        ></small-selector>
+        />
       </div>
-      <av-icon-button
+      <AvIconButton
         class="remover-icon"
         black
         @icon-click="removeItemFromCart(cartItem.id)"
-      >remove_circle_outline</av-icon-button>
+      >
+        remove_circle_outline
+      </AvIconButton>
     </div>
   </div>
 </template>

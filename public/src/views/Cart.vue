@@ -1,29 +1,40 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Cart">
+  <PageWrapper with-padding>
+    <ArticlePage title="Cart">
       <div v-if="cartItems.length > 0">
-        <cart-item
+        <CartItem
           v-for="(item, i) in cartItems"
           :key="item.id"
-          :cartItem="item"
+          :cart-item="item"
           :strains="strains.filter(({ products }) => products.includes(item.product))"
           :class="{ borderTop: i}"
-        ></cart-item>
+        />
       </div>
-      <p v-if="cartItems.length === 0">Your cart is empty.</p>
-      <divider class="divider" :class="{ marginTop: cartItems.length === 0 }"></divider>
+      <p v-if="cartItems.length === 0">
+        Your cart is empty.
+      </p>
+      <Divider
+        class="divider"
+        :class="{ marginTop: cartItems.length === 0 }"
+      />
       <div class="subtotal-container">
-        <p class="subtotal">Subtotal</p>
-        <p class="subtotal">${{ subtotal.toFixed(2) }}</p>
+        <p class="subtotal">
+          Subtotal
+        </p>
+        <p class="subtotal">
+          ${{ subtotal.toFixed(2) }}
+        </p>
       </div>
-      <av-button
-        long
+      <AvButton
         v-if="cartItems.length > 0"
+        long
         class="clear-btn"
         @btn-click="clearCart"
-      >Clear Cart</av-button>
-    </article-page>
-  </page-wrapper>
+      >
+        Clear Cart
+      </AvButton>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <page-wrapper>
+  <PageWrapper>
     <div class="home">
       <div
         v-for="product in products.filter(p => p.featuredOnHome)"
@@ -10,26 +10,32 @@
         :name="getImageAlt(product.id, images)"
       >
         <div class="tagline-container">
-          <h1 class="subhead larger-font">{{ product.tagline }}</h1>
+          <h1 class="subhead larger-font">
+            {{ product.tagline }}
+          </h1>
           <h2 class="body-text subtag">
             <span>{{ product.subtag }}</span>
           </h2>
-          <av-button
+          <AvButton
             flat
             class="cart-btn"
             @btn-click="$router.push(`/products/${product.url}`)"
-          >Shop {{ getLastWord(product) }} ></av-button>
+          >
+            Shop {{ getLastWord(product) }} >
+          </AvButton>
         </div>
-        <av-button
+        <AvButton
+          v-if="product.sortOrder === 0"
           long
-          :fullWidth="windowWidth < 835"
+          :full-width="windowWidth < 835"
           class="btn"
           @btn-click="$router.push('/shop-cbd')"
-          v-if="product.sortOrder === 0"
-        >Shop All Products</av-button>
+        >
+          Shop All Products
+        </AvButton>
       </div>
     </div>
-  </page-wrapper>
+  </PageWrapper>
 </template>
 
 <style scoped>

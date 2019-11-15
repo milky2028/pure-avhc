@@ -1,6 +1,6 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Feedback and Support">
+  <PageWrapper with-padding>
+    <ArticlePage title="Feedback and Support">
       <h2>Tracking, Order Information, Returns, and Customer Support</h2>
       <p>For fastest results, text messaging is preferred. Second fastest after text messaging is email. We aim to respond to all customer support email claims within 24 - 48 hours.</p>
       <p>Customer support calls may be made by appointment. Our support number is text message only.</p>
@@ -18,7 +18,9 @@
       <h2>Wholesale</h2>
       <p>
         For more information about wholesale purchasing and creating a wholesale account, please visit
-        <router-link to="/wholesale">our wholesale page</router-link>.
+        <router-link to="/wholesale">
+          our wholesale page
+        </router-link>.
       </p>
       <p>
         <strong>Email:&nbsp;</strong>
@@ -41,8 +43,8 @@
       <p>
         <strong>App Verison: {{ appVersion }}</strong>
       </p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>
@@ -54,15 +56,15 @@ import PageWrapper from '@/components/PageWrapper.vue';
 import ArticlePage from '@/components/ArticlePage.vue';
 
 export default Vue.extend({
+  components: {
+    PageWrapper,
+    ArticlePage
+  },
   data() {
     return {
       appVersion: require('../../package.json').version,
       supportEmail: process.env.VUE_APP_EMAIL
     };
-  },
-  components: {
-    PageWrapper,
-    ArticlePage
   }
 });
 </script>

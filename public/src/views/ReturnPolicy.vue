@@ -1,11 +1,15 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Return Policy">
+  <PageWrapper with-padding>
+    <ArticlePage title="Return Policy">
       <h2>Other Policies</h2>
       <p>
         In addition to this Privacy Policy, please review our
-        <router-link to="/privacy-policy">Privacy Policy</router-link>&nbsp;and
-        <router-link to="/terms-and-conditions">Terms and Conditions of Service</router-link>.
+        <router-link to="/privacy-policy">
+          Privacy Policy
+        </router-link>&nbsp;and
+        <router-link to="/terms-and-conditions">
+          Terms and Conditions of Service
+        </router-link>.
       </p>
       <p>
         If you believe you may be eligible for a return, please email us as
@@ -44,8 +48,8 @@
 
       <p>If the item was marked as a gift when purchased and shipped directly to you, you'll receive a gift credit for the value of your return. Once the returned item is received, a gift certificate will be mailed to you.</p>
       <p>If the item wasn't marked as a gift when purchased, or the gift giver had the order shipped to themselves to give to you later, we will send a refund to the gift giver and he will find out about your return.</p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <script lang="ts">
@@ -54,16 +58,16 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 
 export default Vue.extend({
+  components: {
+    PageWrapper,
+    ArticlePage
+  },
   data() {
     return {
       legalName: process.env.VUE_APP_LEGAL_NAME,
       siteUrl: process.env.VUE_APP_SITE_URL,
       supportEmail: process.env.VUE_APP_EMAIL
     };
-  },
-  components: {
-    PageWrapper,
-    ArticlePage
   }
 });
 </script>

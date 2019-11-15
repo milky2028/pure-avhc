@@ -1,10 +1,19 @@
 <template>
-  <page-wrapper withPadding class="wrapper">
-    <page-header class="header">All Products</page-header>
+  <PageWrapper
+    with-padding
+    class="wrapper"
+  >
+    <PageHeader class="header">
+      All Products
+    </PageHeader>
     <div class="products-container">
-      <large-product-card v-for="product of products" :key="product.id" :product="product"></large-product-card>
+      <LargeProductCard
+        v-for="product of products"
+        :key="product.id"
+        :product="product"
+      />
     </div>
-  </page-wrapper>
+  </PageWrapper>
 </template>
 
 <style scoped>

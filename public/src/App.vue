@@ -1,11 +1,11 @@
 <template>
   <main :class="{ bottomPadding: cartItems && cartItems.length > 0 || snackbarMsg }">
-    <av-toolbar></av-toolbar>
+    <AvToolbar />
     <router-view />
-    <av-overlay></av-overlay>
-    <av-disclaimer></av-disclaimer>
-    <checkout-prompt></checkout-prompt>
-    <av-snackbar></av-snackbar>
+    <AvOverlay />
+    <AvDisclaimer />
+    <CheckoutPrompt />
+    <AvSnackbar />
   </main>
 </template>
 

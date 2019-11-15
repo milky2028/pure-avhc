@@ -1,6 +1,6 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="The Definitive CBD Guide">
+  <PageWrapper with-padding>
+    <ArticlePage title="The Definitive CBD Guide">
       <blockquote>
         <p>
           <em>“I’ve packed everything I need for this trip – swimsuit, vitamins, bike gear, CBD oil, I’m good to go.”</em>
@@ -17,7 +17,9 @@
           href="https://www.glutenfreefollowme.com/recipe/cbd-infused-chocolate-chip-cookies/"
         >cookies</a>,
         <a href="https://www.allure.com/gallery/cbd-skin-care-products">beauty creams</a>, and
-        <router-link to="/products/cbd-hemp-flower">pre-rolled joints</router-link>), the number of naysayers is declining rapidly. Despite decades of stereotypes, depicting marijuana users as red-eyed stoners with a burrito in hand, CBD is redefining the cannabis landscape, putting the plant firmly on the map of the mainstream.
+        <router-link to="/products/cbd-hemp-flower">
+          pre-rolled joints
+        </router-link>), the number of naysayers is declining rapidly. Despite decades of stereotypes, depicting marijuana users as red-eyed stoners with a burrito in hand, CBD is redefining the cannabis landscape, putting the plant firmly on the map of the mainstream.
       </p>
 
       <h2>What Is CBD?</h2>
@@ -83,7 +85,7 @@
           </p>
         </li>
         <li>
-          <p></p>
+          <p />
           <p>
             <em>Marijuana</em> is rich in THC, the psychoactive compound that gets you high.
           </p>
@@ -165,7 +167,9 @@
         <a
           href="https://purecbdexchange.com/product/cbd-tinctures-and-topicals/2500mg-full-spectrum-cbd-tincture/"
         >tinctures</a> to
-        <router-link to="/products/cbd-hemp-flower">pure hemp flower</router-link>.
+        <router-link to="/products/cbd-hemp-flower">
+          pure hemp flower
+        </router-link>.
       </p>
 
       <h3>Acne</h3>
@@ -297,7 +301,9 @@
 
       <p>
         For purists,
-        <router-link to="/products/cbd-hemp-flower">all-natural CBD hemp flower</router-link>&nbsp;may be the ideal form of consumption, either in all its plant-like glory or ready-to-smoke in pre-rolled joints. Smoking offers
+        <router-link to="/products/cbd-hemp-flower">
+          all-natural CBD hemp flower
+        </router-link>&nbsp;may be the ideal form of consumption, either in all its plant-like glory or ready-to-smoke in pre-rolled joints. Smoking offers
         <a
           href="https://benicepaper.com/archives/2018/12/23/cbd-you-can-smoke-hemp-premium-prerolls"
         >the highest bioavailability of CBD</a>, which basically means you get more CBD into your system, faster than other forms of consumption.
@@ -461,8 +467,8 @@
       <p>CBD is a complicated product and the current market can be confusing for newcomers and experienced users alike, but by following some of the recommendations laid out in this guide, you’ll be well positioned to dip a toe into the (extremely calm) waters of CBD or to cannonball into the deep end of cannabidiol.</p>
 
       <p>Perhaps the best takeaway is this: find a good company that you trust and stick with them. That’s a proven path to a more present, grounded, CBD-centred state of mind.</p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <script lang="ts">

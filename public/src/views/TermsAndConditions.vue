@@ -1,11 +1,15 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Terms and Conditions">
+  <PageWrapper with-padding>
+    <ArticlePage title="Terms and Conditions">
       <h2>Other Policies</h2>
       <p>
         In addition to this Privacy Policy, please review our
-        <router-link to="/return-policy">Return Policy&nbsp;</router-link>and
-        <router-link to="/privacy-policy">Privacy Policy</router-link>.
+        <router-link to="/return-policy">
+          Return Policy&nbsp;
+        </router-link>and
+        <router-link to="/privacy-policy">
+          Privacy Policy
+        </router-link>.
       </p>
       <h2>Overview</h2>
 
@@ -45,7 +49,9 @@
       <p>You agree to provide current, complete and accurate purchase and account information for all purchases made at our store. You agree to promptly update your account and other information, including your email address and credit card numbers and expiration dates, so that we can complete your transactions and contact you as needed.</p>
       <p>
         For more detail, please review our
-        <router-link to="/return-policy">Return Policy</router-link>
+        <router-link to="/return-policy">
+          Return Policy
+        </router-link>
       </p>
       <h2>Optional Tools</h2>
 
@@ -67,7 +73,9 @@
 
       <p>
         Your submission of personal information through the store is governed by our
-        <router-link to="/privacy-policy">Privacy Policy</router-link>.
+        <router-link to="/privacy-policy">
+          Privacy Policy
+        </router-link>.
       </p>
       <h2>Errors, Inaccuracies, and Omissions</h2>
 
@@ -115,8 +123,8 @@
           :href="`mailto:${supportEmail}?subject=Questions%20about%20your%20terms%20and%20conditions&body=Hello!%0A%0AI%20have%20a%20few%20questions%20about%20the%20terms%20and%20conditions%20on%20your%20website...`"
         >{{ supportEmail }}</a>.
       </p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 
@@ -126,16 +134,16 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 
 export default Vue.extend({
+  components: {
+    PageWrapper,
+    ArticlePage
+  },
   data() {
     return {
       legalName: process.env.VUE_APP_LEGAL_NAME,
       siteUrl: process.env.VUE_APP_SITE_URL,
       supportEmail: process.env.VUE_APP_EMAIL
     };
-  },
-  components: {
-    PageWrapper,
-    ArticlePage
   }
 });
 </script>

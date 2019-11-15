@@ -1,11 +1,15 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="GDPR Privacy Policy">
+  <PageWrapper with-padding>
+    <ArticlePage title="GDPR Privacy Policy">
       <h2>Other Policies</h2>
       <p>
         In addition to this Privacy Policy, please review our
-        <router-link to="/return-policy">Return Policy</router-link>&nbsp;and
-        <router-link to="/terms-and-conditions">Terms and Conditions of Service</router-link>.
+        <router-link to="/return-policy">
+          Return Policy
+        </router-link>&nbsp;and
+        <router-link to="/terms-and-conditions">
+          Terms and Conditions of Service
+        </router-link>.
       </p>
       <h2>Why do we have a privacy policy?</h2>
       <p>Our privacy policy exists to inform our customers of:</p>
@@ -27,7 +31,7 @@
           <abbr title="General Data Protection Regulation">GDPR</abbr>
         </a>.
       </p>
-      <p></p>
+      <p />
       <p>
         <strong>{{ legalName }}</strong> is dedicated to safeguarding the personal information under our remit and in developing a data protection regime that is effective, fit for purpose and demonstrates an understanding of, and appreciation for the new regulation. Our preparation and objectives for
         <abbr
@@ -100,7 +104,9 @@
       </p>
       <p>
         Once you leave our store's website or are redirected to a third-party website or application, you are no longer governed by this Privacy Policy or our website's
-        <router-link to="/terms-and-conditions">Terms and Conditions</router-link>.
+        <router-link to="/terms-and-conditions">
+          Terms and Conditions
+        </router-link>.
       </p>
 
       <h2>Links</h2>
@@ -112,7 +118,11 @@
           rel="noopener noreferrer"
           href="https://purecbdexchange.com"
         >purecbdexchange.com</a> or
-        <a target="_blank" rel="noopener noreferrer" href="https://google.com">google.com</a>). We do not automatically collect full email addresses of visitors to our website. The only way we obtain your name or email address is when you choose to provide this information to us, such as when you make purchase or subscribe to a email list. Examples of how you might provide us with such personal information include:
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://google.com"
+        >google.com</a>). We do not automatically collect full email addresses of visitors to our website. The only way we obtain your name or email address is when you choose to provide this information to us, such as when you make purchase or subscribe to a email list. Examples of how you might provide us with such personal information include:
       </p>
       <ul>
         <li>Completing a survey or feedback form</li>
@@ -145,10 +155,18 @@
       <p>Other Services Used:</p>
       <ul>
         <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://firebase.google.com">Firebase</a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://firebase.google.com"
+          >Firebase</a>
         </li>
         <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://shopify.com">Shopify</a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://shopify.com"
+          >Shopify</a>
         </li>
         <li>
           <a
@@ -183,8 +201,8 @@
           :href="`mailto:${supportEmail}?subject=Hello!%20I%20want%20to%20learn%20more%20about%20your%20privacy%20policy&body=Faces...%20Tris3`"
         >{{ supportEmail }}</a>.
       </p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <script lang="ts">
@@ -193,16 +211,16 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 
 export default Vue.extend({
+  components: {
+    PageWrapper,
+    ArticlePage
+  },
   data() {
     return {
       legalName: process.env.VUE_APP_LEGAL_NAME,
       siteUrl: process.env.VUE_APP_SITE_URL,
       supportEmail: process.env.VUE_APP_EMAIL
     };
-  },
-  components: {
-    PageWrapper,
-    ArticlePage
   }
 });
 </script>

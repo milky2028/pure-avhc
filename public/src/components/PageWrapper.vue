@@ -1,6 +1,9 @@
 <template>
-  <section class="page" :class="{ withPadding }">
-    <slot></slot>
+  <section
+    class="page"
+    :class="{ withPadding }"
+  >
+    <slot />
   </section>
 </template>
 

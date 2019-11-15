@@ -1,10 +1,15 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page v-if="product" :title="product.name">
+  <PageWrapper with-padding>
+    <ArticlePage
+      v-if="product"
+      :title="product.name"
+    >
       <p>{{ product.name }}</p>
-      <router-link to="/products/cbd-hemp-flower">CBD Flower</router-link>
-    </article-page>
-  </page-wrapper>
+      <router-link to="/products/cbd-hemp-flower">
+        CBD Flower
+      </router-link>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>

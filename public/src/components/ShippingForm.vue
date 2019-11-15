@@ -3,45 +3,45 @@
     <h2>{{ isBilling ? 'Billing' : 'Shipping' }}</h2>
     <av-input
       dark
-      morePadding
+      more-padding
       placeholder="Name"
       type="text"
       autocomplete="name"
       :value="name"
       @on-input="name = $event; updateForm()"
-    ></av-input>
+    />
     <av-input
       v-if="includeCompany"
       dark
-      morePadding
+      more-padding
       placeholder="Company"
       type="text"
       :value="company"
       @on-input="company = $event; updateForm()"
-    ></av-input>
+    />
     <av-input
       dark
-      morePadding
+      more-padding
       placeholder="Street Address"
       type="text"
       autocomplete="street-address"
       :value="address"
       @on-input="address = $event; updateForm()"
-    ></av-input>
+    />
     <div class="address-container">
       <av-input
         dark
-        morePadding
+        more-padding
         class="city"
         placeholder="City"
         type="text"
         autocomplete="address-level2"
         :value="city"
         @on-input="city = $event; updateForm()"
-      ></av-input>
+      />
       <av-input
         dark
-        morePadding
+        more-padding
         class="state"
         placeholder="State"
         type="text"
@@ -49,10 +49,10 @@
         :datalist="states"
         :value="state"
         @on-input="state = $event; updateForm()"
-      ></av-input>
+      />
       <av-input
         dark
-        morePadding
+        more-padding
         class="zip"
         placeholder="Zip Code"
         type="number"
@@ -60,17 +60,17 @@
         autocomplete="postal-code"
         :value="zipCode"
         @on-input="zipCode = $event; updateForm()"
-      ></av-input>
+      />
     </div>
     <av-input
       dark
-      morePadding
+      more-padding
       placeholder="Country"
       type="text"
       autocomplete="country"
       :value="country"
       @on-input="country = $event; updateForm()"
-    ></av-input>
+    />
   </form>
 </template>
 

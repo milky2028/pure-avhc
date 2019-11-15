@@ -1,9 +1,15 @@
 <template>
-  <button @click="$emit('btn-click', $event)" :class="{ flat, long, fullWidth, raised: !flat }">
+  <button
+    :class="{ flat, long, fullWidth, raised: !flat }"
+    @click="$emit('btn-click', $event)"
+  >
     <span>
-      <slot></slot>
+      <slot />
     </span>
-    <span class="icon" v-if="icon">{{ icon }}</span>
+    <span
+      v-if="icon"
+      class="icon"
+    >{{ icon }}</span>
   </button>
 </template>
 

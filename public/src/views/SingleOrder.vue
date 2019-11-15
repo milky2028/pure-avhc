@@ -1,9 +1,9 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Order #???">
+  <PageWrapper with-padding>
+    <ArticlePage title="Order #???">
       <p>Single order page</p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>

@@ -1,47 +1,74 @@
 <template>
   <transition name="slide-y">
-    <div class="prompt" :class="{ expanded }" v-if="cartItems && cartItems.length > 0">
+    <div
+      v-if="cartItems && cartItems.length > 0"
+      class="prompt"
+      :class="{ expanded }"
+    >
       <h2 class="subhead checkout">
-        <router-link to="/checkout">Checkout ></router-link>
+        <router-link to="/checkout">
+          Checkout >
+        </router-link>
       </h2>
-      <av-icon-button
+      <AvIconButton
         v-if="windowWidth < 835 && expanded"
         class="icon"
         @icon-click="onClose()"
-      >close</av-icon-button>
+      >
+        close
+      </AvIconButton>
       <transition name="fade">
-        <av-input
+        <AvInput
+          v-if="canSubscribe && windowWidth > 835 || canSubscribe && expanded"
           type="email"
           autocomplete="email"
           class="input"
-          v-if="canSubscribe && windowWidth > 835 || canSubscribe && expanded"
-          @enter="onSubscribe(email)"
-          @on-input="email = $event"
           :value="email"
           width="100%"
-          :showError="formError"
+          :show-error="formError"
           :pattern="emailPattern"
           placeholder="Subscribe via email and get 10% off today"
           required
-        ></av-input>
+          @enter="onSubscribe(email)"
+          @on-input="email = $event"
+        />
       </transition>
       <transition name="fade">
-        <av-button
+        <AvButton
           v-if="canSubscribe"
           class="btn"
           @btn-click="onSubscribe(email)"
-        >{{ subscribing ? 'Subscribing...' : btnText }}</av-button>
+        >
+          {{ subscribing ? 'Subscribing...' : btnText }}
+        </AvButton>
       </transition>
       <transition name="fade">
-        <p v-if="formError" class="body-text error">{{ errorMsg }}</p>
+        <p
+          v-if="formError"
+          class="body-text error"
+        >
+          {{ errorMsg }}
+        </p>
       </transition>
       <transition name="fade">
-        <p v-if="subscribed" class="body-text msg">Subscribed!</p>
+        <p
+          v-if="subscribed"
+          class="body-text msg"
+        >
+          Subscribed!
+        </p>
       </transition>
       <transition name="fade">
-        <div v-if="!canSubscribe && !subscribed" class="total-container">
-          <h2 class="subhead total">Subtotal:</h2>
-          <h2 class="subhead total money">${{ subtotal.toFixed(2) }}</h2>
+        <div
+          v-if="!canSubscribe && !subscribed"
+          class="total-container"
+        >
+          <h2 class="subhead total">
+            Subtotal:
+          </h2>
+          <h2 class="subhead total money">
+            ${{ subtotal.toFixed(2) }}
+          </h2>
         </div>
       </transition>
     </div>

@@ -1,68 +1,96 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Login">
+  <PageWrapper with-padding>
+    <ArticlePage title="Login">
       <p class="sign-in-helper">
         If you have a
         <a href="https://purecbdexchange.com">purecbdexchange.com</a> account, you may also use it to sign in here.
       </p>
       <form>
-        <av-input
+        <AvInput
           dark
-          morePadding
-          useNativeFieldError
+          more-padding
+          use-native-field-error
           type="email"
           autocomplete="email"
           class="field"
           placeholder="Email"
           :pattern="emailPattern"
+          :show-error="Boolean(emailError)"
+          :error-msg="emailError"
+          :value="email"
           @on-input="email = $event"
           @enter="resettingPassword ? resetPassword() : onLogin()"
-          :showError="Boolean(emailError)"
-          :errorMsg="emailError"
-          :value="email"
-        ></av-input>
-        <av-input
-          dark
-          morePadding
-          useNativeFieldError
+        />
+        <AvInput
           v-if="!resettingPassword"
+          dark
+          more-padding
+          use-native-field-error
           class="field"
           type="password"
           placeholder="Password"
           autocomplete="current-password"
-          :errorMsg="passwordErrorMsg"
+          :error-msg="passwordErrorMsg"
+          :show-error="Boolean(passwordErrorMsg)"
+          :value="password"
           @on-input="password = $event"
           @enter="resettingPassword ? resetPassword() : onLogin()"
-          :showError="Boolean(passwordErrorMsg)"
-          :value="password"
-        ></av-input>
+        />
       </form>
-      <p class="reset-password" v-if="!resettingPassword">
+      <p
+        v-if="!resettingPassword"
+        class="reset-password"
+      >
         <a @click="resettingPassword = true">Reset Password?</a>
       </p>
-      <div class="account-create" v-if="!resettingPassword">
-        <av-switch :value="createAnAccount" @switch="createAnAccount = $event"></av-switch>
+      <div
+        v-if="!resettingPassword"
+        class="account-create"
+      >
+        <AvSwitch
+          :value="createAnAccount"
+          @switch="createAnAccount = $event"
+        />
         <p>Create an account?</p>
       </div>
-      <av-button
-        :fullWidth="windowWidth < 835"
+      <AvButton
+        :full-width="windowWidth < 835"
         :long="windowWidth > 835"
         class="btn"
         @btn-click="resettingPassword ? resetPassword() : onLogin()"
-      >{{ resettingPassword ? 'Reset Password' : 'Login' }}</av-button>
-      <div v-if="!resettingPassword" class="sign-in-container">
-        <button class="sign-in-btn" @click="onProviderLogin('google')">
-          <img class="sign-in-icon google" src="../assets/img/google.svg" alt="Google icon" />Sign in with Google
+      >
+        {{ resettingPassword ? 'Reset Password' : 'Login' }}
+      </AvButton>
+      <div
+        v-if="!resettingPassword"
+        class="sign-in-container"
+      >
+        <button
+          class="sign-in-btn"
+          @click="onProviderLogin('google')"
+        >
+          <img
+            class="sign-in-icon google"
+            src="../assets/img/google.svg"
+            alt="Google icon"
+          />Sign in with Google
         </button>
-        <button class="sign-in-btn facebook" @click="onProviderLogin('facebook')">
+        <button
+          class="sign-in-btn facebook"
+          @click="onProviderLogin('facebook')"
+        >
           <span>
-            <img class="sign-in-icon" src="../assets/img/facebook.svg" alt="Facebook icon" />
+            <img
+              class="sign-in-icon"
+              src="../assets/img/facebook.svg"
+              alt="Facebook icon"
+            />
           </span>
           <span>Sign in with Facebook</span>
         </button>
       </div>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>
@@ -172,12 +200,6 @@ export default Vue.extend({
     AvButton,
     AvSwitch
   },
-  mounted() {
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
-  },
   data() {
     return {
       email: '',
@@ -189,6 +211,12 @@ export default Vue.extend({
       passwordErrorMsg: '',
       resettingPassword: false
     };
+  },
+  mounted() {
+    window.addEventListener(
+      'resize',
+      () => (this.windowWidth = window.innerWidth)
+    );
   },
   computed: {
     ...mapState('user', ['uid'])

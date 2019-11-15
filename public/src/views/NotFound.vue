@@ -1,6 +1,6 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="404 Error">
+  <PageWrapper with-padding>
+    <ArticlePage title="404 Error">
       <h2>Page Not Found</h2>
       <img
         src="http://giphygifs.s3.amazonaws.com/media/4qANoeI3g45a0/giphy.gif"
@@ -8,10 +8,12 @@
       />
       <p>Looks like we couldn't find the page you were looking for. It might be hiding somewhere, but also, maybe not.</p>
       <p>
-        <router-link to="/">Navigate Home</router-link>
+        <router-link to="/">
+          Navigate Home
+        </router-link>
       </p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>

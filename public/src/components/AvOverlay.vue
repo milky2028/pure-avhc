@@ -1,6 +1,10 @@
 <template>
   <transition name="fade">
-    <div v-if="isOverlayShowing" class="overlay" @click="onOverlayClick"></div>
+    <div
+      v-if="isOverlayShowing"
+      class="overlay"
+      @click="onOverlayClick"
+    />
   </transition>
 </template>
 

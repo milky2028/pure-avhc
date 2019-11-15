@@ -1,6 +1,9 @@
 <template>
   <transition name="slide-y">
-    <div v-if="isDisclaimerShowing" class="disclaimer">
+    <div
+      v-if="isDisclaimerShowing"
+      class="disclaimer"
+    >
       <div class="text-container">
         <h3>Disclaimer</h3>
         <p>
@@ -10,17 +13,27 @@
           diagnose, treat, cure, or prevent any disease. Consult your physician
           before using any hemp supplement. Not intended for use by any person
           under 18 years of age. By entering, you agree to comply with our
-          <router-link class="link" to="privacy-policy"
-            >Privacy Policy</router-link
-          >and
-          <router-link class="link" to="terms-and-conditions"
-            >Terms and Conditions</router-link
-          >.
+          <router-link
+            class="link"
+            to="privacy-policy"
+          >
+            Privacy Policy
+          </router-link>and
+          <router-link
+            class="link"
+            to="terms-and-conditions"
+          >
+            Terms and Conditions
+          </router-link>.
         </p>
       </div>
-      <av-button class="dismiss-btn" icon="close" @btn-click="onDismiss"
-        >I understand</av-button
+      <AvButton
+        class="dismiss-btn"
+        icon="close"
+        @btn-click="onDismiss"
       >
+        I understand
+      </AvButton>
     </div>
   </transition>
 </template>
@@ -80,16 +93,16 @@ export default Vue.extend({
   components: {
     AvButton
   },
+  data() {
+    return {
+      legalName: process.env.VUE_APP_LEGAL_NAME
+    };
+  },
   async mounted() {
     const hasSeenDisclaimer = await idb.get('hasSeenDisclaimer');
     if (!hasSeenDisclaimer) {
       this.setState({ type: 'isDisclaimerShowing', data: true });
     }
-  },
-  data() {
-    return {
-      legalName: process.env.VUE_APP_LEGAL_NAME
-    };
   },
   computed: {
     ...mapState('base', ['isDisclaimerShowing'])

@@ -1,14 +1,16 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Orders">
+  <PageWrapper with-padding>
+    <ArticlePage title="Orders">
       <p>Orders page</p>
-      <av-button
-        :fullWidth="windowWidth < 835"
+      <AvButton
+        :full-width="windowWidth < 835"
         :long="windowWidth > 835"
         @btn-click="signOut"
-      >Sign Out</av-button>
-    </article-page>
-  </page-wrapper>
+      >
+        Sign Out
+      </AvButton>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>

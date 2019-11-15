@@ -2,7 +2,7 @@
   <div>
     <page-header>{{ title }}</page-header>
     <article>
-      <slot></slot>
+      <slot />
     </article>
   </div>
 </template>

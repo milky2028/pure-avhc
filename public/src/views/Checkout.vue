@@ -1,9 +1,9 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Checkout">
+  <PageWrapper with-padding>
+    <ArticlePage title="Checkout">
       <p>Checkout page</p>
-    </article-page>
-  </page-wrapper>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>

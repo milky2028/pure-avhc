@@ -9,7 +9,10 @@
       @mouseenter="hoverLeave = false"
     >
       <div class="cover">
-        <h2 class="subhead card-font" v-html="splitTitle(product.shortName)"></h2>
+        <h2
+          class="subhead card-font"
+          v-html="splitTitle(product.shortName)"
+        />
       </div>
     </div>
   </router-link>

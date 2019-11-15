@@ -1,6 +1,6 @@
 <template>
-  <page-wrapper withPadding>
-    <article-page title="Wholesale">
+  <PageWrapper with-padding>
+    <ArticlePage title="Wholesale">
       <p>
         {{ fullName }} provides wholesale purchasing options and pricing to customers seeking to buy hemp and CBD products in large quantities.
         <strong>Wholesale purchasing options are only available to customers making purchases larger than $1,000.</strong> If your cart total exceeds this amount, and you've been upgraded to a whoelsale account, wholesale discounts will automatically be applied.
@@ -21,74 +21,94 @@
           :href="wholesaleCatalog[0].url"
         >Wholesale Catalog</a>
       </p>
-      <h2 class="last">Wholesale Account Application</h2>
+      <h2 class="last">
+        Wholesale Account Application
+      </h2>
       <form v-if="!uid && !accountCreated">
-        <av-input
+        <AvInput
           dark
-          morePadding
+          more-padding
           type="email"
           autocomplete="email"
           placeholder="Email"
           :pattern="emailPattern"
-          @on-input="userInfo.email = $event"
           :value="userInfo.email"
-        ></av-input>
-        <av-input
+          @on-input="userInfo.email = $event"
+        />
+        <AvInput
           dark
-          morePadding
+          more-padding
           placeholder="Phone Number"
           type="tel"
           autocomplete="tel"
           :value="userInfo.phoneNumber"
           @on-input="userInfo.phoneNumber = `${userInfo.phoneNumber.startsWith('+') ? '' : '+'}${$event}`"
-        ></av-input>
-        <av-input
+        />
+        <AvInput
           dark
-          morePadding
+          more-padding
           type="password"
           placeholder="Password"
           autocomplete="current-password"
-          @on-input="userInfo.password = $event"
           :value="userInfo.password"
-        ></av-input>
+          @on-input="userInfo.password = $event"
+        />
       </form>
-      <shipping-form
+      <ShippingForm
         v-if="!uid && !accountCreated"
-        includeCompany
+        include-company
         @form-input="shippingForm = $event"
-      ></shipping-form>
-      <div v-if="!uid && !accountCreated" class="switch-container">
-        <av-switch class="switch" @switch="differentBilling = $event"></av-switch>
-        <p class="no-padding billing-question">Different billing address?</p>
+      />
+      <div
+        v-if="!uid && !accountCreated"
+        class="switch-container"
+      >
+        <AvSwitch
+          class="switch"
+          @switch="differentBilling = $event"
+        />
+        <p class="no-padding billing-question">
+          Different billing address?
+        </p>
       </div>
-      <shipping-form
-        includeCompany
-        isBilling
+      <ShippingForm
         v-if="differentBilling && !uid"
+        include-company
+        is-billing
         @form-input="billingForm = $event"
-      ></shipping-form>
-      <p class="no-padding user-msg" v-if="uid && !isWholesaleUser">
+      />
+      <p
+        v-if="uid && !isWholesaleUser"
+        class="no-padding user-msg"
+      >
         You are currently signed in with an existing account. You can click the button below to upgrade your account to a wholesale account, or, if you prefer, you can
         <a
           @click="signOut"
         >sign out</a> and create a new wholesale account with a different email. After your account is created, you'll be signed out. When you sign in again, your new wholesale account will be active.
       </p>
-      <p class="no-padding user-msg" v-if="isWholesaleUser || accountCreated">{{ completionMsg }}</p>
       <p
-        class="no-padding errors"
+        v-if="isWholesaleUser || accountCreated"
+        class="no-padding user-msg"
+      >
+        {{ completionMsg }}
+      </p>
+      <p
         v-if="errors.length > 0"
+        class="no-padding errors"
         :class="{ topMargin: differentBilling }"
       >
-        <strong v-html="errors.join('<br>')"></strong>
+        <strong v-html="errors.join('<br>')" />
       </p>
-      <av-button
+      <AvButton
         :class="{ topMargin: differentBilling}"
-        :fullWidth="windowWidth < 835"
+        :full-width="windowWidth < 835"
         :long="windowWidth > 835"
         @btn-click="onSubmit"
-      >{{ isWholesaleUser ? 'Sign Out of' : uid ? 'Upgrade to' : accountCreated ? 'Login to' : 'Create' }} Wholesale Account</av-button>
-    </article-page>
-  </page-wrapper>
+      >
+        {{ isWholesaleUser ? 'Sign Out of' : uid ? 'Upgrade to' : accountCreated ? 'Login to' : 'Create' }} Wholesale Account
+      </AvButton>
+    </ArticlePage>
+  </PageWrapper>
 </template>
 
 <style scoped>
@@ -159,7 +179,7 @@ export default Vue.extend({
       differentBilling: false,
       windowWidth: window.innerWidth,
       accountCreated: false,
-      completionMsg: `You're already a wholesale user.`,
+      completionMsg: 'You\'re already a wholesale user.',
       userInfo: {
         email: '',
         phoneNumber: '',

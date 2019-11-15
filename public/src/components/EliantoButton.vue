@@ -1,10 +1,10 @@
 <template>
   <button
     class="subhead elianto-btn"
-    @click="$emit('btn-click', $event)"
     :class="{ borderLeft, borderRight, borderBottom, borderTop, halfBorderLeft, halfBorderRight, hover: !noHover }"
+    @click="$emit('btn-click', $event)"
   >
-    <slot></slot>
+    <slot />
   </button>
 </template>
 

@@ -1,16 +1,24 @@
 <template>
-  <nav class="nav" :class="{ expanded: isNavbarExpanded }">
+  <nav
+    class="nav"
+    :class="{ expanded: isNavbarExpanded }"
+  >
     <transition name="fade">
-      <av-icon-button
+      <AvIconButton
         class="menu"
         @icon-click="toggleNavAndOverlay"
-      >{{ isNavbarExpanded ? 'close' : 'menu' }}</av-icon-button>
+      >
+        {{ isNavbarExpanded ? 'close' : 'menu' }}
+      </AvIconButton>
     </transition>
-    <router-link class="logo-link" to="/">
+    <router-link
+      class="logo-link"
+      to="/"
+    >
       <transition name="fade">
         <h1
-          class="logo-text"
           v-if="appLogoMinContent && appLogoMinType === 'text' && !isNavbarExpanded"
+          class="logo-text"
         >
           <abbr :title="legalName">{{ appLogoMinContent }}</abbr>
         </h1>
@@ -24,23 +32,50 @@
     <div class="right-nav-container">
       <router-link
         class="cart-button"
-        @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
         to="/cart"
+        @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
       >
-        <av-icon-button class="cart-icon">shopping_cart</av-icon-button>
-        <av-badge class="badge"></av-badge>
+        <AvIconButton class="cart-icon">
+          shopping_cart
+        </AvIconButton>
+        <AvBadge class="badge" />
       </router-link>
-      <av-icon-button>
-        <router-link @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null" to="/orders">
-          <img class="profile-picture" v-if="photoURL" :src="photoURL" alt="User profile picture" />
+      <AvIconButton>
+        <router-link
+          to="/orders"
+          @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
+        >
+          <img
+            v-if="photoURL"
+            class="profile-picture"
+            :src="photoURL"
+            alt="User profile picture"
+          />
           <span v-else>person</span>
         </router-link>
-      </av-icon-button>
+      </AvIconButton>
     </div>
-    <div v-if="isNavbarExpanded" class="menu-container">
-      <router-link to="/" class="large-logo-container" @click.native="toggleNavAndOverlay">
-        <h1 class="logo-text large" v-if="appLogoFullType === 'text'">{{ appLogoFullContent }}</h1>
-        <h2 class="subhead" v-if="appLogoFullType === 'text'">{{ appLogoFullSubContent }}</h2>
+    <div
+      v-if="isNavbarExpanded"
+      class="menu-container"
+    >
+      <router-link
+        to="/"
+        class="large-logo-container"
+        @click.native="toggleNavAndOverlay"
+      >
+        <h1
+          v-if="appLogoFullType === 'text'"
+          class="logo-text large"
+        >
+          {{ appLogoFullContent }}
+        </h1>
+        <h2
+          v-if="appLogoFullType === 'text'"
+          class="subhead"
+        >
+          {{ appLogoFullSubContent }}
+        </h2>
         <img
           v-if="appLogoFullType === 'image'"
           :src="appLogoFullContent"
@@ -49,37 +84,54 @@
       </router-link>
       <ul class="product-card-container">
         <li
-          id="card"
           v-for="product of products.filter(product => product.featuredInMenu)"
+          id="card"
           :key="product.id"
           @click="toggleNavAndOverlay"
         >
-          <product-card :product="product"></product-card>
+          <ProductCard :product="product" />
         </li>
       </ul>
       <div class="menu-link-container">
         <ul class="menu-links subhead smaller-font top-menu">
           <li
-            class="top-menu-links"
             v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)"
             :key="menuLink.name"
+            class="top-menu-links"
             :style="(windowWidth < 835 && (mainMenu.length - 1) === i) ? { borderBottom: '1px solid white'} : {}"
             @click="toggleNavAndOverlay"
           >
-            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span class="slash" v-if="windowWidth > 835 && i !== (mainMenu.length -1)">/</span>
+            <router-link :to="menuLink.url">
+              {{ menuLink.name }}
+            </router-link>
+            <span
+              v-if="windowWidth > 835 && i !== (mainMenu.length -1)"
+              class="slash"
+            >/</span>
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
-          <li v-for="(menuLink, i) of submenu" :key="menuLink.name" @click="toggleNavAndOverlay">
-            <router-link :to="menuLink.url">{{ menuLink.name }}</router-link>
-            <span class="slash" v-if="windowWidth > 835 && i !== (submenu.length - 1)">/</span>
+          <li
+            v-for="(menuLink, i) of submenu"
+            :key="menuLink.name"
+            @click="toggleNavAndOverlay"
+          >
+            <router-link :to="menuLink.url">
+              {{ menuLink.name }}
+            </router-link>
+            <span
+              v-if="windowWidth > 835 && i !== (submenu.length - 1)"
+              class="slash"
+            >/</span>
           </li>
         </ul>
       </div>
       <ul class="submenu">
-        <li v-for="menuItem of iconMenu.slice().sort(sortBySortOrder)" :key="menuItem.alt">
-          <av-icon-button @icon-click="$emit(menuItem.action)">
+        <li
+          v-for="menuItem of iconMenu.slice().sort(sortBySortOrder)"
+          :key="menuItem.alt"
+        >
+          <AvIconButton @icon-click="$emit(menuItem.action)">
             <a
               v-if="menuItem.linkType === 'external'"
               :href="menuItem.url"
@@ -87,8 +139,8 @@
               rel="noopener noreferrer"
             >
               <img
-                class="icon-link"
                 v-if="menuItem.iconType === 'external'"
+                class="icon-link"
                 :src="require(`../assets/img/${menuItem.icon}`)"
                 :alt="menuItem.alt"
               />
@@ -99,17 +151,23 @@
               >{{ menuItem.icon }}</span>
             </a>
             <div v-else>
-              <img v-if="menuItem.iconType === 'external'" :src="menuItem.icon" :alt="menuItem.alt" />
+              <img
+                v-if="menuItem.iconType === 'external'"
+                :src="menuItem.icon"
+                :alt="menuItem.alt"
+              />
               <span
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
                 :name="menuItem.alt"
               >{{ menuItem.icon }}</span>
             </div>
-          </av-icon-button>
+          </AvIconButton>
         </li>
       </ul>
-      <h3 class="subhead copyright">© {{ legalName }} 2019</h3>
+      <h3 class="subhead copyright">
+        © {{ legalName }} 2019
+      </h3>
     </div>
   </nav>
 </template>

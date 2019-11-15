@@ -1,6 +1,9 @@
 <template>
   <div class="selector">
-    <label class="body-text" :for="id">{{ label }}</label>
+    <label
+      class="body-text"
+      :for="id"
+    >{{ label }}</label>
     <select
       :id="id"
       :value="selectValue"
@@ -9,19 +12,24 @@
     >
       <option
         v-for="option of options"
-        :value="valueKey ? option[valueKey] : option"
         :key="diffKey ? option[diffKey] : option"
+        :value="valueKey ? option[valueKey] : option"
       >
         {{ displayKey && displayValueHandler
-        ? displayValueHandler(option[displayKey])
-        : displayValueHandler
-        ? displayValueHandler(option)
-        : displayKey
-        ? option[displayKey]
-        : option }}
+          ? displayValueHandler(option[displayKey])
+          : displayValueHandler
+            ? displayValueHandler(option)
+            : displayKey
+              ? option[displayKey]
+              : option }}
       </option>
     </select>
-    <av-icon-button class="icon-btn border" black>expand_more</av-icon-button>
+    <av-icon-button
+      class="icon-btn border"
+      black
+    >
+      expand_more
+    </av-icon-button>
   </div>
 </template>
 

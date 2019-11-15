@@ -7,7 +7,7 @@
       :value="value"
       @input="$emit('switch', $event.target.checked)"
     />
-    <label :for="fieldId"></label>
+    <label :for="fieldId" />
   </div>
 </template>
 

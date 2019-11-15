@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1 class="subhead">
-      <slot></slot>
+      <slot />
     </h1>
-    <divider></divider>
+    <Divider />
   </div>
 </template>
 

@@ -1,6 +1,10 @@
 <template>
-  <button class="icon-wrapper" :class="{ black }" @click="onClick">
-    <slot></slot>
+  <button
+    class="icon-wrapper"
+    :class="{ black }"
+    @click="onClick"
+  >
+    <slot />
   </button>
 </template>
 

@@ -2,10 +2,18 @@
   <label :for="id">
     <span class="body-text label-text">{{ label }}</span>
     <div class="select-container">
-      <select :id="id" @input="$emit('select-change', $event.target.value)" :value="boundProp">
-        <option v-for="opt of options" :value="opt.value" :key="opt[loopKey]">{{ opt[displayKey] }}</option>
+      <select
+        :id="id"
+        :value="boundProp"
+        @input="$emit('select-change', $event.target.value)"
+      >
+        <option
+          v-for="opt of options"
+          :key="opt[loopKey]"
+          :value="opt.value"
+        >{{ opt[displayKey] }}</option>
       </select>
-      <av-icon-button black>expand_more</av-icon-button>
+      <AvIconButton black>expand_more</AvIconButton>
     </div>
   </label>
 </template>
