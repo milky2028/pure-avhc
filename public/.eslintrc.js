@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended', '@vue/typescript'],
   rules: {
+    semi: ['error', 'always'],
     quotes: ['error', 'single'],
     'arrow-parens': ['error', 'always'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
