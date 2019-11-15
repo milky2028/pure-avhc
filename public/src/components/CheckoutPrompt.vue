@@ -180,7 +180,6 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import AvInput from './AvInput.vue';
 import AvButton from './AvButton.vue';
 import AvIconButton from './AvIconButton.vue';
-import { setTimeout } from 'timers';
 import * as idb from 'idb-keyval';
 
 export default Vue.extend({
