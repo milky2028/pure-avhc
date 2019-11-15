@@ -138,8 +138,8 @@ import WorkerFns from '../types/WorkerFns';
 import getImageUrl from '../functions/getImageUrl';
 import getImageAlt from '../functions/getImageAlt';
 import AvButton from '../components/AvButton.vue';
-import Image from '../types/Image';
 import Product from '../types/Product';
+import AvImage from '../types/AvImage';
 
 export default Vue.extend({
   components: {
@@ -167,7 +167,7 @@ export default Vue.extend({
     },
     getUrlEnding(id: string) {
       const image = this.images.find(
-        (i: Image) => i.product === id && i.mainImage
+        (i: AvImage) => i.product === id && i.mainImage
       );
       return image ? image.url : '';
     },
