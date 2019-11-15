@@ -67,7 +67,7 @@ import getImageAlt from '../functions/getImageAlt';
 import getImageUrl from '../functions/getImageUrl';
 import WorkerFns from '../types/WorkerFns';
 import { mapState, mapActions } from 'vuex';
-import Image from '../types/Image';
+import AvImage from '../types/AvImage';
 
 export default Vue.extend({
   props: {
@@ -92,7 +92,7 @@ export default Vue.extend({
     },
     getProductUrl(id: string) {
       const image = this.images.find(
-        (i: Image) => i.product === id && i.toolbarImage
+        (i: AvImage) => i.product === id && i.toolbarImage
       );
       return image ? image.url : '';
     }

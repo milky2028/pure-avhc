@@ -180,13 +180,13 @@ import getImageUrl from '../functions/getImageUrl';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import getImageAlt from '../functions/getImageAlt';
-import Image from '../types/Image';
 import Size from '../types/Size';
 import EliantoButton from './EliantoButton.vue';
 import CartItem from '../types/CartItem';
 import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
+import AvImage from '../types/AvImage';
 
 export default Vue.extend({
   components: {
@@ -229,7 +229,7 @@ export default Vue.extend({
     },
     getSrc(id: string) {
       const image = this.images.find(
-        (i: Image) => i.product === id && i.allProductsImage
+        (i: AvImage) => i.product === id && i.allProductsImage
       );
       return getImageUrl(
         this.imageUrl,

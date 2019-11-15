@@ -122,7 +122,6 @@ img {
 
 <script lang="ts">
 import Vue from 'vue';
-import Image from '../types/Image';
 import getImageUrl from '../functions/getImageUrl';
 import getImageAlt from '../functions/getImageAlt';
 import { mapState, mapMutations } from 'vuex';
@@ -131,6 +130,7 @@ import SmallSelector from '../components/SmallSelector.vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import Size from '../types/Size';
 import Strain from '../types/Strain';
+import AvImage from '../types/AvImage';
 
 export default Vue.extend({
   components: {
@@ -164,9 +164,9 @@ export default Vue.extend({
       'removeItemFromCart'
     ]),
     getImageAlt,
-    getSrc(id: string, imageUrl: string, images: Image[]): string {
+    getSrc(id: string, imageUrl: string, images: AvImage[]): string {
       const image = images.find(
-        (i: Image) => i.product === id && i.toolbarImage
+        (i: AvImage) => i.product === id && i.toolbarImage
       );
       return getImageUrl(imageUrl, image ? image.url : '', 80, 100);
     },
