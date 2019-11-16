@@ -30,15 +30,13 @@ h2 {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapState, mapMutations } from 'vuex';
+import { createComponent } from '@vue/composition-api';
+import useSnackbar from '../use/snackbar';
 
-export default Vue.extend({
-  computed: {
-    ...mapState('base', ['snackbarMsg'])
-  },
-  methods: {
-    ...mapMutations('base', ['setState'])
+export default createComponent({
+  setup() {
+    const snackbarMsg = useSnackbar();
+    return { snackbarMsg };
   }
 });
 </script>
