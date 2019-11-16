@@ -31,19 +31,21 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapState, mapMutations } from 'vuex';
+import { createComponent } from '@vue/composition-api';
+import useOverlay from '../use/overlay';
+import useNavbar from '../use/navbar';
 
-export default Vue.extend({
-  computed: {
-    ...mapState('base', ['isOverlayShowing'])
-  },
-  methods: {
-    ...mapMutations('base', ['toggleOverlay', 'toggleNavbar']),
-    onOverlayClick() {
-      this.toggleOverlay();
-      this.toggleNavbar();
+export default createComponent({
+  setup() {
+    const { toggleOverlay, isOverlayShowing } = useOverlay();
+    const { toggleNavbar } = useNavbar();
+
+    function onOverlayClick() {
+      toggleOverlay();
+      toggleNavbar();
     }
+
+    return { onOverlayClick, isOverlayShowing };
   }
 });
 </script>
