@@ -46,11 +46,11 @@ select {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     AvIconButton
   },
@@ -61,10 +61,9 @@ export default Vue.extend({
     displayKey: String,
     boundProp: String
   },
-  data() {
-    return {
-      id: createRandomId(6)
-    };
+  setup() {
+    const id = createRandomId();
+    return { id };
   }
 });
 </script>

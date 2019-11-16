@@ -78,15 +78,16 @@ div {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import CreateRandomId from '../functions/createRandomId';
+import createRandomId from '../functions/createRandomId';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   props: {
     value: Boolean
   },
-  computed: {
-    fieldId: () => CreateRandomId()
+  setup() {
+    const fieldId = createRandomId();
+    return { fieldId }
   }
 });
 </script>

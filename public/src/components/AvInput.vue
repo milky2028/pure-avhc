@@ -78,10 +78,10 @@ input.dirty:invalid {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import CreateRandomId from '../functions/createRandomId';
+import createRandomId from '../functions/createRandomId';
+import { createComponent, ref } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   inheritAttrs: false,
   props: {
     datalist: Array,
@@ -94,13 +94,11 @@ export default Vue.extend({
     showError: Boolean,
     errorMsg: String
   },
-  data() {
-    return {
-      dirty: false
-    };
-  },
-  computed: {
-    fieldId: () => CreateRandomId()
+  setup() {
+    const dirty = ref(false);
+    const fieldId = createRandomId();
+
+    return { dirty, fieldId };
   }
 });
 </script>

@@ -1,4 +1,4 @@
-const CreateRandomId = (length: number = 12) => {
+export default function createRandomId(length: number = 12) {
   let text = '';
   const possible = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz123456789';
   for (let i = 0; i < length; i++) {
@@ -6,6 +6,4 @@ const CreateRandomId = (length: number = 12) => {
   }
 
   return text;
-};
-
-export default CreateRandomId;
+}

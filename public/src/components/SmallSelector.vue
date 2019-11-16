@@ -73,7 +73,7 @@ select {
 <script lang="ts">
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
-import { ref, createComponent } from '@vue/composition-api';
+import { createComponent } from '@vue/composition-api';
 
 // interface Props {
 //   label: string;
@@ -99,7 +99,7 @@ export default createComponent({
     displayValueHandler: Function
   },
   setup() {
-    const id = ref(createRandomId(5));
+    const id = createRandomId();
     return { id };
   }
 });
