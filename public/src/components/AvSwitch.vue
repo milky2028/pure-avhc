@@ -87,7 +87,7 @@ export default createComponent({
   },
   setup() {
     const fieldId = createRandomId();
-    return { fieldId }
+    return { fieldId };
   }
 });
 </script>
