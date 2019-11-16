@@ -8,7 +8,9 @@
         <h3>Disclaimer</h3>
         <p>
           Statements on this website have not been evaluated by the
-          <abbr title="Food and Drug Administration">FDA</abbr>
+          <abbr
+            title="Food and Drug Administration"
+          >FDA</abbr>
           . Products distributed by {{ legalName }} are not intended to
           diagnose, treat, cure, or prevent any disease. Consult your physician
           before using any hemp supplement. Not intended for use by any person
@@ -30,7 +32,7 @@
       <AvButton
         class="dismiss-btn"
         icon="close"
-        @btn-click="onDismiss"
+        @btn-click="hideDisclaimer"
       >
         I understand
       </AvButton>
@@ -84,39 +86,19 @@ p {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapState, mapMutations } from 'vuex';
-import * as idb from 'idb-keyval';
+import { createComponent } from '@vue/composition-api';
+import useDisclaimer from '../use/disclaimer';
 import AvButton from './AvButton.vue';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     AvButton
   },
-  data() {
-    return {
-      legalName: process.env.VUE_APP_LEGAL_NAME
-    };
-  },
-  async mounted() {
-    const hasSeenDisclaimer = await idb.get('hasSeenDisclaimer');
-    if (!hasSeenDisclaimer) {
-      this.setState({ type: 'isDisclaimerShowing', data: true });
-    }
-  },
-  computed: {
-    ...mapState('base', ['isDisclaimerShowing'])
-  },
-  methods: {
-    ...mapMutations('base', ['setState']),
-    onDismiss() {
-      this.setState({ type: 'isDisclaimerShowing', data: false });
-      try {
-        idb.set('hasSeenDisclaimer', true);
-      } catch (e) {
-        throw new Error('Error saving to idb');
-      }
-    }
+  setup() {
+    const legalName = process.env.VUE_APP_LEGAL_NAME;
+    const { isDisclaimerShowing, hideDisclaimer } = useDisclaimer();
+
+    return { legalName, isDisclaimerShowing, hideDisclaimer };
   }
 });
 </script>
