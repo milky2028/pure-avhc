@@ -2,7 +2,7 @@
   <button
     class="icon-wrapper"
     :class="{ black }"
-    @click="onClick"
+    @click="$emit('icon-click', $event)"
   >
     <slot />
   </button>
@@ -28,16 +28,11 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   props: {
     black: Boolean
-  },
-  methods: {
-    onClick(e: Event) {
-      this.$emit('icon-click', e);
-    }
   }
 });
 </script>
