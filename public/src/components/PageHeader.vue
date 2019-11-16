@@ -19,10 +19,10 @@ h1 {
 
 
 <script lang="ts">
-import Vue from 'vue';
 import Divider from './Divider.vue';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     Divider
   }
