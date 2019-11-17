@@ -1,5 +1,5 @@
 import { ref, onMounted } from '@vue/composition-api';
-import * as idb from 'idb-keyval';
+import { set, get } from 'idb-keyval';
 
 export default function useDisclaimer() {
   const isDisclaimerShowing = ref(false);
@@ -9,12 +9,12 @@ export default function useDisclaimer() {
   }
 
   function hideDisclaimer() {
-    idb.set('hasSeenDisclaimer', true);
+    set('hasSeenDisclaimer', true);
     isDisclaimerShowing.value = false;
   }
 
   onMounted(async () => {
-    const hasSeenDisclaimer = await idb.get('hasSeenDisclaimer');
+    const hasSeenDisclaimer = await get('hasSeenDisclaimer');
     if (!hasSeenDisclaimer) {
       showDisclaimer();
     }
