@@ -2,7 +2,7 @@ import { ref } from '@vue/composition-api';
 
 export default function useSnackbar() {
   const snackbarMsg = ref('');
-  
+
   function hideSnackbar() {
     snackbarMsg.value = '';
   }
