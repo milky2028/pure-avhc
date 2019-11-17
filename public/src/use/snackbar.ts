@@ -2,6 +2,10 @@ import { ref } from '@vue/composition-api';
 
 export default function useSnackbar() {
   const snackbarMsg = ref('');
+  
+  function hideSnackbar() {
+    snackbarMsg.value = '';
+  }
 
   function showSnackbar(msg: string, withTimeout?: number) {
     if (withTimeout) {
@@ -10,10 +14,6 @@ export default function useSnackbar() {
     } else {
       snackbarMsg.value = msg;
     }
-  }
-
-  function hideSnackbar() {
-    snackbarMsg.value = '';
   }
 
   return { snackbarMsg, showSnackbar, hideSnackbar };
