@@ -43,50 +43,35 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { createComponent, ref } from '@vue/composition-api';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import { mapState, mapActions } from 'vuex';
-import WorkerFns from '../types/WorkerFns';
 import AvSelector from '../components/AvSelector.vue';
 import TestResult from '../types/TestResult';
+import useTestResults from '../use/test-results';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage,
     AvSelector
   },
-  computed: {
-    ...mapState('base', ['testResults'])
-  },
-  data() {
-    return {
-      fullName: process.env.VUE_APP_FULL_NAME,
-      selectedSortType: 'newest',
-      sortOptions: [
-        { id: 0, value: 'newest', display: 'Newest to Oldest' },
-        { id: 1, value: 'oldest', display: 'Oldest to Newest' }
-      ]
-    };
-  },
-  beforeMount() {
-    if (this.testResults.length < 1) {
-      const testResOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'testResults'
-      };
-      this.getFirestoreData(testResOptions);
-    }
-  },
-  methods: {
-    ...mapActions('base', ['getFirestoreData']),
-    sortByDate(a: TestResult, b: TestResult) {
+  setup() {
+    const { testResults } = useTestResults();
+    const fullName = process.env.VUE_APP_FULL_NAME;
+    const selectedSortType = ref('newest');
+    const sortOptions = [
+      { id: 0, value: 'newest', display: 'Newest to Oldest' },
+      { id: 1, value: 'oldest', display: 'Oldest to Newest' }
+    ];
+
+    function sortByDate(a: TestResult, b: TestResult) {
       return this.selectedSortType === 'oldest'
         ? a.date.getTime() - b.date.getTime()
         : b.date.getTime() - a.date.getTime();
-    },
-    formatDate(date: Date) {
+    }
+
+    function formatDate(date: Date) {
       const formatter = new Intl.DateTimeFormat('en-us', {
         year: 'numeric',
         month: 'numeric',
@@ -94,6 +79,8 @@ export default Vue.extend({
       });
       return formatter.format(date);
     }
+
+    return { fullName, selectedSortType, sortOptions, formatDate, sortByDate, testResults };
   }
 });
 </script>
