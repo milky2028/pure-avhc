@@ -53,21 +53,21 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { createComponent } from '@vue/composition-api';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage
   },
   data() {
-    return {
-      legalName: process.env.VUE_APP_LEGAL_NAME,
-      siteUrl: process.env.VUE_APP_SITE_URL,
-      supportEmail: process.env.VUE_APP_EMAIL
-    };
+    const legalName = process.env.VUE_APP_LEGAL_NAME;
+    const siteUrl = process.env.VUE_APP_SITE_URL;
+    const supportEmail = process.env.VUE_APP_EMAIL;
+
+    return { legalName, siteUrl, supportEmail };
   }
 });
 </script>
