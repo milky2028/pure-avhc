@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true
   },
-  extends: ['@vue/prettier', 'plugin:vue/recommended', 'eslint:recommended', '@vue/typescript'],
+  extends: ['plugin:vue/recommended', 'eslint:recommended', '@vue/prettier', '@vue/typescript'],
   rules: {
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
     'vue/html-self-closing': ['error', {
