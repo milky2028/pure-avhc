@@ -57,6 +57,7 @@ export default class FirebaseWorker {
     }
   }
 
+  public async getDocuments(collection: Collection): Promise<{ id: string, [key: string]: any }[]>;
   public async getDocuments(
     collection: Collection,
     snapshotCallback?: (data: any[]) => any
