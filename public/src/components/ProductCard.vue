@@ -3,16 +3,19 @@
     <div
       class="card"
       :name="getImageAlt(product.id, images)"
-      :style="{ backgroundImage: `url(${getImageUrl(imageUrl, getProductUrl(product.id), 135)})` }"
+      :style="{
+        backgroundImage: `url(${getImageUrl(
+          imageUrl,
+          getProductUrl(product.id),
+          135
+        )})`
+      }"
       :class="hoverLeave ? 'hover-leave' : ''"
       @mouseleave="hoverLeave = true"
       @mouseenter="hoverLeave = false"
     >
       <div class="cover">
-        <h2
-          class="subhead card-font"
-          v-html="splitTitle(product.shortName)"
-        />
+        <h2 class="subhead card-font" v-html="splitTitle(product.shortName)" />
       </div>
     </div>
   </router-link>
@@ -59,7 +62,6 @@ a:hover {
   }
 }
 </style>
-
 
 <script lang="ts">
 import Vue from 'vue';

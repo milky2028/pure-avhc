@@ -1,13 +1,7 @@
 <template>
   <div class="card-container">
-    <router-link
-      :to="`/products/${product.url}`"
-      class="img-container"
-    >
-      <h2
-        v-if="product.disabled"
-        class="subhead sold-out"
-      >
+    <router-link :to="`/products/${product.url}`" class="img-container">
+      <h2 v-if="product.disabled" class="subhead sold-out">
         {{ product.disabled }}
       </h2>
       <img
@@ -21,9 +15,7 @@
         <h2 class="subhead larger-font">
           {{ product.shortName }}
         </h2>
-        <p class="body-text tagline">
-          {{ product.tagline }}.
-        </p>
+        <p class="body-text tagline">{{ product.tagline }}.</p>
         <p class="body-text">
           Also available in:
         </p>
@@ -50,26 +42,23 @@
       </div>
     </router-link>
     <div class="btn-container">
-      <EliantoButton
-        border-top
-        border-bottom
-        no-hover
-      >
+      <EliantoButton border-top border-bottom no-hover>
         <span class="add-or-subtract-container">
           <AvIconButton
             v-if="cartItem && cartItem.quantity > 0"
             black
             @icon-click="decrease(cartItem.id)"
-          >remove_circle_outline</AvIconButton>
-          <span
-            class="btn-text"
-            @click="addToCart(product)"
-          >{{ getAddBtnText(cartItem) }}</span>
+            >remove_circle_outline</AvIconButton
+          >
+          <span class="btn-text" @click="addToCart(product)">{{
+            getAddBtnText(cartItem)
+          }}</span>
           <AvIconButton
             v-if="cartItem && cartItem.quantity > 0"
             black
             @icon-click="addToCart(product)"
-          >add_circle_outline</AvIconButton>
+            >add_circle_outline</AvIconButton
+          >
         </span>
       </EliantoButton>
     </div>

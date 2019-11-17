@@ -1,10 +1,6 @@
 <template>
   <transition name="fade">
-    <div
-      v-if="isOverlayShowing"
-      class="overlay"
-      @click="onOverlayClick"
-    />
+    <div v-if="isOverlayShowing" class="overlay" @click="onOverlayClick" />
   </transition>
 </template>
 
@@ -49,4 +45,3 @@ export default createComponent({
   }
 });
 </script>
-

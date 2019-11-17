@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="divider"
-    :class="{ noBottomMargin }"
-  />
+  <div class="divider" :class="{ noBottomMargin }" />
 </template>
 
 <style scoped>

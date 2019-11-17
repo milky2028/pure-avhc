@@ -6,8 +6,7 @@
   </PageWrapper>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
 
 <script lang="ts">
 import Vue from 'vue';

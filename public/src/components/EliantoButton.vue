@@ -1,7 +1,15 @@
 <template>
   <button
     class="subhead elianto-btn"
-    :class="{ borderLeft, borderRight, borderBottom, borderTop, halfBorderLeft, halfBorderRight, hover: !noHover }"
+    :class="{
+      borderLeft,
+      borderRight,
+      borderBottom,
+      borderTop,
+      halfBorderLeft,
+      halfBorderRight,
+      hover: !noHover
+    }"
     @click="$emit('btn-click', $event)"
   >
     <slot />

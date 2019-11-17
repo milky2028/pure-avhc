@@ -1,39 +1,24 @@
 <template>
   <transition name="slide-y">
-    <div
-      v-if="isDisclaimerShowing"
-      class="disclaimer"
-    >
+    <div v-if="isDisclaimerShowing" class="disclaimer">
       <div class="text-container">
         <h3>Disclaimer</h3>
         <p>
           Statements on this website have not been evaluated by the
-          <abbr
-            title="Food and Drug Administration"
-          >FDA</abbr>
+          <abbr title="Food and Drug Administration">FDA</abbr>
           . Products distributed by {{ legalName }} are not intended to
           diagnose, treat, cure, or prevent any disease. Consult your physician
           before using any hemp supplement. Not intended for use by any person
           under 18 years of age. By entering, you agree to comply with our
-          <router-link
-            class="link"
-            to="privacy-policy"
-          >
-            Privacy Policy
-          </router-link>and
-          <router-link
-            class="link"
-            to="terms-and-conditions"
-          >
-            Terms and Conditions
-          </router-link>.
+          <router-link class="link" to="privacy-policy">
+            Privacy Policy </router-link
+          >and
+          <router-link class="link" to="terms-and-conditions">
+            Terms and Conditions </router-link
+          >.
         </p>
       </div>
-      <AvButton
-        class="dismiss-btn"
-        icon="close"
-        @btn-click="hideDisclaimer"
-      >
+      <AvButton class="dismiss-btn" icon="close" @btn-click="hideDisclaimer">
         I understand
       </AvButton>
     </div>

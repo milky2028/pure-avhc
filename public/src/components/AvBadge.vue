@@ -1,9 +1,6 @@
 <template>
   <transition name="fade">
-    <div
-      v-if="totalItemsInCart"
-      class="badge"
-    >
+    <div v-if="totalItemsInCart" class="badge">
       {{ totalItemsInCart }}
     </div>
   </transition>

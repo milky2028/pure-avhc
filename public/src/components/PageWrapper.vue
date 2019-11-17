@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="page"
-    :class="{ withPadding }"
-  >
+  <section class="page" :class="{ withPadding }">
     <slot />
   </section>
 </template>
@@ -25,4 +22,3 @@ export default createComponent({
   }
 });
 </script>
-

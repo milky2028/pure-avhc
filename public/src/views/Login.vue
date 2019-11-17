@@ -3,7 +3,8 @@
     <ArticlePage title="Login">
       <p class="sign-in-helper">
         If you have a
-        <a href="https://purecbdexchange.com">purecbdexchange.com</a> account, you may also use it to sign in here.
+        <a href="https://purecbdexchange.com">purecbdexchange.com</a> account,
+        you may also use it to sign in here.
       </p>
       <form>
         <AvInput
@@ -37,20 +38,11 @@
           @enter="resettingPassword ? resetPassword() : onLogin()"
         />
       </form>
-      <p
-        v-if="!resettingPassword"
-        class="reset-password"
-      >
+      <p v-if="!resettingPassword" class="reset-password">
         <a @click="resettingPassword = true">Reset Password?</a>
       </p>
-      <div
-        v-if="!resettingPassword"
-        class="account-create"
-      >
-        <AvSwitch
-          :value="createAnAccount"
-          @switch="createAnAccount = $event"
-        />
+      <div v-if="!resettingPassword" class="account-create">
+        <AvSwitch :value="createAnAccount" @switch="createAnAccount = $event" />
         <p>Create an account?</p>
       </div>
       <AvButton
@@ -61,14 +53,8 @@
       >
         {{ resettingPassword ? 'Reset Password' : 'Login' }}
       </AvButton>
-      <div
-        v-if="!resettingPassword"
-        class="sign-in-container"
-      >
-        <button
-          class="sign-in-btn"
-          @click="onProviderLogin('google')"
-        >
+      <div v-if="!resettingPassword" class="sign-in-container">
+        <button class="sign-in-btn" @click="onProviderLogin('google')">
           <img
             class="sign-in-icon google"
             src="../assets/img/google.svg"

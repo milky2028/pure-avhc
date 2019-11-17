@@ -7,11 +7,9 @@
         :value="boundProp"
         @input="$emit('select-change', $event.target.value)"
       >
-        <option
-          v-for="opt of options"
-          :key="opt[loopKey]"
-          :value="opt.value"
-        >{{ opt[displayKey] }}</option>
+        <option v-for="opt of options" :key="opt[loopKey]" :value="opt.value">{{
+          opt[displayKey]
+        }}</option>
       </select>
       <AvIconButton black>expand_more</AvIconButton>
     </div>

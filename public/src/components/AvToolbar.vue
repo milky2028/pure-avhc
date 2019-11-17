@@ -1,23 +1,16 @@
 <template>
-  <nav
-    class="nav"
-    :class="{ expanded: isNavbarExpanded }"
-  >
+  <nav class="nav" :class="{ expanded: isNavbarExpanded }">
     <transition name="fade">
-      <AvIconButton
-        class="menu"
-        @icon-click="toggleNavAndOverlay"
-      >
+      <AvIconButton class="menu" @icon-click="toggleNavAndOverlay">
         {{ isNavbarExpanded ? 'close' : 'menu' }}
       </AvIconButton>
     </transition>
-    <router-link
-      class="logo-link"
-      to="/"
-    >
+    <router-link class="logo-link" to="/">
       <transition name="fade">
         <h1
-          v-if="appLogoMinContent && appLogoMinType === 'text' && !isNavbarExpanded"
+          v-if="
+            appLogoMinContent && appLogoMinType === 'text' && !isNavbarExpanded
+          "
           class="logo-text"
         >
           <abbr :title="legalName">{{ appLogoMinContent }}</abbr>
@@ -55,25 +48,16 @@
         </router-link>
       </AvIconButton>
     </div>
-    <div
-      v-if="isNavbarExpanded"
-      class="menu-container"
-    >
+    <div v-if="isNavbarExpanded" class="menu-container">
       <router-link
         to="/"
         class="large-logo-container"
         @click.native="toggleNavAndOverlay"
       >
-        <h1
-          v-if="appLogoFullType === 'text'"
-          class="logo-text large"
-        >
+        <h1 v-if="appLogoFullType === 'text'" class="logo-text large">
           {{ appLogoFullContent }}
         </h1>
-        <h2
-          v-if="appLogoFullType === 'text'"
-          class="subhead"
-        >
+        <h2 v-if="appLogoFullType === 'text'" class="subhead">
           {{ appLogoFullSubContent }}
         </h2>
         <img
@@ -84,7 +68,9 @@
       </router-link>
       <ul class="product-card-container">
         <li
-          v-for="product of products.filter(product => product.featuredInMenu)"
+          v-for="product of products.filter(
+            (product) => product.featuredInMenu
+          )"
           id="card"
           :key="product.id"
           @click="toggleNavAndOverlay"
@@ -98,16 +84,21 @@
             v-for="(menuLink, i) of mainMenu.slice().sort(sortBySortOrder)"
             :key="menuLink.name"
             class="top-menu-links"
-            :style="(windowWidth < 835 && (mainMenu.length - 1) === i) ? { borderBottom: '1px solid white'} : {}"
+            :style="
+              windowWidth < 835 && mainMenu.length - 1 === i
+                ? { borderBottom: '1px solid white' }
+                : {}
+            "
             @click="toggleNavAndOverlay"
           >
             <router-link :to="menuLink.url">
               {{ menuLink.name }}
             </router-link>
             <span
-              v-if="windowWidth > 835 && i !== (mainMenu.length -1)"
+              v-if="windowWidth > 835 && i !== mainMenu.length - 1"
               class="slash"
-            >/</span>
+              >/</span
+            >
           </li>
         </ul>
         <ul class="menu-links subhead bottom-menu">
@@ -120,9 +111,10 @@
               {{ menuLink.name }}
             </router-link>
             <span
-              v-if="windowWidth > 835 && i !== (submenu.length - 1)"
+              v-if="windowWidth > 835 && i !== submenu.length - 1"
               class="slash"
-            >/</span>
+              >/</span
+            >
           </li>
         </ul>
       </div>
@@ -148,7 +140,8 @@
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
                 :name="menuItem.alt"
-              >{{ menuItem.icon }}</span>
+                >{{ menuItem.icon }}</span
+              >
             </a>
             <div v-else>
               <img
@@ -160,14 +153,13 @@
                 v-if="menuItem.iconType === 'material'"
                 class="icon-link"
                 :name="menuItem.alt"
-              >{{ menuItem.icon }}</span>
+                >{{ menuItem.icon }}</span
+              >
             </div>
           </AvIconButton>
         </li>
       </ul>
-      <h3 class="subhead copyright">
-        © {{ legalName }} 2019
-      </h3>
+      <h3 class="subhead copyright">© {{ legalName }} 2019</h3>
     </div>
   </nav>
 </template>

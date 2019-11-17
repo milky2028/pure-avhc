@@ -19,7 +19,9 @@
       </AvIconButton>
       <transition name="fade">
         <AvInput
-          v-if="canSubscribe && windowWidth > 835 || canSubscribe && expanded"
+          v-if="
+            (canSubscribe && windowWidth > 835) || (canSubscribe && expanded)
+          "
           type="email"
           autocomplete="email"
           class="input"
@@ -43,32 +45,21 @@
         </AvButton>
       </transition>
       <transition name="fade">
-        <p
-          v-if="formError"
-          class="body-text error"
-        >
+        <p v-if="formError" class="body-text error">
           {{ errorMsg }}
         </p>
       </transition>
       <transition name="fade">
-        <p
-          v-if="subscribed"
-          class="body-text msg"
-        >
+        <p v-if="subscribed" class="body-text msg">
           Subscribed!
         </p>
       </transition>
       <transition name="fade">
-        <div
-          v-if="!canSubscribe && !subscribed"
-          class="total-container"
-        >
+        <div v-if="!canSubscribe && !subscribed" class="total-container">
           <h2 class="subhead total">
             Subtotal:
           </h2>
-          <h2 class="subhead total money">
-            ${{ subtotal.toFixed(2) }}
-          </h2>
+          <h2 class="subhead total money">${{ subtotal.toFixed(2) }}</h2>
         </div>
       </transition>
     </div>

@@ -8,7 +8,10 @@
       type="text"
       autocomplete="name"
       :value="name"
-      @on-input="name = $event; updateForm()"
+      @on-input="
+        name = $event;
+        updateForm();
+      "
     />
     <av-input
       v-if="includeCompany"
@@ -17,7 +20,10 @@
       placeholder="Company"
       type="text"
       :value="company"
-      @on-input="company = $event; updateForm()"
+      @on-input="
+        company = $event;
+        updateForm();
+      "
     />
     <av-input
       dark
@@ -26,7 +32,10 @@
       type="text"
       autocomplete="street-address"
       :value="address"
-      @on-input="address = $event; updateForm()"
+      @on-input="
+        address = $event;
+        updateForm();
+      "
     />
     <div class="address-container">
       <av-input
@@ -37,7 +46,10 @@
         type="text"
         autocomplete="address-level2"
         :value="city"
-        @on-input="city = $event; updateForm()"
+        @on-input="
+          city = $event;
+          updateForm();
+        "
       />
       <av-input
         dark
@@ -48,7 +60,10 @@
         autocomplete="address-level1"
         :datalist="states"
         :value="state"
-        @on-input="state = $event; updateForm()"
+        @on-input="
+          state = $event;
+          updateForm();
+        "
       />
       <av-input
         dark
@@ -59,7 +74,10 @@
         pattern="\d*"
         autocomplete="postal-code"
         :value="zipCode"
-        @on-input="zipCode = $event; updateForm()"
+        @on-input="
+          zipCode = $event;
+          updateForm();
+        "
       />
     </div>
     <av-input
@@ -69,7 +87,10 @@
       type="text"
       autocomplete="country"
       :value="country"
-      @on-input="country = $event; updateForm()"
+      @on-input="
+        country = $event;
+        updateForm();
+      "
     />
   </form>
 </template>

@@ -1,8 +1,5 @@
 <template>
-  <PageWrapper
-    with-padding
-    class="wrapper"
-  >
+  <PageWrapper with-padding class="wrapper">
     <PageHeader class="header">
       All Products
     </PageHeader>

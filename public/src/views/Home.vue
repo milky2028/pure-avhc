@@ -2,10 +2,14 @@
   <PageWrapper>
     <div class="home">
       <div
-        v-for="product in products.filter(p => p.featuredOnHome)"
+        v-for="product in products.filter((p) => p.featuredOnHome)"
         :key="product.name"
         class="image"
-        :class="{ main: product.sortOrder === 0, side1: product.sortOrder === 1, side2: product.sortOrder > 1 }"
+        :class="{
+          main: product.sortOrder === 0,
+          side1: product.sortOrder === 1,
+          side2: product.sortOrder > 1
+        }"
         :style="getBackground(product)"
         :name="getImageAlt(product.id, images)"
       >
@@ -128,7 +132,6 @@
   }
 }
 </style>
-
 
 <script lang="ts">
 import Vue from 'vue';

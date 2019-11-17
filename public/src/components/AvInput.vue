@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <label
-      v-if="label"
-      class="body-text"
-      :for="fieldId"
-    >{{ label }}</label>
+    <label v-if="label" class="body-text" :for="fieldId">{{ label }}</label>
     <input
       :id="fieldId"
       v-bind="$attrs"
@@ -16,22 +12,12 @@
       @keyup.enter="$emit('enter', $event.target.value)"
       @blur="dirty = true"
     />
-    <datalist
-      v-if="datalist && datalist.length > 0"
-      id="list"
-    >
-      <option
-        v-for="item of datalist"
-        :key="item"
-        :value="item"
-      >
+    <datalist v-if="datalist && datalist.length > 0" id="list">
+      <option v-for="item of datalist" :key="item" :value="item">
         {{ item }}
       </option>
     </datalist>
-    <p
-      v-if="useNativeFieldError && showError && errorMsg"
-      class="body-text"
-    >
+    <p v-if="useNativeFieldError && showError && errorMsg" class="body-text">
       {{ errorMsg }}
     </p>
   </div>

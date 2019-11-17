@@ -17,7 +17,6 @@ h1 {
 }
 </style>
 
-
 <script lang="ts">
 import Divider from './Divider.vue';
 import { createComponent } from '@vue/composition-api';
@@ -28,4 +27,3 @@ export default createComponent({
   }
 });
 </script>
-

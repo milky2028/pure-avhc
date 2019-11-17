@@ -1,5 +1,9 @@
 <template>
-  <main :class="{ bottomPadding: cartItems && cartItems.length > 0 || snackbarMsg }">
+  <main
+    :class="{
+      bottomPadding: (cartItems && cartItems.length > 0) || snackbarMsg
+    }"
+  >
     <AvToolbar />
     <router-view />
     <AvOverlay />
@@ -151,7 +155,7 @@ export default Vue.extend({
       import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
   },
   computed: {
-    ...mapState('cart', ['cartItems']),
+    ...mapState('cart', ['cartItems'])
   },
   methods: {
     ...mapActions('cart', ['setCartStateFromSave']),

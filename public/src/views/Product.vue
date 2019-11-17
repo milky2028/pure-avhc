@@ -1,9 +1,6 @@
 <template>
   <PageWrapper with-padding>
-    <ArticlePage
-      v-if="product"
-      :title="product.name"
-    >
+    <ArticlePage v-if="product" :title="product.name">
       <p>{{ product.name }}</p>
       <router-link to="/products/cbd-hemp-flower">
         CBD Flower
@@ -12,8 +9,7 @@
   </PageWrapper>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
 
 <script lang="ts">
 import Vue from 'vue';

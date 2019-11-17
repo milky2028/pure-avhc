@@ -6,24 +6,21 @@
           v-for="(item, i) in cartItems"
           :key="item.id"
           :cart-item="item"
-          :strains="strains.filter(({ products }) => products.includes(item.product))"
-          :class="{ borderTop: i}"
+          :strains="
+            strains.filter(({ products }) => products.includes(item.product))
+          "
+          :class="{ borderTop: i }"
         />
       </div>
       <p v-if="cartItems.length === 0">
         Your cart is empty.
       </p>
-      <Divider
-        class="divider"
-        :class="{ marginTop: cartItems.length === 0 }"
-      />
+      <Divider class="divider" :class="{ marginTop: cartItems.length === 0 }" />
       <div class="subtotal-container">
         <p class="subtotal">
           Subtotal
         </p>
-        <p class="subtotal">
-          ${{ subtotal.toFixed(2) }}
-        </p>
+        <p class="subtotal">${{ subtotal.toFixed(2) }}</p>
       </div>
       <AvButton
         v-if="cartItems.length > 0"

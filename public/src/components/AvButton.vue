@@ -6,10 +6,7 @@
     <span>
       <slot />
     </span>
-    <span
-      v-if="icon"
-      class="icon"
-    >{{ icon }}</span>
+    <span v-if="icon" class="icon">{{ icon }}</span>
   </button>
 </template>
 
