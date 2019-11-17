@@ -2,7 +2,7 @@ import AvImage from '@/types/AvImage';
 import WorkerEntry from '../workers/worker.entry';
 import FirebaseWorker from '@/workers/firebase.worker';
 import { Remote, proxy } from 'comlink';
-import { ref, Ref } from '@vue/composition-api';
+import { ref, Ref, onMounted } from '@vue/composition-api';
 
 export default function useCDNImages() {
   const images: Ref<AvImage[]> = ref([]);
@@ -24,10 +24,6 @@ export default function useCDNImages() {
     isBackgroundImage?: boolean,
     width?: number
   ) {
-    if (images.value.length < 1) {
-      await loadImages();
-    }
-
     const targetImage = images.value.find(
       (image) => image.product === product && image[imageType]
     );
@@ -54,6 +50,12 @@ export default function useCDNImages() {
       return;
     }
   }
+
+  onMounted(async () => {
+    if (images.value.length < 1) {
+      await loadImages();
+    }
+  });
 
   return { images, loadImages, getImage };
 }
