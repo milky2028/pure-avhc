@@ -472,19 +472,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage
   },
-  data() {
-    return {
-      legalName: process.env.VUE_APP_LEGAL_NAME
-    };
+  setup() {
+    const legalName = process.env.VUE_APP_LEGAL_NAME;
+    return { legalName };
   }
 });
 </script>
