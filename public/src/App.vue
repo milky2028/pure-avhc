@@ -132,8 +132,9 @@ import { mapActions, mapState } from 'vuex';
 import WorkerFns from './types/WorkerFns';
 import useEvent from './use/event';
 import { createComponent } from '@vue/composition-api';
+import useSnackbar from './use/snackbar';
 
-export default createComponent({
+export default Vue.extend({
   components: {
     AvToolbar,
     AvDisclaimer: () =>
@@ -151,7 +152,6 @@ export default createComponent({
   },
   computed: {
     ...mapState('cart', ['cartItems']),
-    ...mapState('base', ['snackbarMsg'])
   },
   methods: {
     ...mapActions('cart', ['setCartStateFromSave']),
@@ -160,6 +160,8 @@ export default createComponent({
   },
   setup() {
     useEvent('beforeinstallprompt', (e) => e.preventDefault());
+    const snackbarMsg = useSnackbar();
+    return { snackbarMsg };
   },
   async mounted() {
     this.setCartStateFromSave();
