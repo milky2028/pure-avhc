@@ -2,6 +2,7 @@ import { expose } from 'comlink';
 import QueryParams from '@/types/QueryParams';
 import OrderByParams from '@/types/OrderByParams';
 import AvUser from '@/types/PureUser';
+import Collection from '@/types/Collection';
 
 export default class FirebaseWorker {
   private firebase = import('firebase/app');
@@ -14,7 +15,7 @@ export default class FirebaseWorker {
   }
 
   public async addDocument(
-    collection: string,
+    collection: Collection,
     data: any,
     callback?: (id: string) => any
   ) {
@@ -33,7 +34,7 @@ export default class FirebaseWorker {
   }
 
   public async getDocumentById(
-    collection: string,
+    collection: Collection,
     documentId: string,
     snapshotCallback?: (
       data: firebase.firestore.DocumentData | undefined
@@ -57,7 +58,7 @@ export default class FirebaseWorker {
   }
 
   public async getDocuments(
-    collection: string,
+    collection: Collection,
     snapshotCallback?: (data: any[]) => any
   ) {
     try {
@@ -95,7 +96,7 @@ export default class FirebaseWorker {
       orderBy,
       dontQueryBySite
     }: {
-      collection: string;
+      collection: Collection;
       queries?: QueryParams[];
       limit?: number;
       orderBy?: OrderByParams;

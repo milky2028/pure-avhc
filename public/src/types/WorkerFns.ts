@@ -1,6 +1,6 @@
 import QueryParams from './QueryParams';
 import OrderByParams from './OrderByParams';
-import Collection from './collection';
+import Collection from './Collection';
 
 export default interface WorkerFns {
   fn:
