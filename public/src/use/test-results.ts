@@ -16,7 +16,7 @@ export default function useTestResults() {
 
   onMounted(async () => {
     if (testResults.value.length < 1) {
-      testResults.value = await loadTestResults() as TestResult[];
+      testResults.value = (await loadTestResults()) as TestResult[];
     }
   });
 
