@@ -130,13 +130,14 @@ body {
 </style>
 
 <script lang="ts">
+import { createComponent, onMounted } from '@vue/composition-api';
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
 import { mapActions, mapState } from 'vuex';
 import WorkerFns from './types/WorkerFns';
 import useEvent from './use/event';
-import { createComponent } from '@vue/composition-api';
 import useSnackbar from './use/snackbar';
+import useCart from './use/cart';
 
 export default Vue.extend({
   components: {
@@ -163,12 +164,14 @@ export default Vue.extend({
     ...mapActions('base', ['getFirestoreData'])
   },
   setup() {
+    const { cartItems, setCartStateFromIdb } = useCart();
     useEvent('beforeinstallprompt', (e) => e.preventDefault());
-    const snackbarMsg = useSnackbar();
-    return { snackbarMsg };
+    const { snackbarMsg } = useSnackbar();
+
+    onMounted(() => setCartStateFromIdb());
+    return { snackbarMsg, cartItems };
   },
   async mounted() {
-    this.setCartStateFromSave();
     const uid = await this.listenForAuthStateChanges();
     if (uid) {
       const workerMsg: WorkerFns = {
