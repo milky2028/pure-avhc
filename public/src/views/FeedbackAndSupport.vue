@@ -51,20 +51,20 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
+import { createComponent } from '@vue/composition-api';
 import PageWrapper from '@/components/PageWrapper.vue';
 import ArticlePage from '@/components/ArticlePage.vue';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage
   },
-  data() {
-    return {
-      appVersion: require('../../package.json').version,
-      supportEmail: process.env.VUE_APP_EMAIL
-    };
+  setup() {
+    const appVersion = require('../../package.json').version;
+    const supportEmail = process.env.VUE_APP_EMAIL;
+
+    return { appVersion, supportEmail };
   }
 });
 </script>
