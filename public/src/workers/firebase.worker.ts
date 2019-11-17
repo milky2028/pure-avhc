@@ -10,10 +10,6 @@ export default class FirebaseWorker {
   private db = this.intializeFirestore(this.fb);
   private auth = this.initializeAuth(this.fb);
 
-  public log() {
-    console.log('Worker?');
-  }
-
   public async addDocument(
     collection: Collection,
     data: any,
