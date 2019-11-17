@@ -12,6 +12,7 @@ module.exports = {
       }
     }],
     '@typescript-eslint/semi': ['error', 'always', { omitLastInOneLineBlock: true }],
+    indent: ['error', 2],
     quotes: ['error', 'single'],
     'arrow-parens': ['error', 'always'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
