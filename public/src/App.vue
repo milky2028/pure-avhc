@@ -131,10 +131,7 @@ body {
 
 <script lang="ts">
 import { createComponent, onMounted } from '@vue/composition-api';
-import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
-import { mapActions } from 'vuex';
-import WorkerFns from './types/WorkerFns';
 import useEvent from './use/event';
 import useSnackbar from './use/snackbar';
 import useCart from './use/cart';
