@@ -1,6 +1,9 @@
 import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
+import FirebaseWorker from '@/workers/firebase.worker';
+import { Remote } from 'comlink';
+import WorkerEntry from '../workers/worker.entry';
 
 export default function useUser() {
   async function initializeAuth(firebase: Promise<firebase.app.App>) {
@@ -24,13 +27,16 @@ export default function useUser() {
     email: '',
     displayName: '',
     phoneNumber: '',
-    photoURL: ''
+    photoURL: '',
+    cart: []
   } as AvUser;
   const user = reactive(emptyUser);
 
-  function setUser(newUserData: Partial<AvUser>) {
-    for (const [key, value] of Object.entries(newUserData)) {
-      user[key] = value;
+  function setUserData(newUserData: Partial<AvUser>) {
+    if (typeof newUserData === 'object') {
+      for (const [key, value] of Object.entries(newUserData)) {
+        user[key] = value;
+      }
     }
   }
 
@@ -44,7 +50,7 @@ export default function useUser() {
           : null;
         const isWholesaleUser = claims ? claims.isWholesaleUser : false;
         const isAdmin = claims && claims.isAdmin ? claims.isAdmin : false;
-        setUser({
+        setUserData({
           email,
           phoneNumber,
           displayName,
@@ -53,6 +59,15 @@ export default function useUser() {
           isAdmin,
           isWholesaleUser
         });
+
+        // @ts-ignore
+        const _i = await new WorkerEntry();
+        const workerInstance = _i as Remote<FirebaseWorker>;
+        const userExtras = (await workerInstance.getDocumentById(
+          'userExtras',
+          userDetails.uid
+        )) as Partial<AvUser>;
+        setUserData(userExtras);
       }
     });
   }
@@ -100,7 +115,7 @@ export default function useUser() {
 
   async function signOut() {
     const auth = await _auth();
-    setUser(emptyUser);
+    setUserData(emptyUser);
     return auth.signOut();
   }
 
