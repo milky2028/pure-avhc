@@ -25,6 +25,7 @@ module.exports = {
       { omitLastInOneLineBlock: true }
     ],
     quotes: ['error', 'single'],
+    'no-useless-catch': 'error',
     'arrow-parens': ['error', 'always'],
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 0 }],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
