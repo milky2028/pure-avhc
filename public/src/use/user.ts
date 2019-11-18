@@ -2,7 +2,7 @@ import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 
-export default async function useUser() {
+export default function useUser() {
   async function initializeAuth(firebase: Promise<firebase.app.App>) {
     const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
     const app = await firebase;
@@ -11,8 +11,10 @@ export default async function useUser() {
   }
 
   const firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
-  const app = initializeFirebaseApp(firebase);
-  const authPromise = initializeAuth(app);
+  function _auth() {
+    const app = initializeFirebaseApp(firebase);
+    return initializeAuth(app);
+  }
 
   const emptyUser = {
     isAdmin: false,
@@ -33,7 +35,7 @@ export default async function useUser() {
   }
 
   async function listenForAuthStateChanges() {
-    const auth = await authPromise;
+    const auth = await _auth();
     auth.onAuthStateChanged(async (userDetails) => {
       if (userDetails) {
         const { email, phoneNumber, displayName, uid, photoURL } = userDetails;
@@ -60,7 +62,7 @@ export default async function useUser() {
     password: string
   ) {
     try {
-      const auth = await authPromise;
+      const auth = await _auth();
       return auth.createUserWithEmailAndPassword(email, password);
     } catch (e) {
       if (e.code === 'auth/email-already-in-use') {
@@ -72,13 +74,13 @@ export default async function useUser() {
   }
 
   async function signInWithEmail(email: string, password: string) {
-    const auth = await authPromise;
+    const auth = await _auth();
     return auth.signInWithEmailAndPassword(email, password);
   }
 
   // @ts-ignore
   async function signInWithProvider(provider: string) {
-    const auth = await authPromise;
+    const auth = await _auth();
     switch (provider) {
       case 'google': {
         const google = new (await firebase).auth.GoogleAuthProvider();
@@ -92,12 +94,12 @@ export default async function useUser() {
   }
 
   async function sendPasswordResetEmail(email: string) {
-    const auth = await authPromise;
+    const auth = await _auth();
     return auth.sendPasswordResetEmail(email);
   }
 
   async function signOut() {
-    const auth = await authPromise;
+    const auth = await _auth();
     setUser(emptyUser);
     return auth.signOut();
   }
