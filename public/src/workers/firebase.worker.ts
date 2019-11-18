@@ -5,7 +5,7 @@ import Collection from '@/types/Collection';
 import initializeFirebaseApp from '../functions/initializeFirebaseApp';
 
 export default class FirebaseWorker {
-  private firebase = import('firebase/app');
+  private firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
   private fb = initializeFirebaseApp(this.firebase);
   private db = this.intializeFirestore(this.fb);
 
