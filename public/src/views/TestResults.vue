@@ -74,7 +74,7 @@ export default createComponent({
     ];
 
     function sortByDate(a: TestResult, b: TestResult) {
-      return this.selectedSortType === 'oldest'
+      return selectedSortType.value === 'oldest'
         ? a.date.getTime() - b.date.getTime()
         : b.date.getTime() - a.date.getTime();
     }
