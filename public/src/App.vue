@@ -133,7 +133,7 @@ body {
 import { createComponent, onMounted } from '@vue/composition-api';
 import Vue from 'vue';
 import AvToolbar from './components/AvToolbar.vue';
-import { mapActions, mapState } from 'vuex';
+import { mapActions } from 'vuex';
 import WorkerFns from './types/WorkerFns';
 import useEvent from './use/event';
 import useSnackbar from './use/snackbar';
@@ -154,9 +154,6 @@ export default Vue.extend({
       ),
     AvSnackbar: () =>
       import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
-  },
-  computed: {
-    ...mapState('cart', ['cartItems'])
   },
   methods: {
     ...mapActions('cart', ['setCartStateFromSave']),
