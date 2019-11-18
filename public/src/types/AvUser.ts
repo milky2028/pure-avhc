@@ -1,3 +1,5 @@
+import CartItem from './CartItem';
+
 export default interface AvUser {
   [key: string]: any;
   isAdmin: boolean;
@@ -8,4 +10,5 @@ export default interface AvUser {
   displayName: string | null;
   phoneNumber: string | null;
   photoURL: string | null;
+  cart: CartItem[];
 }
