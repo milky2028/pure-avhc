@@ -138,8 +138,9 @@ import WorkerFns from './types/WorkerFns';
 import useEvent from './use/event';
 import useSnackbar from './use/snackbar';
 import useCart from './use/cart';
+import useUser from './use/user';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     AvToolbar,
     AvDisclaimer: () =>
@@ -155,30 +156,18 @@ export default Vue.extend({
     AvSnackbar: () =>
       import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
   },
-  methods: {
-    ...mapActions('cart', ['setCartStateFromSave']),
-    ...mapActions('user', ['listenForAuthStateChanges']),
-    ...mapActions('base', ['getFirestoreData'])
-  },
   setup() {
     const { cartItems, setCartStateFromIdb } = useCart();
+    const { listenForAuthStateChanges } = useUser();
     useEvent('beforeinstallprompt', (e) => e.preventDefault());
     const { snackbarMsg } = useSnackbar();
 
-    onMounted(() => setCartStateFromIdb());
+    onMounted(() => {
+      setCartStateFromIdb();
+      listenForAuthStateChanges();
+    });
+
     return { snackbarMsg, cartItems };
-  },
-  async mounted() {
-    const uid = await this.listenForAuthStateChanges();
-    if (uid) {
-      const workerMsg: WorkerFns = {
-        collection: 'userExtras',
-        fn: 'getDocumentById',
-        payload: { documentId: uid },
-        targetModule: 'user'
-      };
-      this.getFirestoreData(workerMsg);
-    }
   }
 });
 </script>
