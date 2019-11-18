@@ -1,4 +1,5 @@
 export default interface AvUser {
+  [key: string]: any;
   isAdmin: boolean;
   isWholesaleUser: boolean;
   canSubscribe?: boolean;
