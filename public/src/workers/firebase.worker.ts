@@ -181,9 +181,7 @@ export default class FirebaseWorker {
     }
   }
 
-  public async listenForAuthStateChanges(
-    callback: (user: Partial<AvUser>) => any
-  ) {
+  public async listenForAuthStateChanges(callback: (user: AvUser) => any) {
     try {
       const auth = await this.auth;
       auth.onAuthStateChanged(async (userDetails) => {
@@ -199,7 +197,7 @@ export default class FirebaseWorker {
             ? (await auth.currentUser.getIdTokenResult()).claims
             : null;
           const isWholesaleUser = claims ? claims.isWholesaleUser : false;
-          const isAdmin = claims ? claims.isAdmin : false;
+          const isAdmin = claims && claims.isAdmin ? claims.isAdmin : false;
           callback({
             email,
             phoneNumber,
