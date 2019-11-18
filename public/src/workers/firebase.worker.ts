@@ -1,7 +1,7 @@
 import { expose } from 'comlink';
 import QueryParams from '@/types/QueryParams';
 import OrderByParams from '@/types/OrderByParams';
-import AvUser from '@/types/PureUser';
+import AvUser from '@/types/AvUser';
 import Collection from '@/types/Collection';
 
 export default class FirebaseWorker {

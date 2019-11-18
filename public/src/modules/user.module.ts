@@ -2,7 +2,7 @@ import setState, { setAllStateInObj } from '@/functions/setState';
 import { Commit } from 'vuex';
 import WorkerFns from '@/types/WorkerFns';
 import router from '@/router';
-import PureUser from '@/types/PureUser';
+import PureUser from '@/types/AvUser';
 import * as idb from 'idb-keyval';
 import Worker from '../workers/worker.entry';
 const Firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
