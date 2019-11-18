@@ -404,6 +404,9 @@ import ProductCard from './ProductCard.vue';
 import AvBadge from './AvBadge.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
+import useWindowWith from '../use/window-width';
+import { onMounted } from '@vue/composition-api';
+import useDisclaimer from '../use/disclaimer';
 
 export default Vue.extend({
   components: {
@@ -411,15 +414,26 @@ export default Vue.extend({
     ProductCard,
     AvBadge
   },
-  data() {
+  setup(_) {
+    const { windowWidth } = useWindowWith();
+    const { showDisclaimer } = useDisclaimer();
+    const legalName = process.env.VUE_APP_LEGAL_NAME;
+    const appLogoMinType = process.env.VUE_APP_LOGO_MIN_TYPE;
+    const appLogoMinContent = process.env.VUE_APP_LOGO_MIN_CONTENT;
+    const appLogoFullType = process.env.VUE_APP_LOGO_FULL_TYPE;
+    const appLogoFullContent = process.env.VUE_APP_LOGO_FULL_CONTENT;
+    const appLogoFullSubContent = process.env.VUE_APP_LOGO_FULL_CONTENT_SUB;
+
+    onMounted(() => this.$on('fda', () => showDisclaimer()));
+
     return {
-      legalName: process.env.VUE_APP_LEGAL_NAME,
-      windowWidth: window.innerWidth,
-      appLogoMinType: process.env.VUE_APP_LOGO_MIN_TYPE,
-      appLogoMinContent: process.env.VUE_APP_LOGO_MIN_CONTENT,
-      appLogoFullType: process.env.VUE_APP_LOGO_FULL_TYPE,
-      appLogoFullContent: process.env.VUE_APP_LOGO_FULL_CONTENT,
-      appLogoFullSubContent: process.env.VUE_APP_LOGO_FULL_CONTENT_SUB
+      legalName,
+      windowWidth,
+      appLogoMinType,
+      appLogoMinContent,
+      appLogoFullType,
+      appLogoFullContent,
+      appLogoFullSubContent
     };
   },
   computed: {
@@ -451,7 +465,6 @@ export default Vue.extend({
     }
   },
   async beforeMount() {
-    this.$on('fda', () => this.toggleDisclaimer());
     if (this.iconMenu.length < 1) {
       const iconMenuOptions: WorkerFns = {
         fn: 'getDocuments',
@@ -483,11 +496,6 @@ export default Vue.extend({
       };
       this.getFirestoreData(submenuOptions);
     }
-
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
   }
 });
 </script>
