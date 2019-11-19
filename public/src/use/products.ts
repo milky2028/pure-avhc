@@ -17,9 +17,9 @@ export default function useProducts() {
     );
   }
 
-  onMounted(() => {
+  onMounted(async () => {
     if (products.value.length < 1) {
-      loadProducts();
+      await loadProducts();
     }
   });
 
