@@ -9,15 +9,15 @@
       <transition name="fade">
         <h1
           v-if="
-            appLogoMinContent && appLogoMinType === 'text' && !isNavbarExpanded
+            logoMin.content && logoMin.type === 'text' && !isNavbarExpanded
           "
           class="logo-text"
         >
-          <abbr :title="legalName">{{ appLogoMinContent }}</abbr>
+          <abbr :title="legalName">{{ logoMin.content }}</abbr>
         </h1>
         <img
-          v-if="appLogoMinContent && appLogoMinType === 'image'"
-          :src="appLogoMinContent"
+          v-if="logoMin.content && logoMin.type === 'image'"
+          :src="logoMin.content"
           :alt="`${legalName} Company Logo`"
         />
       </transition>
@@ -54,15 +54,15 @@
         class="large-logo-container"
         @click.native="toggleNavAndOverlay"
       >
-        <h1 v-if="appLogoFullType === 'text'" class="logo-text large">
-          {{ appLogoFullContent }}
+        <h1 v-if="logoFull.type === 'text'" class="logo-text large">
+          {{ logoFull.content }}
         </h1>
-        <h2 v-if="appLogoFullType === 'text'" class="subhead">
-          {{ appLogoFullSubContent }}
+        <h2 v-if="logoFull.type === 'text'" class="subhead">
+          {{ logoFull.sub }}
         </h2>
         <img
-          v-if="appLogoFullType === 'image'"
-          :src="appLogoFullContent"
+          v-if="logoFull.type === 'image'"
+          :src="logoFull.content"
           :alt="`${legalName} Full Company Logo`"
         />
       </router-link>
@@ -413,6 +413,17 @@ import useOverlay from '../use/overlay';
 import { MenuItem } from '../types/MenuItem';
 import useProducts from '../use/products';
 
+interface LogoMin {
+  type: 'text' | 'image';
+  content: string;
+}
+
+interface LogoFull {
+  type: 'text' | 'image';
+  content: string;
+  sub?: string;
+}
+
 export default createComponent({
   components: {
     AvIconButton,
@@ -423,11 +434,8 @@ export default createComponent({
     const { windowWidth } = useWindowWith();
     const { showDisclaimer } = useDisclaimer();
     const legalName = process.env.VUE_APP_LEGAL_NAME;
-    const appLogoMinType = process.env.VUE_APP_LOGO_MIN_TYPE;
-    const appLogoMinContent = process.env.VUE_APP_LOGO_MIN_CONTENT;
-    const appLogoFullType = process.env.VUE_APP_LOGO_FULL_TYPE;
-    const appLogoFullContent = process.env.VUE_APP_LOGO_FULL_CONTENT;
-    const appLogoFullSubContent = process.env.VUE_APP_LOGO_FULL_CONTENT_SUB;
+    const logoMin: LogoMin = JSON.parse(process.env.VUE_APP_LOGO_MIN);
+    const logoFull: LogoFull = JSON.parse(process.env.VUE_APP_LOGO_FULL);
     const { photoURL } = useUser();
     const { toggleNavbar } = useNavbar();
     const { toggleOverlay } = useOverlay();
@@ -451,11 +459,8 @@ export default createComponent({
       photoURL,
       legalName,
       windowWidth,
-      appLogoMinType,
-      appLogoMinContent,
-      appLogoFullType,
-      appLogoFullContent,
-      appLogoFullSubContent
+      logoMin,
+      logoFull
     };
   },
   computed: {
