@@ -21,8 +21,8 @@ export default function useCDNImages() {
     product: string,
     imageType: string,
     height: number,
-    isBackgroundImage?: boolean,
-    width?: number
+    width?: number,
+    isBackgroundImage?: boolean
   ) {
     const targetImage = images.value.find(
       (image) => image.product === product && image[imageType]
