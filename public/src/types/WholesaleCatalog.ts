@@ -1,6 +1,8 @@
+import { Site } from './Site';
+
 export default interface WholesaleCatalog {
   id: string;
-  site: string[];
+  site: Site[];
   date: Date;
   url: string;
 }
