@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <img
-      v-if="product && products"
-      :src="getSrc(product.id, imageUrl, images)"
-      :alt="getImageAlt(product.id, images)"
-    />
+    <img v-if="product && products" :src="image.url" :alt="image.alt" />
     <div class="info-container">
       <router-link
         v-if="product && product.name"
@@ -37,7 +33,7 @@
           display-key="display"
           value-key="masterMeasurement"
           :display-value-handler="
-            product.pluralizeSizes ? this.getDisplayValue : null
+            product.pluralizeSizes ? getDisplayValue : null
           "
           @select-changed="onSizeChange($event)"
         />
@@ -121,81 +117,77 @@ img {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import getImageUrl from '../functions/getImageUrl';
-import getImageAlt from '../functions/getImageAlt';
-import { mapState, mapMutations } from 'vuex';
 import Product from '../types/Product';
 import SmallSelector from '../components/SmallSelector.vue';
 import AvIconButton from '../components/AvIconButton.vue';
-import Size from '../types/Size';
 import Strain from '../types/Strain';
-import AvImage from '../types/AvImage';
+import useProducts from '../use/products';
+import { computed, Ref, createComponent } from '@vue/composition-api';
+import CartItem from '../types/CartItem';
+import useCDNImages from '../use/cdn-image';
+import useCart from '../use/cart';
 
-export default Vue.extend({
+interface Props {
+  cartItem: CartItem;
+  strains: Strain[];
+}
+
+export default createComponent<Props>({
   components: {
     SmallSelector,
     AvIconButton
   },
-  props: {
-    cartItem: Object,
-    strains: Array
-  },
-  data() {
-    return {
-      product: {} as Product,
-      options: [...Array(100).keys()]
-    };
-  },
-  watch: {
-    products(products: Product[]) {
-      this.product = products.find(
-        (product: Product) => product.id === this.cartItem.product
-      ) as Product;
-    }
-  },
-  computed: {
-    ...mapState('base', ['products', 'images', 'imageUrl'])
-  },
-  methods: {
-    ...mapMutations('cart', [
-      'setCartItemQuantity',
-      'updateCartItem',
-      'removeItemFromCart'
-    ]),
-    getImageAlt,
-    getSrc(id: string, imageUrl: string, images: AvImage[]): string {
-      const image = images.find(
-        (i: AvImage) => i.product === id && i.toolbarImage
-      );
-      return getImageUrl(imageUrl, image ? image.url : '', 80, 100);
-    },
-    sortByStrain(a: Strain, b: Strain) {
+  setup({ cartItem }: Props) {
+    const { products } = useProducts();
+    const product: Ref<Product | undefined> = computed(() =>
+      products.value.find(({ id }: Product) => id === cartItem.product)
+    );
+
+    const options = [...Array(100).keys()];
+
+    const { getImage } = useCDNImages();
+    const image =
+      product && product.value
+        ? getImage(product.value.id, 'toolBarImage', 80, 100)
+        : { url: '', alt: '' };
+
+    function sortByStrain(a: Strain, b: Strain) {
       return a.name > b.name ? 1 : -1;
-    },
-    getDisplayValue(value: string) {
-      return `${value}${this.cartItem.quantity > 1 ? 's' : ''}`;
-    },
-    onSizeChange(newSize: string) {
-      const newItemSize = this.product.sizes.find(
-        ({ masterMeasurement }) => masterMeasurement === newSize
-      ) as Size;
+    }
+
+    function getDisplayValue(value: string) {
+      return `${value}${cartItem.quantity > 1 ? 's' : ''}`;
+    }
+
+    const { updateCartItem, removeCartItem } = useCart();
+    function onSizeChange(newSize: string) {
+      const newItemSize =
+        product && product.value
+          ? product.value.sizes.find(
+              ({ masterMeasurement }) => masterMeasurement === newSize
+            )
+          : null;
 
       if (newItemSize) {
-        this.updateCartItem({
-          cartItemId: this.cartItem.id,
-          newCartItem: {
+        updateCartItem(
+          {
             price: newItemSize.price,
             size: newSize
-          }
-        });
+          },
+          cartItem.id
+        );
       }
     }
-  },
-  mounted() {
-    this.product = this.products.find(
-      ({ id }: Product) => id === this.cartItem.product
-    );
+
+    return {
+      product,
+      options,
+      image,
+      sortByStrain,
+      getDisplayValue,
+      onSizeChange,
+      removeCartItem
+    };
   }
 });
 </script>
