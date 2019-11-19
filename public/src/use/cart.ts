@@ -25,7 +25,7 @@ export default function useCart() {
     set('cartItems', cartItems.value);
   }
 
-  function removeItemFromCart(cartItemId: string) {
+  function removeCartItem(cartItemId: string) {
     cartItems.value = cartItems.value.filter(({ id }) => id !== cartItemId);
     set('cartItems', cartItems.value);
   }
@@ -57,7 +57,7 @@ export default function useCart() {
     numberOfItemsInCart,
     subtotal,
     addCartItem,
-    removeItemFromCart,
+    removeCartItem,
     updateCartItem,
     clearCart,
     setCartStateFromIdb
