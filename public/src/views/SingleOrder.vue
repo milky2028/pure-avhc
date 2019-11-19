@@ -9,25 +9,14 @@
 <style scoped></style>
 
 <script lang="ts">
-import Vue from 'vue';
+import { createComponent } from '@vue/composition-api';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage
-  },
-  data() {
-    return {
-      windowWidth: window.innerWidth
-    };
-  },
-  mounted() {
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
   }
 });
 </script>
