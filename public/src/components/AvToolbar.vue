@@ -8,9 +8,7 @@
     <router-link class="logo-link" to="/">
       <transition name="fade">
         <h1
-          v-if="
-            logoMin.content && logoMin.type === 'text' && !isNavbarExpanded
-          "
+          v-if="logoMin.content && logoMin.type === 'text' && !isNavbarExpanded"
           class="logo-text"
         >
           <abbr :title="legalName">{{ logoMin.content }}</abbr>
