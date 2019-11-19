@@ -405,16 +405,21 @@ import AvBadge from './AvBadge.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import WorkerFns from '../types/WorkerFns';
 import useWindowWith from '../use/window-width';
-import { onMounted } from '@vue/composition-api';
+import { onMounted, createComponent } from '@vue/composition-api';
 import useDisclaimer from '../use/disclaimer';
+import useUser from '../use/user';
+import useNavbar from '../use/navbar';
+import useOverlay from '../use/overlay';
+import { MenuItem } from '../types/MenuItem';
+import useProducts from '../use/products';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     AvIconButton,
     ProductCard,
     AvBadge
   },
-  setup(_) {
+  setup() {
     const { windowWidth } = useWindowWith();
     const { showDisclaimer } = useDisclaimer();
     const legalName = process.env.VUE_APP_LEGAL_NAME;
@@ -423,10 +428,27 @@ export default Vue.extend({
     const appLogoFullType = process.env.VUE_APP_LOGO_FULL_TYPE;
     const appLogoFullContent = process.env.VUE_APP_LOGO_FULL_CONTENT;
     const appLogoFullSubContent = process.env.VUE_APP_LOGO_FULL_CONTENT_SUB;
+    const { photoURL } = useUser();
+    const { toggleNavbar } = useNavbar();
+    const { toggleOverlay } = useOverlay();
+    const { products } = useProducts();
 
-    onMounted(() => this.$on('fda', () => showDisclaimer()));
+    function toggleNavAndOverlay() {
+      toggleNavbar();
+      toggleOverlay();
+    }
+
+    function sortBySortOrder(a: MenuItem, b: MenuItem) {
+      const aa = a.sortOrder;
+      const bb = b.sortOrder;
+      return aa > bb ? 1 : aa < bb ? -1 : 0;
+    }
+
+    // onMounted(() => this.$on('fda', () => showDisclaimer()));
 
     return {
+      products,
+      photoURL,
       legalName,
       windowWidth,
       appLogoMinType,
@@ -437,32 +459,10 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('base', [
-      'iconMenu',
-      'products',
-      'mainMenu',
-      'submenu',
-      'isNavbarExpanded',
-      'images'
-    ]),
-    ...mapState('user', ['photoURL'])
+    ...mapState('base', ['iconMenu', 'mainMenu', 'submenu'])
   },
   methods: {
-    ...mapMutations('base', [
-      'toggleOverlay',
-      'toggleDisclaimer',
-      'toggleNavbar'
-    ]),
-    ...mapActions('base', ['getFirestoreData']),
-    sortBySortOrder(a: { sortOrder: number }, b: { sortOrder: number }) {
-      const aa = a.sortOrder;
-      const bb = b.sortOrder;
-      return aa > bb ? 1 : aa < bb ? -1 : 0;
-    },
-    toggleNavAndOverlay() {
-      this.toggleNavbar();
-      this.toggleOverlay();
-    }
+    ...mapActions('base', ['getFirestoreData'])
   },
   async beforeMount() {
     if (this.iconMenu.length < 1) {
@@ -471,14 +471,6 @@ export default Vue.extend({
         collection: 'iconMenu'
       };
       this.getFirestoreData(iconMenuOptions);
-    }
-
-    if (this.products.length < 1) {
-      const productsOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'products'
-      };
-      this.getFirestoreData(productsOptions);
     }
 
     if (this.mainMenu.length < 1) {
