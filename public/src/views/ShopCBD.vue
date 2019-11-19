@@ -36,33 +36,21 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import PageHeader from '../components/PageHeader.vue';
 import LargeProductCard from '../components/LargeProductCard.vue';
-import { mapState, mapActions } from 'vuex';
-import WorkerFns from '../types/WorkerFns';
+import { createComponent } from '@vue/composition-api';
+import useProducts from '../use/products';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageHeader,
     PageWrapper,
     LargeProductCard
   },
-  computed: {
-    ...mapState('base', ['products'])
-  },
-  methods: {
-    ...mapActions('base', ['getFirestoreData'])
-  },
-  beforeMount() {
-    if (this.products.length < 1) {
-      const productsOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'products'
-      };
-      this.getFirestoreData(productsOptions);
-    }
+  setup() {
+    const { products } = useProducts();
+    return { products };
   }
 });
 </script>
