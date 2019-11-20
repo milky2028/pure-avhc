@@ -167,11 +167,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import AvInput from './AvInput.vue';
 import AvButton from './AvButton.vue';
 import AvIconButton from './AvIconButton.vue';
-import * as idb from 'idb-keyval';
+import { get } from 'idb-keyval';
+import { ref, computed, onMounted, watch } from '@vue/composition-api';
+import useWindowWith from '../use/window-width';
+import useCart from '../use/cart';
+import useUser from '../use/user';
 
 export default Vue.extend({
   components: {
@@ -179,59 +183,57 @@ export default Vue.extend({
     AvButton,
     AvIconButton
   },
-  data() {
+  setup(_, { root }) {
+    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
+    const expanded = ref(false);
+    const { windowWidth } = useWindowWith();
+    const btnText = computed(() =>
+      windowWidth.value < 835 && !expanded.value ? 'Get 10% Off' : 'Subscribe'
+    );
+    const { cartItems, subtotal } = useCart();
+    const { uid, canSubscribe } = useUser();
+
+    onMounted(async () => {
+      const idbCanSubscribe = (await get('canSubscribe')) as boolean;
+      canSubscribe.value =
+        idbCanSubscribe === undefined ? true : idbCanSubscribe;
+    });
+
+    const formError = ref(false);
+    function close() {
+      expanded.value = false;
+      formError.value = false;
+    }
+
+    const path = ref(root.$route.path);
+    watch(path, () => close());
+    watch(cartItems, () => (expanded.value = false));
+
+    const errorMsg = ref('Invalid email format');
+    const subscribing = ref(false);
+    const subscribed = ref(false);
+
     return {
       email: '',
-      expanded: false,
-      windowWidth: window.innerWidth,
-      emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
-      formError: false,
-      errorMsg: 'Invalid email format',
-      subscribing: false,
-      subscribed: false,
-      btnText: window.innerWidth < 835 ? 'Get 10% Off' : 'Subscribe'
+      expanded,
+      windowWidth,
+      emailPattern,
+      cartItems,
+      uid,
+      canSubscribe,
+      subtotal,
+      formError,
+      close,
+      errorMsg,
+      subscribing,
+      subscribed,
+      btnText
     };
-  },
-  watch: {
-    $route() {
-      this.expanded = false;
-      this.formError = false;
-    },
-    cartItems(items) {
-      if (items.length === 0) {
-        this.expanded = false;
-      }
-    },
-    windowWidth(windowWidth: number) {
-      this.btnText =
-        windowWidth < 835 && !this.expanded ? 'Get 10% Off' : 'Subscribe';
-    }
-  },
-  computed: {
-    ...mapState('cart', ['cartItems']),
-    ...mapState('user', ['uid', 'canSubscribe']),
-    ...mapGetters('cart', ['subtotal'])
-  },
-  async mounted() {
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
-
-    const idbCanSubscribe = (await idb.get('canSubscribe')) as boolean;
-    this.setState({
-      type: 'canSubscribe',
-      data: idbCanSubscribe === undefined ? true : idbCanSubscribe
-    });
   },
   methods: {
     ...mapActions('base', ['addFirestoreData']),
     ...mapMutations('user', ['setState']),
-    onClose() {
-      this.expanded = false;
-      this.formError = false;
-    },
-    async onSubscribe(email: string): Promise<void> {
+    async onSubscribe(email: string) {
       if (this.windowWidth > 835 || this.expanded) {
         const reg = new RegExp(this.emailPattern);
         const isValid = reg.test(email);
