@@ -77,16 +77,18 @@ p {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import CartItem from '../components/CartItem.vue';
 import Divider from '../components/Divider.vue';
 import AvButton from '../components/AvButton.vue';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-import WorkerFns from '../types/WorkerFns';
+import useWindowWith from '../use/window-width';
+import useProducts from '../use/products';
+import useStrains from '../use/strains';
+import useCart from '../use/cart';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage,
@@ -94,49 +96,20 @@ export default Vue.extend({
     Divider,
     AvButton
   },
-  data() {
+  setup() {
+    const { windowWidth } = useWindowWith();
+    const { products } = useProducts();
+    const { strains } = useStrains();
+    const { subtotal, cartItems, clearCart } = useCart();
+
     return {
-      windowWidth: window.innerWidth
+      windowWidth,
+      products,
+      strains,
+      subtotal,
+      cartItems,
+      clearCart
     };
-  },
-  computed: {
-    ...mapState('cart', ['cartItems']),
-    ...mapState('base', ['products', 'images', 'strains']),
-    ...mapGetters('cart', ['subtotal'])
-  },
-  methods: {
-    ...mapActions('base', ['getFirestoreData']),
-    ...mapMutations('cart', ['clearCart'])
-  },
-  mounted() {
-    if (this.products.length < 1) {
-      const productsOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'products'
-      };
-      this.getFirestoreData(productsOptions);
-    }
-
-    if (this.images.length < 1) {
-      const imagesOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'images'
-      };
-      this.getFirestoreData(imagesOptions);
-    }
-
-    if (this.strains.length < 1) {
-      const strainOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'strains'
-      };
-      this.getFirestoreData(strainOptions);
-    }
-
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
   }
 });
 </script>
