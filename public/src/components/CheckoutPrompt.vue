@@ -31,16 +31,12 @@
           :pattern="emailPattern"
           placeholder="Subscribe via email and get 10% off today"
           required
-          @enter="onSubscribe(email)"
+          @enter="onSubscribe()"
           @on-input="email = $event"
         />
       </transition>
       <transition name="fade">
-        <AvButton
-          v-if="canSubscribe"
-          class="btn"
-          @btn-click="onSubscribe(email)"
-        >
+        <AvButton v-if="canSubscribe" class="btn" @btn-click="onSubscribe()">
           {{ subscribing ? 'Subscribing...' : btnText }}
         </AvButton>
       </transition>
@@ -166,18 +162,25 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapActions, mapMutations } from 'vuex';
 import AvInput from './AvInput.vue';
 import AvButton from './AvButton.vue';
 import AvIconButton from './AvIconButton.vue';
-import { get } from 'idb-keyval';
-import { ref, computed, onMounted, watch } from '@vue/composition-api';
+import { get, set } from 'idb-keyval';
+import {
+  ref,
+  computed,
+  onMounted,
+  watch,
+  createComponent
+} from '@vue/composition-api';
 import useWindowWith from '../use/window-width';
 import useCart from '../use/cart';
 import useUser from '../use/user';
+import WorkerEntry from '../workers/worker.entry';
+import FirebaseWorker from '../workers/firebase.worker';
+import { Remote } from 'comlink';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     AvInput,
     AvButton,
@@ -213,8 +216,40 @@ export default Vue.extend({
     const subscribing = ref(false);
     const subscribed = ref(false);
 
+    const email = ref('');
+    async function onSubscribe() {
+      if (windowWidth.value > 835 || expanded.value) {
+        const reg = new RegExp(emailPattern);
+        const isValid = reg.test(email.value);
+        if (isValid) {
+          subscribing.value = true;
+          formError.value = false;
+
+          // @ts-ignore
+          const _i = await new WorkerEntry();
+          const workerInstance = _i as Remote<FirebaseWorker>;
+          await workerInstance.addDocument('subscribers', {
+            email: email.value,
+            uid: uid
+          });
+
+          subscribing.value = false;
+          email.value = '';
+          expanded.value = false;
+          subscribed.value = true;
+          setTimeout(() => (subscribed.value = false), 3500);
+          canSubscribe.value = false;
+          set('canSubscribe', false);
+        } else {
+          formError.value = true;
+        }
+      } else {
+        expanded.value = true;
+      }
+    }
+
     return {
-      email: '',
+      email,
       expanded,
       windowWidth,
       emailPattern,
@@ -227,43 +262,9 @@ export default Vue.extend({
       errorMsg,
       subscribing,
       subscribed,
-      btnText
+      btnText,
+      onSubscribe
     };
-  },
-  methods: {
-    ...mapActions('base', ['addFirestoreData']),
-    ...mapMutations('user', ['setState']),
-    async onSubscribe(email: string) {
-      if (this.windowWidth > 835 || this.expanded) {
-        const reg = new RegExp(this.emailPattern);
-        const isValid = reg.test(email);
-        if (isValid) {
-          this.subscribing = true;
-          this.formError = false;
-
-          await this.addFirestoreData({
-            fn: 'addDocument',
-            collection: 'subscribers',
-            data: {
-              email: this.email,
-              uid: this.uid
-            }
-          });
-
-          this.subscribing = false;
-          this.email = '';
-          this.expanded = false;
-          this.subscribed = true;
-          setTimeout(() => (this.subscribed = false), 2500);
-          this.setState({ type: 'canSubscribe', data: false });
-          idb.set('canSubscribe', false);
-        } else {
-          this.formError = true;
-        }
-      } else {
-        this.expanded = true;
-      }
-    }
   }
 });
 </script>
