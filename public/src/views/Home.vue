@@ -10,8 +10,8 @@
           side1: product.sortOrder === 1,
           side2: product.sortOrder > 1
         }"
-        :style="getBackground(product)"
-        :name="getImageAlt(product.id, images)"
+        :style="getBackground(product.id)"
+        :name="getAlt(product.id)"
       >
         <div class="tagline-container">
           <h1 class="subhead larger-font">
@@ -134,81 +134,73 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
-import { mapState, mapActions, mapMutations } from 'vuex';
-import WorkerFns from '../types/WorkerFns';
-import getImageUrl from '../functions/getImageUrl';
-import getImageAlt from '../functions/getImageAlt';
 import AvButton from '../components/AvButton.vue';
 import Product from '../types/Product';
-import AvImage from '../types/AvImage';
+import useWindowWith from '../use/window-width';
+import useCDNImages from '../use/cdn-image';
+import useProducts from '../use/products';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     AvButton
   },
-  data() {
-    return {
-      windowWidth: window.innerWidth
-    };
-  },
-  computed: {
-    ...mapState('base', ['products', 'imageUrl', 'images'])
-  },
-  methods: {
-    ...mapActions('base', ['getFirestoreData']),
-    ...mapMutations('cart', ['addItemToCart']),
-    getImageAlt,
-    getImageHeight(sortOrder: number): number {
+  setup() {
+    const { windowWidth } = useWindowWith();
+    const { products } = useProducts();
+
+    function getLastWord(product: Product) {
+      const words = product.name.split(' ');
+      return words[words.length - 1];
+    }
+
+    const { getImage } = useCDNImages();
+
+    function getImageHeight(sortOrder: number): number {
       const navHeight = 55;
       const windowHeight = window.innerHeight;
       return sortOrder === 0
         ? windowHeight - navHeight
         : (windowHeight - navHeight) / 2;
-    },
-    getUrlEnding(id: string) {
-      const image = this.images.find(
-        (i: AvImage) => i.product === id && i.mainImage
-      );
-      return image ? image.url : '';
-    },
-    getBackground({ id, sortOrder }: { id: string; sortOrder: number }) {
+    }
+
+    const images = products.value.map(async ({ id, sortOrder }) => ({
+      id,
+      ...(await getImage(
+        id,
+        'mainImage',
+        getImageHeight(sortOrder),
+        undefined,
+        true
+      ))
+    }));
+
+    async function getAlt(productId: string) {
+      const resolvedImages = await Promise.all(images);
+      const image = resolvedImages.find(({ id }) => id === productId) as {
+        url: string;
+        alt: string;
+        id: string;
+      };
+      return image && image.alt ? image.alt : '';
+    }
+
+    async function getBackground(productId: string) {
+      const resolvedImages = await Promise.all(images);
+      const url = resolvedImages.find(({ id }) => id === productId);
       return {
-        backgroundImage: `linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%), url(${getImageUrl(
-          this.imageUrl,
-          this.getUrlEnding(id),
-          this.getImageHeight(sortOrder)
-        )})`
+        backgroundImage: `linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%), ${url}`
       };
-    },
-    getLastWord(product: Product) {
-      const words = product.name.split(' ');
-      return words[words.length - 1];
-    }
-  },
-  mounted() {
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
-
-    if (this.products.length < 1) {
-      const productsOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'products'
-      };
-      this.getFirestoreData(productsOptions);
     }
 
-    if (this.images.length < 1) {
-      const imagesOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'images'
-      };
-      this.getFirestoreData(imagesOptions);
-    }
+    return {
+      windowWidth,
+      getBackground,
+      getAlt,
+      getLastWord
+    };
   }
 });
 </script>
