@@ -337,20 +337,24 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
+import { createComponent } from '@vue/composition-api';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage
   },
-  data() {
+  setup() {
+    const legalName = process.env.VUE_APP_LEGAL_NAME;
+    const siteUrl = process.env.VUE_APP_SITE_URL;
+    const supportEmail = process.env.VUE_APP_EMAIL;
+
     return {
-      legalName: process.env.VUE_APP_LEGAL_NAME,
-      siteUrl: process.env.VUE_APP_SITE_URL,
-      supportEmail: process.env.VUE_APP_EMAIL
+      legalName,
+      siteUrl,
+      supportEmail
     };
   }
 });
