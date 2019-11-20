@@ -396,15 +396,11 @@ a:hover {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import AvIconButton from './AvIconButton.vue';
 import ProductCard from './ProductCard.vue';
 import AvBadge from './AvBadge.vue';
-import { mapState, mapActions, mapMutations } from 'vuex';
-import WorkerFns from '../types/WorkerFns';
 import useWindowWith from '../use/window-width';
-import { onMounted, createComponent } from '@vue/composition-api';
-import useDisclaimer from '../use/disclaimer';
+import { createComponent } from '@vue/composition-api';
 import useUser from '../use/user';
 import useNavbar from '../use/navbar';
 import useOverlay from '../use/overlay';
@@ -430,14 +426,19 @@ export default createComponent({
   },
   setup() {
     const { windowWidth } = useWindowWith();
-    const { showDisclaimer } = useDisclaimer();
+    // const { showDisclaimer } = useDisclaimer();
     const legalName = process.env.VUE_APP_LEGAL_NAME;
-    const logoMin: LogoMin = JSON.parse(process.env.VUE_APP_LOGO_MIN);
-    const logoFull: LogoFull = JSON.parse(process.env.VUE_APP_LOGO_FULL);
     const { photoURL } = useUser();
     const { toggleNavbar } = useNavbar();
     const { toggleOverlay } = useOverlay();
     const { products } = useProducts();
+    const logoMin: LogoMin = JSON.parse(process.env.VUE_APP_LOGO_MIN as string);
+    const logoFull: LogoFull = JSON.parse(
+      process.env.VUE_APP_LOGO_FULL as string
+    );
+    const iconMenu = JSON.parse(process.env.VUE_APP_ICON_MENU as string);
+    const submenu = JSON.parse(process.env.VUE_APP_SUBMENU as string);
+    const mainMenu = JSON.parse(process.env.VUE_APP_MAIN_MENU as string);
 
     function toggleNavAndOverlay() {
       toggleNavbar();
@@ -454,43 +455,17 @@ export default createComponent({
 
     return {
       products,
+      toggleNavAndOverlay,
+      sortBySortOrder,
       photoURL,
       legalName,
       windowWidth,
+      mainMenu,
+      submenu,
+      iconMenu,
       logoMin,
       logoFull
     };
-  },
-  computed: {
-    ...mapState('base', ['iconMenu', 'mainMenu', 'submenu'])
-  },
-  methods: {
-    ...mapActions('base', ['getFirestoreData'])
-  },
-  async beforeMount() {
-    if (this.iconMenu.length < 1) {
-      const iconMenuOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'iconMenu'
-      };
-      this.getFirestoreData(iconMenuOptions);
-    }
-
-    if (this.mainMenu.length < 1) {
-      const menuOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'mainMenu'
-      };
-      this.getFirestoreData(menuOptions);
-    }
-
-    if (this.submenu.length < 1) {
-      const submenuOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'submenu'
-      };
-      this.getFirestoreData(submenuOptions);
-    }
   }
 });
 </script>
