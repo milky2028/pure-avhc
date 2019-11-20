@@ -400,12 +400,13 @@ import AvIconButton from './AvIconButton.vue';
 import ProductCard from './ProductCard.vue';
 import AvBadge from './AvBadge.vue';
 import useWindowWith from '../use/window-width';
-import { createComponent } from '@vue/composition-api';
+import { createComponent, onMounted } from '@vue/composition-api';
 import useUser from '../use/user';
 import useNavbar from '../use/navbar';
 import useOverlay from '../use/overlay';
 import { MenuItem } from '../types/MenuItem';
 import useProducts from '../use/products';
+import useDisclaimer from '../use/disclaimer';
 
 interface LogoMin {
   type: 'text' | 'image';
@@ -424,9 +425,9 @@ export default createComponent({
     ProductCard,
     AvBadge
   },
-  setup() {
+  setup(_, { root }) {
     const { windowWidth } = useWindowWith();
-    // const { showDisclaimer } = useDisclaimer();
+    const { showDisclaimer } = useDisclaimer();
     const legalName = process.env.VUE_APP_LEGAL_NAME;
     const { photoURL } = useUser();
     const { toggleNavbar } = useNavbar();
@@ -451,7 +452,7 @@ export default createComponent({
       return aa > bb ? 1 : aa < bb ? -1 : 0;
     }
 
-    // onMounted(() => this.$on('fda', () => showDisclaimer()));
+    onMounted(() => root.$on('fda', () => showDisclaimer()));
 
     return {
       products,
