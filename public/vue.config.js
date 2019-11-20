@@ -25,7 +25,10 @@ module.exports = {
   },
   pwa: {
     workboxOptions: {
-      cleanupOutdatedCaches: true
+      cleanupOutdatedCaches: true,
+      templatedUrls: {
+        '.': ['index.html']
+      }
     }
   },
   productionSourceMap: false
