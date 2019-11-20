@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Store from '@/store';
+import useUser from '@/use/user';
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ '../views/PrivacyPolicy.vue');
@@ -39,7 +39,6 @@ const NotFound = () =>
   import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue');
 
 Vue.use(Router);
-const store: any = Store;
 
 export default new Router({
   mode: 'history',
@@ -61,7 +60,8 @@ export default new Router({
       name: 'orders',
       component: Orders,
       beforeEnter(_, __, next) {
-        if (!store.state.user.uid) {
+        const { uid } = useUser();
+        if (uid) {
           next('/login');
         } else {
           next();
@@ -73,7 +73,8 @@ export default new Router({
       name: 'single-order',
       component: SingleOrder,
       beforeEnter(_, __, next) {
-        if (!store.state.user.uid) {
+        const { uid } = useUser();
+        if (uid) {
           next('/login');
         } else {
           next();
