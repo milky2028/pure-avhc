@@ -13,6 +13,12 @@ export default function useCDNImages() {
     );
   }
 
+  onMounted(async () => {
+    if (images.value.length < 1) {
+      await loadImages();
+    }
+  });
+
   async function getImage(
     product: string,
     imageType: string,
@@ -46,12 +52,6 @@ export default function useCDNImages() {
       return;
     }
   }
-
-  onMounted(async () => {
-    if (images.value.length < 1) {
-      await loadImages();
-    }
-  });
 
   return { images, loadImages, getImage };
 }
