@@ -1,6 +1,6 @@
 import AvImage from '@/types/AvImage';
 import { proxy } from 'comlink';
-import { ref, onMounted } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
 
 export default function useCDNImages() {
@@ -18,12 +18,6 @@ export default function useCDNImages() {
     });
   }
 
-  onMounted(async () => {
-    if (images.value.length < 1) {
-      await loadImages();
-    }
-  });
-
   async function getImage(
     product: string,
     imageType: string,
@@ -31,6 +25,10 @@ export default function useCDNImages() {
     width?: number,
     isBackgroundImage?: boolean
   ) {
+    if (images.value.length < 1) {
+      await loadImages();
+    }
+    console.log(images.value);
     const targetImage = images.value.find(
       (image) => image.product === product && image[imageType]
     );
