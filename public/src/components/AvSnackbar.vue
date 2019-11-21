@@ -32,7 +32,7 @@ import useSnackbar from '../use/snackbar';
 
 export default createComponent({
   setup() {
-    const snackbarMsg = useSnackbar();
+    const { snackbarMsg } = useSnackbar();
     return { snackbarMsg };
   }
 });

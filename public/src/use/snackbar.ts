@@ -10,7 +10,7 @@ export default function useSnackbar() {
   function showSnackbar(msg: string, withTimeout?: number) {
     if (withTimeout) {
       snackbarMsg.value = msg;
-      setTimeout(hideSnackbar, withTimeout);
+      setTimeout(() => hideSnackbar(), withTimeout);
     } else {
       snackbarMsg.value = msg;
     }
