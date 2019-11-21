@@ -1,10 +1,10 @@
 import AvImage from '@/types/AvImage';
 import { proxy } from 'comlink';
-import { ref, Ref, onMounted } from '@vue/composition-api';
+import { ref, onMounted } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
 
 export default function useCDNImages() {
-  const images: Ref<AvImage[]> = ref([]);
+  const images = ref([] as AvImage[]);
 
   async function loadImages() {
     return (await workerInstance).getDocuments(
