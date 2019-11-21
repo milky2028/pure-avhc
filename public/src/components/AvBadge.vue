@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
-    <div v-if="totalItemsInCart" class="badge">
-      {{ totalItemsInCart }}
+    <div v-if="numberOfItemsInCart" class="badge">
+      {{ numberOfItemsInCart }}
     </div>
   </transition>
 </template>
@@ -27,12 +27,13 @@
 </style>
 
 <script lang="ts">
-import { mapGetters } from 'vuex';
 import { createComponent } from '@vue/composition-api';
+import useCart from '../use/cart';
 
 export default createComponent({
-  computed: {
-    ...mapGetters('cart', ['totalItemsInCart'])
+  setup() {
+    const { numberOfItemsInCart } = useCart();
+    return { numberOfItemsInCart };
   }
 });
 </script>
