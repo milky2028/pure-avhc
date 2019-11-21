@@ -40,7 +40,12 @@ export default class FirebaseWorker {
       });
     } else {
       const res = await doc.get();
-      return res.data();
+      const data = res.data();
+      if (data) {
+        return this.processSingleTimestamp(data);
+      } else {
+        return;
+      }
     }
   }
 
@@ -65,7 +70,7 @@ export default class FirebaseWorker {
       const querySnapshot = await docs.get();
       const data: { id: string; [key: string]: any }[] = [];
       querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }));
-      return data;
+      return this.processTimestamps(data);
     }
   }
 
@@ -120,7 +125,7 @@ export default class FirebaseWorker {
       const querySnapshot = await results.get();
       const data: { id: string; [key: string]: any }[] = [];
       querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }));
-      return data;
+      return this.processTimestamps(data);
     }
   }
 
@@ -142,13 +147,15 @@ export default class FirebaseWorker {
   }
 
   private processTimestamps(data: { [key: string]: any }[]) {
-    return data.map((d) =>
-      Object.fromEntries(
-        Object.entries(d).map(([key, value]) => [
-          key,
-          value.toDate ? value.toDate() : value
-        ])
-      )
+    return data.map((d) => this.processSingleTimestamp(d));
+  }
+
+  private processSingleTimestamp(data: { [key: string]: any }) {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => [
+        key,
+        value.toDate ? value.toDate() : value
+      ])
     );
   }
 }
