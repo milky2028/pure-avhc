@@ -169,16 +169,18 @@ img {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvSwitch from '../components/AvSwitch.vue';
-import { mapActions, mapState, mapMutations } from 'vuex';
-import WorkerFns from '../types/WorkerFns';
+import { createComponent, ref } from '@vue/composition-api';
+import useWindowWidth from '../use/window-width';
+import useUser from '../use/user';
+import { watch } from 'fs';
+import useSnackbar from '../use/snackbar';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage,
@@ -186,117 +188,104 @@ export default Vue.extend({
     AvButton,
     AvSwitch
   },
-  data() {
-    return {
-      email: '',
-      password: '',
-      emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
-      emailError: '',
-      windowWidth: window.innerWidth,
-      createAnAccount: false,
-      passwordErrorMsg: '',
-      resettingPassword: false
-    };
-  },
-  mounted() {
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
-  },
-  computed: {
-    ...mapState('user', ['uid'])
-  },
-  watch: {
-    uid(id: string) {
+  setup(_, { root }) {
+    const email = ref('');
+    const password = ref('');
+    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
+    const emailReg = new RegExp(emailPattern);
+    const emailError = ref('');
+    const passwordErrorMsg = ref('');
+
+    const { windowWidth } = useWindowWidth();
+
+    const createAnAccount = ref(false);
+    const resettingPassword = ref(false);
+
+    const {
+      uid,
+      sendPasswordResetEmail,
+      signInWithProvider,
+      createAccountWithEmailAndPassword,
+      signInWithEmail
+    } = useUser();
+    watch(uid.value, (id: string) => {
       if (id) {
-        this.$router.push('/orders');
+        root.$router.push('/orders');
       }
-    }
-  },
-  methods: {
-    ...mapMutations('base', ['showSnackbar', 'closeSnackbar']),
-    ...mapActions('base', ['getFirestoreData']),
-    ...mapActions('user', [
-      'loginWithEmail',
-      'createAccountWithEmailAndPassword',
-      'signInWithProvider',
-      'sendPasswordResetEmail'
-    ]),
-    async resetPassword() {
-      const emailReg = new RegExp(this.emailPattern);
-      if (emailReg.test(this.email)) {
-        this.emailError = '';
-        this.showSnackbar('Sending...');
+    });
+    const { showSnackbar, hideSnackbar } = useSnackbar();
+    async function resetPassword() {
+      if (emailReg.test(email.value)) {
+        emailError.value = '';
+        showSnackbar('Sending...');
         try {
-          await this.sendPasswordResetEmail(this.email);
-          this.showSnackbar('Sent!');
-          this.closeSnackbar();
-          this.resettingPassword = false;
+          await sendPasswordResetEmail(email.value);
+          showSnackbar('Sent!');
+          hideSnackbar();
+          resettingPassword.value = false;
         } catch (e) {
-          this.closeSnackbar();
-          this.emailError = e;
+          hideSnackbar();
+          emailError.value = e;
         }
       } else {
-        this.emailError = 'Invalid email format';
+        emailError.value = 'Invalid email format';
       }
-    },
-    async onProviderLogin(provider: string) {
+    }
+
+    async function onProviderLogin(provider: string) {
       try {
-        const uid = await this.signInWithProvider(provider);
-        const workerMsg: WorkerFns = {
-          collection: 'userExtras',
-          fn: 'getDocumentById',
-          payload: { documentId: uid },
-          targetModule: 'user'
-        };
-        this.getFirestoreData(workerMsg);
-        this.passwordErrorMsg = '';
+        await signInWithProvider(provider);
+        passwordErrorMsg.value = '';
       } catch (e) {
-        this.passwordErrorMsg = e;
+        passwordErrorMsg.value = e;
       }
-    },
-    async onLogin() {
-      const emailReg = new RegExp(this.emailPattern);
-      if (emailReg.test(this.email)) {
-        this.emailError = '';
-        this.showSnackbar('Authenticating...');
-        if (this.createAnAccount) {
+    }
+
+    async function onLogin() {
+      if (emailReg.test(email.value)) {
+        emailError.value = '';
+        showSnackbar('Authenticating...');
+        if (createAnAccount.value) {
           try {
-            await this.createAccountWithEmailAndPassword({
-              email: this.email,
-              password: this.password
-            });
-            this.closeSnackbar();
-            this.passwordErrorMsg = '';
+            await createAccountWithEmailAndPassword(
+              email.value,
+              password.value
+            );
+            hideSnackbar();
+            passwordErrorMsg.value = '';
           } catch (e) {
-            this.closeSnackbar();
-            this.passwordErrorMsg = e;
+            hideSnackbar();
+            passwordErrorMsg.value = e;
           }
         } else {
           try {
-            const uid = await this.loginWithEmail({
-              email: this.email,
-              password: this.password
-            });
-            this.closeSnackbar();
-            this.passwordErrorMsg = '';
-            const workerMsg: WorkerFns = {
-              collection: 'userExtras',
-              fn: 'getDocumentById',
-              payload: { documentId: uid },
-              targetModule: 'user'
-            };
-            this.getFirestoreData(workerMsg);
+            await signInWithEmail(email.value, password.value);
+            hideSnackbar();
+            passwordErrorMsg.value = '';
           } catch (e) {
-            this.closeSnackbar();
-            this.passwordErrorMsg = e;
+            hideSnackbar();
+            passwordErrorMsg.value = e;
           }
         }
       } else {
-        this.emailError = 'Invalid email format';
+        emailError.value = 'Invalid email format';
       }
     }
+
+    return {
+      email,
+      password,
+      emailPattern,
+      emailError,
+      windowWidth,
+      createAnAccount,
+      passwordErrorMsg,
+      resettingPassword,
+      uid,
+      resetPassword,
+      onProviderLogin,
+      onLogin
+    };
   }
 });
 </script>
