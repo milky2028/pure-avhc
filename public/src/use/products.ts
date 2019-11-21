@@ -6,11 +6,16 @@ import workerInstance from '../workers/entry';
 export default function useProducts() {
   const products = ref([] as Product[]);
 
-  async function loadProducts() {
-    return (await workerInstance).getDocuments(
-      'products',
-      proxy((wProducts) => (products.value = wProducts))
-    );
+  function loadProducts(): Promise<void> {
+    return new Promise(async (resolve) => {
+      (await workerInstance).getDocuments(
+        'products',
+        proxy((wProducts) => {
+          products.value = wProducts;
+          resolve();
+        })
+      );
+    });
   }
 
   onMounted(async () => {

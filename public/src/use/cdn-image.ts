@@ -6,11 +6,16 @@ import workerInstance from '../workers/entry';
 export default function useCDNImages() {
   const images = ref([] as AvImage[]);
 
-  async function loadImages() {
-    return (await workerInstance).getDocuments(
-      'images',
-      proxy((imageData) => (images.value = imageData))
-    );
+  function loadImages() {
+    return new Promise(async (resolve) => {
+      return (await workerInstance).getDocuments(
+        'images',
+        proxy((imageData) => {
+          images.value = imageData;
+          resolve();
+        })
+      );
+    });
   }
 
   onMounted(async () => {

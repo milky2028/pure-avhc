@@ -6,11 +6,16 @@ import workerInstance from '../workers/entry';
 export default function useStrains() {
   const strains = ref([] as Strain[]);
 
-  async function loadStrains() {
-    return (await workerInstance).getDocuments(
-      'products',
-      proxy((wStrains) => (strains.value = wStrains))
-    );
+  function loadStrains() {
+    return new Promise(async (resolve) => {
+      (await workerInstance).getDocuments(
+        'products',
+        proxy((wStrains) => {
+          strains.value = wStrains;
+          resolve();
+        })
+      );
+    });
   }
 
   onMounted(async () => {
