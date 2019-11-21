@@ -158,7 +158,7 @@ import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
 import useCart from '../use/cart';
-import { createComponent, computed, reactive } from '@vue/composition-api';
+import { createComponent, computed } from '@vue/composition-api';
 import useCDNImages from '../use/cdn-image';
 
 interface Props {
