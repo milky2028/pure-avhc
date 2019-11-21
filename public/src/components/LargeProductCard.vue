@@ -4,11 +4,7 @@
       <h2 v-if="product.disabled" class="subhead sold-out">
         {{ product.disabled }}
       </h2>
-      <img
-        :src="image.url"
-        :alt="image.alt"
-        :class="{ disabled: product.disabled }"
-      />
+      <img :src="url" :alt="alt" :class="{ disabled: product.disabled }" />
     </router-link>
     <router-link :to="`/products/${product.url}`">
       <div>
@@ -29,7 +25,7 @@
             }}{{ measurement !== 'gram' ? ` ${masterMeasurement}` : '' }}s
           </li>
         </ul>
-        <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
+        <h2 class="body-text size">{{ size }}</h2>
         <h3 class="body-text price">{{ price }}</h3>
       </div>
     </router-link>
@@ -42,9 +38,9 @@
             @icon-click="decrease(cartItem.id)"
             >remove_circle_outline</AvIconButton
           >
-          <span class="btn-text" @click="addToCart(product)">{{
-            btnText
-          }}</span>
+          <span class="btn-text" @click="addToCart(product)">
+            {{ btnText }}
+          </span>
           <AvIconButton
             v-if="cartItem && cartItem.quantity > 0"
             black
@@ -162,7 +158,7 @@ import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
 import useCart from '../use/cart';
-import { createComponent, computed } from '@vue/composition-api';
+import { createComponent, computed, reactive } from '@vue/composition-api';
 import useCDNImages from '../use/cdn-image';
 
 interface Props {
@@ -173,6 +169,12 @@ export default createComponent<Props>({
   components: {
     EliantoButton,
     AvIconButton
+  },
+  props: {
+    product: {
+      type: Object,
+      default: {}
+    }
   },
   setup({ product }: Props) {
     const vh = window.innerHeight / 100;
@@ -197,7 +199,7 @@ export default createComponent<Props>({
           cartItem.strain === 'any'
       )
     );
-    const addBtnText = computed(() =>
+    const btnText = computed(() =>
       cartItem.value && cartItem.value.quantity
         ? cartItem.value.quantity
         : 'Add to Cart'
@@ -256,10 +258,10 @@ export default createComponent<Props>({
     return {
       size,
       addToCart,
-      addBtnText,
+      btnText,
       filteredSizes,
       image,
-      cartItems,
+      cartItem,
       addCartItem,
       vh,
       lowestPriceSize,
