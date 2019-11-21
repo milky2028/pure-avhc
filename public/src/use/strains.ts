@@ -1,17 +1,13 @@
-import WorkerEntry from '../workers/entry';
-import FirebaseWorker from '@/workers/firebase.worker';
-import { Remote, proxy } from 'comlink';
+import { proxy } from 'comlink';
 import { ref, onMounted } from '@vue/composition-api';
 import Strain from '@/types/Strain';
+import workerInstance from '../workers/entry';
 
 export default function useStrains() {
   const strains = ref([] as Strain[]);
 
   async function loadStrains() {
-    // @ts-ignore
-    const _i = await new WorkerEntry();
-    const workerInstance = _i as Remote<FirebaseWorker>;
-    return workerInstance.getDocuments(
+    return (await workerInstance).getDocuments(
       'products',
       proxy((wStrains) => (strains.value = wStrains))
     );

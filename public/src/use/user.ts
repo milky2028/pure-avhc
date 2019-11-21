@@ -1,9 +1,7 @@
 import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
-import FirebaseWorker from '@/workers/firebase.worker';
-import { Remote } from 'comlink';
-import WorkerEntry from '../workers/entry';
+import workerInstance from '../workers/entry';
 
 export default function useUser() {
   async function initializeAuth(firebase: Promise<firebase.app.App>) {
@@ -60,10 +58,7 @@ export default function useUser() {
           isWholesaleUser
         });
 
-        // @ts-ignore
-        const _i = await new WorkerEntry();
-        const workerInstance = _i as Remote<FirebaseWorker>;
-        const userExtras = (await workerInstance.getDocumentById(
+        const userExtras = (await (await workerInstance).getDocumentById(
           'userExtras',
           userDetails.uid
         )) as Partial<AvUser>;

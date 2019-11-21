@@ -176,9 +176,7 @@ import {
 import useWindowWidth from '../use/window-width';
 import useCart from '../use/cart';
 import useUser from '../use/user';
-import WorkerEntry from '../workers/entry';
-import FirebaseWorker from '../workers/firebase.worker';
-import { Remote } from 'comlink';
+import workerInstance from '../workers/entry';
 
 export default createComponent({
   components: {
@@ -225,10 +223,7 @@ export default createComponent({
           subscribing.value = true;
           formError.value = false;
 
-          // @ts-ignore
-          const _i = await new WorkerEntry();
-          const workerInstance = _i as Remote<FirebaseWorker>;
-          await workerInstance.addDocument('subscribers', {
+          await (await workerInstance).addDocument('subscribers', {
             email: email.value,
             uid: uid
           });

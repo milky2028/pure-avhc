@@ -183,8 +183,7 @@ import {
 import useWindowWidth from '../use/window-width';
 import useUser from '../use/user';
 import useSnackbar from '../use/snackbar';
-import { Remote } from 'comlink';
-import FirebaseWorker from '../workers/firebase.worker';
+import workerInstance from '../workers/entry';
 
 export default createComponent({
   components: {
@@ -317,10 +316,7 @@ export default createComponent({
 
     const wholesaleCatalog = ref('');
     onMounted(async () => {
-      // @ts-ignore
-      const _i = await new WorkerEntry();
-      const workerInstance = _i as Remote<FirebaseWorker>;
-      const catalogs = (await workerInstance.queryDocuments({
+      const catalogs = (await (await workerInstance).queryDocuments({
         collection: 'wholesaleCatalog',
         limit: 1,
         orderBy: {
