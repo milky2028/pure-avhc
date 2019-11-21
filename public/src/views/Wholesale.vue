@@ -179,7 +179,7 @@ import {
   reactive,
   onMounted
 } from '@vue/composition-api';
-import useWindowWith from '../use/window-width';
+import useWindowWidth from '../use/window-width';
 import useUser from '../use/user';
 import useSnackbar from '../use/snackbar';
 import { Remote } from 'comlink';
@@ -198,7 +198,7 @@ export default createComponent({
     const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
     const fullName = process.env.VUE_APP_FULL_NAME;
     const differentBilling = ref(false);
-    const { windowWidth } = useWindowWith();
+    const { windowWidth } = useWindowWidth();
     const accountCreated = ref(false);
     const completionMsg = ref("You're already a wholesale user.");
 

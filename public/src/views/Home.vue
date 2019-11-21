@@ -137,7 +137,7 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import AvButton from '../components/AvButton.vue';
 import Product from '../types/Product';
-import useWindowWith from '../use/window-width';
+import useWindowWidth from '../use/window-width';
 import useCDNImages from '../use/cdn-image';
 import useProducts from '../use/products';
 import { createComponent } from '@vue/composition-api';
@@ -148,7 +148,7 @@ export default createComponent({
     AvButton
   },
   setup() {
-    const { windowWidth } = useWindowWith();
+    const { windowWidth } = useWindowWidth();
     const { products } = useProducts();
 
     function getLastWord(product: Product) {

@@ -82,7 +82,7 @@ import ArticlePage from '../components/ArticlePage.vue';
 import CartItem from '../components/CartItem.vue';
 import Divider from '../components/Divider.vue';
 import AvButton from '../components/AvButton.vue';
-import useWindowWith from '../use/window-width';
+import useWindowWidth from '../use/window-width';
 import useProducts from '../use/products';
 import useStrains from '../use/strains';
 import useCart from '../use/cart';
@@ -97,7 +97,7 @@ export default createComponent({
     AvButton
   },
   setup() {
-    const { windowWidth } = useWindowWith();
+    const { windowWidth } = useWindowWidth();
     const { products } = useProducts();
     const { strains } = useStrains();
     const { subtotal, cartItems, clearCart } = useCart();

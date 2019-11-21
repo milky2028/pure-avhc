@@ -24,7 +24,7 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvButton from '../components/AvButton.vue';
 import { createComponent } from '@vue/composition-api';
-import useWindowWith from '../use/window-width';
+import useWindowWidth from '../use/window-width';
 import useUser from '../use/user';
 
 export default createComponent({
@@ -34,7 +34,7 @@ export default createComponent({
     AvButton
   },
   setup() {
-    const { windowWidth } = useWindowWith();
+    const { windowWidth } = useWindowWidth();
     const { signOut } = useUser();
     return {
       windowWidth,

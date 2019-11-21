@@ -173,7 +173,7 @@ import {
   watch,
   createComponent
 } from '@vue/composition-api';
-import useWindowWith from '../use/window-width';
+import useWindowWidth from '../use/window-width';
 import useCart from '../use/cart';
 import useUser from '../use/user';
 import WorkerEntry from '../workers/worker.entry';
@@ -189,7 +189,7 @@ export default createComponent({
   setup(_, { root }) {
     const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
     const expanded = ref(false);
-    const { windowWidth } = useWindowWith();
+    const { windowWidth } = useWindowWidth();
     const btnText = computed(() =>
       windowWidth.value < 835 && !expanded.value ? 'Get 10% Off' : 'Subscribe'
     );

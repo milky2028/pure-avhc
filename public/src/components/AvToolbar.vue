@@ -399,7 +399,7 @@ a:hover {
 import AvIconButton from './AvIconButton.vue';
 import ProductCard from './ProductCard.vue';
 import AvBadge from './AvBadge.vue';
-import useWindowWith from '../use/window-width';
+import useWindowWidth from '../use/window-width';
 import { createComponent, onMounted } from '@vue/composition-api';
 import useUser from '../use/user';
 import useNavbar from '../use/navbar';
@@ -426,7 +426,7 @@ export default createComponent({
     AvBadge
   },
   setup(_, { root }) {
-    const { windowWidth } = useWindowWith();
+    const { windowWidth } = useWindowWidth();
     const { showDisclaimer } = useDisclaimer();
     const legalName = process.env.VUE_APP_LEGAL_NAME;
     const { photoURL } = useUser();
