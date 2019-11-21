@@ -165,7 +165,6 @@ form {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import ShippingForm from '../components/ShippingForm.vue';
@@ -173,10 +172,20 @@ import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
 import AvInput from '../components/AvInput.vue';
 import uncamelize from '../functions/uncamelize';
-import { mapActions, mapState, mapMutations } from 'vuex';
 import post from '../functions/post';
+import {
+  createComponent,
+  ref,
+  reactive,
+  onMounted
+} from '@vue/composition-api';
+import useWindowWith from '../use/window-width';
+import useUser from '../use/user';
+import useSnackbar from '../use/snackbar';
+import { Remote } from 'comlink';
+import FirebaseWorker from '../workers/firebase.worker';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ShippingForm,
@@ -185,150 +194,155 @@ export default Vue.extend({
     AvButton,
     AvInput
   },
-  data() {
-    return {
-      emailPattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
-      fullName: process.env.VUE_APP_FULL_NAME,
-      differentBilling: false,
-      windowWidth: window.innerWidth,
-      accountCreated: false,
-      completionMsg: 'You\'re already a wholesale user.',
-      userInfo: {
-        email: '',
-        phoneNumber: '',
-        password: ''
-      },
-      shippingForm: {
-        name: '',
-        company: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        country: ''
-      },
-      billingForm: {
-        name: '',
-        company: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        country: ''
-      },
-      errors: [] as string[]
-    };
-  },
-  computed: {
-    ...mapState('base', ['wholesaleCatalog', 'functionsUrl']),
-    ...mapState('user', ['uid', 'isWholesaleUser'])
-  },
-  methods: {
-    ...mapMutations('base', ['showSnackbar', 'closeSnackbar']),
-    ...mapActions('base', ['getFirestoreData']),
-    ...mapActions('user', ['signOut']),
-    uncamelize,
-    capitalizeFirstLetter(text: string) {
+  setup(_, { root }) {
+    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
+    const fullName = process.env.VUE_APP_FULL_NAME;
+    const differentBilling = ref(false);
+    const { windowWidth } = useWindowWith();
+    const accountCreated = ref(false);
+    const completionMsg = ref("You're already a wholesale user.");
+
+    const userInfo = reactive({
+      email: '',
+      phoneNumber: '',
+      password: ''
+    });
+
+    const shippingForm = reactive({
+      name: '',
+      company: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      country: ''
+    });
+
+    const billingForm = reactive({
+      name: '',
+      company: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      country: ''
+    });
+
+    function capitalizeFirstLetter(text: string) {
       return text.replace(/^\w/, (c) => c.toUpperCase());
-    },
-    async onSubmit() {
-      this.errors = [];
-      if (this.accountCreated) {
-        this.$router.push('/login');
-      } else if (this.isWholesaleUser) {
-        this.signOut();
-      } else if (this.uid) {
+    }
+
+    const errors = ref([] as string[]);
+    const functionsUrl = process.env.VUE_APP_FUNCTIONS_URL;
+    const { showSnackbar, snackbarMsg, hideSnackbar } = useSnackbar();
+    const { uid, isWholesaleUser, signOut } = useUser();
+    async function onSubmit() {
+      errors.value = [];
+      if (accountCreated.value) {
+        root.$router.push('/login');
+      } else if (isWholesaleUser.value) {
+        signOut();
+      } else if (uid.value) {
         try {
-          this.showSnackbar('Upgrading...');
+          snackbarMsg.value = 'Upgrading...';
           const existingUserPayload = {
             isExistingUser: true,
-            uid: this.uid
+            uid
           };
           await post(
-            `${this.functionsUrl}/createWholesaleUser`,
+            `${functionsUrl}/createWholesaleUser`,
             existingUserPayload
           );
-          this.signOut();
-          this.showSnackbar('Account upgraded');
-          setTimeout(() => this.closeSnackbar(), 3500);
+          signOut();
+          showSnackbar('Account upgraded', 3500);
         } catch (e) {
-          this.closeSnackbar();
-          this.errors.push('Error upgrading account');
+          hideSnackbar();
+          errors.value.push('Error upgrading account');
           throw new Error(e);
         }
       } else {
         const unrequiredFields = ['company'];
-        const userErrors = Object.entries(this.userInfo)
+        const userErrors = Object.entries(userInfo)
           .filter(([, value]) => !value)
           .map(([key]) => key);
 
-        const shippingErrors = Object.entries(this.shippingForm)
+        const shippingErrors = Object.entries(shippingForm)
           .filter(
             ([key, value]) =>
               !unrequiredFields.includes(key) && !value && key !== 'isBilling'
           )
           .map(([key]) => key);
 
-        const billingErrors = Object.entries(this.billingForm)
+        const billingErrors = Object.entries(billingForm)
           .filter(
             ([key, value]) =>
               !unrequiredFields.includes(key) && !value && key !== 'isBilling'
           )
-          .map(([key]) => `billing${this.capitalizeFirstLetter(key)}`);
+          .map(([key]) => `billing${capitalizeFirstLetter(key)}`);
 
-        this.errors = [
+        errors.value = [
           ...(userErrors.length > 0 ||
           shippingErrors.length > 0 ||
-          (this.differentBilling && billingErrors.length > 0)
+          (differentBilling && billingErrors.length > 0)
             ? ['The following fields are required:']
             : []),
           ...userErrors,
           ...shippingErrors,
-          ...(this.differentBilling ? billingErrors : [])
+          ...(differentBilling ? billingErrors : [])
         ].map((e) => uncamelize(e));
 
-        if (this.errors.length === 0) {
-          this.showSnackbar('Creating account...');
+        if (errors.value.length === 0) {
+          showSnackbar('Creating account...');
           try {
             const newUserPayload = {
               isExistingUser: false,
-              userInfo: this.userInfo,
-              shippingAddress: this.shippingForm,
-              billingAddress: this.billingForm
+              userInfo: userInfo,
+              shippingAddress: shippingForm,
+              billingAddress: billingForm
             };
-            await post(
-              `${this.functionsUrl}/createWholesaleUser`,
-              newUserPayload
-            );
-            this.showSnackbar('Account created');
-            this.accountCreated = true;
-            this.completionMsg =
+            await post(`${functionsUrl}/createWholesaleUser`, newUserPayload);
+            showSnackbar('Account created', 3500);
+            accountCreated.value = true;
+            completionMsg.value =
               'Your wholesale account has been created. Log in to use your new wholesale account.';
-            setTimeout(() => this.closeSnackbar(), 3500);
           } catch (e) {
-            this.closeSnackbar();
-            this.errors.push('Error creating account');
+            hideSnackbar();
+            errors.value.push('Error creating account');
             throw new Error(e);
           }
         }
       }
     }
-  },
-  mounted() {
-    this.getFirestoreData({
-      fn: 'queryDocuments',
-      collection: 'wholesaleCatalog',
-      limit: 1,
-      orderBy: {
-        field: 'date',
-        direction: 'desc'
-      }
+
+    const wholesaleCatalog = ref('');
+    onMounted(async () => {
+      // @ts-ignore
+      const _i = await new WorkerEntry();
+      const workerInstance = _i as Remote<FirebaseWorker>;
+      const catalogs = (await workerInstance.queryDocuments({
+        collection: 'wholesaleCatalog',
+        limit: 1,
+        orderBy: {
+          field: 'date',
+          direction: 'desc'
+        }
+      })) as { id: string; url: string }[];
+      wholesaleCatalog.value = catalogs[0].url;
     });
 
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
+    return {
+      onSubmit,
+      emailPattern,
+      fullName,
+      differentBilling,
+      windowWidth,
+      accountCreated,
+      completionMsg,
+      userInfo,
+      shippingForm,
+      billingForm,
+      errors
+    };
   }
 });
 </script>
