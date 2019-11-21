@@ -101,6 +101,7 @@
         class="no-padding errors"
         :class="{ topMargin: differentBilling }"
       >
+        <!-- eslint-disable-next-line -->
         <strong v-html="errors.join('<br>')" />
       </p>
       <AvButton
@@ -200,7 +201,7 @@ export default createComponent({
     const differentBilling = ref(false);
     const { windowWidth } = useWindowWidth();
     const accountCreated = ref(false);
-    const completionMsg = ref("You're already a wholesale user.");
+    const completionMsg = ref('You are already a wholesale user.');
 
     const userInfo = reactive({
       email: '',
