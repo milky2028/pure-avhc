@@ -12,13 +12,9 @@
     </router-link>
     <router-link :to="`/products/${product.url}`">
       <div>
-        <h2 class="subhead larger-font">
-          {{ product.shortName }}
-        </h2>
+        <h2 class="subhead larger-font">{{ product.shortName }}</h2>
         <p class="body-text tagline">{{ product.tagline }}.</p>
-        <p class="body-text">
-          Also available in:
-        </p>
+        <p class="body-text">Also available in:</p>
         <ul class="body-text">
           <li
             v-for="{
@@ -33,12 +29,8 @@
             }}{{ measurement !== 'gram' ? ` ${masterMeasurement}` : '' }}s
           </li>
         </ul>
-        <h2 class="body-text size">
-          {{ getSize(product.sizes) }}
-        </h2>
-        <h3 class="body-text price">
-          {{ getPrice(product.sizes) }}
-        </h3>
+        <h2 class="body-text size">{{ getSize(product.sizes) }}</h2>
+        <h3 class="body-text price">{{ price }}</h3>
       </div>
     </router-link>
     <div class="btn-container">
@@ -51,7 +43,7 @@
             >remove_circle_outline</AvIconButton
           >
           <span class="btn-text" @click="addToCart(product)">{{
-            getAddBtnText(cartItem)
+            btnText
           }}</span>
           <AvIconButton
             v-if="cartItem && cartItem.quantity > 0"
@@ -164,16 +156,11 @@ ul {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapState, mapActions, mapMutations } from 'vuex';
-import WorkerFns from '../types/WorkerFns';
 import Size from '../types/Size';
 import EliantoButton from './EliantoButton.vue';
-import CartItem from '../types/CartItem';
 import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
-import AvImage from '../types/AvImage';
 import useCart from '../use/cart';
 import { createComponent, computed } from '@vue/composition-api';
 import useCDNImages from '../use/cdn-image';
@@ -189,7 +176,7 @@ export default createComponent<Props>({
   },
   setup({ product }: Props) {
     const vh = window.innerHeight / 100;
-    const { cartItems, addCartItem } = useCart();
+    const { cartItems, addCartItem, updateCartItem } = useCart();
 
     const lowestPriceSize = product.sizes.find(
       (size: Size) =>
@@ -197,19 +184,24 @@ export default createComponent<Props>({
     );
 
     const filteredSizes = product.sizes.filter(
-        (size) => size.price !== Math.min(...product.sizes.map((s) => s.price))
-      );
-    
+      (size) => size.price !== Math.min(...product.sizes.map((s) => s.price))
+    );
+
+    const price = `$${Math.min(...product.sizes.map((size) => size.price))}`;
 
     const cartItem = computed(() =>
       cartItems.value.find(
         (cartItem) =>
           cartItem.product === product.id &&
-          cartItem.size === lowestPriceSize.masterMeasurement &&
+          cartItem.size === lowestPriceSize!.masterMeasurement &&
           cartItem.strain === 'any'
       )
     );
-    const addBtnText = computed(() => cartItem.value && cartItem.value.quantity ? cartItem.value.quantity : 'Add to Cart')
+    const addBtnText = computed(() =>
+      cartItem.value && cartItem.value.quantity
+        ? cartItem.value.quantity
+        : 'Add to Cart'
+    );
 
     function getImageHeight() {
       const fixedHeights = 240;
@@ -225,64 +217,54 @@ export default createComponent<Props>({
     }
 
     const { getImage } = useCDNImages();
-    const image = getImage(product.id, 'allProductsImage', getImageHeight(), getImageWidth());
+    const image = getImage(
+      product.id,
+      'allProductsImage',
+      getImageHeight(),
+      getImageWidth()
+    );
+
+    function addToCart(product: Product) {
+      if (cartItem.value && Object.keys(cartItem.value).length > 0) {
+        updateCartItem(
+          {
+            quantity: cartItem.value.quantity++
+          },
+          cartItem.value.product
+        );
+      } else {
+        const newCartItem = {
+          id: createRandomId(15),
+          price: lowestPriceSize!.price,
+          quantity: 1,
+          product: product.id,
+          size: lowestPriceSize!.masterMeasurement,
+          strain: 'any'
+        };
+        addCartItem(newCartItem);
+      }
+    }
+
+    const size = lowestPriceSize
+      ? lowestPriceSize.measurement !== 'gram'
+        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
+        : `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}${
+            lowestPriceSize.measurementValue > 1 ? 's' : ''
+          }`
+      : '';
 
     return {
+      size,
+      addToCart,
+      addBtnText,
       filteredSizes,
       image,
       cartItems,
       addCartItem,
       vh,
-      lowestPriceSize
+      lowestPriceSize,
+      price
     };
-  },
-  methods: {
-    ...mapMutations('cart', ['decreaseCartItemQuantity']),
-    decrease(cartItemId: string) {
-      if (this.cartItem.quantity === 1) {
-        this.cartItem = {} as CartItem;
-      }
-      this.decreaseCartItemQuantity(cartItemId);
-    },
-    getPrice(sizes: Size[]) {
-      const prices = sizes.map((size) => size.price);
-      return `$${Math.min(...prices)}`;
-    },
-    getSize(sizes: Size[]) {
-      const lowestPriceSize = sizes.find(
-        (size) => size.price === Math.min(...sizes.map((s) => s.price))
-      );
-
-      return lowestPriceSize
-        ? lowestPriceSize.measurement !== 'gram'
-          ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
-          : `${lowestPriceSize.measurementValue} ${
-              lowestPriceSize.measurement
-            }${lowestPriceSize.measurementValue > 1 ? 's' : ''}`
-        : '';
-    ,
-    addToCart(product: Product) {
-      const lowestPriceSize = product.sizes.find(
-        (size) => size.price === Math.min(...product.sizes.map((s) => s.price))
-      ) as Size;
-
-      if (Object.keys(this.cartItem).length > 0) {
-        this.addItemToCart(this.cartItem);
-      } else {
-        this.cartItem = {
-          id: createRandomId(15),
-          price: lowestPriceSize.price,
-          quantity: 1,
-          product: product.id,
-          size: lowestPriceSize.masterMeasurement,
-          strain: 'any'
-        } as CartItem;
-        this.addItemToCart(this.cartItem);
-      }
-    },
-    getAddBtnText(cartItem: CartItem) {
-      return cartItem && cartItem.quantity ? cartItem.quantity : 'Add to Cart';
-    }
   }
 });
 </script>
