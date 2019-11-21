@@ -20,31 +20,26 @@ p {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvButton from '../components/AvButton.vue';
-import { mapActions } from 'vuex';
+import { createComponent } from '@vue/composition-api';
+import useWindowWith from '../use/window-width';
+import useUser from '../use/user';
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PageWrapper,
     ArticlePage,
     AvButton
   },
-  data() {
+  setup() {
+    const { windowWidth } = useWindowWith();
+    const { signOut } = useUser();
     return {
-      windowWidth: window.innerWidth
+      windowWidth,
+      signOut
     };
-  },
-  methods: {
-    ...mapActions('user', ['signOut'])
-  },
-  mounted() {
-    window.addEventListener(
-      'resize',
-      () => (this.windowWidth = window.innerWidth)
-    );
   }
 });
 </script>
