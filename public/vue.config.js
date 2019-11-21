@@ -26,8 +26,9 @@ module.exports = {
   pwa: {
     workboxOptions: {
       cleanupOutdatedCaches: true,
+      globPatterns: ['**\/*.{js,css,png}'],
       templatedUrls: {
-        '/': ['index.html']
+        '.': ['index.html']
       }
     }
   },
