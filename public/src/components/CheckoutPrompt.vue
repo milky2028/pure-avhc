@@ -176,7 +176,7 @@ import {
 import useWindowWidth from '../use/window-width';
 import useCart from '../use/cart';
 import useUser from '../use/user';
-import WorkerEntry from '../workers/worker.entry';
+import WorkerEntry from '../workers/entry';
 import FirebaseWorker from '../workers/firebase.worker';
 import { Remote } from 'comlink';
 
