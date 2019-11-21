@@ -430,7 +430,7 @@ export default createComponent({
     const { showDisclaimer } = useDisclaimer();
     const legalName = process.env.VUE_APP_LEGAL_NAME;
     const { photoURL } = useUser();
-    const { toggleNavbar } = useNavbar();
+    const { toggleNavbar, isNavbarExpanded } = useNavbar();
     const { toggleOverlay } = useOverlay();
     const { products } = useProducts();
     const logoMin: LogoMin = JSON.parse(process.env.VUE_APP_LOGO_MIN as string);
@@ -457,6 +457,7 @@ export default createComponent({
     return {
       products,
       toggleNavAndOverlay,
+      isNavbarExpanded,
       sortBySortOrder,
       photoURL,
       legalName,
