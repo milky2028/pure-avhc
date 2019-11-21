@@ -1,4 +1,4 @@
-import WorkerEntry from '../workers/worker.entry';
+import WorkerEntry from '../workers/entry';
 import FirebaseWorker from '@/workers/firebase.worker';
 import { Remote, proxy } from 'comlink';
 import { ref, onMounted } from '@vue/composition-api';

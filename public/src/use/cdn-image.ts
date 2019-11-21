@@ -1,5 +1,5 @@
 import AvImage from '@/types/AvImage';
-import WorkerEntry from '../workers/worker.entry';
+import WorkerEntry from '../workers/entry';
 import FirebaseWorker from '@/workers/firebase.worker';
 import { Remote, proxy } from 'comlink';
 import { ref, Ref, onMounted } from '@vue/composition-api';

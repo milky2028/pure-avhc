@@ -2,7 +2,7 @@ import { ref, onMounted } from '@vue/composition-api';
 import { Remote } from 'comlink';
 import FirebaseWorker from '../workers/firebase.worker';
 import TestResult from '../types/TestResult';
-import WorkerEntry from '../workers/worker.entry';
+import WorkerEntry from '../workers/entry';
 
 export default function useTestResults() {
   const testResults = ref([] as TestResult[]);

@@ -3,7 +3,7 @@ import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 import FirebaseWorker from '@/workers/firebase.worker';
 import { Remote } from 'comlink';
-import WorkerEntry from '../workers/worker.entry';
+import WorkerEntry from '../workers/entry';
 
 export default function useUser() {
   async function initializeAuth(firebase: Promise<firebase.app.App>) {
