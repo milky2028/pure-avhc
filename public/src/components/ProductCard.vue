@@ -2,19 +2,16 @@
   <router-link :to="`/products/${product.url}`">
     <div
       class="card"
-      :name="getImageAlt(product.id, images)"
+      :name="image.alt"
       :style="{
-        backgroundImage: `url(${getImageUrl(
-          imageUrl,
-          getProductUrl(product.id),
-          135
-        )})`
+        backgroundImage: image.url
       }"
-      :class="hoverLeave ? 'hover-leave' : ''"
+      :class="{ hoverLeave }"
       @mouseleave="hoverLeave = true"
       @mouseenter="hoverLeave = false"
     >
       <div class="cover">
+        <!-- eslint-disable-next-line -->
         <h2 class="subhead card-font" v-html="splitTitle(product.shortName)" />
       </div>
     </div>
@@ -64,49 +61,32 @@ a:hover {
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import getImageAlt from '../functions/getImageAlt';
-import getImageUrl from '../functions/getImageUrl';
-import WorkerFns from '../types/WorkerFns';
-import { mapState, mapActions } from 'vuex';
-import AvImage from '../types/AvImage';
+import { ref, createComponent } from '@vue/composition-api';
+import Product from '../types/Product';
+import useCDNImages from '../use/cdn-image';
 
-export default Vue.extend({
-  props: {
-    product: Object
-  },
-  computed: {
-    ...mapState('base', ['images', 'imageUrl'])
-  },
-  data() {
-    return {
-      hoverLeave: false
-    };
-  },
-  methods: {
-    ...mapActions('base', ['getFirestoreData']),
-    getImageUrl,
-    getImageAlt,
-    splitTitle(title: string) {
+interface Props {
+  product: Product;
+}
+
+export default createComponent<Props>({
+  setup({ product }: Props) {
+    function splitTitle(title: string) {
       const words = title.split(' ');
       words.splice(1, 0, '<br>');
       return words.join(' ');
-    },
-    getProductUrl(id: string) {
-      const image = this.images.find(
-        (i: AvImage) => i.product === id && i.toolbarImage
-      );
-      return image ? image.url : '';
     }
-  },
-  beforeMount() {
-    if (this.images.length < 1) {
-      const imagesOptions: WorkerFns = {
-        fn: 'getDocuments',
-        collection: 'images'
-      };
-      this.getFirestoreData(imagesOptions);
-    }
+
+    const hoverLeave = ref(false);
+
+    const { getImage } = useCDNImages();
+    const image = getImage(product.id, 'toolbarImage', 135, undefined, true);
+
+    return {
+      image,
+      splitTitle,
+      hoverLeave
+    };
   }
 });
 </script>
