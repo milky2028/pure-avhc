@@ -27,7 +27,7 @@ module.exports = {
     workboxOptions: {
       cleanupOutdatedCaches: true,
       templatedUrls: {
-        '.': ['index.html']
+        '/': ['index.html']
       }
     }
   },
