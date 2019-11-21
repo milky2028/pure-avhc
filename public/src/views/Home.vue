@@ -196,6 +196,7 @@ export default createComponent({
     }
 
     return {
+      products,
       windowWidth,
       getBackground,
       getAlt,
