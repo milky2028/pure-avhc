@@ -23,6 +23,7 @@ async function addDocument(
   }
 }
 
+// @ts-ignore
 async function getDocumentById(
   collection: Collection,
   documentId: string,
@@ -31,7 +32,7 @@ async function getDocumentById(
   const db = await _db;
   const doc = db.collection(collection).doc(documentId);
   if (snapshotCallback) {
-    return doc.onSnapshot((snap) => {
+    doc.onSnapshot((snap) => {
       const data = snap.data();
       snapshotCallback(data);
     });
@@ -46,6 +47,7 @@ async function getDocumentById(
   }
 }
 
+// @ts-ignore
 async function getDocuments(
   collection: Collection,
   snapshotCallback?: (data: any[]) => any
@@ -55,7 +57,7 @@ async function getDocuments(
     .collection(collection)
     .where('site', 'array-contains', process.env.VUE_APP_NAME);
   if (snapshotCallback) {
-    return docs.onSnapshot((snapshot) => {
+    docs.onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id
@@ -71,6 +73,7 @@ async function getDocuments(
   }
 }
 
+// @ts-ignore
 async function queryDocuments(
   {
     collection,
@@ -106,7 +109,7 @@ async function queryDocuments(
     results = results.limit(limit);
   }
   if (snapshotCallback) {
-    return results.onSnapshot((snapshot) => {
+    results.onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id
