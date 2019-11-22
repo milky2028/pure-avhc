@@ -171,12 +171,14 @@ import {
   computed,
   onMounted,
   watch,
-  createComponent
+  createComponent,
+  inject
 } from '@vue/composition-api';
-import useWindowWidth from '../use/window-width';
-import useCart from '../use/cart';
-import useUser from '../use/user';
 import workerInstance from '../workers/entry';
+import { useWindowWidth } from '../use/window-width';
+import { Modules } from '../use/store';
+import { IUser } from '../use/user';
+import { ICart } from '../use/cart';
 
 export default createComponent({
   components: {
@@ -185,14 +187,14 @@ export default createComponent({
     AvIconButton
   },
   setup(_, { root }) {
-    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
-    const expanded = ref(false);
     const { windowWidth } = useWindowWidth();
+
     const btnText = computed(() =>
       windowWidth.value < 835 && !expanded.value ? 'Get 10% Off' : 'Subscribe'
     );
-    const { cartItems, subtotal } = useCart();
-    const { uid, canSubscribe } = useUser();
+
+    const { cartItems, subtotal } = inject(Modules.cart) as ICart;
+    watch(cartItems, () => (expanded.value = false));
 
     onMounted(async () => {
       const idbCanSubscribe = (await get('canSubscribe')) as boolean;
@@ -200,7 +202,7 @@ export default createComponent({
         idbCanSubscribe === undefined ? true : idbCanSubscribe;
     });
 
-    const formError = ref(false);
+    const expanded = ref(false);
     function close() {
       expanded.value = false;
       formError.value = false;
@@ -208,12 +210,13 @@ export default createComponent({
 
     const path = ref(root.$route.path);
     watch(path, () => close());
-    watch(cartItems, () => (expanded.value = false));
 
-    const errorMsg = ref('Invalid email format');
+    const { uid, canSubscribe } = inject(Modules.user) as IUser;
+    const formError = ref(false);
     const subscribing = ref(false);
     const subscribed = ref(false);
-
+    const errorMsg = ref('Invalid email format');
+    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
     const email = ref('');
     async function onSubscribe() {
       if (windowWidth.value > 835 || expanded.value) {
