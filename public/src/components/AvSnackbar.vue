@@ -27,11 +27,13 @@ h2 {
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
-import useSnackbar from '../use/snackbar';
+import { createComponent, inject } from '@vue/composition-api';
+import { Modules } from '../use/store';
+import { ISnackbar } from '../use/snackbar';
 
 export default createComponent({
   setup() {
+    const useSnackbar = inject(Modules.snackbar) as ISnackbar;
     const { snackbarMsg } = useSnackbar();
     return { snackbarMsg };
   }
