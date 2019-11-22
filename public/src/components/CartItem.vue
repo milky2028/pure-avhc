@@ -121,11 +121,12 @@ import Product from '../types/Product';
 import SmallSelector from '../components/SmallSelector.vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import Strain from '../types/Strain';
-import useProducts from '../use/products';
-import { computed, Ref, createComponent } from '@vue/composition-api';
+import { IProducts } from '../use/products';
+import { computed, Ref, createComponent, inject } from '@vue/composition-api';
 import CartItem from '../types/CartItem';
-import useCDNImages from '../use/cdn-image';
-import useCart from '../use/cart';
+import { Modules } from '../use/store';
+import { IImages } from '../use/cdn-image';
+import { ICart } from '../use/cart';
 
 interface Props {
   cartItem: CartItem;
@@ -138,14 +139,14 @@ export default createComponent<Props>({
     AvIconButton
   },
   setup({ cartItem }: Props) {
-    const { products } = useProducts();
+    const { products } = inject(Modules.products) as IProducts;
     const product: Ref<Product | undefined> = computed(() =>
       products.value.find(({ id }: Product) => id === cartItem.product)
     );
 
     const options = [...Array(100).keys()];
 
-    const { getImage } = useCDNImages();
+    const { getImage } = inject(Modules.images) as IImages;
     const image =
       product && product.value
         ? getImage(product.value.id, 'toolBarImage', 80, 100)
@@ -159,7 +160,7 @@ export default createComponent<Props>({
       return `${value}${cartItem.quantity > 1 ? 's' : ''}`;
     }
 
-    const { updateCartItem, removeCartItem } = useCart();
+    const { updateCartItem, removeCartItem } = inject(Modules.cart) as ICart;
     function onSizeChange(newSize: string) {
       const newItemSize =
         product && product.value
