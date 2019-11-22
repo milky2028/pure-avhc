@@ -14,9 +14,15 @@
 <script lang="ts">
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import useProducts from '../use/products';
-import { createComponent, computed } from '@vue/composition-api';
-import { watch } from 'fs';
+import {
+  createComponent,
+  computed,
+  watch,
+  inject,
+  ref
+} from '@vue/composition-api';
+import { Modules } from '../use/store';
+import { IProducts } from '../use/products';
 
 export default createComponent({
   components: {
@@ -24,18 +30,18 @@ export default createComponent({
     ArticlePage
   },
   setup(_, { root }) {
-    const { products } = useProducts();
+    const { products } = inject(Modules.products) as IProducts;
     const product = computed(() =>
       products.value.find((p) => p.url === root.$route.params.productName)
     );
 
-    const route = root.$route;
-    watch(route.path, () => {
-      if (route.query.strain) {
+    const route = ref(root.$route);
+    watch(route, () => {
+      if (route.value.query.strain) {
         // do a thing;
       }
 
-      if (route.query.size) {
+      if (route.value.query.size) {
         // do a thing
       }
     });
