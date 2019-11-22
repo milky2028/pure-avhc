@@ -61,15 +61,19 @@ a:hover {
 </style>
 
 <script lang="ts">
-import { ref, createComponent } from '@vue/composition-api';
+import { ref, createComponent, inject } from '@vue/composition-api';
 import Product from '../types/Product';
-import useCDNImages from '../use/cdn-image';
+import { Modules } from '../use/store';
+import { IImages } from '../use/cdn-image';
 
 interface Props {
   product: Product;
 }
 
 export default createComponent<Props>({
+  props: {
+    product: Object
+  },
   setup({ product }: Props) {
     function splitTitle(title: string) {
       const words = title.split(' ');
@@ -79,7 +83,7 @@ export default createComponent<Props>({
 
     const hoverLeave = ref(false);
 
-    const { getImage } = useCDNImages();
+    const { getImage } = inject(Modules.images) as IImages;
     const image = getImage(product.id, 'toolbarImage', 135, undefined, true);
 
     return {
