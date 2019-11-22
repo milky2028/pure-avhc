@@ -130,13 +130,14 @@ body {
 </style>
 
 <script lang="ts">
-import { createComponent, onMounted } from '@vue/composition-api';
+import { createComponent, onMounted, inject } from '@vue/composition-api';
 import AvToolbar from './components/AvToolbar.vue';
 import { useEvent } from './use/event';
-import { useSnackbar } from './use/snackbar';
-import { useCart } from './use/cart';
-import { useUser } from './use/user';
-import { useStore } from './use/store';
+import { useSnackbar, ISnackbar } from './use/snackbar';
+import { ICart } from './use/cart';
+import { IUser } from './use/user';
+import { useStore, Modules } from './use/store';
+import { IProducts } from './use/products';
 
 export default createComponent({
   components: {
@@ -156,9 +157,16 @@ export default createComponent({
   },
   setup() {
     useStore();
+
     useEvent('beforeinstallprompt', (e) => e.preventDefault());
+
+    const useCart = inject(Modules.cart) as ICart;
     const { cartItems, setCartStateFromIdb } = useCart();
+
+    const useUser = inject(Modules.user) as IUser;
     const { listenForAuthStateChanges } = useUser();
+
+    const useSnackbar = inject(Modules.snackbar) as ISnackbar;
     const { snackbarMsg } = useSnackbar();
 
     onMounted(() => {
