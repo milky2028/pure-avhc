@@ -6,6 +6,7 @@ import { useUser } from './user';
 import { useStrains } from './strains';
 import { useDisclaimer } from './disclaimer';
 import { provide } from '@vue/composition-api';
+import { useSnackbar } from './snackbar';
 
 export const Modules = {
   cart: Symbol.for('Cart'),
@@ -14,18 +15,20 @@ export const Modules = {
   testResults: Symbol.for('TestResults'),
   user: Symbol.for('User'),
   strains: Symbol.for('Strains'),
-  dislcaimer: Symbol.for('Disclaimer')
+  disclaimer: Symbol.for('Disclaimer'),
+  snackbar: Symbol.for('Snackbar')
 };
 
 export function useStore() {
   const Store = {
-    [Modules.cart]: useCart,
+    [Modules.cart]: useCart(),
     [Modules.images]: useCDNImages(),
     [Modules.products]: useProducts(),
     [Modules.testResults]: useTestResults(),
     [Modules.user]: useUser(),
     [Modules.strains]: useStrains(),
-    [Modules.dislcaimer]: useDisclaimer()
+    [Modules.disclaimer]: useDisclaimer(),
+    [Modules.snackbar]: useSnackbar()
   };
 
   for (const [key, val] of Object.entries(Store)) {
