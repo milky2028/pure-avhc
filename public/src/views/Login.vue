@@ -198,7 +198,7 @@ export default createComponent({
       createAccountWithEmailAndPassword,
       signInWithEmail
     } = inject(Modules.user) as IUser;
-    watch(uid.value, (id: string) => {
+    watch(uid, (id: string) => {
       if (id) {
         root.$router.push('/orders');
       }

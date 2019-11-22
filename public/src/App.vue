@@ -133,11 +133,10 @@ body {
 import { createComponent, onMounted, inject } from '@vue/composition-api';
 import AvToolbar from './components/AvToolbar.vue';
 import { useEvent } from './use/event';
-import { useSnackbar, ISnackbar } from './use/snackbar';
+import { ISnackbar } from './use/snackbar';
 import { ICart } from './use/cart';
 import { IUser } from './use/user';
 import { useStore, Modules } from './use/store';
-import { IProducts } from './use/products';
 
 export default createComponent({
   components: {
