@@ -33,8 +33,7 @@ import { ISnackbar } from '../use/snackbar';
 
 export default createComponent({
   setup() {
-    const useSnackbar = inject(Modules.snackbar) as ISnackbar;
-    const { snackbarMsg } = useSnackbar();
+    const { snackbarMsg } = inject(Modules.snackbar) as ISnackbar;
     return { snackbarMsg };
   }
 });
