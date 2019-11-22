@@ -178,12 +178,14 @@ import {
   createComponent,
   ref,
   reactive,
-  onMounted
+  onMounted,
+  inject
 } from '@vue/composition-api';
-import useWindowWidth from '../use/window-width';
-import useUser from '../use/user';
-import useSnackbar from '../use/snackbar';
 import workerInstance from '../workers/entry';
+import { useWindowWidth } from '../use/window-width';
+import { Modules } from '../use/store';
+import { ISnackbar } from '../use/snackbar';
+import { IUser } from '../use/user';
 
 export default createComponent({
   components: {
@@ -234,8 +236,10 @@ export default createComponent({
 
     const errors = ref([] as string[]);
     const functionsUrl = process.env.VUE_APP_FUNCTIONS_URL;
-    const { showSnackbar, snackbarMsg, hideSnackbar } = useSnackbar();
-    const { uid, isWholesaleUser, signOut } = useUser();
+    const { showSnackbar, snackbarMsg, hideSnackbar } = inject(
+      Modules.snackbar
+    ) as ISnackbar;
+    const { uid, isWholesaleUser, signOut } = inject(Modules.user) as IUser;
     async function onSubmit() {
       errors.value = [];
       if (accountCreated.value) {
