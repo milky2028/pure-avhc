@@ -157,7 +157,7 @@ import EliantoButton from './EliantoButton.vue';
 import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
-import useCart from '../use/cart';
+import { ICart } from '../use/cart';
 import {
   createComponent,
   computed,
@@ -165,8 +165,8 @@ import {
   toRefs,
   inject
 } from '@vue/composition-api';
-import useCDNImages from '../use/cdn-image';
-import symbols from '../use/symbols';
+import { Modules } from '../use/store';
+import { IImages } from '../use/cdn-image';
 
 interface Props {
   product: Product;
@@ -184,10 +184,6 @@ export default createComponent<Props>({
     }
   },
   setup({ product }: Props) {
-    const { cart } = symbols;
-    const vh = window.innerHeight / 100;
-    const { cartItems, addCartItem, updateCartItem } = inject(cart);
-
     const lowestPriceSize = product.sizes.find(
       (size: Size) =>
         size.price === Math.min(...product.sizes.map((s: Size) => s.price))
@@ -199,6 +195,16 @@ export default createComponent<Props>({
 
     const price = `$${Math.min(...product.sizes.map((size) => size.price))}`;
 
+    const size = lowestPriceSize
+      ? lowestPriceSize.measurement !== 'gram'
+        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
+        : `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}${
+            lowestPriceSize.measurementValue > 1 ? 's' : ''
+          }`
+      : '';
+
+    const useCart = inject(Modules.cart) as ICart;
+    const { cartItems, addCartItem, updateCartItem } = useCart();
     const cartItem = computed(() =>
       cartItems.value.find(
         (cartItem) =>
@@ -207,12 +213,16 @@ export default createComponent<Props>({
           cartItem.strain === 'any'
       )
     );
+
     const btnText = computed(() =>
       cartItem.value && cartItem.value.quantity
         ? cartItem.value.quantity
         : 'Add to Cart'
     );
 
+    const useCDNImages = inject(Modules.images) as IImages;
+    const { getImage } = useCDNImages();
+    const vh = window.innerHeight / 100;
     function getImageHeight() {
       const fixedHeights = 240;
       return (window.innerHeight - fixedHeights - 6 * vh) / 2;
@@ -226,7 +236,6 @@ export default createComponent<Props>({
         : windowWidth - 8 * vw;
     }
 
-    const { getImage } = useCDNImages();
     const image = reactive({ url: '', alt: '' });
     getImage(
       product.id,
@@ -271,14 +280,6 @@ export default createComponent<Props>({
         );
       }
     }
-
-    const size = lowestPriceSize
-      ? lowestPriceSize.measurement !== 'gram'
-        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
-        : `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}${
-            lowestPriceSize.measurementValue > 1 ? 's' : ''
-          }`
-      : '';
 
     return {
       size,
