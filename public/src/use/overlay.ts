@@ -1,6 +1,6 @@
 import { ref } from '@vue/composition-api';
 
-export type IOverlay = typeof useOverlay;
+export type IOverlay = ReturnType<typeof useOverlay>;
 export function useOverlay() {
   const isOverlayShowing = ref(false);
 

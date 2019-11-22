@@ -3,7 +3,7 @@ import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 import workerInstance from '../workers/entry';
 
-export type IUser = typeof useUser;
+export type IUser = ReturnType<typeof useUser>;
 export function useUser() {
   async function initializeAuth(firebase: Promise<firebase.app.App>) {
     const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');

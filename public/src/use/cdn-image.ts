@@ -3,7 +3,7 @@ import { proxy } from 'comlink';
 import { ref } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
 
-export type IImages = typeof useCDNImages;
+export type IImages = ReturnType<typeof useCDNImages>;
 export function useCDNImages() {
   const images = ref([] as AvImage[]);
 

@@ -1,6 +1,6 @@
 import { ref } from '@vue/composition-api';
 
-export type INavbar = typeof useNavbar;
+export type INavbar = ReturnType<typeof useNavbar>;
 export function useNavbar() {
   const isNavbarExpanded = ref(false);
 
