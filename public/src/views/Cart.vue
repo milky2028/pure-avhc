@@ -82,11 +82,12 @@ import ArticlePage from '../components/ArticlePage.vue';
 import CartItem from '../components/CartItem.vue';
 import Divider from '../components/Divider.vue';
 import AvButton from '../components/AvButton.vue';
-import useWindowWidth from '../use/window-width';
-import useProducts from '../use/products';
-import useStrains from '../use/strains';
-import useCart from '../use/cart';
-import { createComponent } from '@vue/composition-api';
+import { useWindowWidth } from '../use/window-width';
+import { createComponent, inject } from '@vue/composition-api';
+import { Modules } from '../use/store';
+import { IProducts } from '../use/products';
+import { IStrains } from '../use/strains';
+import { ICart } from '../use/cart';
 
 export default createComponent({
   components: {
@@ -98,9 +99,9 @@ export default createComponent({
   },
   setup() {
     const { windowWidth } = useWindowWidth();
-    const { products } = useProducts();
-    const { strains } = useStrains();
-    const { subtotal, cartItems, clearCart } = useCart();
+    const { products } = inject(Modules.products) as IProducts;
+    const { strains } = inject(Modules.strains) as IStrains;
+    const { subtotal, cartItems, clearCart } = inject(Modules.cart) as ICart;
 
     return {
       windowWidth,
