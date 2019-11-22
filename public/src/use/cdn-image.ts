@@ -28,7 +28,6 @@ export default function useCDNImages() {
     if (images.value.length < 1) {
       await loadImages();
     }
-    console.log(images.value);
     const targetImage = images.value.find(
       (image) => image.product === product && image[imageType]
     );
