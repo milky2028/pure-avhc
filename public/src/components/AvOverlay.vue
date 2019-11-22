@@ -27,13 +27,17 @@
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
-import useOverlay from '../use/overlay';
-import useNavbar from '../use/navbar';
+import { createComponent, inject } from '@vue/composition-api';
+import { Modules } from '../use/store';
+import { IOverlay } from '../use/overlay';
+import { INavbar } from '../use/navbar';
 
 export default createComponent({
   setup() {
+    const useOverlay = inject(Modules.overlay) as IOverlay;
     const { toggleOverlay, isOverlayShowing } = useOverlay();
+
+    const useNavbar = inject(Modules.navbar) as INavbar;
     const { toggleNavbar } = useNavbar();
 
     function onOverlayClick() {
