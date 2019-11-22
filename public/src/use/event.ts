@@ -1,6 +1,7 @@
 import { onMounted, onBeforeUnmount } from '@vue/composition-api';
 
-export default function useEvent(
+export type IEvent = typeof useEvent;
+export function useEvent(
   event: string,
   handler: (event?: any) => any,
   element = window

@@ -2,7 +2,8 @@ import { ref, computed } from '@vue/composition-api';
 import CartItem from '../types/CartItem';
 import { set, get } from 'idb-keyval';
 
-export default function useCart() {
+export type ICart = typeof useCart;
+export function useCart() {
   const cartItems = ref([] as CartItem[]);
 
   const numberOfItemsInCart = computed(() =>

@@ -3,7 +3,8 @@ import { ref, onMounted } from '@vue/composition-api';
 import Product from '@/types/Product';
 import workerInstance from '../workers/entry';
 
-export default function useProducts() {
+export type IProducts = typeof useProducts;
+export function useProducts() {
   const products = ref([] as Product[]);
 
   function loadProducts(): Promise<void> {

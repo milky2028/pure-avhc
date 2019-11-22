@@ -3,7 +3,8 @@ import { proxy } from 'comlink';
 import { ref } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
 
-export default function useCDNImages() {
+export type IImages = typeof useCDNImages;
+export function useCDNImages() {
   const images = ref([] as AvImage[]);
 
   function loadImages() {

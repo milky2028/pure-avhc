@@ -136,6 +136,7 @@ import useEvent from './use/event';
 import useSnackbar from './use/snackbar';
 import useCart from './use/cart';
 import useUser from './use/user';
+import { useStore } from './use/store';
 
 export default createComponent({
   components: {
@@ -154,11 +155,10 @@ export default createComponent({
       import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
   },
   setup() {
-    // const { cart } = symbols;
-    // provide(cart, useCart());
+    useStore();
+    useEvent('beforeinstallprompt', (e) => e.preventDefault());
     const { cartItems, setCartStateFromIdb } = useCart();
     const { listenForAuthStateChanges } = useUser();
-    useEvent('beforeinstallprompt', (e) => e.preventDefault());
     const { snackbarMsg } = useSnackbar();
 
     onMounted(() => {
