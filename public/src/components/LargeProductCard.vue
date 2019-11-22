@@ -35,7 +35,7 @@
           <AvIconButton
             v-if="cartItem && cartItem.quantity > 0"
             black
-            @icon-click="decrease(cartItem.id)"
+            @icon-click="descreaseCartQty(cartItem.id)"
             >remove_circle_outline</AvIconButton
           >
           <span class="btn-text" @click="addToCart(product)">
@@ -258,6 +258,17 @@ export default createComponent<Props>({
       }
     }
 
+    function descreaseCartQty(cartItemId: string) {
+      if (cartItem.value) {
+        updateCartItem(
+          {
+            quantity: cartItem.value.quantity - 1
+          },
+          cartItemId
+        );
+      }
+    }
+
     const size = lowestPriceSize
       ? lowestPriceSize.measurement !== 'gram'
         ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
@@ -276,7 +287,8 @@ export default createComponent<Props>({
       addCartItem,
       vh,
       lowestPriceSize,
-      price
+      price,
+      descreaseCartQty
     };
   }
 });
