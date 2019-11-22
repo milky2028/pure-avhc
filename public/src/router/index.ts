@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import useUser from '@/use/user';
+import { inject } from '@vue/composition-api';
+import { Modules } from '@/use/store';
+import { IUser } from '@/use/user';
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ '../views/PrivacyPolicy.vue');
@@ -60,7 +62,7 @@ export default new Router({
       name: 'orders',
       component: Orders,
       beforeEnter(_, __, next) {
-        const { uid } = useUser();
+        const { uid } = inject(Modules.user) as IUser;
         if (uid) {
           next('/login');
         } else {
@@ -73,7 +75,7 @@ export default new Router({
       name: 'single-order',
       component: SingleOrder,
       beforeEnter(_, __, next) {
-        const { uid } = useUser();
+        const { uid } = inject(Modules.user) as IUser;
         if (uid) {
           next('/login');
         } else {
