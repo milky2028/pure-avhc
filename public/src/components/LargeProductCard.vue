@@ -203,8 +203,9 @@ export default createComponent<Props>({
           }`
       : '';
 
-    const useCart = inject(Modules.cart) as ICart;
-    const { cartItems, addCartItem, updateCartItem } = useCart();
+    const { cartItems, addCartItem, updateCartItem } = inject(
+      Modules.cart
+    ) as ICart;
     const cartItem = computed(() =>
       cartItems.value.find(
         (cartItem) =>
@@ -220,8 +221,7 @@ export default createComponent<Props>({
         : 'Add to Cart'
     );
 
-    const useCDNImages = inject(Modules.images) as IImages;
-    const { getImage } = useCDNImages();
+    const { getImage } = inject(Modules.images) as IImages;
     const vh = window.innerHeight / 100;
     function getImageHeight() {
       const fixedHeights = 240;
