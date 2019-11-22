@@ -39,8 +39,9 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import PageHeader from '../components/PageHeader.vue';
 import LargeProductCard from '../components/LargeProductCard.vue';
-import { createComponent } from '@vue/composition-api';
-import useProducts from '../use/products';
+import { createComponent, inject } from '@vue/composition-api';
+import { Modules } from '../use/store';
+import { IProducts } from '../use/products';
 
 export default createComponent({
   components: {
@@ -49,7 +50,7 @@ export default createComponent({
     LargeProductCard
   },
   setup() {
-    const { products } = useProducts();
+    const { products } = inject(Modules.products) as IProducts;
     return { products };
   }
 });
