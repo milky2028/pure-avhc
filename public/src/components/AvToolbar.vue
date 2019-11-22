@@ -428,15 +428,9 @@ export default createComponent({
   },
   setup(_, { root }) {
     const { windowWidth } = useWindowWidth();
-
-    const useDisclaimer = inject(Modules.disclaimer) as IDisclaimer;
-    const { showDisclaimer } = useDisclaimer();
-
-    const useUser = inject(Modules.user) as IUser;
-    const { photoURL } = useUser();
-
-    const useProducts = inject(Modules.products) as IProducts;
-    const { products } = useProducts();
+    const { showDisclaimer } = inject(Modules.disclaimer) as IDisclaimer;
+    const { photoURL } = inject(Modules.user) as IUser;
+    const { products } = inject(Modules.products) as IProducts;
 
     const logoMin: LogoMin = JSON.parse(process.env.VUE_APP_LOGO_MIN as string);
     const logoFull: LogoFull = JSON.parse(
@@ -447,12 +441,11 @@ export default createComponent({
     const submenu = JSON.parse(process.env.VUE_APP_SUBMENU as string);
     const mainMenu = JSON.parse(process.env.VUE_APP_MAIN_MENU as string);
 
-    const useOverlay = inject(Modules.overlay) as IOverlay;
-    const { toggleOverlay } = useOverlay();
+    const { toggleOverlay } = inject(Modules.overlay) as IOverlay;
+    const { toggleNavbar, isNavbarExpanded } = inject(
+      Modules.navbar
+    ) as INavbar;
 
-    const useNavbar = inject(Modules.navbar) as INavbar;
-    const { toggleNavbar, isNavbarExpanded } = useNavbar();
-    
     function toggleNavAndOverlay() {
       toggleNavbar();
       toggleOverlay();
