@@ -158,7 +158,12 @@ import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
 import useCart from '../use/cart';
-import { createComponent, computed } from '@vue/composition-api';
+import {
+  createComponent,
+  computed,
+  reactive,
+  toRefs
+} from '@vue/composition-api';
 import useCDNImages from '../use/cdn-image';
 
 interface Props {
@@ -219,12 +224,18 @@ export default createComponent<Props>({
     }
 
     const { getImage } = useCDNImages();
-    const image = getImage(
+    const image = reactive({ url: '', alt: '' });
+    getImage(
       product.id,
       'allProductsImage',
       getImageHeight(),
       getImageWidth()
-    );
+    ).then((imageRes) => {
+      if (imageRes) {
+        image.url = imageRes.url;
+        image.alt = imageRes.alt;
+      }
+    });
 
     function addToCart(product: Product) {
       if (cartItem.value && Object.keys(cartItem.value).length > 0) {
@@ -260,7 +271,7 @@ export default createComponent<Props>({
       addToCart,
       btnText,
       filteredSizes,
-      image,
+      ...toRefs(image),
       cartItem,
       addCartItem,
       vh,
