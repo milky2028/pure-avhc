@@ -157,17 +157,10 @@ export default createComponent({
   },
   setup() {
     useStore();
-
     useEvent('beforeinstallprompt', (e) => e.preventDefault());
-
-    const useCart = inject(Modules.cart) as ICart;
-    const { cartItems, setCartStateFromIdb } = useCart();
-
-    const useUser = inject(Modules.user) as IUser;
-    const { listenForAuthStateChanges } = useUser();
-
-    const useSnackbar = inject(Modules.snackbar) as ISnackbar;
-    const { snackbarMsg } = useSnackbar();
+    const { cartItems, setCartStateFromIdb } = inject(Modules.cart) as ICart;
+    const { listenForAuthStateChanges } = inject(Modules.user) as IUser;
+    const { snackbarMsg } = inject(Modules.snackbar) as ISnackbar;
 
     onMounted(() => {
       setCartStateFromIdb();
