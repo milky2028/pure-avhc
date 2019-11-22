@@ -23,9 +23,10 @@ p {
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvButton from '../components/AvButton.vue';
-import { createComponent } from '@vue/composition-api';
-import useWindowWidth from '../use/window-width';
-import useUser from '../use/user';
+import { createComponent, inject } from '@vue/composition-api';
+import { useWindowWidth } from '../use/window-width';
+import { Modules } from '../use/store';
+import { IUser } from '../use/user';
 
 export default createComponent({
   components: {
@@ -35,7 +36,7 @@ export default createComponent({
   },
   setup() {
     const { windowWidth } = useWindowWidth();
-    const { signOut } = useUser();
+    const { signOut } = inject(Modules.user) as IUser;
     return {
       windowWidth,
       signOut
