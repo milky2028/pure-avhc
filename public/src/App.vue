@@ -154,6 +154,8 @@ export default createComponent({
       import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
   },
   setup() {
+    // const { cart } = symbols;
+    // provide(cart, useCart());
     const { cartItems, setCartStateFromIdb } = useCart();
     const { listenForAuthStateChanges } = useUser();
     useEvent('beforeinstallprompt', (e) => e.preventDefault());

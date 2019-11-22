@@ -162,9 +162,11 @@ import {
   createComponent,
   computed,
   reactive,
-  toRefs
+  toRefs,
+  inject
 } from '@vue/composition-api';
 import useCDNImages from '../use/cdn-image';
+import symbols from '../use/symbols';
 
 interface Props {
   product: Product;
@@ -182,8 +184,9 @@ export default createComponent<Props>({
     }
   },
   setup({ product }: Props) {
+    const { cart } = symbols;
     const vh = window.innerHeight / 100;
-    const { cartItems, addCartItem, updateCartItem } = useCart();
+    const { cartItems, addCartItem, updateCartItem } = inject(cart);
 
     const lowestPriceSize = product.sizes.find(
       (size: Size) =>
