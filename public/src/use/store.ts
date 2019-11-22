@@ -7,7 +7,7 @@ import { useStrains } from './strains';
 import { useDisclaimer } from './disclaimer';
 import { provide } from '@vue/composition-api';
 
-export const Symbols = {
+export const Modules = {
   cart: Symbol.for('Cart'),
   images: Symbol.for('Images'),
   products: Symbol.for('Products'),
@@ -19,13 +19,13 @@ export const Symbols = {
 
 export function useStore() {
   const Store = {
-    [Symbols.cart]: useCart(),
-    [Symbols.images]: useCDNImages(),
-    [Symbols.products]: useProducts(),
-    [Symbols.testResults]: useTestResults(),
-    [Symbols.user]: useUser(),
-    [Symbols.strains]: useStrains(),
-    [Symbols.dislcaimer]: useDisclaimer()
+    [Modules.cart]: useCart,
+    [Modules.images]: useCDNImages(),
+    [Modules.products]: useProducts(),
+    [Modules.testResults]: useTestResults(),
+    [Modules.user]: useUser(),
+    [Modules.strains]: useStrains(),
+    [Modules.dislcaimer]: useDisclaimer()
   };
 
   for (const [key, val] of Object.entries(Store)) {
