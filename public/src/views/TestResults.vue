@@ -51,12 +51,13 @@
 </template>
 
 <script lang="ts">
-import { createComponent, ref } from '@vue/composition-api';
+import { createComponent, ref, inject } from '@vue/composition-api';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvSelector from '../components/AvSelector.vue';
 import TestResult from '../types/TestResult';
-import useTestResults from '../use/test-results';
+import { Modules } from '../use/store';
+import { ITestResults } from '../use/test-results';
 
 export default createComponent({
   components: {
@@ -65,14 +66,14 @@ export default createComponent({
     AvSelector
   },
   setup() {
-    const { testResults } = useTestResults();
+    const { testResults } = inject(Modules.testResults) as ITestResults;
     const fullName = process.env.VUE_APP_FULL_NAME;
+
     const selectedSortType = ref('newest');
     const sortOptions = [
       { id: 0, value: 'newest', display: 'Newest to Oldest' },
       { id: 1, value: 'oldest', display: 'Oldest to Newest' }
     ];
-
     function sortByDate(a: TestResult, b: TestResult) {
       return selectedSortType.value === 'oldest'
         ? a.date.getTime() - b.date.getTime()
