@@ -34,11 +34,10 @@ import { INavbar } from '../use/navbar';
 
 export default createComponent({
   setup() {
-    const useOverlay = inject(Modules.overlay) as IOverlay;
-    const { toggleOverlay, isOverlayShowing } = useOverlay();
-
-    const useNavbar = inject(Modules.navbar) as INavbar;
-    const { toggleNavbar } = useNavbar();
+    const { toggleOverlay, isOverlayShowing } = inject(
+      Modules.overlay
+    ) as IOverlay;
+    const { toggleNavbar } = inject(Modules.navbar) as INavbar;
 
     function onOverlayClick() {
       toggleOverlay();
