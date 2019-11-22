@@ -137,10 +137,11 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import AvButton from '../components/AvButton.vue';
 import Product from '../types/Product';
-import useWindowWidth from '../use/window-width';
-import useCDNImages from '../use/cdn-image';
-import useProducts from '../use/products';
-import { createComponent } from '@vue/composition-api';
+import { createComponent, inject } from '@vue/composition-api';
+import { useWindowWidth } from '../use/window-width';
+import { Modules } from '../use/store';
+import { IProducts } from '../use/products';
+import { IImages } from '../use/cdn-image';
 
 export default createComponent({
   components: {
@@ -149,14 +150,14 @@ export default createComponent({
   },
   setup() {
     const { windowWidth } = useWindowWidth();
-    const { products } = useProducts();
+    const { products } = inject(Modules.products) as IProducts;
 
     function getLastWord(product: Product) {
       const words = product.name.split(' ');
       return words[words.length - 1];
     }
 
-    const { getImage } = useCDNImages();
+    const { getImage } = inject(Modules.images) as IImages;
 
     function getImageHeight(sortOrder: number): number {
       const navHeight = 55;
