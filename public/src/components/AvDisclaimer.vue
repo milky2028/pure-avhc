@@ -82,9 +82,9 @@ export default createComponent({
   },
   setup() {
     const legalName = process.env.VUE_APP_LEGAL_NAME;
-
-    const useDisclaimer = inject(Modules.disclaimer) as IDisclaimer;
-    const { isDisclaimerShowing, hideDisclaimer } = useDisclaimer();
+    const { isDisclaimerShowing, hideDisclaimer } = inject(
+      Modules.disclaimer
+    ) as IDisclaimer;
 
     return { legalName, isDisclaimerShowing, hideDisclaimer };
   }
