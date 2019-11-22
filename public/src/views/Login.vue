@@ -174,11 +174,11 @@ import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvButton from '../components/AvButton.vue';
 import AvSwitch from '../components/AvSwitch.vue';
-import { createComponent, ref } from '@vue/composition-api';
-import useWindowWidth from '../use/window-width';
-import useUser from '../use/user';
-import { watch } from 'fs';
-import useSnackbar from '../use/snackbar';
+import { createComponent, ref, watch, inject } from '@vue/composition-api';
+import { useWindowWidth } from '../use/window-width';
+import { Modules } from '../use/store';
+import { IUser } from '../use/user';
+import { ISnackbar } from '../use/snackbar';
 
 export default createComponent({
   components: {
@@ -189,17 +189,7 @@ export default createComponent({
     AvSwitch
   },
   setup(_, { root }) {
-    const email = ref('');
-    const password = ref('');
-    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
-    const emailReg = new RegExp(emailPattern);
-    const emailError = ref('');
-    const passwordErrorMsg = ref('');
-
     const { windowWidth } = useWindowWidth();
-
-    const createAnAccount = ref(false);
-    const resettingPassword = ref(false);
 
     const {
       uid,
@@ -207,13 +197,16 @@ export default createComponent({
       signInWithProvider,
       createAccountWithEmailAndPassword,
       signInWithEmail
-    } = useUser();
+    } = inject(Modules.user) as IUser;
     watch(uid.value, (id: string) => {
       if (id) {
         root.$router.push('/orders');
       }
     });
-    const { showSnackbar, hideSnackbar } = useSnackbar();
+
+    const { showSnackbar, hideSnackbar } = inject(
+      Modules.snackbar
+    ) as ISnackbar;
     async function resetPassword() {
       if (emailReg.test(email.value)) {
         emailError.value = '';
@@ -241,6 +234,14 @@ export default createComponent({
       }
     }
 
+    const email = ref('');
+    const password = ref('');
+    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
+    const emailReg = new RegExp(emailPattern);
+    const emailError = ref('');
+    const passwordErrorMsg = ref('');
+    const createAnAccount = ref(false);
+    const resettingPassword = ref(false);
     async function onLogin() {
       if (emailReg.test(email.value)) {
         emailError.value = '';
