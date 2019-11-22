@@ -27,11 +27,13 @@
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
-import useCart from '../use/cart';
+import { createComponent, inject } from '@vue/composition-api';
+import { Modules } from '../use/store';
+import { ICart } from '../use/cart';
 
 export default createComponent({
   setup() {
+    const useCart = inject(Modules.cart) as ICart;
     const { numberOfItemsInCart } = useCart();
     return { numberOfItemsInCart };
   }
