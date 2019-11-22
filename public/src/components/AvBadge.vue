@@ -33,8 +33,7 @@ import { ICart } from '../use/cart';
 
 export default createComponent({
   setup() {
-    const useCart = inject(Modules.cart) as ICart;
-    const { numberOfItemsInCart } = useCart();
+    const { numberOfItemsInCart } = inject(Modules.cart) as ICart;
     return { numberOfItemsInCart };
   }
 });
