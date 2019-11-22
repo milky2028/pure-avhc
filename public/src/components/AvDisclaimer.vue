@@ -71,9 +71,10 @@ p {
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
-import useDisclaimer from '../use/disclaimer';
+import { createComponent, inject } from '@vue/composition-api';
 import AvButton from './AvButton.vue';
+import { Modules } from '../use/store';
+import { IDisclaimer } from '../use/disclaimer';
 
 export default createComponent({
   components: {
@@ -81,6 +82,8 @@ export default createComponent({
   },
   setup() {
     const legalName = process.env.VUE_APP_LEGAL_NAME;
+
+    const useDisclaimer = inject(Modules.disclaimer) as IDisclaimer;
     const { isDisclaimerShowing, hideDisclaimer } = useDisclaimer();
 
     return { legalName, isDisclaimerShowing, hideDisclaimer };
