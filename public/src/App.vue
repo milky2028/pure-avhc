@@ -132,10 +132,10 @@ body {
 <script lang="ts">
 import { createComponent, onMounted } from '@vue/composition-api';
 import AvToolbar from './components/AvToolbar.vue';
-import useEvent from './use/event';
-import useSnackbar from './use/snackbar';
-import useCart from './use/cart';
-import useUser from './use/user';
+import { useEvent } from './use/event';
+import { useSnackbar } from './use/snackbar';
+import { useCart } from './use/cart';
+import { useUser } from './use/user';
 import { useStore } from './use/store';
 
 export default createComponent({
