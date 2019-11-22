@@ -194,24 +194,26 @@ export default createComponent({
     );
 
     const { cartItems, subtotal } = inject(Modules.cart) as ICart;
+    const expanded = ref(false);
     watch(cartItems, () => (expanded.value = false));
 
+    const { uid, canSubscribe } = inject(Modules.user) as IUser;
     onMounted(async () => {
       const idbCanSubscribe = (await get('canSubscribe')) as boolean;
       canSubscribe.value =
         idbCanSubscribe === undefined ? true : idbCanSubscribe;
     });
 
-    const expanded = ref(false);
     function close() {
       expanded.value = false;
       formError.value = false;
     }
 
-    const path = ref(root.$route.path);
-    watch(path, () => close());
+    // watch(
+    //   () => root.$route,
+    //   () => close()
+    // );
 
-    const { uid, canSubscribe } = inject(Modules.user) as IUser;
     const formError = ref(false);
     const subscribing = ref(false);
     const subscribed = ref(false);
