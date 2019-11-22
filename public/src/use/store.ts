@@ -37,7 +37,8 @@ export function useStore() {
     [Modules.navbar]: useNavbar()
   };
 
-  for (const [key, val] of Object.entries(Store)) {
-    provide(key, val);
+  for (const symbol of Object.getOwnPropertySymbols(Store)) {
+    // @ts-ignore
+    provide(symbol, Store[symbol]);
   }
 }
