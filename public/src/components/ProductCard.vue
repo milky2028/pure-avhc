@@ -84,11 +84,13 @@ export default createComponent<Props>({
     const hoverLeave = ref(false);
 
     const { getImage } = inject(Modules.images) as IImages;
-    const image = reactive({ url: '', alt: '' });;
+    const image = reactive({ url: '', alt: '' });
     getImage(product.id, 'toolbarImage', 135, undefined, true).then(
-      ({ url, alt }) => {
-        image.alt = alt;
-        image.url = url;
+      (imageRes) => {
+        if (imageRes) {
+          image.alt = imageRes.alt;
+          image.url = imageRes.url;
+        }
       }
     );
 
