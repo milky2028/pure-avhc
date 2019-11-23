@@ -34,6 +34,14 @@ export default createComponent({
     ArticlePage,
     AvButton
   },
+  // beforeRouteEnter(to, from, next) {
+  //   const { uid } = inject(Modules.user) as IUser;
+  //   if (uid) {
+  //     next();
+  //   } else {
+  //     next('/login');
+  //   }
+  // },
   setup() {
     const { windowWidth } = useWindowWidth();
     const { signOut } = inject(Modules.user) as IUser;
