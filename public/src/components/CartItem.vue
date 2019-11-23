@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <img v-if="product && products" :src="image.url" :alt="image.alt" />
+    <img
+      v-if="product && products.length > 0"
+      :src="image.url"
+      :alt="image.alt"
+    />
     <div class="info-container">
       <router-link
         v-if="product && product.name"
@@ -138,6 +142,10 @@ export default createComponent<Props>({
     SmallSelector,
     AvIconButton
   },
+  props: {
+    cartItem: Object,
+    strains: Array
+  },
   setup({ cartItem }: Props) {
     const { products } = inject(Modules.products) as IProducts;
     const product: Ref<Product | undefined> = computed(() =>
@@ -181,6 +189,7 @@ export default createComponent<Props>({
     }
 
     return {
+      products,
       product,
       options,
       image,
