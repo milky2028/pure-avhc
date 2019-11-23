@@ -204,17 +204,17 @@ export default createComponent({
         idbCanSubscribe === undefined ? true : idbCanSubscribe;
     });
 
+    const formError = ref(false);
     function close() {
       expanded.value = false;
       formError.value = false;
     }
 
-    // watch(
-    //   () => root.$route,
-    //   () => close()
-    // );
+    watch(
+      () => root.$route,
+      () => close()
+    );
 
-    const formError = ref(false);
     const subscribing = ref(false);
     const subscribed = ref(false);
     const errorMsg = ref('Invalid email format');
