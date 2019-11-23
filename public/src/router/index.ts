@@ -1,8 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { inject } from '@vue/composition-api';
-import { Modules } from '@/use/store';
-import { IUser } from '@/use/user';
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ '../views/PrivacyPolicy.vue');
@@ -60,28 +57,12 @@ export default new Router({
     {
       path: '/orders',
       name: 'orders',
-      component: Orders,
-      beforeEnter(_, __, next) {
-        const { uid } = inject(Modules.user) as IUser;
-        if (uid) {
-          next('/login');
-        } else {
-          next();
-        }
-      }
+      component: Orders
     },
     {
       path: '/orders/:orderId',
       name: 'single-order',
-      component: SingleOrder,
-      beforeEnter(_, __, next) {
-        const { uid } = inject(Modules.user) as IUser;
-        if (uid) {
-          next('/login');
-        } else {
-          next();
-        }
-      }
+      component: SingleOrder
     },
     {
       path: '/products/:productName',
