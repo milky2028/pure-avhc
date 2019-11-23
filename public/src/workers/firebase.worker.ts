@@ -131,15 +131,7 @@ async function intializeFirestore(firebase: Promise<firebase.app.App>) {
   );
   const app = await firebase;
   await Firestore;
-  const db = app.firestore();
-  db.enablePersistence().catch((e) => {
-    if (e.code === 'failed-precondition') {
-      throw new Error(e);
-    } else if (e.code === 'unimplemented') {
-      throw new Error(e);
-    }
-  });
-  return db;
+  return app.firestore();
 }
 
 function processTimestamps(data: { [key: string]: any }[]) {
