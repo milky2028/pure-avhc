@@ -7,9 +7,7 @@
           :key="item.id"
           :cart-item="item"
           :strains="
-            strains.filter(({ products }) =>
-              globalProducts.includes(item.product)
-            )
+            strains.filter(({ products }) => products.includes(item.product))
           "
           :class="{ borderTop: i }"
         />
@@ -87,7 +85,6 @@ import AvButton from '../components/AvButton.vue';
 import { useWindowWidth } from '../use/window-width';
 import { createComponent, inject } from '@vue/composition-api';
 import { Modules } from '../use/store';
-import { IProducts } from '../use/products';
 import { IStrains } from '../use/strains';
 import { ICart } from '../use/cart';
 
@@ -101,14 +98,11 @@ export default createComponent({
   },
   setup() {
     const { windowWidth } = useWindowWidth();
-    const { products } = inject(Modules.products) as IProducts;
-    const globalProducts = products;
     const { strains } = inject(Modules.strains) as IStrains;
     const { subtotal, cartItems, clearCart } = inject(Modules.cart) as ICart;
 
     return {
       windowWidth,
-      globalProducts,
       strains,
       subtotal,
       cartItems,

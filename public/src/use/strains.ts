@@ -10,7 +10,7 @@ export function useStrains() {
   function loadStrains() {
     return new Promise(async (resolve) => {
       (await workerInstance).getDocuments(
-        'products',
+        'strains',
         proxy((wStrains) => {
           strains.value = wStrains;
           resolve();
