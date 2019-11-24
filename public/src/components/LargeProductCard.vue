@@ -237,17 +237,16 @@ export default createComponent<Props>({
     }
 
     const image = reactive({ url: '', alt: '' });
-    getImage(
+    const imageRes = getImage(
       product.id,
       'allProductsImage',
       getImageHeight(),
       getImageWidth()
-    ).then((imageRes) => {
-      if (imageRes) {
-        image.url = imageRes.url;
-        image.alt = imageRes.alt;
-      }
-    });
+    );
+    if (imageRes) {
+      image.url = imageRes.url;
+      image.alt = imageRes.alt;
+    }
 
     function addToCart(product: Product) {
       if (cartItem.value && Object.keys(cartItem.value).length > 0) {
