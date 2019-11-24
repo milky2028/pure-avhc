@@ -37,5 +37,6 @@
       "language": "typescriptreact",
       "autoFix": true
     }
-  ]
+  ],
+  "debug.allowBreakpointsEverywhere": true
 }
