@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <img
-      v-if="product && products.length > 0"
-      :src="image.url"
-      :alt="image.alt"
-    />
+    <img v-if="product && products.length > 0" :src="url" :alt="alt" />
     <div class="info-container">
       <router-link
         v-if="product && product.name"
@@ -155,10 +151,13 @@ export default createComponent<Props>({
     const options = [...Array(100).keys()];
 
     const { getImage } = inject(Modules.images) as IImages;
-    const image =
-      product && product.value
-        ? getImage(product.value.id, 'toolBarImage', 80, 100)
-        : { url: '', alt: '' };
+    const imageRes = computed(() =>
+      product.value
+        ? getImage(product.value.id, 'toolbarImage', 80, 100)
+        : { url: '', alt: '' }
+    );
+    const url = computed(() => (imageRes.value ? imageRes.value.url : ''));
+    const alt = computed(() => (imageRes.value ? imageRes.value.alt : ''));
 
     function sortByStrain(a: Strain, b: Strain) {
       return a.name > b.name ? 1 : -1;
@@ -192,7 +191,8 @@ export default createComponent<Props>({
       products,
       product,
       options,
-      image,
+      alt,
+      url,
       sortByStrain,
       getDisplayValue,
       onSizeChange,
