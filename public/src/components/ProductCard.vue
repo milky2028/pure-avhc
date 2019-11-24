@@ -2,9 +2,9 @@
   <router-link :to="`/products/${product.url}`">
     <div
       class="card"
-      :name="image.alt"
+      :name="alt"
       :style="{
-        backgroundImage: image.url
+        backgroundImage: url
       }"
       :class="{ hoverLeave }"
       @mouseleave="hoverLeave = true"
@@ -83,19 +83,18 @@ export default createComponent<Props>({
 
     const hoverLeave = ref(false);
 
+    const url = ref('');
+    const alt = ref('');
     const { getImage } = inject(Modules.images) as IImages;
-    const image = reactive({ url: '', alt: '' });
-    getImage(product.id, 'toolbarImage', 135, undefined, true).then(
-      (imageRes) => {
-        if (imageRes) {
-          image.alt = imageRes.alt;
-          image.url = imageRes.url;
-        }
-      }
-    );
+    const imageRes = getImage(product.id, 'toolbarImage', 135, undefined, true);
+    if (imageRes) {
+      alt.value = imageRes.alt;
+      url.value = imageRes.url;
+    }
 
     return {
-      image,
+      url,
+      alt,
       splitTitle,
       hoverLeave
     };
