@@ -137,7 +137,7 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import AvButton from '../components/AvButton.vue';
 import Product from '../types/Product';
-import { createComponent, inject } from '@vue/composition-api';
+import { createComponent, inject, computed } from '@vue/composition-api';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
@@ -167,33 +167,31 @@ export default createComponent({
         : (windowHeight - navHeight) / 2;
     }
 
-    const images = products.value.map(async ({ id, sortOrder }) => ({
-      id,
-      ...(await getImage(
+    const images = computed(() =>
+      products.value.map(({ id, sortOrder }) => ({
         id,
-        'mainImage',
-        getImageHeight(sortOrder),
-        undefined,
-        true
-      ))
-    }));
+        ...(getImage(
+          id,
+          'mainImage',
+          getImageHeight(sortOrder),
+          undefined,
+          true
+        ) as { url: string; alt: string })
+      }))
+    );
 
-    async function getAlt(productId: string) {
-      const resolvedImages = await Promise.all(images);
-      const image = resolvedImages.find(({ id }) => id === productId) as {
-        url: string;
-        alt: string;
-        id: string;
-      };
-      return image && image.alt ? image.alt : '';
+    function getAlt(productId: string) {
+      const image = images.value.find(({ id }) => id === productId);
+      return image ? image.alt : '';
     }
 
-    async function getBackground(productId: string) {
-      const resolvedImages = await Promise.all(images);
-      const url = resolvedImages.find(({ id }) => id === productId);
-      return {
-        backgroundImage: `linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%), ${url}`
-      };
+    function getBackground(productId: string) {
+      const image = images.value.find(({ id }) => id === productId);
+      return image
+        ? {
+            backgroundImage: `linear-gradient(180deg, #ffffff 10%, rgba(255, 255, 255, 0) 70%), ${image.url}`
+          }
+        : {};
     }
 
     return {

@@ -61,7 +61,7 @@ a:hover {
 </style>
 
 <script lang="ts">
-import { ref, createComponent, inject, reactive } from '@vue/composition-api';
+import { ref, createComponent, inject } from '@vue/composition-api';
 import Product from '../types/Product';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
