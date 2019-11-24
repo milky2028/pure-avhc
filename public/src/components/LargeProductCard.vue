@@ -158,13 +158,7 @@ import Product from '../types/Product';
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
 import { ICart } from '../use/cart';
-import {
-  createComponent,
-  computed,
-  reactive,
-  toRefs,
-  inject
-} from '@vue/composition-api';
+import { createComponent, computed, inject, ref } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
 
@@ -236,7 +230,8 @@ export default createComponent<Props>({
         : windowWidth - 8 * vw;
     }
 
-    const image = reactive({ url: '', alt: '' });
+    const url = ref('');
+    const alt = ref('');
     const imageRes = getImage(
       product.id,
       'allProductsImage',
@@ -244,8 +239,8 @@ export default createComponent<Props>({
       getImageWidth()
     );
     if (imageRes) {
-      image.url = imageRes.url;
-      image.alt = imageRes.alt;
+      url.value = imageRes.url;
+      alt.value = imageRes.alt;
     }
 
     function addToCart(product: Product) {
@@ -285,7 +280,8 @@ export default createComponent<Props>({
       addToCart,
       btnText,
       filteredSizes,
-      ...toRefs(image),
+      alt,
+      url,
       cartItem,
       addCartItem,
       vh,
