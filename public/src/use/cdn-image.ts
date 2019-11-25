@@ -25,6 +25,29 @@ export function useCDNImages() {
     }
   });
 
+  function createUrl(
+    initialUrl: string,
+    height: number,
+    width?: number,
+    isBackgroundImage?: boolean
+  ) {
+    const baseImageUrl = 'https://res.cloudinary.com/pure-avhc/image/upload/';
+    const dpr = window.devicePixelRatio;
+    const imageParams = [
+      'f_auto',
+      'q_auto:low',
+      `h_${Math.round(height * dpr)}`,
+      'c_fill',
+      ...(width ? [`w_${Math.round(width * dpr)}`] : [])
+    ];
+
+    return `${
+      isBackgroundImage ? 'url(' : ''
+    }${baseImageUrl}${imageParams.join()}${initialUrl}${
+      isBackgroundImage ? ')' : ''
+    }`;
+  }
+
   function getImage(
     product: string,
     imageType: string,
@@ -36,22 +59,15 @@ export function useCDNImages() {
       (image) => image.product === product && image[imageType]
     );
     if (targetImage) {
-      const baseImageUrl = 'https://res.cloudinary.com/pure-avhc/image/upload/';
-      const dpr = window.devicePixelRatio;
-      const imageParams = [
-        'f_auto',
-        'q_auto:low',
-        `h_${Math.round(height * dpr)}`,
-        'c_fill',
-        ...(width ? [`w_${Math.round(width * dpr)}`] : [])
-      ];
+      const finalizedUrl = createUrl(
+        targetImage.url,
+        height,
+        width,
+        isBackgroundImage
+      );
 
       return {
-        url: `${
-          isBackgroundImage ? 'url(' : ''
-        }${baseImageUrl}${imageParams.join()}${targetImage.url}${
-          isBackgroundImage ? ')' : ''
-        }`,
+        url: finalizedUrl,
         alt: targetImage.alt
       };
     } else {
@@ -59,5 +75,5 @@ export function useCDNImages() {
     }
   }
 
-  return { images, loadImages, getImage };
+  return { images, loadImages, getImage, createUrl };
 }
