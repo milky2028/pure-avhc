@@ -21,6 +21,15 @@
           "
         />
       </div>
+      <AvSelector
+        label="Product"
+        :options="products"
+        loop-key="id"
+        display-key="name"
+        value-key="url"
+        :bound-prop="selectedProduct"
+        @select-change="onChange($event)"
+      />
       <router-link to="/products/cbd-hemp-flower">
         CBD Flower
       </router-link>
@@ -33,12 +42,11 @@ img {
   border-radius: var(--rounded-corner);
   object-fit: cover;
   width: 100%;
-  margin-top: 2rem;
 }
 
 .main-image {
+  margin: 2rem 0;
   height: 30vh;
-  margin-bottom: 2rem;
 }
 
 .gallery-container {
@@ -62,6 +70,7 @@ img {
 <script lang="ts">
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
+import AvSelector from '../components/AvSelector.vue';
 import {
   createComponent,
   computed,
@@ -77,7 +86,8 @@ import { IImages } from '../use/cdn-image';
 export default createComponent({
   components: {
     PageWrapper,
-    ArticlePage
+    ArticlePage,
+    AvSelector
   },
   setup(_, { root }) {
     const { products } = inject(Modules.products) as IProducts;
@@ -117,7 +127,15 @@ export default createComponent({
       }
     });
 
+    const selectedProduct = ref(root.$route.params.productName);
+    function onChange(newProduct: string) {
+      root.$router.push(`/products/${newProduct}`);
+    }
+
     return {
+      selectedProduct,
+      onChange,
+      products,
       currentPageProduct,
       processedImages,
       selectedImage,

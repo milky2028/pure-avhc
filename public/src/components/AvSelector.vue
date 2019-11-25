@@ -7,9 +7,12 @@
         :value="boundProp"
         @input="$emit('select-change', $event.target.value)"
       >
-        <option v-for="opt of options" :key="opt[loopKey]" :value="opt.value">{{
-          opt[displayKey]
-        }}</option>
+        <option
+          v-for="opt of options"
+          :key="opt[loopKey]"
+          :value="opt[valueKey ? valueKey : 'value']"
+          >{{ opt[displayKey] }}</option
+        >
       </select>
       <AvIconButton black>expand_more</AvIconButton>
     </div>
@@ -35,6 +38,7 @@ select {
   font-size: 18px;
   margin-left: -5px;
   font-weight: 600;
+  color: var(--dark-accent-light-shade);
 }
 
 .select-container {
@@ -57,7 +61,8 @@ export default createComponent({
     label: String,
     loopKey: String,
     displayKey: String,
-    boundProp: String
+    boundProp: String,
+    valueKey: String
   },
   setup() {
     const id = createRandomId();
