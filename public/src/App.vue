@@ -15,7 +15,7 @@
 
 <style>
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Mukta+Malar:300,400,500,600,700,800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Mukta+Malar:400,500,600,700,800&display=swap');
 
 @font-face {
   font-family: 'Elianto';
