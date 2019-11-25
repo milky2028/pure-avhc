@@ -10,6 +10,7 @@
         <img
           v-for="image in processedImages"
           :key="image.id"
+          tabindex="0"
           :src="createUrl(image.url, 60, 100)"
           :alt="image.alt"
           class="gallery-img"
@@ -32,6 +33,7 @@ img {
   border-radius: var(--rounded-corner);
   object-fit: cover;
   width: 100%;
+  margin-top: 2rem;
 }
 
 .main-image {
