@@ -58,7 +58,7 @@
       <AvIconButton
         class="remover-icon"
         black
-        @icon-click="removeItemFromCart(cartItem.id)"
+        @icon-click="removeCartItem(cartItem.id)"
       >
         remove_circle_outline
       </AvIconButton>
