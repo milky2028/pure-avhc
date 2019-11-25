@@ -1,6 +1,11 @@
 <template>
   <PageWrapper with-padding>
     <ArticlePage v-if="currentPageProduct" :title="currentPageProduct.name">
+      <img
+        :src="selectedImage.url"
+        :alt="selectedImage.alt"
+        class="main-image"
+      />
       <div class="gallery-container">
         <img
           v-for="image in processedImages"
@@ -23,6 +28,10 @@ img {
   object-fit: cover;
 }
 
+.main-image {
+  height: 30vh;
+}
+
 .gallery-container {
   display: grid;
   grid-auto-flow: column;
@@ -43,7 +52,8 @@ import {
   computed,
   watch,
   inject,
-  ref
+  ref,
+  reactive
 } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
@@ -61,6 +71,7 @@ export default createComponent({
     );
 
     const { images, createUrl } = inject(Modules.images) as IImages;
+    const selectedImage = reactive({ url: '', alt: '' });
     const processedImages = computed(() =>
       images.value
         .filter(
@@ -73,6 +84,12 @@ export default createComponent({
           url: createUrl(url, 60, 100)
         }))
     );
+    watch(processedImages, (newProcessedImages) => {
+      selectedImage.url =
+        newProcessedImages.length > 0 ? newProcessedImages[0].url : '';
+      selectedImage.alt =
+        newProcessedImages.length > 0 ? newProcessedImages[0].alt : '';
+    });
 
     const route = ref(root.$route);
     watch(route, () => {
@@ -87,7 +104,8 @@ export default createComponent({
 
     return {
       currentPageProduct,
-      processedImages
+      processedImages,
+      selectedImage
     };
   }
 });
