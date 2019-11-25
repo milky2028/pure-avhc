@@ -2,7 +2,7 @@
   <PageWrapper with-padding>
     <ArticlePage v-if="currentPageProduct" :title="currentPageProduct.name">
       <img
-        :src="selectedImage.url"
+        :src="createUrl(selectedImage.url, getImageHeight())"
         :alt="selectedImage.alt"
         class="main-image"
       />
@@ -10,9 +10,14 @@
         <img
           v-for="image in processedImages"
           :key="image.id"
-          :src="image.url"
+          :src="createUrl(image.url, 60, 100)"
           :alt="image.alt"
           class="gallery-img"
+          :class="{ selectedGalleryImage: selectedImage.url === image.url }"
+          @click="
+            selectedImage.url = image.url;
+            selectedImage.alt = image.alt;
+          "
         />
       </div>
       <router-link to="/products/cbd-hemp-flower">
@@ -26,21 +31,29 @@
 img {
   border-radius: var(--rounded-corner);
   object-fit: cover;
+  width: 100%;
 }
 
 .main-image {
   height: 30vh;
+  margin-bottom: 2rem;
 }
 
 .gallery-container {
   display: grid;
   grid-auto-flow: column;
-  gap: 16px;
+  grid-auto-columns: 1fr;
+  gap: 1rem;
 }
 
 .gallery-img {
   height: 60px;
-  width: 100%;
+  transition: box-shadow 50ms var(--mat-ease);
+}
+
+.selectedGalleryImage {
+  border: 2px solid var(--dark-accent);
+  box-shadow: var(--basic-shadow);
 }
 </style>
 
@@ -73,23 +86,23 @@ export default createComponent({
     const { images, createUrl } = inject(Modules.images) as IImages;
     const selectedImage = reactive({ url: '', alt: '' });
     const processedImages = computed(() =>
-      images.value
-        .filter(
-          ({ product }) =>
-            currentPageProduct.value && product === currentPageProduct.value.id
-        )
-        .map(({ url, id, alt }) => ({
-          id,
-          alt,
-          url: createUrl(url, 60, 100)
-        }))
+      images.value.filter(
+        ({ product }) =>
+          currentPageProduct.value && product === currentPageProduct.value.id
+      )
     );
     watch(processedImages, (newProcessedImages) => {
-      selectedImage.url =
-        newProcessedImages.length > 0 ? newProcessedImages[0].url : '';
-      selectedImage.alt =
-        newProcessedImages.length > 0 ? newProcessedImages[0].alt : '';
+      const mainImage = newProcessedImages.find(({ mainImage }) => mainImage);
+      if (mainImage) {
+        selectedImage.url = mainImage.url;
+        selectedImage.alt = mainImage.alt;
+      }
     });
+
+    function getImageHeight() {
+      const vh = window.innerHeight / 100;
+      return 30 * vh;
+    }
 
     const route = ref(root.$route);
     watch(route, () => {
@@ -105,7 +118,9 @@ export default createComponent({
     return {
       currentPageProduct,
       processedImages,
-      selectedImage
+      selectedImage,
+      createUrl,
+      getImageHeight
     };
   }
 });
