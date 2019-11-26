@@ -30,9 +30,7 @@
         :bound-prop="selectedProduct"
         @select-change="onChange($event)"
       />
-      <router-link to="/products/cbd-hemp-flower">
-        CBD Flower
-      </router-link>
+      <AddToCartButton :product="currentPageProduct" :has-border="false" />
     </ArticlePage>
   </PageWrapper>
 </template>
@@ -71,6 +69,7 @@ img {
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvSelector from '../components/AvSelector.vue';
+import AddToCartButton from '../components/AddToCartButton.vue';
 import {
   createComponent,
   computed,
@@ -87,7 +86,8 @@ export default createComponent({
   components: {
     PageWrapper,
     ArticlePage,
-    AvSelector
+    AvSelector,
+    AddToCartButton
   },
   setup(_, { root }) {
     const { products } = inject(Modules.products) as IProducts;
