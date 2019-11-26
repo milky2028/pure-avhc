@@ -29,27 +29,7 @@
         <h3 class="body-text price">{{ price }}</h3>
       </div>
     </router-link>
-    <div class="btn-container">
-      <EliantoButton border-top border-bottom no-hover>
-        <span class="add-or-subtract-container">
-          <AvIconButton
-            v-if="cartItem && cartItem.quantity > 0"
-            black
-            @icon-click="descreaseCartQty(cartItem.id)"
-            >remove_circle_outline</AvIconButton
-          >
-          <span class="btn-text" @click="addToCart(product)">
-            {{ btnText }}
-          </span>
-          <AvIconButton
-            v-if="cartItem && cartItem.quantity > 0"
-            black
-            @icon-click="addToCart(product)"
-            >add_circle_outline</AvIconButton
-          >
-        </span>
-      </EliantoButton>
-    </div>
+    <AddToCartButton :product="product" :size="lowestPriceSize" />
   </div>
 </template>
 
@@ -134,16 +114,6 @@ ul {
   color: var(--dark-accent);
 }
 
-.add-or-subtract-container {
-  display: flex;
-  align-content: center;
-  justify-content: space-around;
-}
-
-.btn-text {
-  display: block;
-}
-
 @media (max-width: 835px) {
   img {
     max-height: 40vmax;
@@ -153,12 +123,9 @@ ul {
 
 <script lang="ts">
 import Size from '../types/Size';
-import EliantoButton from './EliantoButton.vue';
 import Product from '../types/Product';
-import AvIconButton from './AvIconButton.vue';
-import createRandomId from '../functions/createRandomId';
-import { ICart } from '../use/cart';
-import { createComponent, computed, inject, ref } from '@vue/composition-api';
+import AddToCartButton from './AddToCartButton.vue';
+import { createComponent, inject, ref } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
 
@@ -168,13 +135,12 @@ interface Props {
 
 export default createComponent<Props>({
   components: {
-    EliantoButton,
-    AvIconButton
+    AddToCartButton
   },
   props: {
     product: {
       type: Object,
-      default: {}
+      default: null
     }
   },
   setup({ product }: Props) {
@@ -196,24 +162,6 @@ export default createComponent<Props>({
             lowestPriceSize.measurementValue > 1 ? 's' : ''
           }`
       : '';
-
-    const { cartItems, addCartItem, updateCartItem } = inject(
-      Modules.cart
-    ) as ICart;
-    const cartItem = computed(() =>
-      cartItems.value.find(
-        (cartItem) =>
-          cartItem.product === product.id &&
-          cartItem.size === lowestPriceSize!.masterMeasurement &&
-          cartItem.strain === 'any'
-      )
-    );
-
-    const btnText = computed(() =>
-      cartItem.value && cartItem.value.quantity
-        ? cartItem.value.quantity
-        : 'Add to Cart'
-    );
 
     const { getImage } = inject(Modules.images) as IImages;
     const vh = window.innerHeight / 100;
@@ -243,51 +191,14 @@ export default createComponent<Props>({
       alt.value = imageRes.alt;
     }
 
-    function addToCart(product: Product) {
-      if (cartItem.value && Object.keys(cartItem.value).length > 0) {
-        updateCartItem(
-          {
-            quantity: cartItem.value.quantity++
-          },
-          cartItem.value.product
-        );
-      } else {
-        const newCartItem = {
-          id: createRandomId(15),
-          price: lowestPriceSize!.price,
-          quantity: 1,
-          product: product.id,
-          size: lowestPriceSize!.masterMeasurement,
-          strain: 'any'
-        };
-        addCartItem(newCartItem);
-      }
-    }
-
-    function descreaseCartQty(cartItemId: string) {
-      if (cartItem.value) {
-        updateCartItem(
-          {
-            quantity: cartItem.value.quantity - 1
-          },
-          cartItemId
-        );
-      }
-    }
-
     return {
       size,
-      addToCart,
-      btnText,
       filteredSizes,
       alt,
       url,
-      cartItem,
-      addCartItem,
       vh,
       lowestPriceSize,
-      price,
-      descreaseCartQty
+      price
     };
   }
 });
