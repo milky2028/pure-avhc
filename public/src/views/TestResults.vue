@@ -28,6 +28,7 @@
         >
       </p>
       <AvSelector
+        class="selector"
         label="Sort Test Results"
         :options="sortOptions"
         loop-key="id"
@@ -49,6 +50,12 @@
     </ArticlePage>
   </PageWrapper>
 </template>
+
+<style scoped>
+.selector {
+  margin-bottom: 10px;
+}
+</style>
 
 <script lang="ts">
 import { createComponent, ref, inject } from '@vue/composition-api';
