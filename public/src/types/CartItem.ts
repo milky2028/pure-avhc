@@ -4,5 +4,5 @@ export default interface CartItem {
   quantity: number;
   product: string;
   size: string;
-  strain?: string;
+  strain: string;
 }
