@@ -2,12 +2,8 @@
   <button
     class="subhead elianto-btn"
     :class="{
-      borderLeft,
-      borderRight,
       borderBottom,
       borderTop,
-      halfBorderLeft,
-      halfBorderRight,
       hover: !noHover
     }"
     @click="$emit('btn-click', $event)"
@@ -25,22 +21,6 @@
   transition: 50ms var(--mat-ease);
   cursor: pointer;
   line-height: 32px;
-}
-
-.borderLeft {
-  border-left: 3px black solid;
-}
-
-.borderRight {
-  border-right: 3px black solid;
-}
-
-.halfBorderLeft {
-  border-left: 1.5px black solid;
-}
-
-.halfBorderRight {
-  border-right: 1.5px black solid;
 }
 
 .borderTop {
@@ -63,10 +43,6 @@ import { createComponent } from '@vue/composition-api';
 
 export default createComponent({
   props: {
-    borderLeft: Boolean,
-    borderRight: Boolean,
-    halfBorderLeft: Boolean,
-    halfBorderRight: Boolean,
     borderBottom: Boolean,
     borderTop: Boolean,
     noHover: Boolean
