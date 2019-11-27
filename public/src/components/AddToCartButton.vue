@@ -73,14 +73,14 @@ export default createComponent<Props>({
       default: true
     }
   },
-  setup({ product, strain, size }) {
+  setup(props) {
     const { cartItems } = inject(Modules.cart) as ICart;
     const cartItem = computed(() =>
       cartItems.value.find(
         (cartItem) =>
-          cartItem.product === product.id &&
-          cartItem.size === size.masterMeasurement &&
-          cartItem.strain === (strain ? strain.type : 'any')
+          cartItem.product === props.product.id &&
+          cartItem.size === props.size.masterMeasurement &&
+          cartItem.strain === (props.strain ? props.strain.type : 'any')
       )
     );
 
@@ -113,10 +113,10 @@ export default createComponent<Props>({
       } else {
         const newCartItem = {
           id: createRandomId(15),
-          price: size.price,
+          price: props.size.price,
           quantity: 1,
           product: id,
-          size: size.masterMeasurement,
+          size: props.size.masterMeasurement,
           strain: 'any'
         };
         addCartItem(newCartItem);
