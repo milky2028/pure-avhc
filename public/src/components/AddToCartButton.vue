@@ -74,10 +74,10 @@ export default createComponent<Props>({
     }
   },
   setup(props) {
-    watch(
-      () => props.size,
-      (newProp, oldProp) => console.log(newProp, oldProp)
-    );
+    // watch(
+    //   () => props.size,
+    //   (newProp, oldProp) => console.log(newProp, oldProp)
+    // );
 
     const { cartItems } = inject(Modules.cart) as ICart;
     const cartItem = computed(() =>

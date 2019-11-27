@@ -144,16 +144,28 @@ export default createComponent({
     AvToolbar,
     AvDisclaimer: () =>
       import(
-        /* webpackChunkName: "AvDisclaimer" */ './components/AvDisclaimer.vue'
+        /* webpackPreload: true */
+        /* webpackChunkName: "AvDisclaimer" */
+        './components/AvDisclaimer.vue'
       ),
     AvOverlay: () =>
-      import(/* webpackChunkName: "AvOverlay" */ './components/AvOverlay.vue'),
+      import(
+        /* webpackPreload: true */
+        /* webpackChunkName: "AvOverlay" */
+        './components/AvOverlay.vue'
+      ),
     CheckoutPrompt: () =>
       import(
-        /* webpackChunkName: "CheckoutPrompt" */ './components/CheckoutPrompt.vue'
+        /* webpackPreload: true */
+        /* webpackChunkName: "CheckoutPrompt" */
+        './components/CheckoutPrompt.vue'
       ),
     AvSnackbar: () =>
-      import(/* webpackChunkName: "AvSnackbar" */ './components/AvSnackbar.vue')
+      import(
+        /* webpackPreload: true */
+        /* webpackChunkName: "AvSnackbar" */
+        './components/AvSnackbar.vue'
+      )
   },
   setup() {
     useStore();
