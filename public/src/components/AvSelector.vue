@@ -1,5 +1,5 @@
 <template>
-  <label :for="id">
+  <label :for="id" :class="{ borderTop, borderBottom, borderRight }">
     <span class="body-text label-text">{{ label }}</span>
     <div class="select-container">
       <select
@@ -8,7 +8,9 @@
         @input="$emit('select-change', $event.target.value)"
       >
         <option
-          v-for="opt of options"
+          v-for="opt of options
+            .slice()
+            .sort((a, b) => a[displayKey].localeCompare(b[displayKey]))"
           :key="opt[loopKey]"
           :value="opt[valueKey ? valueKey : 'value']"
           >{{ opt[displayKey] }}</option
@@ -21,8 +23,6 @@
 
 <style scoped>
 label {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 8px 12px;
   display: flex;
   flex-direction: column;
@@ -33,6 +33,7 @@ label {
 }
 
 select {
+  width: 100%;
   font-size: 18px;
   margin-left: -5px;
   font-weight: 600;
@@ -42,6 +43,18 @@ select {
 .select-container {
   display: flex;
   justify-content: space-between;
+}
+
+.borderTop {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.borderBottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.borderRight {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 </style>
 
@@ -55,12 +68,21 @@ export default createComponent({
     AvIconButton
   },
   props: {
+    valueKey: String,
     options: Array,
     label: String,
     loopKey: String,
     displayKey: String,
     boundProp: String,
-    valueKey: String
+    borderTop: {
+      type: Boolean,
+      default: true
+    },
+    borderBottom: {
+      type: Boolean,
+      default: true
+    },
+    borderRight: Boolean
   },
   setup() {
     const id = createRandomId();
