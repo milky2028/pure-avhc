@@ -144,25 +144,21 @@ export default createComponent({
     AvToolbar,
     AvDisclaimer: () =>
       import(
-        /* webpackPreload: true */
         /* webpackChunkName: "AvDisclaimer" */
         './components/AvDisclaimer.vue'
       ),
     AvOverlay: () =>
       import(
-        /* webpackPreload: true */
         /* webpackChunkName: "AvOverlay" */
         './components/AvOverlay.vue'
       ),
     CheckoutPrompt: () =>
       import(
-        /* webpackPreload: true */
         /* webpackChunkName: "CheckoutPrompt" */
         './components/CheckoutPrompt.vue'
       ),
     AvSnackbar: () =>
       import(
-        /* webpackPreload: true */
         /* webpackChunkName: "AvSnackbar" */
         './components/AvSnackbar.vue'
       )
