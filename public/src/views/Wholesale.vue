@@ -186,6 +186,7 @@ import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
+import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 
 export default createComponent({
   components: {
@@ -229,10 +230,6 @@ export default createComponent({
       zipCode: '',
       country: ''
     });
-
-    function capitalizeFirstLetter(text: string) {
-      return text.replace(/^\w/, (c) => c.toUpperCase());
-    }
 
     const errors = ref([] as string[]);
     const functionsUrl = process.env.VUE_APP_FUNCTIONS_URL;
