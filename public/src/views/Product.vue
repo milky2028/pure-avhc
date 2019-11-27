@@ -120,6 +120,7 @@ import {
   computed,
   inject,
   ref,
+  watch,
   reactive
 } from '@vue/composition-api';
 import { Modules } from '../use/store';
