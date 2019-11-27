@@ -14,6 +14,6 @@ export default function setState<M>(state: State, { type, data }: Mutation<M>) {
 export function setAllStateInObj(originalObj: State, targetObj: State) {
   for (const key of Object.keys(targetObj)) {
     const objValue = targetObj[key];
-    setState(state, { type: key, data: objValue });
+    setState(originalObj, { type: key, data: objValue });
   }
 }

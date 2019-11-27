@@ -2,6 +2,7 @@ import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 import workerInstance from '../workers/entry';
+import { setAllStateInObj } from '@/functions/setState';
 
 export type IUser = ReturnType<typeof useUser>;
 export function useUser() {
@@ -31,14 +32,6 @@ export function useUser() {
   } as AvUser;
   const user = reactive(emptyUser);
 
-  function setUserData(newUserData: Partial<AvUser>) {
-    if (typeof newUserData === 'object') {
-      for (const [key, value] of Object.entries(newUserData)) {
-        user[key] = value;
-      }
-    }
-  }
-
   async function listenForAuthStateChanges() {
     const auth = await _auth();
     auth.onAuthStateChanged(async (userDetails) => {
@@ -49,7 +42,7 @@ export function useUser() {
           : null;
         const isWholesaleUser = claims ? claims.isWholesaleUser : false;
         const isAdmin = claims && claims.isAdmin ? claims.isAdmin : false;
-        setUserData({
+        setAllStateInObj(user, {
           email,
           phoneNumber,
           displayName,
@@ -63,7 +56,7 @@ export function useUser() {
           'userExtras',
           userDetails.uid
         )) as Partial<AvUser>;
-        setUserData(userExtras);
+        setAllStateInObj(user, userExtras);
       }
     });
   }
@@ -111,7 +104,7 @@ export function useUser() {
 
   async function signOut() {
     const auth = await _auth();
-    setUserData(emptyUser);
+    setAllStateInObj(user, emptyUser);
     return auth.signOut();
   }
 
