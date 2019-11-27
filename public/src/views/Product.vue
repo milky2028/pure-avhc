@@ -118,7 +118,6 @@ import AddToCartButton from '../components/AddToCartButton.vue';
 import {
   createComponent,
   computed,
-  watch,
   inject,
   ref,
   reactive
