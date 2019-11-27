@@ -53,7 +53,7 @@
 
 <style scoped>
 .selector {
-  margin-bottom: 10px;
+  margin: 2rem 0;
 }
 </style>
 
