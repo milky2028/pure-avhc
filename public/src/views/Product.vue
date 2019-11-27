@@ -172,18 +172,21 @@ export default createComponent({
         : null
     );
 
-    const route = ref(ctx.root.$route);
-    watch(route, () => {
-      const strain = route.value.query.strain;
-      if (strain) {
-        selectedStrainType.value = strain as string;
-      }
+    const route = ctx.root.$route;
+    watch(
+      () => ctx.root.$route,
+      () => {
+        const strain = route.query.strain;
+        if (strain) {
+          selectedStrainType.value = strain as string;
+        }
 
-      const size = route.value.query.size;
-      if (size) {
-        selectedSizeType.value = size as string;
+        const size = route.query.size;
+        if (size) {
+          selectedSizeType.value = size as string;
+        }
       }
-    });
+    );
 
     const { images, createUrl } = inject(Modules.images) as IImages;
     const selectedImage = reactive({ url: '', alt: '' });
