@@ -143,17 +143,21 @@ export default createComponent<Props>({
       default: null
     }
   },
-  setup({ product }: Props) {
-    const lowestPriceSize = product.sizes.find(
+  setup(props) {
+    const lowestPriceSize = props.product.sizes.find(
       (size: Size) =>
-        size.price === Math.min(...product.sizes.map((s: Size) => s.price))
+        size.price ===
+        Math.min(...props.product.sizes.map((s: Size) => s.price))
     );
 
-    const filteredSizes = product.sizes.filter(
-      (size) => size.price !== Math.min(...product.sizes.map((s) => s.price))
+    const filteredSizes = props.product.sizes.filter(
+      (size) =>
+        size.price !== Math.min(...props.product.sizes.map((s) => s.price))
     );
 
-    const price = `$${Math.min(...product.sizes.map((size) => size.price))}`;
+    const price = `$${Math.min(
+      ...props.product.sizes.map((size) => size.price)
+    )}`;
 
     const size = lowestPriceSize
       ? lowestPriceSize.measurement !== 'gram'
@@ -181,7 +185,7 @@ export default createComponent<Props>({
     const url = ref('');
     const alt = ref('');
     const imageRes = getImage(
-      product.id,
+      props.product.id,
       'allProductsImage',
       getImageHeight(),
       getImageWidth()

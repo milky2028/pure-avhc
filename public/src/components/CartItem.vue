@@ -142,10 +142,10 @@ export default createComponent<Props>({
     cartItem: Object,
     strains: Array
   },
-  setup({ cartItem }: Props) {
+  setup(props) {
     const { products } = inject(Modules.products) as IProducts;
     const product: Ref<Product | undefined> = computed(() =>
-      products.value.find(({ id }: Product) => id === cartItem.product)
+      products.value.find(({ id }: Product) => id === props.cartItem.product)
     );
 
     const options = [...Array(100).keys()];
@@ -164,7 +164,7 @@ export default createComponent<Props>({
     }
 
     function getDisplayValue(value: string) {
-      return `${value}${cartItem.quantity > 1 ? 's' : ''}`;
+      return `${value}${props.cartItem.quantity > 1 ? 's' : ''}`;
     }
 
     const { updateCartItem, removeCartItem } = inject(Modules.cart) as ICart;
@@ -182,7 +182,7 @@ export default createComponent<Props>({
             price: newItemSize.price,
             size: newSize
           },
-          cartItem.id
+          props.cartItem.id
         );
       }
     }

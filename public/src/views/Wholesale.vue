@@ -197,7 +197,7 @@ export default createComponent({
     AvButton,
     AvInput
   },
-  setup(_, { root }) {
+  setup(_, ctx) {
     const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
     const fullName = process.env.VUE_APP_FULL_NAME;
     const differentBilling = ref(false);
@@ -240,7 +240,7 @@ export default createComponent({
     async function onSubmit() {
       errors.value = [];
       if (accountCreated.value) {
-        root.$router.push('/login');
+        ctx.root.$router.push('/login');
       } else if (isWholesaleUser.value) {
         signOut();
       } else if (uid.value) {

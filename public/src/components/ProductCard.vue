@@ -74,7 +74,7 @@ export default createComponent<Props>({
   props: {
     product: Object
   },
-  setup({ product }: Props) {
+  setup(props: Props) {
     function splitTitle(title: string) {
       const words = title.split(' ');
       words.splice(1, 0, '<br>');
@@ -86,7 +86,13 @@ export default createComponent<Props>({
     const url = ref('');
     const alt = ref('');
     const { getImage } = inject(Modules.images) as IImages;
-    const imageRes = getImage(product.id, 'toolbarImage', 135, undefined, true);
+    const imageRes = getImage(
+      props.product.id,
+      'toolbarImage',
+      135,
+      undefined,
+      true
+    );
     if (imageRes) {
       alt.value = imageRes.alt;
       url.value = imageRes.url;

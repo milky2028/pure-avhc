@@ -186,7 +186,7 @@ export default createComponent({
     AvButton,
     AvIconButton
   },
-  setup(_, { root }) {
+  setup(_, ctx) {
     const { windowWidth } = useWindowWidth();
 
     const btnText = computed(() =>
@@ -211,7 +211,7 @@ export default createComponent({
     }
 
     watch(
-      () => root.$route,
+      () => ctx.root.$route,
       () => close()
     );
 

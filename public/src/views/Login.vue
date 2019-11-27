@@ -188,7 +188,7 @@ export default createComponent({
     AvButton,
     AvSwitch
   },
-  setup(_, { root }) {
+  setup(_, ctx) {
     const { windowWidth } = useWindowWidth();
 
     const {
@@ -200,7 +200,7 @@ export default createComponent({
     } = inject(Modules.user) as IUser;
     watch(uid, (id: string) => {
       if (id) {
-        root.$router.push('/orders');
+        ctx.root.$router.push('/orders');
       }
     });
 

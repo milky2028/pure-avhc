@@ -136,10 +136,10 @@ export default createComponent({
     AvSelector,
     AddToCartButton
   },
-  setup(_, { root }) {
+  setup(_, ctx) {
     const { products } = inject(Modules.products) as IProducts;
     const currentPageProduct = computed(() =>
-      products.value.find((p) => p.url === root.$route.params.productName)
+      products.value.find((p) => p.url === ctx.root.$route.params.productName)
     );
 
     const { strains } = inject(Modules.strains) as IStrains;
@@ -172,7 +172,7 @@ export default createComponent({
         : null
     );
 
-    const route = ref(root.$route);
+    const route = ref(ctx.root.$route);
     watch(route, () => {
       const strain = route.value.query.strain;
       if (strain) {

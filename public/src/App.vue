@@ -4,7 +4,7 @@
       bottomPadding: (cartItems && cartItems.length > 0) || snackbarMsg
     }"
   >
-    <AvToolbar />
+    <AvToolbar @fda="showDisclaimer()" />
     <router-view />
     <AvOverlay />
     <AvDisclaimer />
@@ -137,6 +137,7 @@ import { ISnackbar } from './use/snackbar';
 import { ICart } from './use/cart';
 import { IUser } from './use/user';
 import { useStore, Modules } from './use/store';
+import { IDisclaimer } from './use/disclaimer';
 
 export default createComponent({
   components: {
@@ -160,13 +161,14 @@ export default createComponent({
     const { cartItems, setCartStateFromIdb } = inject(Modules.cart) as ICart;
     const { listenForAuthStateChanges } = inject(Modules.user) as IUser;
     const { snackbarMsg } = inject(Modules.snackbar) as ISnackbar;
+    const { showDisclaimer } = inject(Modules.disclaimer) as IDisclaimer;
 
     onMounted(() => {
       setCartStateFromIdb();
       listenForAuthStateChanges();
     });
 
-    return { snackbarMsg, cartItems };
+    return { snackbarMsg, cartItems, showDisclaimer };
   }
 });
 </script>

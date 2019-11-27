@@ -151,7 +151,7 @@ export default createComponent({
     includeCompany: Boolean,
     isBilling: Boolean
   },
-  setup(props, { emit }) {
+  setup(props, ctx) {
     const state = reactive({
       states: StateTaxes.map((st) => st.abbr),
       name: '',
@@ -175,7 +175,7 @@ export default createComponent({
         country: state.country
       };
 
-      emit('form-input', form);
+      ctx.emit('form-input', form);
     }
 
     return { ...toRefs(state), updateForm };

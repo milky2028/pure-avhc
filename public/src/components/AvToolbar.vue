@@ -399,10 +399,9 @@ a:hover {
 import AvIconButton from './AvIconButton.vue';
 import ProductCard from './ProductCard.vue';
 import AvBadge from './AvBadge.vue';
-import { createComponent, onMounted, inject } from '@vue/composition-api';
+import { createComponent, inject } from '@vue/composition-api';
 import { MenuItem } from '../types/MenuItem';
 import { Modules } from '../use/store';
-import { IDisclaimer } from '../use/disclaimer';
 import { useWindowWidth } from '../use/window-width';
 import { INavbar } from '../use/navbar';
 import { IOverlay } from '../use/overlay';
@@ -426,9 +425,8 @@ export default createComponent({
     ProductCard,
     AvBadge
   },
-  setup(_, { root }) {
+  setup() {
     const { windowWidth } = useWindowWidth();
-    const { showDisclaimer } = inject(Modules.disclaimer) as IDisclaimer;
     const { photoURL } = inject(Modules.user) as IUser;
     const { products } = inject(Modules.products) as IProducts;
 
@@ -456,8 +454,6 @@ export default createComponent({
       const bb = b.sortOrder;
       return aa > bb ? 1 : aa < bb ? -1 : 0;
     }
-
-    onMounted(() => root.$on('fda', () => showDisclaimer()));
 
     return {
       products,
