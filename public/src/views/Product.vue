@@ -11,7 +11,7 @@
           v-for="image in processedImages"
           :key="image.id"
           tabindex="0"
-          :src="createUrl(image.url, 60, 100)"
+          :src="createUrl(image.url, 80, 100)"
           :alt="image.alt"
           class="gallery-img"
           :class="{ selectedGalleryImage: selectedImage.url === image.url }"
@@ -22,15 +22,45 @@
         />
       </div>
       <AvSelector
+        class="product-selector"
         label="Product"
         :options="products"
         loop-key="id"
         display-key="name"
         value-key="url"
-        :bound-prop="selectedProduct"
-        @select-change="onChange($event)"
+        :bound-prop="currentPageProduct.url"
+        @select-change="$router.push(`/products/${$event}`)"
       />
-      <AddToCartButton :product="currentPageProduct" :has-border="false" />
+      <div class="detail-selectors">
+        <AvSelector
+          :border-right="true"
+          :border-top="false"
+          label="Size"
+          :options="currentPageProduct.sizes"
+          loop-key="id"
+          display-key="display"
+          value-key="masterMeasurement"
+          :bound-prop="selectedSizeType"
+        />
+        <AvSelector
+          :border-top="false"
+          label="Strain"
+          :options="strains"
+          loop-key="id"
+          display-key="name"
+          value-key="type"
+          :bound-prop="selectedStrainType"
+          @select-change="selectedStrainType = $event"
+        />
+      </div>
+      <AddToCartButton
+        :product="currentPageProduct"
+        :has-border="false"
+        :strain="fullStrain"
+        :size="fullSize"
+      />
+      <!-- eslint-disable-next-line -->
+      <div v-html="currentPageProduct.description"></div>
     </ArticlePage>
   </PageWrapper>
 </template>
@@ -43,7 +73,7 @@ img {
 }
 
 .main-image {
-  margin: 2rem 0;
+  margin: 1rem 0;
   height: 30vh;
 }
 
@@ -55,13 +85,28 @@ img {
 }
 
 .gallery-img {
-  height: 60px;
+  height: 80px;
   transition: box-shadow 50ms var(--mat-ease);
 }
 
 .selectedGalleryImage {
   border: 2px solid var(--dark-accent);
   box-shadow: var(--basic-shadow);
+}
+
+.product-selector {
+  margin-top: 2rem;
+}
+
+.detail-selectors {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+@media (max-width: 835px) {
+  .gallery-img {
+    height: 60px;
+  }
 }
 </style>
 
@@ -81,6 +126,8 @@ import {
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
 import { IImages } from '../use/cdn-image';
+import { IStrains } from '../use/strains';
+import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 
 export default createComponent({
   components: {
@@ -94,6 +141,49 @@ export default createComponent({
     const currentPageProduct = computed(() =>
       products.value.find((p) => p.url === root.$route.params.productName)
     );
+
+    const { strains } = inject(Modules.strains) as IStrains;
+    const selectedSizeType = ref('');
+    const selectedStrainType = ref('');
+    watch(currentPageProduct, (newProduct) => {
+      selectedStrainType.value = 'any';
+
+      if (newProduct) {
+        const smallestSize = newProduct.sizes.find(
+          ({ price }) =>
+            price === Math.min(...newProduct.sizes.map(({ price }) => price))
+        );
+        if (smallestSize) {
+          selectedSizeType.value = smallestSize.masterMeasurement;
+        }
+      }
+    });
+
+    const fullStrain = computed(() =>
+      strains.value.find(({ type }) => type === selectedStrainType.value)
+    );
+
+    const fullSize = computed(() =>
+      currentPageProduct.value
+        ? currentPageProduct.value.sizes.find(
+            ({ masterMeasurement }) =>
+              masterMeasurement === selectedSizeType.value
+          )
+        : null
+    );
+
+    const route = ref(root.$route);
+    watch(route, () => {
+      const strain = route.value.query.strain;
+      if (strain) {
+        selectedStrainType.value = strain as string;
+      }
+
+      const size = route.value.query.size;
+      if (size) {
+        selectedSizeType.value = size as string;
+      }
+    });
 
     const { images, createUrl } = inject(Modules.images) as IImages;
     const selectedImage = reactive({ url: '', alt: '' });
@@ -116,25 +206,13 @@ export default createComponent({
       return 30 * vh;
     }
 
-    const route = ref(root.$route);
-    watch(route, () => {
-      if (route.value.query.strain) {
-        // do a thing;
-      }
-
-      if (route.value.query.size) {
-        // do a thing
-      }
-    });
-
-    const selectedProduct = ref(root.$route.params.productName);
-    function onChange(newProduct: string) {
-      root.$router.push(`/products/${newProduct}`);
-    }
-
     return {
-      selectedProduct,
-      onChange,
+      capitalizeFirstLetter,
+      selectedStrainType,
+      fullStrain,
+      fullSize,
+      selectedSizeType,
+      strains,
       products,
       currentPageProduct,
       processedImages,
