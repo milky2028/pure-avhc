@@ -33,7 +33,7 @@
 </style>
 
 <script lang="ts">
-import { createComponent, computed, inject } from '@vue/composition-api';
+import { createComponent, computed, inject, watch } from '@vue/composition-api';
 import EliantoButton from './EliantoButton.vue';
 import AvIconButton from './AvIconButton.vue';
 import { Modules } from '../use/store';
@@ -74,6 +74,11 @@ export default createComponent<Props>({
     }
   },
   setup(props) {
+    watch(
+      () => props.size,
+      (newProp, oldProp) => console.log(newProp, oldProp)
+    );
+
     const { cartItems } = inject(Modules.cart) as ICart;
     const cartItem = computed(() =>
       cartItems.value.find(
