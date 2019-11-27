@@ -76,11 +76,12 @@ export default createComponent({
     const { testResults } = inject(Modules.testResults) as ITestResults;
     const fullName = process.env.VUE_APP_FULL_NAME;
 
-    const selectedSortType = ref('newest');
     const sortOptions = [
       { id: 0, value: 'newest', display: 'Newest to Oldest' },
       { id: 1, value: 'oldest', display: 'Oldest to Newest' }
     ];
+
+    const selectedSortType = ref('newest');
     function sortByDate(a: TestResult, b: TestResult) {
       return selectedSortType.value === 'oldest'
         ? a.date.getTime() - b.date.getTime()
