@@ -13,7 +13,7 @@
       <AvIconButton
         v-if="windowWidth < 835 && expanded"
         class="icon"
-        @icon-click="onClose()"
+        @icon-click="close()"
       >
         close
       </AvIconButton>
