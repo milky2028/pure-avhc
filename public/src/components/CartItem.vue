@@ -6,9 +6,7 @@
         v-if="product && product.name"
         :to="`/products/${product.url}`"
       >
-        <h2 class="body-text header">
-          {{ product.name }}
-        </h2>
+        <h2 class="body-text header">{{ product.name }}</h2>
       </router-link>
       <div class="select-container">
         <SmallSelector
@@ -59,9 +57,8 @@
         class="remover-icon"
         black
         @icon-click="removeCartItem(cartItem.id)"
+        >remove_circle_outline</AvIconButton
       >
-        remove_circle_outline
-      </AvIconButton>
     </div>
   </div>
 </template>
@@ -196,7 +193,8 @@ export default createComponent<Props>({
       sortByStrain,
       getDisplayValue,
       onSizeChange,
-      removeCartItem
+      removeCartItem,
+      updateCartItem
     };
   }
 });
