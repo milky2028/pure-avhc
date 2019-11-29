@@ -14,11 +14,8 @@
           :select-value="String(cartItem.quantity)"
           :options="options"
           @select-changed="
-            updateCartItem({
-              cartItemId: cartItem.id,
-              newCartItem: {
-                quantity: +$event
-              }
+            updateCartItem(cartItem.id, {
+              quantity: +$event
             })
           "
         />
@@ -44,11 +41,8 @@
           display-key="name"
           value-key="type"
           @select-changed="
-            updateCartItem({
-              cartItemId: cartItem.id,
-              newCartItem: {
-                strain: $event
-              }
+            updateCartItem(cartItem.id, {
+              strain: $event
             })
           "
         />
@@ -174,13 +168,10 @@ export default createComponent<Props>({
           : null;
 
       if (newItemSize) {
-        updateCartItem(
-          {
-            price: newItemSize.price,
-            size: newSize
-          },
-          props.cartItem.id
-        );
+        updateCartItem(props.cartItem.id, {
+          price: newItemSize.price,
+          size: newSize
+        });
       }
     }
 

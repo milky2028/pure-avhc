@@ -31,7 +31,7 @@ export function useCart() {
     set('cartItems', cartItems.value);
   }
 
-  function updateCartItem(newCartItem: Partial<CartItem>, cartItemId: string) {
+  function updateCartItem(cartItemId: string, newCartItem: Partial<CartItem>) {
     cartItems.value = cartItems.value
       .map((item) =>
         item.id === cartItemId ? { ...item, ...newCartItem } : { ...item }

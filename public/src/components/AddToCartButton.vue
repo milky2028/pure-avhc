@@ -121,23 +121,17 @@ export default createComponent<Props>({
     const { addCartItem, updateCartItem } = inject(Modules.cart) as ICart;
     function descreaseCartQty(cartItemId: string) {
       if (cartItem && cartItem.value) {
-        updateCartItem(
-          {
-            quantity: cartItem.value.quantity - 1
-          },
-          cartItemId
-        );
+        updateCartItem(cartItemId, {
+          quantity: cartItem.value.quantity - 1
+        });
       }
     }
 
     function addToCart({ id }: Product) {
       if (cartItem && cartItem.value) {
-        updateCartItem(
-          {
-            quantity: cartItem.value.quantity + 1
-          },
-          cartItem.value.id
-        );
+        updateCartItem(cartItem.value.id, {
+          quantity: cartItem.value.quantity + 1
+        });
       } else {
         const newCartItem = {
           id: createRandomId(15),
