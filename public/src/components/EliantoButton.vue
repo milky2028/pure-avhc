@@ -2,6 +2,7 @@
   <button
     class="subhead elianto-btn"
     :class="{
+      thinBottom,
       hasBorder,
       hover: !noHover
     }"
@@ -32,6 +33,10 @@
   background-color: black;
   color: white;
 }
+
+.thinBottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 </style>
 
 <script lang="ts">
@@ -40,7 +45,8 @@ import { createComponent } from '@vue/composition-api';
 export default createComponent({
   props: {
     hasBorder: Boolean,
-    noHover: Boolean
+    noHover: Boolean,
+    thinBottom: Boolean
   }
 });
 </script>

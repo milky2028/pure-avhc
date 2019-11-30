@@ -1,5 +1,5 @@
 <template>
-  <EliantoButton :has-border="hasBorder" no-hover>
+  <EliantoButton :has-border="hasBorder" no-hover :thin-bottom="thinBottom">
     <span class="add-or-subtract-container">
       <AvIconButton
         v-if="cartItem && cartItem.quantity > 0"
@@ -55,6 +55,7 @@ interface Props {
   strain: Strain;
   size: Size;
   hasBorder: boolean;
+  thinBottom: boolean;
 }
 
 export default createComponent<Props>({
@@ -78,7 +79,8 @@ export default createComponent<Props>({
     hasBorder: {
       type: Boolean,
       default: true
-    }
+    },
+    thinBottom: Boolean
   },
   setup(props) {
     const product = ref(props.product);
