@@ -13,7 +13,7 @@ article {
   padding-right: 4vw;
 }
 
-div >>> h2,
+.html-inject >>> h2,
 h2 {
   font-size: 22px;
   font-family: var(--mukta-malar);
@@ -22,7 +22,7 @@ h2 {
   padding-top: 3vh;
 }
 
-div >>> h3,
+.html-inject >>> h3,
 h3 {
   font-size: 18px;
   font-family: var(--mukta-malar);
@@ -31,11 +31,11 @@ h3 {
   line-height: 1.2;
 }
 
-div >>> p,
+.html-inject >>> p,
 p,
-div >>> ul,
+.html-inject >>> ul,
 ul,
-div >>> ol,
+.html-inject >>> ol,
 ol {
   padding-top: 2vh;
   font-size: 18px;
@@ -44,47 +44,47 @@ ol {
   line-height: 1.6;
 }
 
-div >>> ol,
+.html-inject >>> ol,
 ol,
-div >>> ul,
+.html-inject >>> ul,
 ul {
   padding-left: 24px;
 }
 
-div >>> li + p,
+.html-inject >>> li + p,
 li + p {
   padding-top: 0;
 }
 
-div >>> p + li,
+.html-inject >>> p + li,
 p + li {
   padding-top: 16px;
 }
 
-div >>> ul,
+.html-inject >>> ul,
 ul {
   list-style: disc;
 }
 
-div >>> ol,
+.html-inject >>> ol,
 ol {
   font-weight: bold;
 }
 
-div >>> strong,
+.html-inject >>> strong,
 strong {
   font-weight: 600;
 }
 
-div >>> a,
+.html-inject >>> a,
 a {
   font-weight: 700;
   color: var(--dark-accent);
 }
 
-div >>> a:focus,
+.html-inject >>> a:focus,
 a:focus,
-div >>> a:hover,
+.html-inject >>> a:hover,
 a:hover {
   text-decoration: underline;
 }
