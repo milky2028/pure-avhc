@@ -2,8 +2,8 @@
   <PageWrapper with-padding>
     <ArticlePage v-if="currentPageProduct" :title="currentPageProduct.name">
       <img
-        :src="createUrl(selectedImage.url, getImageHeight())"
-        :alt="selectedImage.alt"
+        :src="createUrl(url, getImageHeight())"
+        :alt="alt"
         class="main-image"
       />
       <div class="gallery-container">
@@ -14,10 +14,10 @@
           :src="createUrl(image.url, 80, 100)"
           :alt="image.alt"
           class="gallery-img"
-          :class="{ selectedGalleryImage: selectedImage.url === image.url }"
+          :class="{ selectedGalleryImage: url === image.url }"
           @click="
-            selectedImage.url = image.url;
-            selectedImage.alt = image.alt;
+            url = image.url;
+            alt = image.alt;
           "
         />
       </div>
@@ -140,9 +140,8 @@ import {
   createComponent,
   computed,
   inject,
-  ref,
   watch,
-  reactive
+  ref
 } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
@@ -165,23 +164,26 @@ export default createComponent({
     );
 
     const { strains } = inject(Modules.strains) as IStrains;
-    const selectedSizeType = ref('');
-    const selectedStrainType = ref('');
-    watch(() => {
-      selectedStrainType.value = 'any';
+    const selectedStrainType = ref('any');
+    const selectedSizeType = computed({
+      get: () => {
+        if (currentPageProduct.value) {
+          const smallestSize = currentPageProduct.value.sizes.find(
+            ({ price }) =>
+              price ===
+              Math.min(
+                ...(currentPageProduct.value
+                  ? currentPageProduct.value.sizes.map(({ price }) => price)
+                  : [])
+              )
+          );
 
-      if (currentPageProduct.value) {
-        const smallestSize = currentPageProduct.value.sizes.find(
-          ({ price }) =>
-            price ===
-            Math.min(
-              ...currentPageProduct.value!.sizes.map(({ price }) => price)
-            )
-        );
-        if (smallestSize) {
-          selectedSizeType.value = smallestSize.masterMeasurement;
+          return smallestSize ? smallestSize.masterMeasurement : '';
+        } else {
+          return '';
         }
-      }
+      },
+      set: (newVal) => newVal
     });
 
     function sortByName(a: Strain, b: Strain) {
@@ -230,24 +232,23 @@ export default createComponent({
     );
 
     const { images, createUrl } = inject(Modules.images) as IImages;
-    const selectedImage = reactive({ url: '', alt: '' });
     const processedImages = computed(() =>
       images.value.filter(
         ({ product }) =>
           currentPageProduct.value && product === currentPageProduct.value.id
       )
     );
-    watch(() => {
-      const mainImage = processedImages.value.find(
-        ({ mainImage }) => mainImage
-      );
-
-      if (mainImage) {
-        selectedImage.url = mainImage.url;
-        selectedImage.alt = mainImage.alt;
-      }
+    const mainImage = computed(() =>
+      processedImages.value.find(({ mainImage }) => mainImage)
+    );
+    const url = computed({
+      get: () => (mainImage.value ? mainImage.value.url : ''),
+      set: (newVal) => newVal
     });
-
+    const alt = computed({
+      get: () => (mainImage.value ? mainImage.value.alt : ''),
+      set: (newVal) => newVal
+    });
     function getImageHeight() {
       const vh = window.innerHeight / 100;
       return 30 * vh;
@@ -264,7 +265,8 @@ export default createComponent({
       products,
       currentPageProduct,
       processedImages,
-      selectedImage,
+      url,
+      alt,
       createUrl,
       getImageHeight
     };

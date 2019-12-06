@@ -34,13 +34,7 @@
 </style>
 
 <script lang="ts">
-import {
-  createComponent,
-  computed,
-  inject,
-  watch,
-  ref
-} from '@vue/composition-api';
+import { createComponent, computed, inject } from '@vue/composition-api';
 import EliantoButton from './EliantoButton.vue';
 import AvIconButton from './AvIconButton.vue';
 import { Modules } from '../use/store';
@@ -84,13 +78,9 @@ export default createComponent<Props>({
     thinBottom: Boolean
   },
   setup(props) {
-    const product = ref(props.product);
-    const size = ref(props.size);
-    const strain = ref(props.strain);
-
-    watch(() => (product.value = props.product));
-    watch(() => (size.value = props.size));
-    watch(() => (strain.value = props.strain));
+    const product = computed(() => props.product);
+    const size = computed(() => props.size);
+    const strain = computed(() => props.strain);
 
     const { cartItems } = inject(Modules.cart) as ICart;
     const cartItem = computed(() =>
