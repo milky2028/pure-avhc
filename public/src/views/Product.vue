@@ -45,7 +45,7 @@
         <AvSelector
           :border-top="false"
           label="Strain"
-          :options="strains"
+          :options="filteredAndSortedStrains"
           loop-key="id"
           display-key="name"
           value-key="type"
