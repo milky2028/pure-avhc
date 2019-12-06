@@ -62,6 +62,26 @@
       />
       <!-- eslint-disable-next-line -->
       <div class="html-inject" v-html="currentPageProduct.description"></div>
+      <div>
+        <h2>Strains</h2>
+        <div
+          v-for="{
+            name,
+            description,
+            id,
+            leaflyLink
+          } of filteredAndSortedStrains"
+          :key="id"
+        >
+          <h3>
+            <a :href="leaflyLink" target="_blank" rel="noopener noreferrer">{{
+              name
+            }}</a>
+            <!-- eslint-disable-next-line -->
+            <div class="html-inject" v-html="description"></div>
+          </h3>
+        </div>
+      </div>
     </ArticlePage>
   </PageWrapper>
 </template>
@@ -129,6 +149,7 @@ import { IProducts } from '../use/products';
 import { IImages } from '../use/cdn-image';
 import { IStrains } from '../use/strains';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
+import Strain from '../types/Strain';
 
 export default createComponent({
   components: {
@@ -159,6 +180,22 @@ export default createComponent({
         }
       }
     });
+
+    function sortByName(a: Strain, b: Strain) {
+      const aa = a.name;
+      const bb = b.name;
+      return aa > bb ? 1 : aa < bb ? -1 : 0;
+    }
+
+    function filterByProduct(strain: Strain) {
+      return currentPageProduct.value
+        ? strain.products.includes(currentPageProduct.value.id)
+        : false;
+    }
+
+    const filteredAndSortedStrains = computed(() =>
+      strains.value.filter(filterByProduct).sort(sortByName)
+    );
 
     const fullStrain = computed(() =>
       strains.value.find(({ type }) => type === selectedStrainType.value)
@@ -217,6 +254,7 @@ export default createComponent({
       fullSize,
       selectedSizeType,
       strains,
+      filteredAndSortedStrains,
       products,
       currentPageProduct,
       processedImages,
