@@ -130,7 +130,12 @@ body {
 </style>
 
 <script lang="ts">
-import { createComponent, onMounted, inject } from '@vue/composition-api';
+import {
+  createComponent,
+  onMounted,
+  inject,
+  provide
+} from '@vue/composition-api';
 import AvToolbar from './components/AvToolbar.vue';
 import { useEvent } from './use/event';
 import { ISnackbar } from './use/snackbar';
@@ -165,7 +170,7 @@ export default createComponent({
   },
   setup() {
     for (const symbol of Object.getOwnPropertySymbols(Store)) {
-      // @ts-ignore
+      // @ts-ignore;
       provide(symbol, Store[symbol]);
     }
 

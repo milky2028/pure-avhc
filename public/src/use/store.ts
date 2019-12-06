@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { useCart } from './cart';
 import { useCDNImages } from './cdn-image';
 import { useProducts } from './products';
@@ -10,6 +9,7 @@ import { useSnackbar } from './snackbar';
 import { useOverlay } from './overlay';
 import { useNavbar } from './navbar';
 import VueCompositionApi from '@vue/composition-api';
+import Vue from 'vue';
 
 Vue.use(VueCompositionApi);
 
