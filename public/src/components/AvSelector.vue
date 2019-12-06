@@ -8,9 +8,7 @@
         @input="$emit('select-change', $event.target.value)"
       >
         <option
-          v-for="opt of options
-            .slice()
-            .sort((a, b) => a[displayKey].localeCompare(b[displayKey]))"
+          v-for="opt of sortedOptions"
           :key="opt[loopKey]"
           :value="opt[valueKey ? valueKey : 'value']"
           >{{ opt[displayKey] }}</option
@@ -61,9 +59,21 @@ select {
 <script lang="ts">
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
-import { createComponent } from '@vue/composition-api';
+import { createComponent, computed } from '@vue/composition-api';
 
-export default createComponent({
+interface Props {
+  valueKey: string;
+  options: any[];
+  label: string;
+  loopKey: string;
+  displayKey: string;
+  boundProp: string;
+  borderTop: boolean;
+  borderBottom: boolean;
+  borderRight: boolean;
+}
+
+export default createComponent<Props>({
   components: {
     AvIconButton
   },
@@ -84,9 +94,16 @@ export default createComponent({
     },
     borderRight: Boolean
   },
-  setup() {
+  setup(props) {
     const id = createRandomId();
-    return { id };
+
+    const sortedOptions = computed(() =>
+      props.options.sort((a, b) =>
+        a[props.displayKey].localeCompare(b[props.displayKey])
+      )
+    );
+
+    return { id, sortedOptions };
   }
 });
 </script>
