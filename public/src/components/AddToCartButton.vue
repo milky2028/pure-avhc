@@ -88,20 +88,9 @@ export default createComponent<Props>({
     const size = ref(props.size);
     const strain = ref(props.strain);
 
-    watch(
-      () => props.product,
-      (newProduct) => (product.value = newProduct)
-    );
-
-    watch(
-      () => props.size,
-      (newSize) => (size.value = newSize)
-    );
-
-    watch(
-      () => props.strain,
-      (newStrain) => (strain.value = newStrain)
-    );
+    watch(() => (product.value = props.product));
+    watch(() => (size.value = props.size));
+    watch(() => (strain.value = props.strain));
 
     const { cartItems } = inject(Modules.cart) as ICart;
     const cartItem = computed(() =>

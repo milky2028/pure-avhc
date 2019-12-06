@@ -167,13 +167,16 @@ export default createComponent({
     const { strains } = inject(Modules.strains) as IStrains;
     const selectedSizeType = ref('');
     const selectedStrainType = ref('');
-    watch(currentPageProduct, (newProduct) => {
+    watch(() => {
       selectedStrainType.value = 'any';
 
-      if (newProduct) {
-        const smallestSize = newProduct.sizes.find(
+      if (currentPageProduct.value) {
+        const smallestSize = currentPageProduct.value.sizes.find(
           ({ price }) =>
-            price === Math.min(...newProduct.sizes.map(({ price }) => price))
+            price ===
+            Math.min(
+              ...currentPageProduct.value!.sizes.map(({ price }) => price)
+            )
         );
         if (smallestSize) {
           selectedSizeType.value = smallestSize.masterMeasurement;
@@ -212,7 +215,7 @@ export default createComponent({
 
     const route = ctx.root.$route;
     watch(
-      () => ctx.root.$route,
+      () => route,
       () => {
         const strain = route.query.strain;
         if (strain) {
@@ -234,8 +237,11 @@ export default createComponent({
           currentPageProduct.value && product === currentPageProduct.value.id
       )
     );
-    watch(processedImages, (newProcessedImages) => {
-      const mainImage = newProcessedImages.find(({ mainImage }) => mainImage);
+    watch(() => {
+      const mainImage = processedImages.value.find(
+        ({ mainImage }) => mainImage
+      );
+
       if (mainImage) {
         selectedImage.url = mainImage.url;
         selectedImage.alt = mainImage.alt;

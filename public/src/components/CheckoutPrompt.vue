@@ -195,7 +195,11 @@ export default createComponent({
 
     const { cartItems, subtotal } = inject(Modules.cart) as ICart;
     const expanded = ref(false);
-    watch(cartItems, () => (expanded.value = false));
+    watch(() => {
+      if (cartItems.value.length === 0) {
+        expanded.value = false;
+      }
+    });
 
     const { uid, canSubscribe } = inject(Modules.user) as IUser;
     onMounted(async () => {

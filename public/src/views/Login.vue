@@ -198,8 +198,8 @@ export default createComponent({
       createAccountWithEmailAndPassword,
       signInWithEmail
     } = inject(Modules.user) as IUser;
-    watch(uid, (id: string) => {
-      if (id) {
+    watch(() => {
+      if (uid) {
         ctx.root.$router.push('/orders');
       }
     });
