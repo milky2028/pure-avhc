@@ -10,7 +10,6 @@
 <style scoped>
 article {
   max-width: 680px;
-  padding-right: 4vw;
 }
 
 .html-inject >>> h2,
@@ -87,6 +86,12 @@ a:focus,
 .html-inject >>> a:hover,
 a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 835px) {
+  article {
+    padding-right: 4vw;
+  }
 }
 </style>
 
