@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { useCart } from './cart';
 import { useCDNImages } from './cdn-image';
 import { useProducts } from './products';
@@ -5,10 +6,12 @@ import { useTestResults } from './test-results';
 import { useUser } from './user';
 import { useStrains } from './strains';
 import { useDisclaimer } from './disclaimer';
-import { provide } from '@vue/composition-api';
 import { useSnackbar } from './snackbar';
 import { useOverlay } from './overlay';
 import { useNavbar } from './navbar';
+import VueCompositionApi from '@vue/composition-api';
+
+Vue.use(VueCompositionApi);
 
 export const Modules = {
   cart: Symbol.for('Cart'),
@@ -23,22 +26,15 @@ export const Modules = {
   navbar: Symbol.for('Navbar')
 };
 
-export function useStore() {
-  const Store = {
-    [Modules.cart]: useCart(),
-    [Modules.images]: useCDNImages(),
-    [Modules.products]: useProducts(),
-    [Modules.testResults]: useTestResults(),
-    [Modules.user]: useUser(),
-    [Modules.strains]: useStrains(),
-    [Modules.disclaimer]: useDisclaimer(),
-    [Modules.snackbar]: useSnackbar(),
-    [Modules.overlay]: useOverlay(),
-    [Modules.navbar]: useNavbar()
-  };
-
-  for (const symbol of Object.getOwnPropertySymbols(Store)) {
-    // @ts-ignore
-    provide(symbol, Store[symbol]);
-  }
-}
+export const Store = {
+  [Modules.cart]: useCart(),
+  [Modules.images]: useCDNImages(),
+  [Modules.products]: useProducts(),
+  [Modules.testResults]: useTestResults(),
+  [Modules.user]: useUser(),
+  [Modules.strains]: useStrains(),
+  [Modules.disclaimer]: useDisclaimer(),
+  [Modules.snackbar]: useSnackbar(),
+  [Modules.overlay]: useOverlay(),
+  [Modules.navbar]: useNavbar()
+};

@@ -136,7 +136,7 @@ import { useEvent } from './use/event';
 import { ISnackbar } from './use/snackbar';
 import { ICart } from './use/cart';
 import { IUser } from './use/user';
-import { useStore, Modules } from './use/store';
+import { Modules, Store } from './use/store';
 import { IDisclaimer } from './use/disclaimer';
 
 export default createComponent({
@@ -164,7 +164,11 @@ export default createComponent({
       )
   },
   setup() {
-    useStore();
+    for (const symbol of Object.getOwnPropertySymbols(Store)) {
+      // @ts-ignore
+      provide(symbol, Store[symbol]);
+    }
+
     useEvent('beforeinstallprompt', (e) => e.preventDefault());
     const { cartItems, setCartStateFromIdb } = inject(Modules.cart) as ICart;
     const { listenForAuthStateChanges } = inject(Modules.user) as IUser;
