@@ -58,9 +58,10 @@
         :has-border="false"
         :strain="fullStrain"
         :size="fullSize"
+        :thin-bottom="true"
       />
       <!-- eslint-disable-next-line -->
-      <div v-html="currentPageProduct.description"></div>
+      <div class="html-inject" v-html="currentPageProduct.description"></div>
     </ArticlePage>
   </PageWrapper>
 </template>

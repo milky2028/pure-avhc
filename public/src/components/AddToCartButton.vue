@@ -1,5 +1,5 @@
 <template>
-  <EliantoButton :has-border="hasBorder" no-hover>
+  <EliantoButton :has-border="hasBorder" no-hover :thin-bottom="thinBottom">
     <span class="add-or-subtract-container">
       <AvIconButton
         v-if="cartItem && cartItem.quantity > 0"
@@ -33,7 +33,13 @@
 </style>
 
 <script lang="ts">
-import { createComponent, computed, inject } from '@vue/composition-api';
+import {
+  createComponent,
+  computed,
+  inject,
+  watch,
+  ref
+} from '@vue/composition-api';
 import EliantoButton from './EliantoButton.vue';
 import AvIconButton from './AvIconButton.vue';
 import { Modules } from '../use/store';
@@ -44,10 +50,12 @@ import Size from '../types/Size';
 import Strain from '../types/Strain';
 
 interface Props {
+  [key: string]: any;
   product: Product;
   strain: Strain;
   size: Size;
   hasBorder: boolean;
+  thinBottom: boolean;
 }
 
 export default createComponent<Props>({
@@ -71,22 +79,39 @@ export default createComponent<Props>({
     hasBorder: {
       type: Boolean,
       default: true
-    }
+    },
+    thinBottom: Boolean
   },
   setup(props) {
-    // watch(
-    //   () => props.size,
-    //   (newProp, oldProp) => console.log(newProp, oldProp)
-    // );
+    const product = ref(props.product);
+    const size = ref(props.size);
+    const strain = ref(props.strain);
+
+    watch(
+      () => props.product,
+      (newProduct) => (product.value = newProduct)
+    );
+
+    watch(
+      () => props.size,
+      (newSize) => (size.value = newSize)
+    );
+
+    watch(
+      () => props.strain,
+      (newStrain) => (strain.value = newStrain)
+    );
 
     const { cartItems } = inject(Modules.cart) as ICart;
     const cartItem = computed(() =>
-      cartItems.value.find(
-        (cartItem) =>
-          cartItem.product === props.product.id &&
-          cartItem.size === props.size.masterMeasurement &&
-          cartItem.strain === (props.strain ? props.strain.type : 'any')
-      )
+      size.value && product.value
+        ? cartItems.value.find(
+            (cartItem) =>
+              cartItem.product === product.value.id &&
+              cartItem.size === size.value.masterMeasurement &&
+              cartItem.strain === (strain.value ? strain.value.type : 'any')
+          )
+        : null
     );
 
     const btnText = computed(() =>
@@ -98,30 +123,24 @@ export default createComponent<Props>({
     const { addCartItem, updateCartItem } = inject(Modules.cart) as ICart;
     function descreaseCartQty(cartItemId: string) {
       if (cartItem && cartItem.value) {
-        updateCartItem(
-          {
-            quantity: cartItem.value.quantity - 1
-          },
-          cartItemId
-        );
+        updateCartItem(cartItemId, {
+          quantity: cartItem.value.quantity - 1
+        });
       }
     }
 
     function addToCart({ id }: Product) {
       if (cartItem && cartItem.value) {
-        updateCartItem(
-          {
-            quantity: cartItem.value.quantity + 1
-          },
-          cartItem.value.id
-        );
+        updateCartItem(cartItem.value.id, {
+          quantity: cartItem.value.quantity + 1
+        });
       } else {
         const newCartItem = {
           id: createRandomId(15),
-          price: props.size.price,
+          price: size.value.price,
           quantity: 1,
           product: id,
-          size: props.size.masterMeasurement,
+          size: size.value.masterMeasurement,
           strain: 'any'
         };
         addCartItem(newCartItem);

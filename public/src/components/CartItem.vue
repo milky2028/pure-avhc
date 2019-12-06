@@ -6,9 +6,7 @@
         v-if="product && product.name"
         :to="`/products/${product.url}`"
       >
-        <h2 class="body-text header">
-          {{ product.name }}
-        </h2>
+        <h2 class="body-text header">{{ product.name }}</h2>
       </router-link>
       <div class="select-container">
         <SmallSelector
@@ -16,11 +14,8 @@
           :select-value="String(cartItem.quantity)"
           :options="options"
           @select-changed="
-            updateCartItem({
-              cartItemId: cartItem.id,
-              newCartItem: {
-                quantity: +$event
-              }
+            updateCartItem(cartItem.id, {
+              quantity: +$event
             })
           "
         />
@@ -46,11 +41,8 @@
           display-key="name"
           value-key="type"
           @select-changed="
-            updateCartItem({
-              cartItemId: cartItem.id,
-              newCartItem: {
-                strain: $event
-              }
+            updateCartItem(cartItem.id, {
+              strain: $event
             })
           "
         />
@@ -59,9 +51,8 @@
         class="remover-icon"
         black
         @icon-click="removeCartItem(cartItem.id)"
+        >remove_circle_outline</AvIconButton
       >
-        remove_circle_outline
-      </AvIconButton>
     </div>
   </div>
 </template>
@@ -177,13 +168,10 @@ export default createComponent<Props>({
           : null;
 
       if (newItemSize) {
-        updateCartItem(
-          {
-            price: newItemSize.price,
-            size: newSize
-          },
-          props.cartItem.id
-        );
+        updateCartItem(props.cartItem.id, {
+          price: newItemSize.price,
+          size: newSize
+        });
       }
     }
 
@@ -196,7 +184,8 @@ export default createComponent<Props>({
       sortByStrain,
       getDisplayValue,
       onSizeChange,
-      removeCartItem
+      removeCartItem,
+      updateCartItem
     };
   }
 });
