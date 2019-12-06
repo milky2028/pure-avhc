@@ -4,4 +4,5 @@ export default interface Strain {
   name: string;
   type: string;
   products: string[];
+  leaflyLink: string;
 }
