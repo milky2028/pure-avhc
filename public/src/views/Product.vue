@@ -8,7 +8,7 @@
       />
       <div class="gallery-container">
         <img
-          v-for="image in processedImages"
+          v-for="image in filteredImages"
           :key="image.id"
           tabindex="0"
           :src="createUrl(image.url, 80, 100)"
@@ -165,25 +165,24 @@ export default createComponent({
 
     const { strains } = inject(Modules.strains) as IStrains;
     const selectedStrainType = ref('any');
-    const selectedSizeType = computed({
-      get: () => {
-        if (currentPageProduct.value) {
-          const smallestSize = currentPageProduct.value.sizes.find(
-            ({ price }) =>
-              price ===
-              Math.min(
-                ...(currentPageProduct.value
-                  ? currentPageProduct.value.sizes.map(({ price }) => price)
-                  : [])
-              )
-          );
+    watch(currentPageProduct, () => (selectedStrainType.value = 'any'));
+    const selectedSizeType = ref('');
+    watch(currentPageProduct, () => {
+      if (currentPageProduct.value) {
+        const smallestSize = currentPageProduct.value.sizes.find(
+          ({ price }) =>
+            price ===
+            Math.min(
+              ...(currentPageProduct.value
+                ? currentPageProduct.value.sizes.map(({ price }) => price)
+                : [])
+            )
+        );
 
-          return smallestSize ? smallestSize.masterMeasurement : '';
-        } else {
-          return '';
-        }
-      },
-      set: (newVal) => newVal
+        selectedSizeType.value = smallestSize
+          ? smallestSize.masterMeasurement
+          : '';
+      }
     });
 
     function sortByName(a: Strain, b: Strain) {
@@ -232,14 +231,14 @@ export default createComponent({
     );
 
     const { images, createUrl } = inject(Modules.images) as IImages;
-    const processedImages = computed(() =>
+    const filteredImages = computed(() =>
       images.value.filter(
         ({ product }) =>
           currentPageProduct.value && product === currentPageProduct.value.id
       )
     );
     const mainImage = computed(() =>
-      processedImages.value.find(({ mainImage }) => mainImage)
+      filteredImages.value.find(({ mainImage }) => mainImage)
     );
     const url = computed({
       get: () => (mainImage.value ? mainImage.value.url : ''),
@@ -264,7 +263,7 @@ export default createComponent({
       filteredAndSortedStrains,
       products,
       currentPageProduct,
-      processedImages,
+      filteredImages,
       url,
       alt,
       createUrl,
