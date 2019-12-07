@@ -1,5 +1,5 @@
 import { proxy } from 'comlink';
-import { ref, onMounted } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import Strain from '@/types/Strain';
 import workerInstance from '../workers/entry';
 
@@ -19,11 +19,11 @@ export function useStrains() {
     });
   }
 
-  onMounted(async () => {
+  (async () => {
     if (strains.value.length < 1) {
       await loadStrains();
     }
-  });
+  })();
 
   return { loadStrains, strains };
 }

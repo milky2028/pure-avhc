@@ -1,6 +1,6 @@
 import AvImage from '@/types/AvImage';
 import { proxy } from 'comlink';
-import { ref, onMounted } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
 
 export type IImages = ReturnType<typeof useCDNImages>;
@@ -19,11 +19,11 @@ export function useCDNImages() {
     });
   }
 
-  onMounted(async () => {
+  (async () => {
     if (images.value.length < 1) {
       await loadImages();
     }
-  });
+  })();
 
   function createUrl(
     initialUrl: string,

@@ -1,4 +1,4 @@
-import { ref, onMounted } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import TestResult from '../types/TestResult';
 import workerInstance from '../workers/entry';
 
@@ -10,11 +10,11 @@ export function useTestResults() {
     return (await workerInstance).getDocuments('testResults');
   }
 
-  onMounted(async () => {
+  (async () => {
     if (testResults.value.length < 1) {
       testResults.value = (await loadTestResults()) as TestResult[];
     }
-  });
+  })();
 
   return { testResults, loadTestResults };
 }

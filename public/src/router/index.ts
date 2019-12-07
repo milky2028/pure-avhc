@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import { Store, Modules } from '@/use/store';
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ '../views/PrivacyPolicy.vue');
@@ -57,12 +58,28 @@ export default new Router({
     {
       path: '/orders',
       name: 'orders',
-      component: Orders
+      component: Orders,
+      beforeEnter(_, __, next) {
+        // @ts-ignore
+        if (Store[Modules.user].uid.value) {
+          next();
+        } else {
+          next('/login');
+        }
+      }
     },
     {
       path: '/orders/:orderId',
       name: 'single-order',
-      component: SingleOrder
+      component: SingleOrder,
+      beforeEnter(_, __, next) {
+        // @ts-ignore
+        if (Store[Modules.user].uid.value) {
+          next();
+        } else {
+          next('/login');
+        }
+      }
     },
     {
       path: '/products/:productName',

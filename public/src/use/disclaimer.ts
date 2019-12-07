@@ -1,4 +1,4 @@
-import { ref, onMounted } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import { set, get } from 'idb-keyval';
 
 export type IDisclaimer = ReturnType<typeof useDisclaimer>;
@@ -14,12 +14,12 @@ export function useDisclaimer() {
     isDisclaimerShowing.value = false;
   }
 
-  onMounted(async () => {
+  (async () => {
     const hasSeenDisclaimer = await get('hasSeenDisclaimer');
     if (!hasSeenDisclaimer) {
       showDisclaimer();
     }
-  });
+  })();
 
   return { isDisclaimerShowing, showDisclaimer, hideDisclaimer };
 }

@@ -1,5 +1,5 @@
 import { proxy } from 'comlink';
-import { ref, onMounted } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import Product from '@/types/Product';
 import workerInstance from '../workers/entry';
 
@@ -19,11 +19,11 @@ export function useProducts() {
     });
   }
 
-  onMounted(async () => {
+  (async () => {
     if (products.value.length < 1) {
       await loadProducts();
     }
-  });
+  })();
 
   return { loadProducts, products };
 }
