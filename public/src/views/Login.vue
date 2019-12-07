@@ -199,7 +199,7 @@ export default createComponent({
       signInWithEmail
     } = inject(Modules.user) as IUser;
     watch(() => {
-      if (uid) {
+      if (uid.value) {
         ctx.root.$router.push('/orders');
       }
     });
