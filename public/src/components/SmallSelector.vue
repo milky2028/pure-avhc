@@ -43,10 +43,9 @@ label {
 }
 
 select {
+  appearance: none;
   font-size: 2rem;
   width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   grid-area: main;
   padding: 0.25rem;
   border-radius: 0;

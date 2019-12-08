@@ -44,6 +44,7 @@ img {
   width: 100%;
   max-width: 100vmin;
   height: 100%;
+  max-height: 45vmin;
 }
 
 .sold-out {
@@ -94,6 +95,12 @@ ul {
   list-style: disc;
   padding: 5px 0 12px 24px;
   color: var(--dark-accent);
+}
+
+@media (max-width: 835px) {
+  img {
+    max-height: 43vmax;
+  }
 }
 </style>
 

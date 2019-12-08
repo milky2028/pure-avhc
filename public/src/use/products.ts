@@ -2,6 +2,7 @@ import { proxy } from 'comlink';
 import { ref } from '@vue/composition-api';
 import Product from '@/types/Product';
 import workerInstance from '../workers/entry';
+import { set, get } from 'idb-keyval';
 
 export type IProducts = ReturnType<typeof useProducts>;
 export function useProducts() {
@@ -13,6 +14,7 @@ export function useProducts() {
         'products',
         proxy((wProducts) => {
           products.value = wProducts;
+          set('products', products.value);
           resolve();
         })
       );
@@ -20,9 +22,9 @@ export function useProducts() {
   }
 
   (async () => {
-    if (products.value.length < 1) {
-      await loadProducts();
-    }
+    const idbProducts: Product[] | undefined = await get('products');
+    products.value = idbProducts ? idbProducts : [];
+    loadProducts();
   })();
 
   return { loadProducts, products };

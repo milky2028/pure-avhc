@@ -23,6 +23,7 @@ rm -rf public/node_modules functions/node_modules build/node_modules
 cd build
 rm -rf node_modules
 yarn install
+yarn build-manifest:avhc
 
 cd ../functions
 rm -rf node_modules

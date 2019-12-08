@@ -2,17 +2,19 @@ import AvImage from '@/types/AvImage';
 import { proxy } from 'comlink';
 import { ref } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
+import { set, get } from 'idb-keyval';
 
 export type IImages = ReturnType<typeof useCDNImages>;
 export function useCDNImages() {
   const images = ref([] as AvImage[]);
 
-  function loadImages() {
+  function loadImages(): Promise<void> {
     return new Promise(async (resolve) => {
       return (await workerInstance).getDocuments(
         'images',
         proxy((imageData) => {
           images.value = imageData;
+          set('images', images.value);
           resolve();
         })
       );
@@ -20,9 +22,9 @@ export function useCDNImages() {
   }
 
   (async () => {
-    if (images.value.length < 1) {
-      await loadImages();
-    }
+    const idbImages: AvImage[] | undefined = await get('images');
+    images.value = idbImages ? idbImages : [];
+    loadImages();
   })();
 
   function createUrl(

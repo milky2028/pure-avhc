@@ -31,6 +31,7 @@ label {
 }
 
 select {
+  appearance: none;
   width: 100%;
   font-size: 18px;
   margin-left: -5px;

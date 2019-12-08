@@ -329,6 +329,9 @@ export default createComponent({
     });
 
     return {
+      uid,
+      isWholesaleUser,
+      wholesaleCatalog,
       onSubmit,
       emailPattern,
       fullName,

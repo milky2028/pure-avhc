@@ -40,6 +40,7 @@ p {
 }
 
 input {
+  font-size: 2rem;
   width: 100%;
   background-color: white;
   padding: 10px;
