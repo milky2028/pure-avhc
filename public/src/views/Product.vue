@@ -237,16 +237,13 @@ export default createComponent({
           currentPageProduct.value && product === currentPageProduct.value.id
       )
     );
-    const mainImage = computed(() =>
-      filteredImages.value.find(({ mainImage }) => mainImage)
-    );
-    const url = computed({
-      get: () => (mainImage.value ? mainImage.value.url : ''),
-      set: (newVal) => newVal
-    });
-    const alt = computed({
-      get: () => (mainImage.value ? mainImage.value.alt : ''),
-      set: (newVal) => newVal
+
+    const url = ref('');
+    const alt = ref('');
+    watch(currentPageProduct, () => {
+      const mainImage = filteredImages.value.find(({ mainImage }) => mainImage);
+      url.value = mainImage ? mainImage.url : '';
+      alt.value = mainImage ? mainImage.alt : '';
     });
     function getImageHeight() {
       const vh = window.innerHeight / 100;
