@@ -24,7 +24,7 @@ module.exports = {
       'always',
       { omitLastInOneLineBlock: true }
     ],
-    quotes: ['error', 'single', { 'avoidEscape': true }],
+    quotes: ['error', 'single', { avoidEscape: true }],
     'no-useless-catch': 'error',
     'arrow-parens': ['error', 'always'],
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 0 }],
