@@ -2,7 +2,7 @@
   <PageWrapper with-padding>
     <ArticlePage v-if="currentPageProduct" :title="currentPageProduct.name">
       <img
-        :src="createUrl(url, getImageHeight())"
+        :src="createUrl(url, getImageHeight(), windowWidth > 835 ? 680 : 345)"
         :alt="alt"
         class="main-image"
       />
@@ -11,7 +11,7 @@
           v-for="image in filteredImages"
           :key="image.id"
           tabindex="0"
-          :src="createUrl(image.url, 80, 100)"
+          :src="createUrl(image.url, 80, windowWidth > 835 ? 336 : 100)"
           :alt="image.alt"
           class="gallery-img"
           :class="{ selectedGalleryImage: url === image.url }"
@@ -95,7 +95,7 @@ img {
 
 .main-image {
   margin: 1rem 0;
-  height: 30vh;
+  height: 40vh;
 }
 
 .gallery-container {
@@ -125,6 +125,10 @@ img {
 }
 
 @media (max-width: 835px) {
+  .main-image {
+    height: 30vh;
+  }
+
   .gallery-img {
     height: 60px;
   }
@@ -149,6 +153,7 @@ import { IImages } from '../use/cdn-image';
 import { IStrains } from '../use/strains';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import Strain from '../types/Strain';
+import { useWindowWidth } from '../use/window-width';
 
 export default createComponent({
   components: {
@@ -158,6 +163,7 @@ export default createComponent({
     AddToCartButton
   },
   setup(_, ctx) {
+    const { windowWidth } = useWindowWidth();
     const { products } = inject(Modules.products) as IProducts;
     const currentPageProduct = computed(() =>
       products.value.find((p) => p.url === ctx.root.$route.params.productName)
@@ -247,7 +253,7 @@ export default createComponent({
     });
     function getImageHeight() {
       const vh = window.innerHeight / 100;
-      return 30 * vh;
+      return windowWidth.value > 835 ? 40 * vh : 30 * vh;
     }
 
     return {
@@ -264,7 +270,8 @@ export default createComponent({
       url,
       alt,
       createUrl,
-      getImageHeight
+      getImageHeight,
+      windowWidth
     };
   }
 });
