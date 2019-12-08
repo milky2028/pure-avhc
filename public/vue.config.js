@@ -23,10 +23,6 @@ module.exports = {
     config.module.rule('js').exclude.add(/\.worker\.js$/);
     config.output.globalObject('self');
   },
-  pwa: {
-    workboxOptions: {
-      cleanupOutdatedCaches: true,
-    }
-  },
-  productionSourceMap: false
+  productionSourceMap: false,
+  publicPath: ''
 };
