@@ -170,16 +170,16 @@ img {
 </style>
 
 <script lang="ts">
-import PageWrapper from '../components/PageWrapper.vue';
-import ArticlePage from '../components/ArticlePage.vue';
-import AvInput from '../components/AvInput.vue';
-import AvButton from '../components/AvButton.vue';
-import AvSwitch from '../components/AvSwitch.vue';
 import { createComponent, ref, watch, inject } from '@vue/composition-api';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { IUser } from '../use/user';
 import { ISnackbar } from '../use/snackbar';
+import PageWrapper from '../components/PageWrapper.vue';
+import ArticlePage from '../components/ArticlePage.vue';
+import AvInput from '../components/AvInput.vue';
+import AvSwitch from '../components/AvSwitch.vue';
+import AvButton from '../components/AvButton.vue';
 
 export default createComponent({
   components: {
