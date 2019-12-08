@@ -59,7 +59,7 @@
             class="sign-in-icon google"
             src="../assets/img/google.svg"
             alt="Google icon"
-          />Sign in with Google
+          />Log in with Google
         </button>
         <button
           class="sign-in-btn facebook"
@@ -72,7 +72,7 @@
               alt="Facebook icon"
             />
           </span>
-          <span>Sign in with Facebook</span>
+          <span>Log in with Facebook</span>
         </button>
       </div>
     </ArticlePage>
@@ -119,6 +119,7 @@ p {
 }
 
 .sign-in-btn {
+  font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
