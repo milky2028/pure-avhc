@@ -10,21 +10,6 @@
       <div>
         <h2 class="subhead larger-font">{{ product.shortName }}</h2>
         <p class="body-text tagline">{{ product.tagline }}.</p>
-        <p class="body-text">Also available in:</p>
-        <ul class="body-text">
-          <li
-            v-for="{
-              price,
-              measurementValue,
-              measurement,
-              masterMeasurement
-            } in filteredSizes"
-            :key="price"
-          >
-            {{ measurementValue }} {{ measurement
-            }}{{ measurement !== 'gram' ? ` ${masterMeasurement}` : '' }}s
-          </li>
-        </ul>
         <h2 class="body-text size">{{ size }}</h2>
         <h3 class="body-text price">{{ price }}</h3>
       </div>
@@ -150,11 +135,6 @@ export default createComponent<Props>({
         Math.min(...props.product.sizes.map((s: Size) => s.price))
     );
 
-    const filteredSizes = props.product.sizes.filter(
-      (size) =>
-        size.price !== Math.min(...props.product.sizes.map((s) => s.price))
-    );
-
     const price = `$${Math.min(
       ...props.product.sizes.map((size) => size.price)
     )}`;
@@ -197,7 +177,6 @@ export default createComponent<Props>({
 
     return {
       size,
-      filteredSizes,
       alt,
       url,
       vh,
