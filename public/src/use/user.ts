@@ -3,6 +3,7 @@ import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 import workerInstance from '../workers/entry';
 import { setAllStateInObj } from '@/functions/setState';
+import { clear } from 'idb-keyval';
 
 export type IUser = ReturnType<typeof useUser>;
 export function useUser() {
@@ -105,6 +106,7 @@ export function useUser() {
   async function signOut() {
     const auth = await _auth();
     setAllStateInObj(user, emptyUser);
+    await clear();
     return auth.signOut();
   }
 

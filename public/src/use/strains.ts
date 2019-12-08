@@ -2,6 +2,7 @@ import { proxy } from 'comlink';
 import { ref } from '@vue/composition-api';
 import Strain from '@/types/Strain';
 import workerInstance from '../workers/entry';
+import { set, get } from 'idb-keyval';
 
 export type IStrains = ReturnType<typeof useStrains>;
 export function useStrains() {
@@ -13,6 +14,7 @@ export function useStrains() {
         'strains',
         proxy((wStrains) => {
           strains.value = wStrains;
+          set('strains', strains.value);
           resolve();
         })
       );
@@ -20,9 +22,9 @@ export function useStrains() {
   }
 
   (async () => {
-    if (strains.value.length < 1) {
-      await loadStrains();
-    }
+    const idbStrains: Strain[] | undefined = await get('strains');
+    strains.value = idbStrains ? idbStrains : [];
+    loadStrains();
   })();
 
   return { loadStrains, strains };
