@@ -23,7 +23,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: 3fr 1fr 65px;
-  grid-row-gap: 2vh;
+  grid-row-gap: 3vh;
   max-height: calc(90vh - 102px - 3vmax);
   min-height: 450px;
 }
@@ -35,8 +35,6 @@
 .img-container {
   display: grid;
   grid-template-areas: 'main';
-  justify-content: center;
-  align-items: center;
 }
 
 img {
@@ -46,7 +44,6 @@ img {
   width: 100%;
   max-width: 100vmin;
   height: 100%;
-  max-height: 40vmin;
 }
 
 .sold-out {
@@ -98,12 +95,6 @@ ul {
   padding: 5px 0 12px 24px;
   color: var(--dark-accent);
 }
-
-@media (max-width: 835px) {
-  img {
-    max-height: 40vmax;
-  }
-}
 </style>
 
 <script lang="ts">
@@ -150,16 +141,8 @@ export default createComponent<Props>({
     const { getImage } = inject(Modules.images) as IImages;
     const vh = window.innerHeight / 100;
     function getImageHeight() {
-      const fixedHeights = 240;
-      return (window.innerHeight - fixedHeights - 6 * vh) / 2;
-    }
-
-    function getImageWidth() {
-      const windowWidth = window.innerWidth;
-      const vw = windowWidth / 100;
-      return windowWidth > 835
-        ? (windowWidth - 14 * vw) / 3
-        : windowWidth - 8 * vw;
+      const cardHeight = 87 * vh - 102;
+      return cardHeight - 65 * 0.75;
     }
 
     const url = ref('');
@@ -167,8 +150,7 @@ export default createComponent<Props>({
     const imageRes = getImage(
       props.product.id,
       'allProductsImage',
-      getImageHeight(),
-      getImageWidth()
+      getImageHeight()
     );
     if (imageRes) {
       url.value = imageRes.url;
