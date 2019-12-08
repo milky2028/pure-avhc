@@ -3,13 +3,12 @@ export default async function initializeFirebaseApp(
     typeof import(/* webpackChunkName: 'firebase' */ 'firebase/app')
   >
 ) {
-  try {
-    const fb = await firebase;
-    const firebaseConfig = JSON.parse(
-      process.env.VUE_APP_FIREBASE_CONFIG as string
-    );
-    return fb.initializeApp(firebaseConfig);
-  } catch (e) {
-    throw new Error(e);
+  const fb = await firebase;
+  if (fb.apps.length > 0) {
+    return fb.app();
   }
+  const firebaseConfig = JSON.parse(
+    process.env.VUE_APP_FIREBASE_CONFIG as string
+  );
+  return fb.initializeApp(firebaseConfig);
 }
