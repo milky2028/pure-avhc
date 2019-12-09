@@ -12,6 +12,7 @@
   "tslint.packageManager": "yarn",
   "eslint.autoFixOnSave": true,
   "vetur.validation.template": false,
+  "liveServer.settings.root": "/dist",
   "eslint.validate": [
     {
       "language": "javascript",
