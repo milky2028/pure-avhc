@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <img v-if="product && products.length > 0" :src="url" :alt="alt" />
+    <img
+      v-if="product && products.length > 0"
+      loading="lazy"
+      :src="url"
+      :alt="alt"
+    />
     <div class="info-container">
       <router-link
         v-if="product && product.name"

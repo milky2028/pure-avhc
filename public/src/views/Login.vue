@@ -56,6 +56,7 @@
       <div v-if="!resettingPassword" class="sign-in-container">
         <button class="sign-in-btn" @click="onProviderLogin('google')">
           <img
+            loading="lazy"
             class="sign-in-icon google"
             src="../assets/img/google.svg"
             alt="Google icon"
@@ -67,6 +68,7 @@
         >
           <span>
             <img
+              loading="lazy"
               class="sign-in-icon"
               src="../assets/img/facebook.svg"
               alt="Facebook icon"

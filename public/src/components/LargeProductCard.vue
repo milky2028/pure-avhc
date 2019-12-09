@@ -4,7 +4,12 @@
       <h2 v-if="product.disabled" class="subhead sold-out">
         {{ product.disabled }}
       </h2>
-      <img :src="url" :alt="alt" :class="{ disabled: product.disabled }" />
+      <img
+        loading="lazy"
+        :src="url"
+        :alt="alt"
+        :class="{ disabled: product.disabled }"
+      />
     </router-link>
     <router-link :to="`/products/${product.url}`">
       <div>

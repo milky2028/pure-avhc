@@ -2,6 +2,7 @@
   <PageWrapper with-padding>
     <ArticlePage v-if="currentPageProduct" :title="currentPageProduct.name">
       <img
+        loading="lazy"
         :src="createUrl(url, getImageHeight(), windowWidth > 835 ? 680 : 345)"
         :alt="alt"
         class="main-image"
@@ -10,6 +11,7 @@
         <img
           v-for="image in filteredImages"
           :key="image.id"
+          loading="lazy"
           tabindex="0"
           :src="createUrl(image.url, 80, windowWidth > 835 ? 336 : 100)"
           :alt="image.alt"

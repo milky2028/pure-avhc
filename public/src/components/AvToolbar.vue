@@ -15,6 +15,7 @@
         </h1>
         <img
           v-if="logoMin.content && logoMin.type === 'image'"
+          loading="lazy"
           :src="logoMin.content"
           :alt="`${legalName} Company Logo`"
         />
@@ -38,6 +39,7 @@
         >
           <img
             v-if="photoURL"
+            loading="lazy"
             class="profile-picture"
             :src="photoURL"
             alt="User profile picture"
@@ -60,6 +62,7 @@
         </h2>
         <img
           v-if="logoFull.type === 'image'"
+          loading="lazy"
           :src="logoFull.content"
           :alt="`${legalName} Full Company Logo`"
         />
@@ -130,6 +133,7 @@
             >
               <img
                 v-if="menuItem.iconType === 'external'"
+                loading="lazy"
                 class="icon-link"
                 :src="require(`../assets/img/${menuItem.icon}`)"
                 :alt="menuItem.alt"
@@ -144,6 +148,7 @@
             <div v-else>
               <img
                 v-if="menuItem.iconType === 'external'"
+                loading="lazy"
                 :src="menuItem.icon"
                 :alt="menuItem.alt"
               />

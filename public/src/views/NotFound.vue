@@ -3,6 +3,7 @@
     <ArticlePage title="404 Error">
       <h2>Page Not Found</h2>
       <img
+        loading="lazy"
         src="http://giphygifs.s3.amazonaws.com/media/4qANoeI3g45a0/giphy.gif"
         alt="Wile Coyote with a Wheel Helmet on"
       />
