@@ -1,6 +1,7 @@
 export function useMetadata() {
   function setTitle(title: string) {
-    document.title = title;
+    document.title = `${(process.env
+      .VUE_APP_NAME as string).toUpperCase()} | ${title}`;
   }
 
   function setMetaDescription(description: string) {

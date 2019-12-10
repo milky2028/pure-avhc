@@ -103,7 +103,7 @@ export default createComponent({
     const { subtotal, cartItems, clearCart } = inject(Modules.cart) as ICart;
 
     const { setTitle, setMetaDescription } = useMetadata();
-    setTitle(`${process.env.VUE_APP_NAME} | Cart`);
+    setTitle('Cart');
     setMetaDescription(
       `${process.env.VUE_APP_FULL_NAME}'s Cart, where you can view and verify items in your cart before making a purchase. Follow through to Checkout in order to complete your purchase.`
     );
