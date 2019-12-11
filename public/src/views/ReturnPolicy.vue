@@ -104,10 +104,9 @@ export default createComponent({
   },
   data() {
     const legalName = process.env.VUE_APP_LEGAL_NAME;
-    const siteUrl = process.env.VUE_APP_SITE_URL;
     const supportEmail = process.env.VUE_APP_EMAIL;
 
-    return { legalName, siteUrl, supportEmail };
+    return { legalName, supportEmail };
   }
 });
 </script>
