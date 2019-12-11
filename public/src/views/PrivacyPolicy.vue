@@ -84,9 +84,12 @@
       <h2>Key Terms</h2>
       <p>
         <strong>User/Customer:&nbsp;</strong>Any individual who visits
-        <a target="_blank" rel="noopener noreferrer" :href="siteUrl">{{
-          siteUrl
-        }}</a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          :href="`https://${siteUrl}`"
+          >{{ siteUrl }}</a
+        >
         via a web browser or its associated domains on any number of devices,
         such as a laptop, smartphone, desktop computer, smartwatch, or other
         internet-connected device.
