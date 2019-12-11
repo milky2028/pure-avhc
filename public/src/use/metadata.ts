@@ -1,14 +1,19 @@
 export function useMetadata() {
+  const appName = (process.env.VUE_APP_NAME as string).toUpperCase();
+  function selectAndSetContent(id: string, content: string) {
+    const item = document.querySelector(id) as HTMLMetaElement;
+    item.content = content;
+  }
+
   function setTitle(title: string) {
-    document.title = `${(process.env
-      .VUE_APP_NAME as string).toUpperCase()} | ${title}`;
+    const fullTitle = `${appName} | ${title}`;
+    document.title = fullTitle;
+    selectAndSetContent('#itemPropName', fullTitle);
+    selectAndSetContent('ogTitle', fullTitle);
   }
 
   function setMetaDescription(description: string) {
-    const metaDescription = document.querySelector(
-      '#metaDescription'
-    ) as HTMLMetaElement;
-    metaDescription.content = description;
+    selectAndSetContent('#metaDescription', description);
   }
 
   return { setTitle, setMetaDescription };
