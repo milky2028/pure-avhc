@@ -343,6 +343,7 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import { createComponent } from '@vue/composition-api';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
@@ -350,6 +351,12 @@ export default createComponent({
     ArticlePage
   },
   setup() {
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('Privacy Policy');
+    setPageDescription(
+      'Our Privacy Policy page is the place to look for information regarding what information we collect when you use our website, and how you can control how that information gets used.'
+    );
+
     const legalName = process.env.VUE_APP_LEGAL_NAME;
     const siteUrl = process.env.VUE_APP_SITE_URL;
     const supportEmail = process.env.VUE_APP_EMAIL;
