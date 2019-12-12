@@ -52,7 +52,7 @@ export default createComponent({
   },
   setup() {
     const { setTitle, setPageDescription } = useMetadata();
-    setTitle('Shop CBD Products');
+    setTitle('Shop CBD');
     setPageDescription(
       'Shop a variety of CBD products, from our acclaimed CBD Cigarrettes, to CBD Joints/Pre-rolls, to jars of CBD Flower. Experience CBD the way it was meant to be. Shop now.'
     );
