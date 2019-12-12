@@ -31,11 +31,19 @@ img {
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import { createComponent } from '@vue/composition-api';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
     PageWrapper,
     ArticlePage
+  },
+  setup() {
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('Page Not Found');
+    setPageDescription(
+      "Looks like we're having trouble locating the page you're looking for. Double check the URL and try again, or locate the page by navigating to it from our home page."
+    );
   }
 });
 </script>
