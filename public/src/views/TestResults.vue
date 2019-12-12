@@ -65,6 +65,7 @@ import AvSelector from '../components/AvSelector.vue';
 import TestResult from '../types/TestResult';
 import { Modules } from '../use/store';
 import { ITestResults } from '../use/test-results';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
@@ -73,6 +74,11 @@ export default createComponent({
     AvSelector
   },
   setup() {
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('Test Results');
+    setPageDescription(
+      "To ensure you're getting the best possible value and the absolute best CBD flower in the world, we publish our test results regularly to educate consumers on the health and purity of our products."
+    );
     const { testResults } = inject(Modules.testResults) as ITestResults;
     const fullName = process.env.VUE_APP_FULL_NAME;
 
