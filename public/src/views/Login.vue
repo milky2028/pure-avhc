@@ -182,6 +182,7 @@ import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
@@ -192,6 +193,11 @@ export default createComponent({
     AvSwitch
   },
   setup(_, ctx) {
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('Login');
+    setPageDescription(
+      'Log in to your Pure CBD Exchange or Aspen Valley Hemp Company account here to change addresses, payment methods, or get tracking numbers.'
+    );
     const { windowWidth } = useWindowWidth();
 
     const {
