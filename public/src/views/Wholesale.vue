@@ -187,6 +187,7 @@ import { Modules } from '../use/store';
 import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
@@ -198,6 +199,12 @@ export default createComponent({
     AvInput
   },
   setup(_, ctx) {
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('Wholesale');
+    setPageDescription(
+      'Sign up for a wholesale account today and begin your journey as a CBD entrepreneur. We offer bulk pricing to wholesale customers interested in introducing CBD to their communities in a variety of ways.'
+    );
+
     const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
     const fullName = process.env.VUE_APP_FULL_NAME;
     const differentBilling = ref(false);
