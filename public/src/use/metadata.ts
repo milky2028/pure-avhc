@@ -21,6 +21,7 @@ export function useMetadata() {
   }
 
   function setPageImage(imageUrl: string) {
+    selectAndSetContent('#metaImage', imageUrl);
     selectAndSetContent('#itemPropImage', imageUrl);
     selectAndSetContent('#ogImage', imageUrl);
     selectAndSetContent('#twitterImage', imageUrl);

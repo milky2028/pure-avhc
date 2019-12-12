@@ -10,23 +10,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <meta id="metaDescription" name="description" content="<%= VUE_APP_DESCRIPTION %>">
+    <meta id="metaImage" name="image" content="/og-image.jpg">
     <meta name="theme-color" content="<%= VUE_APP_THEME_COLOR %>">
 
     <meta id="itemPropName" itemprop="name" content="<%= VUE_APP_PAGE_TITLE %>">
     <meta id="itemPropDescription" itemprop="description" content="<%= VUE_APP_DESCRIPTION %>">
     <meta id="itemPropImage" itemprop="image" content="/og-image.jpg">
-
-    <meta id="ogTitle" name="og:title" content="<%= VUE_APP_PAGE_TITLE %>">
-    <meta id="ogDescription" name="og:description" content="<%= VUE_APP_DESCRIPTION %>">
-    <meta id="ogImage" name="og:image" content="/og-image.jpg">
-    <meta name="og:image:width" content="1200">
-    <meta name="og:image:height" content="675">
-    <meta name="og:image:type" content="image/jpeg">
-    <meta name="og:url" content="<%= VUE_APP_SITE_URL %>">
-    <meta name="og:site_name" content="<%= VUE_APP_PAGE_TITLE %>">
-    <meta name="og:locale" content="en_US">
-    <meta name="og:type" content="website">
-
+    
     <meta name="twitter:card" content="summary_large_image">
     <meta id="twitterTitle" name="twitter:title" content="<%= VUE_APP_PAGE_TITLE %>">
     <meta id="twitterDescription" name="twitter:description" content="<%= VUE_APP_DESCRIPTION %>">
@@ -34,6 +24,17 @@
     <meta name="twitter:creator" content="@dirtcake1">
     <meta id="twitterImage" name="twitter:image" content="/og-image.jpg">
     <meta name="twitter:image:alt" content="VUE_APP_FULL_NAME products">
+
+    <meta id="ogTitle" name="og:title" property="og:title" content="<%= VUE_APP_PAGE_TITLE %>">
+    <meta id="ogDescription" name="og:description" property="og:description" content="<%= VUE_APP_DESCRIPTION %>">
+    <meta id="ogImage" name="og:image" property="og:image" content="/og-image.jpg">
+    <meta name="og:image:width" property="og:image:width" content="1200">
+    <meta name="og:image:height" property="og:image:height" content="675">
+    <meta name="og:image:type" property="og:image:type" content="image/jpeg">
+    <meta name="og:url" property="og:url" content="https://<%= VUE_APP_SITE_URL %>">
+    <meta name="og:site_name" property="og:site_name" content="<%= VUE_APP_PAGE_TITLE %>">
+    <meta name="og:locale" property="og:locale" content="en_US">
+    <meta name="og:type" property="og:type" content="website">
 
     <link rel="manifest" href="/manifest.json">
 
