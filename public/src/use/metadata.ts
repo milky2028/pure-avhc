@@ -9,12 +9,22 @@ export function useMetadata() {
     const fullTitle = `${appName} | ${title}`;
     document.title = fullTitle;
     selectAndSetContent('#itemPropName', fullTitle);
-    selectAndSetContent('ogTitle', fullTitle);
+    selectAndSetContent('#ogTitle', fullTitle);
+    selectAndSetContent('#twitterTitle', fullTitle);
   }
 
-  function setMetaDescription(description: string) {
+  function setPageDescription(description: string) {
     selectAndSetContent('#metaDescription', description);
+    selectAndSetContent('#itemPropDescription', description);
+    selectAndSetContent('#ogDescription', description);
+    selectAndSetContent('#twitterDescription', description);
   }
 
-  return { setTitle, setMetaDescription };
+  function setPageImage(imageUrl: string) {
+    selectAndSetContent('#itemPropImage', imageUrl);
+    selectAndSetContent('#ogImage', imageUrl);
+    selectAndSetContent('#twitterImage', imageUrl);
+  }
+
+  return { setTitle, setPageDescription, setPageImage };
 }
