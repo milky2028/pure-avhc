@@ -456,6 +456,7 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import { createComponent } from '@vue/composition-api';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
@@ -463,6 +464,11 @@ export default createComponent({
     ArticlePage
   },
   setup() {
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('Terms and Conditions');
+    setPageDescription(
+      'Check out our Terms and Conditions to understand more about your rights as a consumer, as well as more information about how our website works together with you to keep your information secured online'
+    );
     const legalName = process.env.VUE_APP_LEGAL_NAME;
     const supportEmail = process.env.VUE_APP_EMAIL;
 
