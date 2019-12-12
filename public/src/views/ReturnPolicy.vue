@@ -96,13 +96,20 @@
 import { createComponent } from '@vue/composition-api';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
     PageWrapper,
     ArticlePage
   },
-  data() {
+  setup() {
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('Return Policy');
+    setPageDescription(
+      'Our Return Policy page tells you everything you need to know about how to potentially returning orders. In most cases, we do not issue returns, but in a select few instances, we might be able to. Read more here...'
+    );
+
     const legalName = process.env.VUE_APP_LEGAL_NAME;
     const supportEmail = process.env.VUE_APP_EMAIL;
 
