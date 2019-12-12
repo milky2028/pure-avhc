@@ -743,6 +743,7 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import { createComponent } from '@vue/composition-api';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
@@ -751,6 +752,13 @@ export default createComponent({
   },
   setup() {
     const legalName = process.env.VUE_APP_LEGAL_NAME;
+
+    const { setTitle, setPageDescription } = useMetadata();
+    setTitle('The Definitive CBD Guide');
+    setPageDescription(
+      'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.'
+    );
+
     return { legalName };
   }
 });
