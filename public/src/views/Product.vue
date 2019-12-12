@@ -156,6 +156,7 @@ import { IStrains } from '../use/strains';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import Strain from '../types/Strain';
 import { useWindowWidth } from '../use/window-width';
+import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {
@@ -257,6 +258,20 @@ export default createComponent({
       const vh = window.innerHeight / 100;
       return windowWidth.value > 835 ? 40 * vh : 30 * vh;
     }
+
+    watch(() => {
+      const { setTitle, setPageDescription } = useMetadata();
+      setTitle(
+        currentPageProduct.value ? currentPageProduct.value.name : 'Product'
+      );
+      setPageDescription(
+        currentPageProduct.value
+          ? `${currentPageProduct.value.description
+              .slice(0, 160)
+              .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`
+          : 'Product description'
+      );
+    });
 
     return {
       capitalizeFirstLetter,
