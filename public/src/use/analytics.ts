@@ -6,6 +6,8 @@ interface GoogleAnalyticsEvent {
   eventValue: number;
 }
 
+declare const dataLayer: any[];
+
 declare function ga(
   action: 'send',
   type: 'event',
@@ -17,5 +19,21 @@ export default function useAnalytics() {
     ga('send', 'event', eventData);
   }
 
-  return { sendAnalyticsEvent };
+  function sendEcommerceEvent(event: string, type: string, product: string) {
+    dataLayer.push({
+      event,
+      ecommerce: {
+        currencyCode: 'USD',
+        [type]: {
+          products: [
+            {
+              name: product
+            }
+          ]
+        }
+      }
+    });
+  }
+
+  return { sendAnalyticsEvent, sendEcommerceEvent };
 }

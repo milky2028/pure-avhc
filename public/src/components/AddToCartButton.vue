@@ -43,6 +43,7 @@ import createRandomId from '../functions/createRandomId';
 import Product from '../types/Product';
 import Size from '../types/Size';
 import Strain from '../types/Strain';
+import useAnalytics from '../use/analytics';
 
 interface Props {
   [key: string]: any;
@@ -109,7 +110,12 @@ export default createComponent<Props>({
       }
     }
 
+    const { sendEcommerceEvent } = useAnalytics();
     function addToCart({ id }: Product) {
+      if (cartItems.value.length === 0) {
+        sendEcommerceEvent('addToCart', 'add', product.value.name);
+      }
+
       if (cartItem && cartItem.value) {
         updateCartItem(cartItem.value.id, {
           quantity: cartItem.value.quantity + 1
