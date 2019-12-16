@@ -1,22 +1,16 @@
 export default function useStructuredData() {
-  function createStructuredData(structuredData: { [key: string]: any }) {
-    removeStructuredData();
-    const structuredDataScript = document.createElement('script');
-    structuredDataScript.type = 'application/ld+json';
-    structuredDataScript.id = 'structuredData';
-    structuredDataScript.textContent = JSON.stringify(structuredData);
+  const structuredData = document.querySelector(
+    '#structuredData'
+  ) as HTMLScriptElement;
 
-    const header = document.querySelector('#header') as HTMLHeadElement;
-    header.appendChild(structuredDataScript);
+  function setStructuredData(structuredData: { [key: string]: any }) {
+    clearStructuredData();
+    structuredData.textContent = JSON.stringify(structuredData);
   }
 
-  function removeStructuredData() {
-    const strucutedDataScript = document.querySelector(
-      '#structuredData'
-    ) as HTMLScriptElement;
-    const header = strucutedDataScript.parentNode as HTMLHeadElement;
-    header.removeChild(strucutedDataScript);
+  function clearStructuredData() {
+    structuredData.textContent = '';
   }
 
-  return { createStructuredData };
+  return { setStructuredData, clearStructuredData };
 }
