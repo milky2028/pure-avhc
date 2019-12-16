@@ -40,6 +40,7 @@ const NotFound = () =>
 
 Vue.use(Router);
 
+// @ts-ignore
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
