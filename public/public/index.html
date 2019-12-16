@@ -2,66 +2,131 @@
 <html lang="en">
   <head>
     <title><%= VUE_APP_PAGE_TITLE %></title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" type="image/png">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1"
+    />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" type="image/png" />
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <meta id="metaDescription" name="description" content="<%= VUE_APP_DESCRIPTION %>">
-    <meta id="metaImage" name="image" content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg">
-    <meta name="theme-color" content="<%= VUE_APP_THEME_COLOR %>">
+    <meta
+      id="metaDescription"
+      name="description"
+      content="<%= VUE_APP_DESCRIPTION %>"
+    />
+    <meta
+      id="metaImage"
+      name="image"
+      content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg"
+    />
+    <meta name="theme-color" content="<%= VUE_APP_THEME_COLOR %>" />
 
-    <meta id="itemPropName" itemprop="name" content="<%= VUE_APP_PAGE_TITLE %>">
-    <meta id="itemPropDescription" itemprop="description" content="<%= VUE_APP_DESCRIPTION %>">
-    <meta id="itemPropImage" itemprop="image" content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta id="twitterTitle" name="twitter:title" content="<%= VUE_APP_PAGE_TITLE %>">
-    <meta id="twitterDescription" name="twitter:description" content="<%= VUE_APP_DESCRIPTION %>">
-    <meta name="twitter:site" content="@PureCBDExchange">
-    <meta name="twitter:creator" content="@dirtcake1">
-    <meta id="twitterImage" name="twitter:image" content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg">
-    <meta name="twitter:image:alt" content="VUE_APP_FULL_NAME products">
+    <meta
+      id="itemPropName"
+      itemprop="name"
+      content="<%= VUE_APP_PAGE_TITLE %>"
+    />
+    <meta
+      id="itemPropDescription"
+      itemprop="description"
+      content="<%= VUE_APP_DESCRIPTION %>"
+    />
+    <meta
+      id="itemPropImage"
+      itemprop="image"
+      content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg"
+    />
 
-    <meta id="ogTitle" property="og:title" content="<%= VUE_APP_PAGE_TITLE %>">
-    <meta id="ogDescription" property="og:description" content="<%= VUE_APP_DESCRIPTION %>">
-    <meta id="ogImage" property="og:image" content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="675">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:url" content="https://<%= VUE_APP_SITE_URL %>/">
-    <meta property="og:site_name" content="<%= VUE_APP_PAGE_TITLE %>">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="fb:app_id" content="561501674389105">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      id="twitterTitle"
+      name="twitter:title"
+      content="<%= VUE_APP_PAGE_TITLE %>"
+    />
+    <meta
+      id="twitterDescription"
+      name="twitter:description"
+      content="<%= VUE_APP_DESCRIPTION %>"
+    />
+    <meta name="twitter:site" content="@PureCBDExchange" />
+    <meta name="twitter:creator" content="@dirtcake1" />
+    <meta
+      id="twitterImage"
+      name="twitter:image"
+      content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg"
+    />
+    <meta name="twitter:image:alt" content="VUE_APP_FULL_NAME products" />
 
-    <link rel="manifest" href="/manifest.json">
+    <meta
+      id="ogTitle"
+      property="og:title"
+      content="<%= VUE_APP_PAGE_TITLE %>"
+    />
+    <meta
+      id="ogDescription"
+      property="og:description"
+      content="<%= VUE_APP_DESCRIPTION %>"
+    />
+    <meta
+      id="ogImage"
+      property="og:image"
+      content="https://<%= VUE_APP_SITE_URL %>/og-image.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:url" content="https://<%= VUE_APP_SITE_URL %>/" />
+    <meta property="og:site_name" content="<%= VUE_APP_PAGE_TITLE %>" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="fb:app_id" content="561501674389105" />
+
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','<%= VUE_APP_GTM_CODE %>');
+    <script>
+      (function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', '<%= VUE_APP_GTM_CODE %>');
     </script>
     <!-- End Google Tag Manager -->
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<%= VUE_APP_GTM_CODE %>"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=<%= VUE_APP_GTM_CODE %>"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <noscript>
-      <strong>We're sorry, but our site doesn't work properly without JavaScript enabled. Please enable it to continue. You might also do well to update your browser.</strong>
+      <strong
+        >We're sorry, but our site doesn't work properly without JavaScript
+        enabled. Please enable it to continue. You might also do well to update
+        your browser.</strong
+      >
     </noscript>
     <div id="app"></div>
-    <script async src="https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js"
+    <script
+      async
+      src="https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js"
       integrity="sha384-VcI6S+HIsE80FVM1jgbd6WDFhzKYA0PecD/LcIyMQpT4fMJdijBh0I7Iblaacawc"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"
+    ></script>
     <!-- built files will be auto injected -->
   </body>
 </html>
