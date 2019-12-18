@@ -24,8 +24,8 @@ module.exports = {
       'always',
       { omitLastInOneLineBlock: true }
     ],
-    '@typescript-eslint/no-shadow': ['error', { builtInGlobals: true, hoist: 'all' }],
     quotes: ['error', 'single', { avoidEscape: true }],
+    'no-shadow': ['error', { builtinGlobals: true, hoist: 'all' }],
     'no-useless-catch': 'error',
     'arrow-parens': ['error', 'always'],
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 0 }],
