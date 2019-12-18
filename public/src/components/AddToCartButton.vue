@@ -87,10 +87,11 @@ export default createComponent<Props>({
     const cartItem = computed(() =>
       size.value && product.value
         ? cartItems.value.find(
-            (cartItem) =>
-              cartItem.product === product.value.id &&
-              cartItem.size === size.value.masterMeasurement &&
-              cartItem.strain === (strain.value ? strain.value.type : 'any')
+            (currentCartItem) =>
+              currentCartItem.product === product.value.id &&
+              currentCartItem.size === size.value.masterMeasurement &&
+              currentCartItem.strain ===
+                (strain.value ? strain.value.type : 'any')
           )
         : null
     );

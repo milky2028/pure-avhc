@@ -133,13 +133,13 @@ export default createComponent<Props>({
   },
   setup(props) {
     const lowestPriceSize = props.product.sizes.find(
-      (size: Size) =>
-        size.price ===
+      (individualSize: Size) =>
+        individualSize.price ===
         Math.min(...props.product.sizes.map((s: Size) => s.price))
     );
 
     const price = `$${Math.min(
-      ...props.product.sizes.map((size) => size.price)
+      ...props.product.sizes.map((individualSize) => individualSize.price)
     )}`;
 
     const size = lowestPriceSize

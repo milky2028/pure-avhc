@@ -13,7 +13,7 @@
       <AvIconButton
         v-if="windowWidth < 835 && expanded"
         class="icon"
-        @icon-click="close()"
+        @icon-click="onClose()"
       >
         close
       </AvIconButton>
@@ -209,14 +209,14 @@ export default createComponent({
     });
 
     const formError = ref(false);
-    function close() {
+    function onClose() {
       expanded.value = false;
       formError.value = false;
     }
 
     watch(
       () => ctx.root.$route,
-      () => close()
+      () => onClose()
     );
 
     const subscribing = ref(false);
@@ -262,7 +262,7 @@ export default createComponent({
       canSubscribe,
       subtotal,
       formError,
-      close,
+      onClose,
       errorMsg,
       subscribing,
       subscribed,

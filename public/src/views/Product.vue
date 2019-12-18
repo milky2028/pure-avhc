@@ -179,8 +179,8 @@ export default createComponent({
     watch(currentPageProduct, () => {
       if (currentPageProduct.value) {
         const smallestSize = currentPageProduct.value.sizes.find(
-          ({ price }) =>
-            price ===
+          (size) =>
+            size.price ===
             Math.min(
               ...(currentPageProduct.value
                 ? currentPageProduct.value.sizes.map(({ price }) => price)
@@ -250,9 +250,11 @@ export default createComponent({
     const url = ref('');
     const alt = ref('');
     watch(currentPageProduct, () => {
-      const mainImage = filteredImages.value.find(({ mainImage }) => mainImage);
-      url.value = mainImage ? mainImage.url : '';
-      alt.value = mainImage ? mainImage.alt : '';
+      const selectedMainImage = filteredImages.value.find(
+        ({ mainImage }) => mainImage
+      );
+      url.value = selectedMainImage ? selectedMainImage.url : '';
+      alt.value = selectedMainImage ? selectedMainImage.alt : '';
     });
     function getImageHeight() {
       const vh = window.innerHeight / 100;

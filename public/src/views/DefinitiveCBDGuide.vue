@@ -22,12 +22,18 @@
         out (in products as diverse as tinctures,
         <a
           href="https://www.marieclaire.com/food-cocktails/a27091299/cbd-cocktail-recipes/"
-        >cocktails</a>,
+          >cocktails</a
+        >,
         <a
           href="https://www.glutenfreefollowme.com/recipe/cbd-infused-chocolate-chip-cookies/"
-        >cookies</a>,
-        <a href="https://www.allure.com/gallery/cbd-skin-care-products">beauty creams</a>, and
-        <router-link to="/products/cbd-hemp-flower">pre-rolled joints</router-link>), the number of naysayers is declining rapidly. Despite decades of
+          >cookies</a
+        >,
+        <a href="https://www.allure.com/gallery/cbd-skin-care-products"
+          >beauty creams</a
+        >, and
+        <router-link to="/products/cbd-hemp-flower"
+          >pre-rolled joints</router-link
+        >), the number of naysayers is declining rapidly. Despite decades of
         stereotypes, depicting marijuana users as red-eyed stoners with a
         burrito in hand, CBD is redefining the cannabis landscape, putting the
         plant firmly on the map of the mainstream.
@@ -38,8 +44,8 @@
       <blockquote>
         <p>
           <em>
-            CBD (also known as cannabidiol) is a non-psychoactive compound
-            found in the cannabis plant.
+            CBD (also known as cannabidiol) is a non-psychoactive compound found
+            in the cannabis plant.
           </em>
         </p>
       </blockquote>
@@ -51,7 +57,8 @@
           First, CBD is just one of the compounds found in cannabis
           <a
             href="https://www.uclahealth.org/cannabis/cannabis-and-its-compounds"
-          >(there are over 500 in total)</a>.
+            >(there are over 500 in total)</a
+          >.
         </li>
         <li>
           Second, CBD is
@@ -64,7 +71,8 @@
         A report from the
         <a
           href="http://www.who.int/medicines/access/controlled-substances/5.2_CBD.pdf"
-        >World Health Organization</a>
+          >World Health Organization</a
+        >
         states:
       </p>
       <blockquote>
@@ -85,15 +93,23 @@
         favorite for
         <a
           href="https://www.menshealth.com/health/a26755363/meet-the-pro-athletes-advocating-for-cbd/"
-        >athletes</a>,
-        <a href="https://stylecaster.com/celebs-fave-cbd-beauty-products/#slide-3">fashionistas</a>,
+          >athletes</a
+        >,
+        <a
+          href="https://stylecaster.com/celebs-fave-cbd-beauty-products/#slide-3"
+          >fashionistas</a
+        >,
         <a
           href="https://www.forbes.com/sites/laurenterry/2018/09/27/the-right-way-to-introduce-cbd-to-your-pets/"
-        >pet lovers</a>,
-        <a href="https://www.consumerreports.org/cbd/can-cbd-help-your-child/">parents</a>, and
+          >pet lovers</a
+        >,
+        <a href="https://www.consumerreports.org/cbd/can-cbd-help-your-child/"
+          >parents</a
+        >, and
         <a
           href="https://medium.com/cbd-origin/7-life-changing-health-benefits-of-cbd-for-seniors-958f0818bc9d"
-        >senior citizens</a>
+          >senior citizens</a
+        >
         alike)?
       </p>
 
@@ -138,7 +154,8 @@
         structure:
         <a
           href="https://www.healthline.com/health/cbd-vs-thc#chemical-structure"
-        >21 carbon atoms, 30 hydrogen atoms, and 2 oxygen atoms</a>. A tiny difference in how the atoms are arranged leads to different
+          >21 carbon atoms, 30 hydrogen atoms, and 2 oxygen atoms</a
+        >. A tiny difference in how the atoms are arranged leads to different
         effects on your body. Jeffrey Raber, CEO of California-based cannabis
         chemistry lab, The Werc Shop, describes it well:
       </p>
@@ -173,15 +190,16 @@
         Drug Enforcement Administration maintains that
         <a
           href="https://www.wthr.com/article/dea-feds-wont-arrest-cbd-oil-users-neither-should-indiana"
-        >CBD is federally illegal</a>
+          >CBD is federally illegal</a
+        >
         (but won’t go after anyone for possessing or using it). But many argue
         that the 2018 Farm Bill (which made hemp an agricultural commodity) took
         away the DEA’s authority over hemp and, as a result, CBD from hemp is
         now legal nationwide. Even under that assumption however, there is still
         an important consideration -
-        <a
-          href="https://cbdee.com/cbd-101/"
-        >only CBD containing less 0.3% of THC is legal in all 50 states</a>
+        <a href="https://cbdee.com/cbd-101/"
+          >only CBD containing less 0.3% of THC is legal in all 50 states</a
+        >
         so quality is key.
       </p>
 
@@ -189,7 +207,8 @@
         On an international level, CBD is
         <a
           href="https://www.royalqueenseeds.com/blog-where-in-the-world-is-cbd-legal-n950"
-        >legal in</a>
+          >legal in</a
+        >
         Austria, Belgium, Denmark, Netherlands, Romania, Italy, and Spain. Ditto
         for Canada. Cheers to our neighbours to the north.
       </p>
@@ -199,16 +218,17 @@
       <p>
         It’s important to note before we get into the next section that
         <strong>
-          Pure CBD Exchange makes no claims about the medical or health
-          benefits of CBD
-        </strong>.
+          Pure CBD Exchange makes no claims about the medical or health benefits
+          of CBD </strong
+        >.
       </p>
 
       <p>
         In June 2018, the Food and Drug Administration
         <a
           href="https://www.fda.gov/NewsEvents/Newsroom/PressAnnouncements/ucm611046.htm"
-        >approved</a>
+          >approved</a
+        >
         the use of Epidiolex as a medication to treat rare forms of epilepsy –
         it was the first prescription medication to contain CBD. With the
         exception of Epidiolex,
@@ -242,13 +262,17 @@
         reasons people today seek out this compound in everything from
         <a
           href="https://purecbdexchange.com/product-category/cbd-gel-capsules-and-gummies/"
-        >edibles</a>
+          >edibles</a
+        >
         to
         <a
           href="https://purecbdexchange.com/product/cbd-tinctures-and-topicals/2500mg-full-spectrum-cbd-tincture/"
-        >tinctures</a>
+          >tinctures</a
+        >
         to
-        <router-link to="/products/cbd-hemp-flower">pure hemp flower</router-link>.
+        <router-link to="/products/cbd-hemp-flower"
+          >pure hemp flower</router-link
+        >.
       </p>
 
       <h3>Acne</h3>
@@ -257,9 +281,9 @@
         The skin has the highest amount and concentration of CB2 receptors in
         the body, so it’s not surprising that many CBD-infused products are
         being
-        <a
-          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
-        >touted as a treatment for acne</a>.
+        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          >touted as a treatment for acne</a
+        >.
       </p>
 
       <h3>Depression</h3>
@@ -270,7 +294,8 @@
         might
         <a
           href="https://www.consciouslifestylemag.com/foods-for-depression-diet-and-nutrition/"
-        >be especially effective for depression</a>
+          >be especially effective for depression</a
+        >
         related to chronic stress.
       </p>
 
@@ -278,9 +303,9 @@
 
       <p>
         Of all the reasons that people use CBD today, pain is the most common…
-        <a
-          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
-        >and one of the most historic</a>.
+        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          >and one of the most historic</a
+        >.
       </p>
 
       <blockquote>
@@ -301,16 +326,17 @@
         of chronic and acute pain,
         <a
           href="https://www.healthline.com/health/migraine/cbd-oil-for-migraines#research"
-        >including migraines</a>.
+          >including migraines</a
+        >.
       </p>
 
       <h3>Diabetes and Obesity</h3>
 
       <p>
         Several
-        <a
-          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
-        >studies have shown</a>
+        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          >studies have shown</a
+        >
         that regular cannabis users have a lower body mass index and a reduced
         risk of diabetes and obesity. In 2015, an Israeli-American
         biopharmaceutical collective began stage 2 trials studying the use of
@@ -321,9 +347,9 @@
 
       <p>
         Cannabinoids are
-        <a
-          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
-        >neuroprotective</a>, which means they help maintain and regulate brain health and CBD has
+        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          >neuroprotective</a
+        >, which means they help maintain and regulate brain health and CBD has
         also been shown to have an anti-inflammatory effect on the brain, both
         of which hold promising outlooks for the treatment of nerve-related
         diseases like neuropathy and Alzheimer’s.
@@ -334,7 +360,8 @@
       <p>
         <a
           href="https://www.health.harvard.edu/blog/cannabidiol-cbd-what-we-know-and-what-we-dont-2018082414476"
-        >Studies suggest</a>
+          >Studies suggest</a
+        >
         that CBD may help with both falling asleep and staying asleep,
         alleviating some of the suffering brought on by insomnia.
       </p>
@@ -362,30 +389,34 @@
       <p>
         Whatever your tastes, chances are you can find a CBD-infused product to
         satisfy them. There are CBD-infused
-        <a
-          href="https://cbdonly.com/products/sacred-biology-cbd-deodorant"
-        >deodorants</a>,
+        <a href="https://cbdonly.com/products/sacred-biology-cbd-deodorant"
+          >deodorants</a
+        >,
         <a href="https://324brand.com/products/324-roll-on">muscle salves</a>,
         and
         <a
           href="https://purecbdexchange.com/product/cbd-gel-capsules-and-gummies/full-spectrum-cbd-pet-treats-750mg-30ct/"
-        >dog treats</a>. You can spread CBD on your
+          >dog treats</a
+        >. You can spread CBD on your
         <a href="https://horaskincare.com/product/hora-1-oz/">face</a>, drop it
         under your
         <a
           href="https://purecbdexchange.com/product/cbd-tinctures-and-topicals/2500mg-full-spectrum-cbd-tincture/"
-        >tongue</a>, or include it on the menu for a
-        <a
-          href="https://getmaku.com/blogs/learn/cbd-recipes-summer"
-        >dinner party</a>
+          >tongue</a
+        >, or include it on the menu for a
+        <a href="https://getmaku.com/blogs/learn/cbd-recipes-summer"
+          >dinner party</a
+        >
         with friends. Even Coca-Cola is
         <a
           href="https://www.forbes.com/sites/janetwburns/2018/09/17/coca-cola-is-considering-cbd-for-its-infused-beverages/#7468d781aab5"
-        >reportedly</a>
+          >reportedly</a
+        >
         working on a CBD-infused beverage, hoping to get a piece of what
         <a
           href="https://www.vox.com/the-goods/2018/11/1/18024806/cbd-oil-vape-hemp"
-        >some experts suggest</a>
+          >some experts suggest</a
+        >
         will be a $1 billion pie by 2020.
       </p>
 
@@ -400,18 +431,21 @@
         A "tincture" is a fancy name for CBD oil in a
         <a
           href="https://purecbdexchange.com/product-category/cbd-tinctures-and-topicals/"
-        >discreet little eye dropper</a>
+          >discreet little eye dropper</a
+        >
         that you take by placing a few drops under your tongue. This is
         <a
           href="https://www.consumerreports.org/cbd/how-to-use-cbd-inhale-spray-apply-eat/"
-        >the second-fastest way to absorb CBD</a>
+          >the second-fastest way to absorb CBD</a
+        >
         (after smoking), and one of the most popular methods to enjoy the
-        <a
-          href="https://cbdorigin.com/cbd-benefits-many-conditions"
-        >many benefits of CBD</a>. Available in different doses
+        <a href="https://cbdorigin.com/cbd-benefits-many-conditions"
+          >many benefits of CBD</a
+        >. Available in different doses
         <a
           href="https://purecbdexchange.com/product/cbd-tinctures-and-topicals/cbd-tinctures-500mg/"
-        >(Pure CBD Exchange</a>, for example, offers tinctures in concentrations of 2500mg, 1500mg,
+          >(Pure CBD Exchange</a
+        >, for example, offers tinctures in concentrations of 2500mg, 1500mg,
         1000mg, and 500mg), tinctures are generally mixed with some type of oil
         to improve flavor and aid in absorption.
       </p>
@@ -420,15 +454,18 @@
 
       <p>
         For purists,
-        <router-link to="/products/cbd-hemp-flower">all-natural CBD hemp flower</router-link>&nbsp;may be the ideal form of consumption, either in all its
+        <router-link to="/products/cbd-hemp-flower"
+          >all-natural CBD hemp flower</router-link
+        >&nbsp;may be the ideal form of consumption, either in all its
         plant-like glory or ready-to-smoke in pre-rolled joints. Smoking offers
         <a
           href="https://benicepaper.com/archives/2018/12/23/cbd-you-can-smoke-hemp-premium-prerolls"
-        >the highest bioavailability of CBD</a>, which basically means you get more CBD into your system, faster than
+          >the highest bioavailability of CBD</a
+        >, which basically means you get more CBD into your system, faster than
         other forms of consumption.
-        <a
-          href="https://cbdoilreview.org/cbd-cannabidiol/cbd-entourage-effect/"
-        >Mounting evidence suggests</a>
+        <a href="https://cbdoilreview.org/cbd-cannabidiol/cbd-entourage-effect/"
+          >Mounting evidence suggests</a
+        >
         that CBD may be more effective in its whole and natural state (an
         outcome known as the
         <strong>entourage effect</strong>).
@@ -441,9 +478,9 @@
         CBD oil until it boils, allowing you to inhale the vapor. Controlling
         dosing can be difficult, as how much CBD you absorb depends on how hard
         and how long you inhale, but vaping is also
-        <a
-          href="https://www.pain-health.com/blog/5-ways-consume-cbd"
-        >one of the quickest ways to get CBD into the bloodstream</a>
+        <a href="https://www.pain-health.com/blog/5-ways-consume-cbd"
+          >one of the quickest ways to get CBD into the bloodstream</a
+        >
         (though for the shortest period of time). This makes vaping an
         accessible vehicle for a near-instant effect.
       </p>
@@ -456,26 +493,34 @@
         including, cookies (this
         <a
           href="https://www.vice.com/en_us/article/43z9gq/hazelnut-and-pretzel-cbd-cookie-recipe"
-        >hazelnut pretzel recipe</a>
+          >hazelnut pretzel recipe</a
+        >
         is out of this world),
+        <a href="https://www.foodandwine.com/cocktails-spirits/cbd-cocktails"
+          >cocktails</a
+        >,
         <a
-          href="https://www.foodandwine.com/cocktails-spirits/cbd-cocktails"
-        >cocktails</a>,
-        <a href="https://www.leafly.com/news/lifestyle/recipe-how-to-make-basic-cannabutter">butter</a>,
+          href="https://www.leafly.com/news/lifestyle/recipe-how-to-make-basic-cannabutter"
+          >butter</a
+        >,
         <a
           href="https://www.delish.com/cooking/recipe-ideas/a27088454/cbd-brownies-recipe/"
-        >brownies</a>, tea, honey, and
+          >brownies</a
+        >, tea, honey, and
         <a
           href="https://purecbdexchange.com/product/cbd-gel-capsules-and-gummies/cbd-gummies/"
-        >gummies</a>. You can even go with a straight up
+          >gummies</a
+        >. You can even go with a straight up
         <a
           href="https://purecbdexchange.com/product/cbd-gel-capsules-and-gummies/cbd-gel-capsules/"
-        >CBD capsule</a>
+          >CBD capsule</a
+        >
         – the equivalent of your daily vitamin. Edibles must be digested and
         absorbed into the bloodstream, so it takes a while to kick in
         <a
           href="https://www.thegrowthop.com/cannabis-culture/now-you-know-five-ways-to-take-cbd"
-        >(anywhere from 30 minutes to 2 hours)</a>, but the effects are longer-lasting as the CBD is released more slowly
+          >(anywhere from 30 minutes to 2 hours)</a
+        >, but the effects are longer-lasting as the CBD is released more slowly
         over time.
       </p>
 
@@ -484,13 +529,13 @@
       <p>
         The options for CBD-laced beauty balms are seemingly endless and run the
         gamut from
-        <a
-          href="https://www.saintjanebeauty.com/products/luxury-beauty-serum"
-        >luxury serums</a>
+        <a href="https://www.saintjanebeauty.com/products/luxury-beauty-serum"
+          >luxury serums</a
+        >
         fit for red-carpet royalty, to no-nonsense,
-        <a
-          href="https://skindope.com/products/best-cbd-oil-skincare"
-        >uber-functional</a>
+        <a href="https://skindope.com/products/best-cbd-oil-skincare"
+          >uber-functional</a
+        >
         balms and topical creams. Topical applications may not be as fast acting
         or as potent as some of the other options on this list, but they’re easy
         to apply and offer some promising benefits including relief from dry
@@ -503,7 +548,8 @@
         CBD dosing is a confusing topic. Unlike other supplements, the
         <a
           href="https://medium.com/cbd-origin/whats-the-best-cbd-dosage-81ec4f95503b"
-        >FDA has not created a Recommended Daily Intake (RDI)</a>
+          >FDA has not created a Recommended Daily Intake (RDI)</a
+        >
         for CBD, and CBD does not have an official serving size. How much you
         should take depends on a variety of factors, including the concentration
         of the CBD in the product, the method of consumption, individual
@@ -516,14 +562,14 @@
 
       <p>
         To give us a starting point,
-        <a
-          href="https://www.youtube.com/watch?v=bBn8SKZoWyQ&amp;t=5s"
-        >previous studies</a>
+        <a href="https://www.youtube.com/watch?v=bBn8SKZoWyQ&amp;t=5s"
+          >previous studies</a
+        >
         have said that around 300 milligrams daily are required to achieve
         stress-relieving results, but
-        <a
-          href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6326553/"
-        >new research</a>
+        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6326553/"
+          >new research</a
+        >
         shows that as little as 25 milligrams a day can elicit positive effects.
         That’s important news, especially since it makes any CBD regimen more
         affordable and accessible for people seeking relief and results.
@@ -570,19 +616,17 @@
       <p>
         Since the market for CBD is unregulated, it can be difficult to know
         what you’re getting. A 2015
-        <a
-          href="https://jamanetwork.com/journals/jama/fullarticle/2338239"
-        >study by the F.D.A.</a>
+        <a href="https://jamanetwork.com/journals/jama/fullarticle/2338239"
+          >study by the F.D.A.</a
+        >
         revealed that many CBD-labeled products actually contained very little
         CBD.
-        <a
-          href="https://jamanetwork.com/journals/jama/fullarticle/2661569"
-        >A 2017 article in JAMA</a>
+        <a href="https://jamanetwork.com/journals/jama/fullarticle/2661569"
+          >A 2017 article in JAMA</a
+        >
         reported that, in a study of 84 products sold online, 26% contained less
         CBD than advertised and 43% contained more. A
-        <a
-          href="https://www.youtube.com/watch?v=bBn8SKZoWyQ"
-        >2017 study</a> by
+        <a href="https://www.youtube.com/watch?v=bBn8SKZoWyQ">2017 study</a> by
         the American Medical Association of 84 CBD products purchased online,
         found that almost 70% were mislabeled with respect to the amount of CBD.
       </p>
@@ -599,9 +643,7 @@
         Do your research. Don’t be afraid to reach out to companies and ask
         questions. Look for brands that are transparent and committed to
         quality, like
-        <a
-          href="https://aspenvalleycbd.com/"
-        >Aspen Valley Hemp Company</a> and
+        <a href="https://aspenvalleycbd.com/">Aspen Valley Hemp Company</a> and
         <a href="https://purecbdexchange.com/">Pure CBD Exchange</a> who use
         only the cleanest and most potent varieties available, grown naturally,
         and hand selected from growers across the country, ensuring an
@@ -644,14 +686,14 @@
         <p>
           You would have to consume quite a bit of CBD before it results in any
           truly
-          <a
-            href="https://joyorganics.com/ultimate-guide-to-cbd-oil/"
-          >adverse health effects</a>
+          <a href="https://joyorganics.com/ultimate-guide-to-cbd-oil/"
+            >adverse health effects</a
+          >
           but CBD is an organic compound, so its effects can vary from
           individual to individual. A
-          <a
-            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5569602/"
-          >2017 literature review</a>
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5569602/"
+            >2017 literature review</a
+          >
           noted that CBD oil can, in some cases, be linked to fatigue,
           lightheadedness, changes in appetite, and dry mouth. Check with your
           doctor if you’re unsure about interactions with certain medications or
@@ -672,9 +714,7 @@
         <li>Are there studies on CBD?</li>
         <p>
           Thousands of scientific studies have been carried out on CBD.
-          <a
-            href="https://www.projectcbd.org/"
-          >Project CBD</a> is a
+          <a href="https://www.projectcbd.org/">Project CBD</a> is a
           California-based nonprofit organization dedicated to publicizing
           research into the medical uses of CBD for physicians, patients,
           industry professionals, and the general public.
@@ -715,11 +755,12 @@ export default createComponent({
   setup() {
     const legalName = process.env.VUE_APP_LEGAL_NAME;
 
+    const articleName = 'The Definitive CBD Guide';
+    const description =
+      'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.';
     const { setTitle, setPageDescription } = useMetadata();
-    setTitle('The Definitive CBD Guide');
-    setPageDescription(
-      'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.'
-    );
+    setTitle(articleName);
+    setPageDescription(description);
 
     const organizationName = process.env.VUE_APP_FULL_NAME;
     const siteUrl = process.env.VUE_APP_SITE_URL;
@@ -731,9 +772,8 @@ export default createComponent({
         '@type': 'WebPage',
         '@id': `https://${siteUrl}/publisher-logo.png`
       },
-      headline: 'The Definitive CBD Guide',
-      description:
-        'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.',
+      headline: articleName,
+      description: description,
       image: '',
       author: {
         '@type': 'Organization',
@@ -752,6 +792,13 @@ export default createComponent({
       datePublished: '2019-12-13',
       dateModified: '2019-12-18'
     });
+
+    const scripts = document.getElementsByTagName('script');
+    for (const s of scripts) {
+      if (s.type === 'application/ld+json') {
+        console.log(document.getElementsByTagName('script'));
+      }
+    }
 
     return { legalName };
   }
