@@ -793,13 +793,6 @@ export default createComponent({
       dateModified: '2019-12-18'
     });
 
-    const scripts = document.getElementsByTagName('script');
-    for (const s of scripts) {
-      if (s.type === 'application/ld+json') {
-        console.log(document.getElementsByTagName('script'));
-      }
-    }
-
     return { legalName };
   }
 });
