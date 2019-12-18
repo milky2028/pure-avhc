@@ -266,7 +266,6 @@ export default createComponent({
         } catch (e) {
           hideSnackbar();
           errors.value.push('Error upgrading account');
-          throw new Error(e);
         }
       } else {
         const unrequiredFields = ['company'];
@@ -308,15 +307,17 @@ export default createComponent({
               shippingAddress: shippingForm,
               billingAddress: billingForm
             };
-            await post(`${functionsUrl}/createWholesaleUser`, newUserPayload);
-            showSnackbar('Account created', 3500);
-            accountCreated.value = true;
-            completionMsg.value =
-              'Your wholesale account has been created. Log in to use your new wholesale account.';
+            post(`${functionsUrl}/createWholesaleUser`, newUserPayload).then(
+              () => {
+                showSnackbar('Account created', 3500);
+                accountCreated.value = true;
+                completionMsg.value =
+                  'Your wholesale account has been created. Log in to use your new wholesale account.';
+              }
+            );
           } catch (e) {
             hideSnackbar();
             errors.value.push('Error creating account');
-            throw new Error(e);
           }
         }
       }
