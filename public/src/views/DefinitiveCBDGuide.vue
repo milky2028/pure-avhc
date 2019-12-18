@@ -721,21 +721,27 @@ export default createComponent({
       'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.'
     );
 
+    const organizationName = process.env.VUE_APP_FULL_NAME;
     const siteUrl = process.env.VUE_APP_SITE_URL;
     const { setStructuredData } = useStructuredData();
     setStructuredData({
       '@context': 'https://schema.org',
       '@type': 'Article',
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `https://${siteUrl}/publisher-logo.png`
+      },
       headline: 'The Definitive CBD Guide',
       description:
         'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.',
+      image: '',
       author: {
         '@type': 'Organization',
-        name: 'Aspen Valley Hemp Company'
+        name: organizationName
       },
       publisher: {
         '@type': 'Organization',
-        name: 'Aspen Valley Hemp Company',
+        name: organizationName,
         logo: {
           '@type': 'ImageObject',
           url: `https://${siteUrl}/publisher-logo.png`,
@@ -744,7 +750,7 @@ export default createComponent({
         }
       },
       datePublished: '2019-12-13',
-      dateModified: '2019-12-13'
+      dateModified: '2019-12-18'
     });
 
     return { legalName };
