@@ -10,7 +10,7 @@ export default function useStructuredData() {
   }
 
   function clearStructuredData() {
-    const allScripts = document.getElementsByTagName('script')
+    const allScripts = document.getElementsByTagName('script');
     for (const script of allScripts) {
       if (script.type === 'application/ld+json') {
         script.remove();
