@@ -696,31 +696,6 @@
         and stick with them. That’s a proven path to a more present, grounded,
         CBD-centred state of mind.
       </p>
-      <!-- <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "The Definitive CBD Guide",
-  "description": "The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.",
-  "image": "",  
-  "author": {
-    "@type": "Organization",
-    "name": "Aspen Valley Hemp Company"
-  },  
-  "publisher": {
-    "@type": "Organization",
-    "name": "Aspen Valley Hemp Company",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "",
-      "width": 600,
-      "height": 60
-    }
-  },
-  "datePublished": "2019-12-13",
-  "dateModified": "2019-12-13"
-}
-      </script>-->
     </ArticlePage>
   </PageWrapper>
 </template>
@@ -730,6 +705,7 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import { createComponent } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
+import useStructuredData from '../use/structuredData';
 
 export default createComponent({
   components: {
@@ -744,6 +720,32 @@ export default createComponent({
     setPageDescription(
       'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.'
     );
+
+    const siteUrl = process.env.VUE_APP_SITE_URL;
+    const { setStructuredData } = useStructuredData();
+    setStructuredData({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'The Definitive CBD Guide',
+      description:
+        'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.',
+      author: {
+        '@type': 'Organization',
+        name: 'Aspen Valley Hemp Company'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Aspen Valley Hemp Company',
+        logo: {
+          '@type': 'ImageObject',
+          url: `https://${siteUrl}/publisher-logo.png`,
+          width: 600,
+          height: 60
+        }
+      },
+      datePublished: '2019-12-13',
+      dateModified: '2019-12-13'
+    });
 
     return { legalName };
   }
