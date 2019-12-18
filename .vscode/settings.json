@@ -10,32 +10,8 @@
   "eslint.packageManager": "yarn",
   "npm.packageManager": "yarn",
   "tslint.packageManager": "yarn",
-  "eslint.autoFixOnSave": true,
   "vetur.validation.template": false,
-  "eslint.validate": [
-    {
-      "language": "javascript",
-      "autoFix": true
-    },
-    {
-      "language": "javascriptreact",
-      "autoFix": true
-    },
-    {
-      "language": "html",
-      "autoFix": true
-    },
-    {
-      "language": "vue",
-      "autoFix": true
-    },
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
-  ]
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
