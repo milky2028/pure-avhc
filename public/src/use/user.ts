@@ -7,9 +7,9 @@ import { clear } from 'idb-keyval';
 
 export type IUser = ReturnType<typeof useUser>;
 export function useUser() {
-  async function initializeAuth(firebase: Promise<firebase.app.App>) {
+  async function initializeAuth(firebaseApp: Promise<firebase.app.App>) {
     const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
-    const app = await firebase;
+    const app = await firebaseApp;
     await AuthImport;
     return app.auth();
   }

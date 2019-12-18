@@ -19,9 +19,13 @@ export default function useAnalytics() {
     ga('send', 'event', eventData);
   }
 
-  function sendEcommerceEvent(event: string, type: string, product: string) {
+  function sendEcommerceEvent(
+    analyticsEvent: string,
+    type: string,
+    product: string
+  ) {
     dataLayer.push({
-      event,
+      analyticsEvent,
       ecommerce: {
         currencyCode: 'USD',
         [type]: {
