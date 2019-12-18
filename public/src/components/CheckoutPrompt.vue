@@ -232,18 +232,20 @@ export default createComponent({
           subscribing.value = true;
           formError.value = false;
 
-          await (await workerInstance).addDocument('subscribers', {
-            email: email.value,
-            uid: uid
-          });
-
-          subscribing.value = false;
-          email.value = '';
-          expanded.value = false;
-          subscribed.value = true;
-          setTimeout(() => (subscribed.value = false), 3500);
-          canSubscribe.value = false;
-          set('canSubscribe', false);
+          (await workerInstance)
+            .addDocument('subscribers', {
+              email: email.value,
+              uid: uid
+            })
+            .then(() => {
+              subscribing.value = false;
+              email.value = '';
+              expanded.value = false;
+              subscribed.value = true;
+              setTimeout(() => (subscribed.value = false), 3500);
+              canSubscribe.value = false;
+              set('canSubscribe', false);
+            });
         } else {
           formError.value = true;
         }
