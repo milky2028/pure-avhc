@@ -9,16 +9,18 @@ export function useProducts() {
   const products = ref([] as Product[]);
 
   function loadProducts(): Promise<void> {
-    return new Promise(async (resolve) => {
-      (await workerInstance).getDocuments(
-        'products',
-        proxy((wProducts) => {
-          products.value = wProducts;
-          set('products', products.value);
-          resolve();
-        })
-      );
-    });
+    return new Promise((resolve) =>
+      workerInstance.then((instance) =>
+        instance.getDocuments(
+          'products',
+          proxy((wProducts) => {
+            products.value = wProducts;
+            set('products', products.value);
+            resolve();
+          })
+        )
+      )
+    );
   }
 
   (async () => {

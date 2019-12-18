@@ -9,16 +9,18 @@ export function useCDNImages() {
   const images = ref([] as AvImage[]);
 
   function loadImages(): Promise<void> {
-    return new Promise(async (resolve) => {
-      return (await workerInstance).getDocuments(
-        'images',
-        proxy((imageData) => {
-          images.value = imageData;
-          set('images', images.value);
-          resolve();
-        })
-      );
-    });
+    return new Promise((resolve) =>
+      workerInstance.then((instance) =>
+        instance.getDocuments(
+          'images',
+          proxy((imageData) => {
+            images.value = imageData;
+            set('images', images.value);
+            resolve();
+          })
+        )
+      )
+    );
   }
 
   (async () => {

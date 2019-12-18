@@ -9,16 +9,18 @@ export function useStrains() {
   const strains = ref([] as Strain[]);
 
   function loadStrains() {
-    return new Promise(async (resolve) => {
-      (await workerInstance).getDocuments(
-        'strains',
-        proxy((wStrains) => {
-          strains.value = wStrains;
-          set('strains', strains.value);
-          resolve();
-        })
-      );
-    });
+    return new Promise((resolve) =>
+      workerInstance.then((instance) =>
+        instance.getDocuments(
+          'strains',
+          proxy((wStrains) => {
+            strains.value = wStrains;
+            set('strains', strains.value);
+            resolve();
+          })
+        )
+      )
+    );
   }
 
   (async () => {
