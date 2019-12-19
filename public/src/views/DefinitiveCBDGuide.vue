@@ -793,6 +793,112 @@ export default createComponent({
       dateModified: '2019-12-18'
     });
 
+    setStructuredData({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What is CBD?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'CBD (also known as cannabidiol) is a non-psychoactive compound found in the cannabis plant.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What are the differences between CBD and marijuana?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'The plant Cannabis sativa has two primary species, hemp and marijuana. Marijuana is rich in THC, the psychoactive compound that gets you high. Hemp, on the other hand, contains a significantly lower amount of THC (in fact, in order to be legally cultivated, hemp must contain less than 0.3% THC), and is rich in CBD.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Is CBD legal?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'The exact legality of CBD (at least in the U.S.) is a bit confusing, and depends in part on whether the CBD comes from hemp or marijuana. The Drug Enforcement Administration maintains that CBD is federally illegal (but won’t go after anyone for possessing or using it). But many argue that the 2018 Farm Bill (which made hemp an agricultural commodity) took away the DEA’s authority over hemp and, as a result, CBD from hemp is now legal nationwide. Even under that assumption however, there is still an important consideration - only CBD containing less 0.3% of THC is legal in all 50 states so quality is key. On an international level, CBD is legal in Austria, Belgium, Denmark, Netherlands, Romania, Italy, Spain, and Canada.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What are the potential health benefits of using CBD?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'CBD has been toted as a potential health cure for stress, anxiety, acne, depression, arthritis, pain management, migraines, diabetes, obesity, Alzheimer’s disease, sleep disorders, and many more, though many of these claims remain unsubstantiated at this time.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What are the different ways to use CBD products?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'Some of the different ways to use CBD products include dropping them on your tongue in the form of tinctures, smoking, vaping, ingesting CBD in edible form, and applying CBD to the skin in lotions, salves, and creams.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How much CBD should I take?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'Estimate your dosage based on your body weight. A good rule of thumb is 1-6 milligrams of CBD for every 10 pounds of body weight. For example, 20-33 milligrams would be a good starting dosage for a 200 lb patient, while 15-25 milligrams would be best for someone who weighs 150 lbs.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Will CBD make me high?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'No. Quality CBD products, derived from hemp, contain less than 0.3% THC, not enough to get you high.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What are the side effects of CBD?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'You would have to consume quite a bit of CBD before it results in any truly adverse health effects but CBD is an organic compound, so its effects can vary from individual to individual. A 2017 literature review noted that CBD oil can, in some cases, be linked to fatigue, lightheadedness, changes in appetite, and dry mouth. Check with your doctor if you’re unsure about interactions with certain medications or if CBD is right for you. And always start slow and increase your dosage gradually to achieve the desired effect.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I take CBD?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'You can take CBD in a number of ways including smoking, vaping, edibles, oils, and creams or lotions.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Is CBD legal to use in all 50 states?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'Yes. Hemp is legal in the United States provided that the plant contains less than 0.3% THC by dry weight.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Are there studies on CBD?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              'Thousands of scientific studies have been carried out on CBD. Project CBD is a California-based nonprofit organization dedicated to publicizing research into the medical uses of CBD for physicians, patients, industry professionals, and the general public.'
+          }
+        }
+      ]
+    });
+
     return { legalName };
   }
 });
