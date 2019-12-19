@@ -5,7 +5,8 @@
   "description": "Node build scripts",
   "main": "index.js",
   "scripts": {
-    "build-manifest:avhc": "tsc && node lib/index.js avhc",
+    "create-sitemap:avhc": "tsc && lib/createSitemap.js avhc",
+    "create-manifest:avhc": "tsc && node lib/createManifest.js avhc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tyler Gross",

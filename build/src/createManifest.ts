@@ -13,7 +13,9 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
   await execAsync(
     `cp -a build/${buildTarget}-tests/. public/public/test-results-files/`
   );
+  console.log('Successfully copied test results files');
   await execAsync(`cp -a build/${buildTarget}-icons/. public/public/`);
+  console.log('Successfully copied image files');
 
   const appDir = path.join(process.cwd(), 'public');
   dotenv.config({ path: path.resolve(appDir, `.env.${buildTarget}prod`) });
