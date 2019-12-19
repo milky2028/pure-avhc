@@ -5,7 +5,7 @@
   "description": "Node build scripts",
   "main": "index.js",
   "scripts": {
-    "create-sitemap:avhc": "tsc && lib/createSitemap.js avhc",
+    "create-sitemap:avhc": "tsc && node lib/createSitemap.js avhc",
     "create-manifest:avhc": "tsc && node lib/createManifest.js avhc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
