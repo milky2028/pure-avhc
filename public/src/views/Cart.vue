@@ -12,7 +12,7 @@
           :class="{ borderTop: i }"
         />
       </div>
-      <p v-if="cartItems.length === 0">
+      <p v-if="cartItems.length === 0" class="no-items">
         Your cart is empty.
       </p>
       <Divider class="divider" :class="{ marginTop: cartItems.length === 0 }" />
@@ -51,7 +51,7 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-p {
+.no-items {
   padding-top: 0;
 }
 
