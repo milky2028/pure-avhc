@@ -157,6 +157,7 @@ import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import Strain from '../types/Strain';
 import { useWindowWidth } from '../use/window-width';
 import { useMetadata } from '../use/metadata';
+import useStructuredData from '../use/structuredData';
 
 export default createComponent({
   components: {
@@ -273,6 +274,35 @@ export default createComponent({
               .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`
           : 'Product description'
       );
+    });
+
+    const { setStructuredData } = useStructuredData();
+    watch(currentPageProduct, (currentProduct) => {
+      if (currentProduct) {
+        const organizationName = process.env.VUE_APP_FULL_NAME;
+        setStructuredData({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: currentProduct.name,
+          image: url.value,
+          description: currentProduct.description,
+          brand: organizationName,
+          sku: currentProduct.id,
+          ...(fullSize.value
+            ? {
+                offers: {
+                  '@type': 'Offer',
+                  url: window.location.href,
+                  priceCurrency: 'USD',
+                  price: fullSize,
+                  priceValidUntil: '2020-06-01',
+                  availability: 'https://schema.org/OnlineOnly',
+                  itemCondition: 'https://schema.org/NewCondition'
+                }
+              }
+            : {})
+        });
+      }
     });
 
     return {
