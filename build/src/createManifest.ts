@@ -43,7 +43,7 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
 
   const writeFileAsync = promisify(writeFile);
   await writeFileAsync('public/public/manifest.json', JSON.stringify(manifest));
-  return 'Sucessefully wrote manifest.json';
+  return 'Sucessefully created manifest.json';
 };
 
 const buildTarget = process.argv[2];
