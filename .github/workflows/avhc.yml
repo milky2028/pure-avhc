@@ -18,6 +18,7 @@ jobs:
       - run: cd ${GITHUB_WORKSPACE}/functions && yarn
       - run: cd ${GITHUB_WORKSPACE}/build && yarn
       - run: cd ${GITHUB_WORKSPACE}/build && yarn create-manifest:avhc
+      - run: cd ${GITHUB_WORKSPACE}/build && yarn create-sitemap:avhc
       - run: cd ${GITHUB_WORKSPACE}/public && yarn
       - run: cd ${GITHUB_WORKSPACE}/public && yarn build:avhc
       - run: cd ${GITHUB_WORKSPACE}
