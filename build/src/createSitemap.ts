@@ -54,9 +54,25 @@ const main = async (buildTarget: string) => {
     process.env.VUE_APP_SITE_URL as string
   );
   writeFileSync(`${appDir}/public/robots.txt`, editedRobotsTxtFile, 'utf-8');
-  const sitemap = convert.js2xml({ urlset: { url: fullPaths.map((path) => ({ loc: path, lastmod: '2019-12-20' })) } }, { compact: true, spaces: 2 });
+  const sitemap = convert.js2xml(
+    {
+      _declaration: {
+        _attributes: {
+          version: 1.0,
+          encoding: 'utf-8'
+        }
+      },
+      urlset: {
+        _attributes: {
+          xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9'
+        },
+        url: fullPaths.map((path) => ({ loc: path, lastmod: '2019-12-20' }))
+      }
+    },
+    { compact: true, spaces: 2 }
+  );
   writeFileSync(`${appDir}/public/sitemap.xml`, sitemap, 'utf-8');
-  
+
   return 'Successfuly created sitemap';
 };
 
