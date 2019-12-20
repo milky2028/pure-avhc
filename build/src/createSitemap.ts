@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, writeFileSync } from 'fs';
 import dotenv from 'dotenv';
 import path from 'path';
 import axios from 'axios';
@@ -47,6 +47,12 @@ const main = async (buildTarget: string) => {
   ].map(
     (matchedPath) => `https://${process.env.VUE_APP_SITE_URL}${matchedPath}`
   );
+  const robotsTxtFile = readFileSync('./build/assets/robots.txt', 'utf-8');
+  const editedRobotsTxtFile = robotsTxtFile.replace(
+    '<%= SITE_URL %>',
+    process.env.VUE_APP_SITE_URL as string
+  );
+  writeFileSync(`${appDir}/public/robots.txt`, editedRobotsTxtFile);
   console.log(fullPaths);
 
   return 'Successfuly created sitemap';
