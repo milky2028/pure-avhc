@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: <%= SITEMAP %>
+Sitemap: https://<%= SITE_URL %>/sitemap.xml
