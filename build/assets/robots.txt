@@ -1,4 +1,4 @@
-User-agent: *
-Disallow:
+User-agent: Googlebot
+Disallow: /orders/
 
 Sitemap: https://<%= SITE_URL %>/sitemap.xml
