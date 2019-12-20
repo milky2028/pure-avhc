@@ -18,3 +18,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+public/sitemap.xml
+public/robots.txt
