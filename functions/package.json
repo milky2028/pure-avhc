@@ -2,7 +2,7 @@
   "name": "functions",
   "version": "1.0.0-0",
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "scripts": {
     "lint": "tslint --project tsconfig.json",
