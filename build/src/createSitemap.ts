@@ -2,6 +2,7 @@ import { readFileSync, readdirSync, writeFileSync } from 'fs';
 import dotenv from 'dotenv';
 import path from 'path';
 import axios from 'axios';
+import * as convert from 'xml-js';
 
 const main = async (buildTarget: string) => {
   process.chdir('../');
@@ -52,9 +53,10 @@ const main = async (buildTarget: string) => {
     '<%= SITE_URL %>',
     process.env.VUE_APP_SITE_URL as string
   );
-  writeFileSync(`${appDir}/public/robots.txt`, editedRobotsTxtFile);
-  console.log(fullPaths);
-
+  writeFileSync(`${appDir}/public/robots.txt`, editedRobotsTxtFile, 'utf-8');
+  const sitemap = convert.js2xml({ urlset: { url: fullPaths.map((path) => ({ loc: path, lastmod: '2019-12-20' })) } }, { compact: true, spaces: 2 });
+  writeFileSync(`${appDir}/public/sitemap.xml`, sitemap, 'utf-8');
+  
   return 'Successfuly created sitemap';
 };
 
