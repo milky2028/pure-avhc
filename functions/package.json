@@ -5,7 +5,7 @@
     "node": "8"
   },
   "scripts": {
-    "lint": "yarn eslint --fix  . --ext .ts ",
+    "lint": "eslint --fix  . --ext .ts ",
     "build": "tsc",
     "serve": "yarn run build && firebase serve --only functions",
     "emulator": "yarn run build && firebase emulators:start",
