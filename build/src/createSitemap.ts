@@ -2,7 +2,24 @@ import { readFileSync, readdirSync, writeFileSync } from 'fs';
 import dotenv from 'dotenv';
 import path from 'path';
 import axios from 'axios';
-import * as convert from 'xml-js';
+import { js2xml } from 'xml-js';
+
+function datePartFinder(
+  parts: { type: string; value: string }[],
+  target: 'year' | 'month' | 'day'
+) {
+  const partValue = parts.find(({ type }) => type === target)!.value;
+  return partValue.length === 1 ? `0${partValue}` : partValue;
+}
+
+function formatDate(date: Date) {
+  const formatter = new Intl.DateTimeFormat('en-us');
+  const parts = formatter.formatToParts(date);
+  return `${datePartFinder(parts, 'year')}-${datePartFinder(
+    parts,
+    'month'
+  )}-${datePartFinder(parts, 'day')}`;
+}
 
 const main = async (buildTarget: string) => {
   process.chdir('../');
@@ -59,12 +76,8 @@ const main = async (buildTarget: string) => {
     '<%= SITE_URL %>',
     process.env.VUE_APP_SITE_URL as string
   );
-  // const existingSitemap = (
-  //   await axios.get(`https://${process.env.VUE_APP_SITE_URL}/sitemap.xml`)
-  // ).data;
-  // console.log(existingSitemap);
   writeFileSync(`${appDir}/public/robots.txt`, editedRobotsTxtFile, 'utf-8');
-  const newSitemap = convert.js2xml(
+  const newSitemap = js2xml(
     {
       _declaration: {
         _attributes: {
@@ -78,7 +91,7 @@ const main = async (buildTarget: string) => {
         },
         url: fullPaths.map((path) => ({
           loc: path,
-          lastmod: '2019-12-20'
+          lastmod: formatDate(new Date())
         }))
       }
     },
