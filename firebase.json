@@ -19,7 +19,7 @@
         "destination": "/index.html"
       },
       {
-        "source": "dynamic-render",
+        "source": "/dynamic-render",
         "function": "dynamicRenderer"
       }
     ],
