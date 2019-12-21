@@ -21,3 +21,9 @@ yarn-error.log*
 
 public/sitemap.xml
 public/robots.txt
+public/192x192.png
+public/512x512.png
+public/og-image.jpg
+public/publisher-logo.png
+public/favicon.ico
+public/manifest.json
