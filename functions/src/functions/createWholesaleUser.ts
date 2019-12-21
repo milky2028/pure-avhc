@@ -28,7 +28,7 @@ async function addAddresses(
   );
 }
 
-export const createWholesaleUser = functions.https.onRequest((req, res) =>
+const createWholesaleUser = functions.https.onRequest((req, res) =>
   c(req, res, async () => {
     const auth = admin.auth();
     const {
@@ -87,3 +87,5 @@ export const createWholesaleUser = functions.https.onRequest((req, res) =>
     }
   })
 );
+
+export default createWholesaleUser;

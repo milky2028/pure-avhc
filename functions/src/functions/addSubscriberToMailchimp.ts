@@ -14,7 +14,7 @@ async function updateUserExtras(uid: string) {
   }
 }
 
-export const addSubscriberToMailchimp = functions.firestore
+const addSubscriberToMailchimp = functions.firestore
   .document('subscribers/{subscriberId}')
   .onCreate(async (snap) => {
     const documentData = snap.data();
@@ -58,3 +58,5 @@ export const addSubscriberToMailchimp = functions.firestore
       throw new Error('No document data');
     }
   });
+
+export default addSubscriberToMailchimp;
