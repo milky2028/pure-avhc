@@ -4,13 +4,13 @@ import addSubscriberToMailchimp from './functions/addSubscriberToMailchimp.js';
 import dynamicRenderer from './functions/dynamicRenderer.js';
 
 // For Local Testing
-import serviceAccount from './credentials/key.json';
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
-});
+// import serviceAccount from './credentials/key.json';
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount as admin.ServiceAccount)
+// });
 
 // For Production
-// admin.initializeApp();
+admin.initializeApp();
 
 exports.createWholesaleUser = createWholesaleUser;
 exports.addSubscriberToMailchimp = addSubscriberToMailchimp;
