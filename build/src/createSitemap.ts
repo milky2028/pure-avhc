@@ -81,8 +81,8 @@ const main = async (buildTarget: string) => {
     {
       _declaration: {
         _attributes: {
-          version: 1.0,
-          encoding: 'utf-8'
+          version: '1.0',
+          encoding: 'UTF-8'
         }
       },
       urlset: {
