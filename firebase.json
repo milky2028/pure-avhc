@@ -17,6 +17,10 @@
       {
         "source": "**",
         "destination": "/index.html"
+      },
+      {
+        "source": "dynamic-render",
+        "function": "dynamicRenderer"
       }
     ],
     "headers": [
