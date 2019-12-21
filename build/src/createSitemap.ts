@@ -54,7 +54,7 @@ const main = async (buildTarget: string) => {
     process.env.VUE_APP_SITE_URL as string
   );
   writeFileSync(`${appDir}/public/robots.txt`, editedRobotsTxtFile, 'utf-8');
-  const sitemap = convert.js2xml(
+  const newSitemap = convert.js2xml(
     {
       _declaration: {
         _attributes: {
@@ -71,7 +71,7 @@ const main = async (buildTarget: string) => {
     },
     { compact: true, spaces: 2 }
   );
-  writeFileSync(`${appDir}/public/sitemap.xml`, sitemap, 'utf-8');
+  writeFileSync(`${appDir}/public/sitemap.xml`, newSitemap, 'utf-8');
 
   return 'Successfuly created sitemap';
 };
