@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'path';
-import { writeFile } from 'fs';
+import { writeFile, existsSync, mkdirSync } from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
@@ -10,6 +10,10 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
   }
   process.chdir('../');
   const execAsync = promisify(exec);
+  const appDir = path.join(process.cwd(), 'public');
+  if (!existsSync(`${appDir}/public/test-results-files`)) {
+    mkdirSync(`${appDir}/public/test-results-files`);
+  }
   await execAsync(
     `cp -a build/${buildTarget}-tests/. public/public/test-results-files/`
   );
@@ -17,7 +21,6 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
   await execAsync(`cp -a build/${buildTarget}-icons/. public/public/`);
   console.log('Successfully copied image files');
 
-  const appDir = path.join(process.cwd(), 'public');
   dotenv.config({ path: path.resolve(appDir, `.env.${buildTarget}prod`) });
 
   const manifest = {
