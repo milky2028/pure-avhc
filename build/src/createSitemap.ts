@@ -17,7 +17,9 @@ const main = async (buildTarget: string) => {
   }
 
   const appDir = path.join(process.cwd(), 'public');
-  dotenv.config({ path: path.resolve(appDir, `.env.${buildTarget}prod`) });
+  dotenv.config({
+    path: path.resolve(appDir, `.env.${buildTarget}prod`)
+  });
   const testFiles = readdirSync(path.join(process.cwd(), 'build/avhc-tests'));
   const nestedAsyncPaths = allMatches
     .filter(
@@ -35,7 +37,11 @@ const main = async (buildTarget: string) => {
               url: { stringValue }
             }
           }: {
-            fields: { url: { stringValue: string } };
+            fields: {
+              url: {
+                stringValue: string;
+              };
+            };
           }) => `/${collection}/${stringValue}`
         );
       } else {
@@ -53,6 +59,10 @@ const main = async (buildTarget: string) => {
     '<%= SITE_URL %>',
     process.env.VUE_APP_SITE_URL as string
   );
+  // const existingSitemap = (
+  //   await axios.get(`https://${process.env.VUE_APP_SITE_URL}/sitemap.xml`)
+  // ).data;
+  // console.log(existingSitemap);
   writeFileSync(`${appDir}/public/robots.txt`, editedRobotsTxtFile, 'utf-8');
   const newSitemap = convert.js2xml(
     {
@@ -66,7 +76,10 @@ const main = async (buildTarget: string) => {
         _attributes: {
           xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9'
         },
-        url: fullPaths.map((path) => ({ loc: path, lastmod: '2019-12-20' }))
+        url: fullPaths.map((path) => ({
+          loc: path,
+          lastmod: '2019-12-20'
+        }))
       }
     },
     { compact: true, spaces: 2 }
