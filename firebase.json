@@ -15,12 +15,12 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/dynamic-render",
+        "function": "dynamicRenderer"
       },
       {
-        "source": "dynamic-render",
-        "function": "dynamicRenderer"
+        "source": "**",
+        "destination": "/index.html"
       }
     ],
     "headers": [
