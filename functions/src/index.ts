@@ -14,4 +14,4 @@ admin.initializeApp();
 
 exports.createWholesaleUser = createWholesaleUser;
 exports.addSubscriberToMailchimp = addSubscriberToMailchimp;
-exports.dynamicRender = dynamicRenderer;
+exports.dynamicRenderer = dynamicRenderer;
