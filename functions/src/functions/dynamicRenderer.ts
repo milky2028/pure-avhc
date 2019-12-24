@@ -45,7 +45,7 @@ const dynamicRenderer = functions.https.onRequest((req, res) => {
       <title>Document</title>
     </head>
     <body>
-      <p>Are you a bot?</>
+      <p>Are you a bot?</p>
       <p>${isBot(userAgent as string)}</p>
     </body>
     </html>
