@@ -49,6 +49,8 @@ const main = async (buildTarget: string) => {
       if (matchedPath.includes(':')) {
         const pathChunks = matchedPath.split('/');
         const collection = pathChunks[1];
+        // TODO: This is build specific/not generic per project. Switch to using the main Firebase Node SDK with initialize app
+        // and store admin credentials in GitHub Actions environment variables.
         const databaseUrl = `https://firestore.googleapis.com/v1/projects/aspe-f5783/databases/(default)/documents/${collection}/`;
         const collectionResult = await axios.get(databaseUrl);
         return collectionResult.data.documents.map(
