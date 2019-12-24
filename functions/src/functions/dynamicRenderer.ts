@@ -27,6 +27,7 @@ function isBot(userAgent: string) {
 
 const dynamicRenderer = functions.https.onRequest((req, res) => {
   const userAgent = req.headers['user-agent'];
+  console.log(userAgent);
   return res.status(200).send(`
   <!DOCTYPE html>
     <html lang="en">
