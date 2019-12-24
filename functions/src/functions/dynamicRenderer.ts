@@ -22,7 +22,13 @@ function isBot(userAgent: string) {
     'w3c_validator'
   ];
 
-  return bots.includes(userAgent.toLowerCase());
+  for (const bot of bots) {
+    if (userAgent.toLowerCase().includes(bot)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 const dynamicRenderer = functions.https.onRequest((req, res) => {
