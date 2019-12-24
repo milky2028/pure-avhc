@@ -22,6 +22,9 @@ function formatDate(date: Date) {
 }
 
 const main = async (buildTarget: string) => {
+  if (!buildTarget) {
+    throw new Error('No build target specified');
+  }
   process.chdir('../');
 
   const router = readFileSync('./public/src/router/index.ts', 'utf-8');
