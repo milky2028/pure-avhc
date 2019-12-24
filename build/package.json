@@ -7,6 +7,7 @@
   "scripts": {
     "create-sitemap:avhc": "tsc && node lib/createSitemap.js avhc",
     "create-manifest:avhc": "tsc && node lib/createManifest.js avhc",
+    "prerender-all-pages:avhc": "tsc && node lib/prerenderAllPages.js avhc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tyler Gross",
