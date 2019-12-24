@@ -34,6 +34,7 @@ function isBot(userAgent: string) {
 const dynamicRenderer = functions.https.onRequest((req, res) => {
   const userAgent = req.headers['user-agent'];
   console.log(userAgent);
+  // res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
   return res.status(200).send(`
   <!DOCTYPE html>
     <html lang="en">
