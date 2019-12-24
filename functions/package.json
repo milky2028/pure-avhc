@@ -17,6 +17,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "axios": "~0.19.0",
+    "express": "^4.17.1",
     "firebase-admin": "^8.2.0",
     "firebase-functions": "^3.1.0",
     "zcrmsdk": "^0.0.15"
