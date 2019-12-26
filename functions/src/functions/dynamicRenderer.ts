@@ -4,7 +4,9 @@ function isBot(userAgent: string) {
   const bots = [
     // search engine crawler bots
     'googlebot',
+    'google-structured-data-testing-tool',
     'bingbot',
+    'mediapartners-google',
     'yandexbot',
     'duckduckbot',
     'slurp',
