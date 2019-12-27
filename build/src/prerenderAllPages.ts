@@ -23,7 +23,7 @@ async function getUrlList(targetSite: string) {
   );
 }
 
-const main = async (buildTarget: string) => {
+async function main(buildTarget: string) {
   if (!buildTargetArg) {
     throw new Error('Failed to provide build target');
   }
@@ -37,7 +37,7 @@ const main = async (buildTarget: string) => {
     process.env.VUE_APP_SITE_URL as string
   );
   return prerenderPage(allSiteUrls[9]);
-};
+}
 
 const buildTargetArg = process.argv[2];
 main(buildTargetArg)

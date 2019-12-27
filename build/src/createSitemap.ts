@@ -21,7 +21,7 @@ function formatDate(date: Date) {
   )}-${datePartFinder(parts, 'day')}`;
 }
 
-const main = async (buildTarget: string) => {
+async function main(buildTarget: string) {
   if (!buildTarget) {
     throw new Error('No build target specified');
   }
@@ -105,7 +105,7 @@ const main = async (buildTarget: string) => {
   writeFileSync(`${appDir}/public/sitemap.xml`, newSitemap, 'utf-8');
 
   return 'Successfuly created sitemap';
-};
+}
 
 const buildTargetArg = process.argv[2];
 main(buildTargetArg)

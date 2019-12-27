@@ -4,7 +4,7 @@ import { writeFile, existsSync, mkdirSync } from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
-const main = async (buildTarget: string | undefined): Promise<string> => {
+async function main(buildTarget: string | undefined): Promise<string> {
   if (!buildTarget) {
     throw new Error('No build target specified');
   }
@@ -47,7 +47,7 @@ const main = async (buildTarget: string | undefined): Promise<string> => {
   const writeFileAsync = promisify(writeFile);
   await writeFileAsync('public/public/manifest.json', JSON.stringify(manifest));
   return 'Sucessefully created manifest.json';
-};
+}
 
 const buildTarget = process.argv[2];
 main(buildTarget)
