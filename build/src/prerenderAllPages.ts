@@ -69,10 +69,10 @@ async function main(buildTarget: string) {
       .firestore()
       .collection('pageRenders')
       .doc(name)
-      .set({ render })
+      .set({ render, timestamp: admin.firestore.FieldValue.serverTimestamp() })
   );
 
-  await Promise.all(databaseWrites.slice(0, 1));
+  await Promise.all(databaseWrites);
   return 'Sucessfully wrote renders to Firestore';
 }
 
