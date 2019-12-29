@@ -47,7 +47,7 @@ async function main(buildTarget: string) {
     allSiteUrls
       .filter((pageUrl) => !pageUrl.includes('.pdf'))
       .map(async (pageUrl) => ({
-        name: pageUrl,
+        name: encodeURIComponent(pageUrl),
         render: await prerenderPage(pageUrl, browser)
       }))
   );
