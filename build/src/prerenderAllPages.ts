@@ -3,13 +3,14 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import path from 'path';
 import { xml2js, ElementCompact } from 'xml-js';
+import * as admin from 'firebase-admin';
 
-async function prerenderPage(targetPage: string) {
-  const browser = await puppeteer.launch({ headless: true });
+process.setMaxListeners(Infinity);
+
+async function prerenderPage(targetPage: string, browser: puppeteer.Browser) {
   const browserPage = await browser.newPage();
   await browserPage.goto(targetPage, { waitUntil: 'networkidle0' });
   const html = await browserPage.content();
-  await browser.close();
   return html;
 }
 
@@ -33,10 +34,46 @@ async function main(buildTarget: string) {
   dotenv.config({
     path: path.resolve(appDir, `.env.${buildTarget}prod`)
   });
-  const allSiteUrls: string[] = await getUrlList(
-    process.env.VUE_APP_SITE_URL as string
+
+  const siteUrl = process.env.VUE_APP_SITE_URL;
+  if (!siteUrl) {
+    throw new Error('No site url environment variable found.');
+  }
+
+  const allSiteUrls: string[] = await getUrlList(siteUrl);
+
+  const browser = await puppeteer.launch({ headless: true });
+  const pages = await Promise.all(
+    allSiteUrls
+      .filter((pageUrl) => !pageUrl.includes('.pdf'))
+      .map(async (pageUrl) => ({
+        name: pageUrl,
+        render: await prerenderPage(pageUrl, browser)
+      }))
   );
-  return prerenderPage(allSiteUrls[9]);
+  await browser.close();
+
+  const adminConfig = process.env.FIREBASE_ADMIN_CONFIG;
+  if (!adminConfig) {
+    throw new Error('No Firebase Admin Config environment variable found.');
+  }
+
+  const credential = JSON.parse(adminConfig);
+  credential.private_key = credential.private_key.replace(/\\n/g, '\n');
+  const fbApp = admin.initializeApp({
+    credential: admin.credential.cert(credential)
+  });
+
+  const databaseWrites = pages.map(({ name, render }) =>
+    fbApp
+      .firestore()
+      .collection('pageRenders')
+      .doc(name)
+      .set({ render })
+  );
+
+  await Promise.all(databaseWrites.slice(0, 1));
+  return 'Sucessfully wrote renders to Firestore';
 }
 
 const buildTargetArg = process.argv[2];
