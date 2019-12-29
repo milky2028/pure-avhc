@@ -20,8 +20,11 @@ jobs:
         with:
           node-version: '12.x'
       - run: cd ${GITHUB_WORKSPACE}/build && yarn
-      - run: cd ${GITHUB_WORKSPACE}/build && yarn create-manifest:avhc
-      - run: cd ${GITHUB_WORKSPACE}/build && yarn create-sitemap:avhc
+      - run: cd ${GITHUB_WORKSPACE}/build && yarn create-manifest avhc
+      - run: cd ${GITHUB_WORKSPACE}/build && yarn create-sitemap avhc
+      - run: cd ${GITHUB_WORKSPACE}/build && yarn prerender-all-pages avhc
+        env:
+          FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'

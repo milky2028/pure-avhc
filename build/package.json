@@ -5,9 +5,9 @@
   "description": "Node build scripts",
   "main": "index.js",
   "scripts": {
-    "create-sitemap:avhc": "tsc && node lib/createSitemap.js avhc",
-    "create-manifest:avhc": "tsc && node lib/createManifest.js avhc",
-    "prerender-all-pages:avhc": "tsc && node lib/prerenderAllPages.js avhc",
+    "create-sitemap": "tsc && node lib/createSitemap.js",
+    "create-manifest": "tsc && node lib/createManifest.js",
+    "prerender-all-pages": "tsc && node lib/prerenderAllPages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tyler Gross",

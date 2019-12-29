@@ -25,8 +25,9 @@ nvm use 12
 cd build
 rm -rf node_modules
 yarn install
-yarn create-manifest:${BUILD_TARGET}
-yarn create-sitemap:${BUILD_TARGET}
+yarn create-manifest ${BUILD_TARGET}
+yarn create-sitemap ${BUILD_TARGET}
+yarn prerender-all-pages ${BUILD_TARGET}
 
 nvm install 8
 nvm use 8
