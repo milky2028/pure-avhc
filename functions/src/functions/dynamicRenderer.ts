@@ -49,7 +49,7 @@ const dynamicRenderer = functions.https.onRequest(async (req, res) => {
         </head>
         <body>
           <p>Are you a bot?</p>
-          <p>${isBot(userAgent as string)}</p>
+          <p>${isBot(userAgent)}</p>
         </body>
         </html>
       `);
@@ -57,6 +57,8 @@ const dynamicRenderer = functions.https.onRequest(async (req, res) => {
     const pageResponse = await axios.get(
       `https://${req.headers.host}/${req.originalUrl}`
     );
+    console.log(req);
+    console.log(pageResponse.data);
     return res.status(200).send(pageResponse.data);
   }
 });
