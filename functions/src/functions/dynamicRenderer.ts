@@ -49,10 +49,10 @@ const dynamicRenderer = (functionTarget: string) =>
         await admin
           .firestore()
           .collection("pageRenders")
-          .doc(encodeURIComponent(`https://${domain}/${req.originalUrl}`))
+          .doc(encodeURIComponent(`https://${domain}${req.originalUrl}`))
           .get()
       ).data();
-      console.log(encodeURIComponent(`https://${domain}/${req.originalUrl}`));
+      console.log(encodeURIComponent(`https://${domain}${req.originalUrl}`));
       if (pageRenderData) {
         return res.send(pageRenderData.render);
       }
