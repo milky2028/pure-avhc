@@ -52,7 +52,6 @@ const dynamicRenderer = (functionTarget: string) =>
           .doc(encodeURIComponent(`https://${domain}${req.originalUrl}`))
           .get()
       ).data();
-      console.log(req.get('origin'));
       if (pageRenderData) {
         return res.status(200).send(pageRenderData.render);
       }
