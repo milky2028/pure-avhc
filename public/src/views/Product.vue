@@ -264,41 +264,38 @@ export default createComponent({
 
     watch(() => {
       const { setTitle, setPageDescription } = useMetadata();
-      setTitle(
-        currentPageProduct.value ? currentPageProduct.value.name : 'Product'
-      );
-      setPageDescription(
-        currentPageProduct.value
-          ? `${currentPageProduct.value.description
-              .slice(0, 160)
-              .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`
-          : 'Product description'
-      );
-
-      const { setStructuredData } = useStructuredData();
-      const organizationName = process.env.VUE_APP_FULL_NAME;
-      setStructuredData({
-        '@context': 'https://schema.org/',
-        '@type': 'Product',
-        name: currentPageProduct.value.name,
-        image: url.value,
-        description: currentPageProduct.value.description,
-        brand: organizationName,
-        sku: currentPageProduct.value.id,
-        ...(fullSize.value
-          ? {
-              offers: {
-                '@type': 'Offer',
-                url: window.location.href,
-                priceCurrency: 'USD',
-                price: fullSize,
-                priceValidUntil: '2020-06-01',
-                availability: 'https://schema.org/OnlineOnly',
-                itemCondition: 'https://schema.org/NewCondition'
+      if (currentPageProduct.value) {
+        setTitle(currentPageProduct.value.name);
+        setPageDescription(
+          `${currentPageProduct.value.description
+            .slice(0, 160)
+            .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`
+        );
+        const { setStructuredData } = useStructuredData();
+        const organizationName = process.env.VUE_APP_FULL_NAME;
+        setStructuredData({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: currentPageProduct.value.name,
+          image: url.value,
+          description: currentPageProduct.value.description,
+          brand: organizationName,
+          sku: currentPageProduct.value.id,
+          ...(fullSize.value
+            ? {
+                offers: {
+                  '@type': 'Offer',
+                  url: window.location.href,
+                  priceCurrency: 'USD',
+                  price: fullSize,
+                  priceValidUntil: '2020-06-01',
+                  availability: 'https://schema.org/OnlineOnly',
+                  itemCondition: 'https://schema.org/NewCondition'
+                }
               }
-            }
-          : {})
-      });
+            : {})
+        });
+      }
     });
 
     return {
