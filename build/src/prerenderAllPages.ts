@@ -7,10 +7,23 @@ import * as admin from 'firebase-admin';
 
 process.setMaxListeners(Infinity);
 
+function stripPage() {
+  const elements = document.querySelectorAll(
+    'script:not([type]), script[type*="javascript"], link[rel=import], script[type*="module"], link[rel*="prefetch"], link[rel*="modulepreload"]'
+  );
+  for (const e of Array.from(elements)) {
+    e.remove();
+  }
+}
+
 async function prerenderPage(targetPage: string, browser: puppeteer.Browser) {
-  const browserPage = await browser.newPage();
-  await browserPage.goto(targetPage, { waitUntil: 'networkidle0' });
-  const html = await browserPage.content();
+  const page = await browser.newPage();
+  await page.goto(targetPage, { waitUntil: 'networkidle0' });
+  await page.waitFor(10000);
+  await page.evaluate(stripPage);
+  const html = await await page.evaluate(
+    'document.firstElementChild.outerHTML'
+  );
   return html;
 }
 
