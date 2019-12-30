@@ -291,7 +291,7 @@ export default createComponent({
                   '@type': 'Offer',
                   url: window.location.href,
                   priceCurrency: 'USD',
-                  price: `${fullSize.value}`,
+                  price: `${fullSize.value.price}`,
                   priceValidUntil: '2020-06-01',
                   availability: 'https://schema.org/OnlineOnly',
                   itemCondition: 'https://schema.org/NewCondition'
