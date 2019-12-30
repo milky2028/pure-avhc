@@ -745,7 +745,7 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import { createComponent } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
-import useStructuredData from '../use/structuredData';
+import useStructuredData from '../use/structured-data';
 
 export default createComponent({
   components: {

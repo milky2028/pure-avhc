@@ -157,7 +157,7 @@ import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import Strain from '../types/Strain';
 import { useWindowWidth } from '../use/window-width';
 import { useMetadata } from '../use/metadata';
-import useStructuredData from '../use/structuredData';
+import useStructuredData from '../use/structured-data';
 
 export default createComponent({
   components: {
