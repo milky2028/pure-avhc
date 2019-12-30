@@ -11,6 +11,7 @@ export function useMetadata() {
     selectAndSetContent('#itemPropName', fullTitle);
     selectAndSetContent('#ogTitle', fullTitle);
     selectAndSetContent('#twitterTitle', fullTitle);
+    selectAndSetContent('#ogUrl', location.href.split('?')[0]);
   }
 
   function setPageDescription(description: string) {
