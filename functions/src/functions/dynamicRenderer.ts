@@ -1,29 +1,29 @@
-import * as functions from 'firebase-functions';
-import axios from 'axios';
-// import * as admin from 'firebase-admin';
+import * as functions from "firebase-functions";
+import axios from "axios";
+import * as admin from "firebase-admin";
 
 function isBot(userAgent: string) {
   const bots = [
     // search engine crawler bots
-    'googlebot',
-    'google-structured-data-testing-tool',
-    'bingbot',
-    'mediapartners-google',
-    'yandexbot',
-    'duckduckbot',
-    'slurp',
+    "googlebot",
+    "google-structured-data-testing-tool",
+    "bingbot",
+    "mediapartners-google",
+    "yandexbot",
+    "duckduckbot",
+    "slurp",
     // social media link bots
-    'twitterbot',
-    'facebookexternalhit',
-    'linkedinbot',
-    'embedly',
-    'baiduspider',
-    'pinterest',
-    'slackbot',
-    'vkshare',
-    'facebot',
-    'outbrain',
-    'w3c_validator'
+    "twitterbot",
+    "facebookexternalhit",
+    "linkedinbot",
+    "embedly",
+    "baiduspider",
+    "pinterest",
+    "slackbot",
+    "vkshare",
+    "facebot",
+    "outbrain",
+    "w3c_validator"
   ];
 
   for (const bot of bots) {
@@ -38,36 +38,27 @@ function isBot(userAgent: string) {
 const dynamicRenderer = (functionTarget: string) =>
   functions.https.onRequest(async (req, res) => {
     const domain =
-      functionTarget === 'avhc'
-        ? 'aspe-f5783.firebaseapp.com'
-        : 'pure-e0325.firebaseapp.com';
-    const userAgent = req.headers['user-agent'];
+      functionTarget === "avhc"
+        ? "aspe-f5783.firebaseapp.com"
+        : "pure-e0325.firebaseapp.com";
+    const userAgent = req.headers["user-agent"];
     // res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
     // res.set('Vary', 'User-Agent');
     if (userAgent && isBot(userAgent)) {
-      // return await admin
-      //   .firestore()
-      //   .collection('pageRenders')
-      //   .get(encodeURIComponent());
-      return res.status(200).send(`
-      <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <meta http-equiv="X-UA-Compatible" content="ie=edge">
-          <title>Dynamic Renderer</title>
-        </head>
-        <body>
-          <p>Are you a bot?</p>
-          <p>${isBot(userAgent)}</p>
-        </body>
-        </html>
-      `);
-    } else {
-      const pageResponse = await axios.get(`https://${domain}/index.html`);
-      return res.status(200).send(pageResponse.data);
+      const pageRenderData = (
+        await admin
+          .firestore()
+          .collection("pageRenders")
+          .doc(encodeURIComponent(`https://${domain}/${req.originalUrl}`))
+          .get()
+      ).data();
+      console.log(encodeURIComponent(`https://${domain}/${req.originalUrl}`));
+      if (pageRenderData) {
+        return res.send(pageRenderData.render);
+      }
     }
+    const pageResponse = await axios.get(`https://${domain}/index.html`);
+    return res.send(pageResponse.data);
   });
 
 export default dynamicRenderer;
