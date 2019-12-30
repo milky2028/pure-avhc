@@ -263,16 +263,18 @@ export default createComponent({
       return windowWidth.value > 835 ? 40 * vh : 30 * vh;
     }
 
+    function removeTags(input: string) {
+      return `${input
+        .slice(0, 160)
+        .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`;
+    }
+
     const { setStructuredData, clearStructuredData } = useStructuredData();
     watch(() => {
       const { setTitle, setPageDescription } = useMetadata();
       if (currentPageProduct.value) {
         setTitle(currentPageProduct.value.name);
-        setPageDescription(
-          `${currentPageProduct.value.description
-            .slice(0, 160)
-            .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`
-        );
+        setPageDescription(removeTags(currentPageProduct.value.description));
         const organizationName = process.env.VUE_APP_FULL_NAME;
         clearStructuredData();
         setStructuredData({
@@ -280,7 +282,7 @@ export default createComponent({
           '@type': 'Product',
           name: currentPageProduct.value.name,
           image: url.value,
-          description: currentPageProduct.value.description,
+          description: removeTags(currentPageProduct.value.description),
           brand: organizationName,
           sku: currentPageProduct.value.id,
           ...(fullSize.value
@@ -289,7 +291,7 @@ export default createComponent({
                   '@type': 'Offer',
                   url: window.location.href,
                   priceCurrency: 'USD',
-                  price: fullSize,
+                  price: `${fullSize}`,
                   priceValidUntil: '2020-06-01',
                   availability: 'https://schema.org/OnlineOnly',
                   itemCondition: 'https://schema.org/NewCondition'
