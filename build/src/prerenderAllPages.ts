@@ -3,6 +3,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import path from 'path';
 import { xml2js, ElementCompact } from 'xml-js';
+import url from 'url';
 import * as admin from 'firebase-admin';
 
 process.setMaxListeners(Infinity);
@@ -16,11 +17,19 @@ function stripPage() {
   }
 }
 
+function injectBaseHref(origin: string) {
+  const base = document.createElement('base');
+  base.setAttribute('href', origin);
+  document.head.insertAdjacentElement('afterbegin', base);
+}
+
 async function prerenderPage(targetPage: string, browser: puppeteer.Browser) {
   const page = await browser.newPage();
   await page.goto(targetPage, { waitUntil: 'networkidle0' });
   await page.waitFor(10000);
   await page.evaluate(stripPage);
+  const parsedUrl = url.parse(targetPage);
+  await page.evaluate(injectBaseHref, `https://${parsedUrl.host}/`);
   const html = await await page.evaluate(
     'document.firstElementChild.outerHTML'
   );
