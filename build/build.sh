@@ -17,6 +17,8 @@ cd ..
 git status
 git pull
 
+nvm install 10
+nvm use 10
 yarn global add firebase-tools @vue/cli @vue/cli-service-global typescript
 rm -rf public/node_modules functions/node_modules build/node_modules
 
@@ -35,7 +37,6 @@ cd ../functions
 rm -rf node_modules
 yarn install
 
-nvm install 10
 nvm use 10
 cd ../public
 rm -rf node_modules
@@ -44,4 +45,5 @@ yarn build:${BUILD_TARGET}
 
 cd ..
 firebase use ${BUILD_TARGET}
-firebase deploy
+firebase deploy --only functions
+firebase deploy --only hosting:${BUILD_TARGET}

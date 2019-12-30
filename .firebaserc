@@ -2,5 +2,17 @@
   "projects": {
     "avhc": "aspe-f5783",
     "pure": "pure-cbd-exchange"
+  },
+  "targets": {
+    "aspe-f5783": {
+      "hosting": {
+        "avhc": [
+          "aspe-f5783"
+        ],
+        "pure": [
+          "pure-e0325"
+        ]
+      }
+    }
   }
 }
