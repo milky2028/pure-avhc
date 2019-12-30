@@ -5,8 +5,7 @@ export default function useStructuredData() {
     const structuredDataScript = document.createElement('script');
     structuredDataScript.type = 'application/ld+json';
     structuredDataScript.textContent = JSON.stringify(structuredData);
-    const head = document.getElementById('header') as HTMLHeadElement;
-    head.appendChild(structuredDataScript);
+    document.head.insertAdjacentElement('beforeend', structuredDataScript);
   }
 
   function clearStructuredData() {
