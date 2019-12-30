@@ -41,7 +41,7 @@ const dynamicRenderer = (functionTarget: string) =>
     // }
     const domain =
       functionTarget === "avhc"
-        ? "aspe-f5783.firebaseapp.com"
+        ? "aspenvalleycbd.com"
         : "pure-e0325.firebaseapp.com";
     const userAgent = req.headers["user-agent"];
     // res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
