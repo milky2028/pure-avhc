@@ -774,7 +774,6 @@ export default createComponent({
       },
       headline: articleName,
       description: description,
-      image: '',
       author: {
         '@type': 'Organization',
         name: organizationName
