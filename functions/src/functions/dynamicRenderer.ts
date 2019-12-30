@@ -52,13 +52,13 @@ const dynamicRenderer = (functionTarget: string) =>
           .doc(encodeURIComponent(`https://${domain}${req.originalUrl}`))
           .get()
       ).data();
-      console.log(encodeURIComponent(`https://${domain}${req.originalUrl}`));
+      console.log(req.get('origin'));
       if (pageRenderData) {
-        return res.send(pageRenderData.render);
+        return res.status(200).send(pageRenderData.render);
       }
     }
     const pageResponse = await axios.get(`https://${domain}/index.html`);
-    return res.send(pageResponse.data);
+    return res.status(200).send(pageResponse.data);
   });
 
 export default dynamicRenderer;
