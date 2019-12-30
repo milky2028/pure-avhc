@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import axios from 'axios';
+// import * as admin from 'firebase-admin';
 
 function isBot(userAgent: string) {
   const bots = [
@@ -38,6 +39,10 @@ const dynamicRenderer = functions.https.onRequest(async (req, res) => {
   const userAgent = req.headers['user-agent'];
   // res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
   if (userAgent && isBot(userAgent)) {
+    // return await admin
+    //   .firestore()
+    //   .collection('pageRenders')
+    //   .get(encodeURIComponent());
     return res.status(200).send(`
       <!DOCTYPE html>
         <html lang="en">
@@ -57,8 +62,8 @@ const dynamicRenderer = functions.https.onRequest(async (req, res) => {
     const pageResponse = await axios.get(
       `https://${req.headers.host}/${req.originalUrl}`
     );
-    console.log(req);
-    console.log(pageResponse.data);
+    console.log(req.headers);
+    console.log(req.originalUrl);
     return res.status(200).send(pageResponse.data);
   }
 });
