@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
-import createWholesaleUser from './functions/createWholesaleUser.js';
-import addSubscriberToMailchimp from './functions/addSubscriberToMailchimp.js';
-import dynamicRenderer from './functions/dynamicRenderer.js';
+import createWholesaleUser from './functions/createWholesaleUser';
+import addSubscriberToMailchimp from './functions/addSubscriberToMailchimp';
+import dynamicRenderer from './functions/dynamicRenderer';
 
 // For Local Testing
 // import serviceAccount from './credentials/key.json';
@@ -14,4 +14,5 @@ admin.initializeApp();
 
 exports.createWholesaleUser = createWholesaleUser;
 exports.addSubscriberToMailchimp = addSubscriberToMailchimp;
-exports.dynamicRenderer = dynamicRenderer;
+exports.dynamicRendererPure = dynamicRenderer('pure');
+exports.dynamicRendererAvhc = dynamicRenderer('avhc');

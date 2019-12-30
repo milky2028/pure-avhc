@@ -35,15 +35,21 @@ function isBot(userAgent: string) {
   return false;
 }
 
-const dynamicRenderer = functions.https.onRequest(async (req, res) => {
-  const userAgent = req.headers['user-agent'];
-  // res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
-  if (userAgent && isBot(userAgent)) {
-    // return await admin
-    //   .firestore()
-    //   .collection('pageRenders')
-    //   .get(encodeURIComponent());
-    return res.status(200).send(`
+const dynamicRenderer = (functionTarget: string) =>
+  functions.https.onRequest(async (req, res) => {
+    const domain =
+      functionTarget === 'avhc'
+        ? 'aspe-f5783.firebaseapp.com'
+        : 'pure-e0325.firebaseapp.com';
+    const userAgent = req.headers['user-agent'];
+    // res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+    // res.set('Vary', 'User-Agent');
+    if (userAgent && isBot(userAgent)) {
+      // return await admin
+      //   .firestore()
+      //   .collection('pageRenders')
+      //   .get(encodeURIComponent());
+      return res.status(200).send(`
       <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -58,14 +64,10 @@ const dynamicRenderer = functions.https.onRequest(async (req, res) => {
         </body>
         </html>
       `);
-  } else {
-    const pageResponse = await axios.get(
-      `https://${req.headers.host}/${req.originalUrl}`
-    );
-    console.log(req.headers);
-    console.log(req.originalUrl);
-    return res.status(200).send(pageResponse.data);
-  }
-});
+    } else {
+      const pageResponse = await axios.get(`https://${domain}/index.html`);
+      return res.status(200).send(pageResponse.data);
+    }
+  });
 
 export default dynamicRenderer;
