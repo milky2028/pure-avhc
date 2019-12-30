@@ -147,7 +147,8 @@ import {
   computed,
   inject,
   watch,
-  ref
+  ref,
+  onBeforeUnmount
 } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
@@ -262,6 +263,7 @@ export default createComponent({
       return windowWidth.value > 835 ? 40 * vh : 30 * vh;
     }
 
+    const { setStructuredData, clearStructuredData } = useStructuredData();
     watch(() => {
       const { setTitle, setPageDescription } = useMetadata();
       if (currentPageProduct.value) {
@@ -271,8 +273,8 @@ export default createComponent({
             .slice(0, 160)
             .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`
         );
-        const { setStructuredData } = useStructuredData();
         const organizationName = process.env.VUE_APP_FULL_NAME;
+        clearStructuredData();
         setStructuredData({
           '@context': 'https://schema.org/',
           '@type': 'Product',
@@ -297,6 +299,8 @@ export default createComponent({
         });
       }
     });
+
+    onBeforeUnmount(() => clearStructuredData());
 
     return {
       capitalizeFirstLetter,

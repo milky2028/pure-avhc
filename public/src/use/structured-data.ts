@@ -1,5 +1,3 @@
-import { onBeforeUnmount } from '@vue/composition-api';
-
 export default function useStructuredData() {
   function setStructuredData(structuredData: { [key: string]: any }) {
     const structuredDataScript = document.createElement('script');
@@ -16,8 +14,6 @@ export default function useStructuredData() {
       }
     }
   }
-
-  onBeforeUnmount(() => clearStructuredData());
 
   return { setStructuredData, clearStructuredData };
 }

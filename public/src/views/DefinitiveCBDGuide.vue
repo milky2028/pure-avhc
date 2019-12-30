@@ -743,7 +743,7 @@
 <script lang="ts">
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import { createComponent } from '@vue/composition-api';
+import { createComponent, onBeforeUnmount } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
 
@@ -764,7 +764,7 @@ export default createComponent({
 
     const organizationName = process.env.VUE_APP_FULL_NAME;
     const siteUrl = process.env.VUE_APP_SITE_URL;
-    const { setStructuredData } = useStructuredData();
+    const { setStructuredData, clearStructuredData } = useStructuredData();
     setStructuredData({
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -897,6 +897,8 @@ export default createComponent({
         }
       ]
     });
+
+    onBeforeUnmount(() => clearStructuredData());
 
     return { legalName };
   }
