@@ -18,7 +18,7 @@
       "rewrites": [
         {
           "source": "**",
-          "function": "dynamicRendererAvhc"
+          "destination": "/index.html"
         }
       ],
       "headers": [
