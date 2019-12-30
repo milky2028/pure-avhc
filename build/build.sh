@@ -29,7 +29,6 @@ rm -rf node_modules
 yarn install
 yarn create-manifest ${BUILD_TARGET}
 yarn create-sitemap ${BUILD_TARGET}
-yarn prerender-all-pages ${BUILD_TARGET}
 
 nvm install 8
 nvm use 8
@@ -47,3 +46,7 @@ cd ..
 firebase use ${BUILD_TARGET}
 firebase deploy --only functions
 firebase deploy --only hosting:${BUILD_TARGET}
+
+nvm use 12
+cd build
+yarn prerender-all-pages ${BUILD_TARGET}
