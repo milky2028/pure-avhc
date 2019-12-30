@@ -8,7 +8,6 @@ function isBot(userAgent: string) {
     "googlebot",
     "google-structured-data-testing-tool",
     "bingbot",
-    "mediapartners-google",
     "yandexbot",
     "duckduckbot",
     "slurp",
@@ -37,6 +36,9 @@ function isBot(userAgent: string) {
 
 const dynamicRenderer = (functionTarget: string) =>
   functions.https.onRequest(async (req, res) => {
+    // if (req.method === 'OPTIONS') {
+    //   return res.sendStatus(204);
+    // }
     const domain =
       functionTarget === "avhc"
         ? "aspe-f5783.firebaseapp.com"
