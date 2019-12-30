@@ -266,7 +266,7 @@ export default createComponent({
     function removeTags(input: string) {
       return `${input
         .slice(0, 160)
-        .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')}...`;
+        .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '').trim()}...`;
     }
 
     const { setStructuredData, clearStructuredData } = useStructuredData();
@@ -291,7 +291,7 @@ export default createComponent({
                   '@type': 'Offer',
                   url: window.location.href,
                   priceCurrency: 'USD',
-                  price: `${fullSize}`,
+                  price: `${fullSize.value}`,
                   priceValidUntil: '2020-06-01',
                   availability: 'https://schema.org/OnlineOnly',
                   itemCondition: 'https://schema.org/NewCondition'
