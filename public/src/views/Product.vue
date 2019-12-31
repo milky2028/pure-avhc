@@ -63,7 +63,7 @@
         :thin-bottom="true"
       />
       <!-- eslint-disable-next-line -->
-      <div class="html-inject" v-html="sanitizeDescription(currentPageProduct.description)"></div>
+      <div class="html-inject" v-html="descriptions.product"></div>
       <div>
         <h2>Strains</h2>
         <div
@@ -71,7 +71,8 @@
             name,
             description,
             id,
-            leaflyLink
+            leaflyLink,
+            type
           } of filteredAndSortedStrains"
           :key="id"
         >
@@ -80,7 +81,7 @@
               name
             }}</a>
             <!-- eslint-disable-next-line -->
-            <div class="html-inject" v-html="sanitizeDescription(description)"></div>
+            <div class="html-inject" v-html="descriptions[type]"></div>
           </h3>
         </div>
       </div>
@@ -148,7 +149,7 @@ import {
   inject,
   watch,
   ref,
-  onBeforeUnmount
+  reactive
 } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
@@ -159,7 +160,6 @@ import Strain from '../types/Strain';
 import { useWindowWidth } from '../use/window-width';
 import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
-import purifier from 'dompurify';
 
 export default createComponent({
   components: {
@@ -272,8 +272,8 @@ export default createComponent({
     }
 
     const { setStructuredData, clearStructuredData } = useStructuredData();
+    const { setTitle, setPageDescription } = useMetadata();
     watch(() => {
-      const { setTitle, setPageDescription } = useMetadata();
       if (currentPageProduct.value) {
         setTitle(currentPageProduct.value.name);
         setPageDescription(removeTags(currentPageProduct.value.description));
@@ -304,12 +304,23 @@ export default createComponent({
         });
       }
     });
-
-    onBeforeUnmount(() => clearStructuredData());
-
-    function sanitizeDescription(description: string) {
-      return purifier.sanitize(description);
+    const descriptions = reactive({} as { [key: string]: string });
+    async function sanitizeDescriptions(key: string, description: string) {
+      const purifier = await import('dompurify');
+      descriptions[key] = purifier.sanitize(description);
     }
+
+    watch(filteredAndSortedStrains, (newStrains) => {
+      for (const strain of newStrains) {
+        sanitizeDescriptions(strain.type, strain.description);
+      }
+    });
+
+    watch(currentPageProduct, (product) => {
+      if (product) {
+        sanitizeDescriptions('product', product.description);
+      }
+    });
 
     return {
       capitalizeFirstLetter,
@@ -327,7 +338,7 @@ export default createComponent({
       createUrl,
       getImageHeight,
       windowWidth,
-      sanitizeDescription
+      descriptions
     };
   }
 });
