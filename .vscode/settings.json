@@ -11,6 +11,15 @@
   "npm.packageManager": "yarn",
   "tslint.packageManager": "yarn",
   "vetur.validation.template": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "vue",
+    "typescript",
+    "typescriptreact",
+    "json"
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }
