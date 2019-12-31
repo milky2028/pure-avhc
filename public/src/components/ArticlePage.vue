@@ -12,6 +12,13 @@ article {
   max-width: 680px;
 }
 
+img {
+  margin-top: 1rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--rounded-corner);
+}
+
 .html-inject >>> h2,
 h2 {
   font-size: 22px;
@@ -19,6 +26,10 @@ h2 {
   font-weight: 700;
   line-height: 1.2;
   padding-top: 3vh;
+}
+
+h2:first-child {
+  padding-top: 1rem;
 }
 
 .html-inject >>> h3,
