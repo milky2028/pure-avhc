@@ -287,6 +287,7 @@ export default createComponent({
           description: removeTags(currentPageProduct.value.description),
           brand: organizationName,
           sku: currentPageProduct.value.id,
+          mpn: currentPageProduct.value.id,
           ...(fullSize.value
             ? {
                 offers: {
