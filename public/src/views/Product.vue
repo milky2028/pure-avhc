@@ -63,7 +63,7 @@
         :thin-bottom="true"
       />
       <!-- eslint-disable-next-line -->
-      <div class="html-inject" v-html="descriptions.product"></div>
+      <div class="html-inject" v-if="purifier" v-html="purifier.sanitize(currentPageProduct.description)"></div>
       <div>
         <h2>Strains</h2>
         <div
@@ -71,8 +71,7 @@
             name,
             description,
             id,
-            leaflyLink,
-            type
+            leaflyLink
           } of filteredAndSortedStrains"
           :key="id"
         >
@@ -81,7 +80,7 @@
               name
             }}</a>
             <!-- eslint-disable-next-line -->
-            <div class="html-inject" v-html="descriptions[type]"></div>
+            <div class="html-inject" v-if="purifier" v-html="purifier.sanitize(description)"></div>
           </h3>
         </div>
       </div>
@@ -149,7 +148,7 @@ import {
   inject,
   watch,
   ref,
-  reactive
+  Ref
 } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
@@ -304,23 +303,9 @@ export default createComponent({
         });
       }
     });
-    const descriptions = reactive({} as { [key: string]: string });
-    async function sanitizeDescriptions(key: string, description: string) {
-      const purifier = await import('dompurify');
-      descriptions[key] = purifier.sanitize(description);
-    }
 
-    watch(filteredAndSortedStrains, (newStrains) => {
-      for (const strain of newStrains) {
-        sanitizeDescriptions(strain.type, strain.description);
-      }
-    });
-
-    watch(currentPageProduct, (product) => {
-      if (product) {
-        sanitizeDescriptions('product', product.description);
-      }
-    });
+    const purifier: Ref<null | {}> = ref(null);
+    import('dompurify').then((importRes) => (purifier.value = importRes));
 
     return {
       capitalizeFirstLetter,
@@ -338,7 +323,7 @@ export default createComponent({
       createUrl,
       getImageHeight,
       windowWidth,
-      descriptions
+      purifier
     };
   }
 });

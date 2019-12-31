@@ -102,7 +102,7 @@
         :class="{ topMargin: differentBilling }"
       >
         <!-- eslint-disable-next-line -->
-        <strong v-html="errors.join('<br>')" />
+        <strong v-if="purifier" v-html="errors.map((err) => purifier.sanitize(err)).join('<br>')" />
       </p>
       <AvButton
         :class="{ topMargin: differentBilling }"
@@ -179,7 +179,8 @@ import {
   ref,
   reactive,
   onMounted,
-  inject
+  inject,
+  Ref
 } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
 import { useWindowWidth } from '../use/window-width';
@@ -336,6 +337,9 @@ export default createComponent({
       wholesaleCatalog.value = catalogs[0].url;
     });
 
+    const purifier: Ref<null | {}> = ref(null);
+    import('dompurify').then((importRes) => (purifier.value = importRes));
+
     return {
       uid,
       isWholesaleUser,
@@ -350,7 +354,8 @@ export default createComponent({
       userInfo,
       shippingForm,
       billingForm,
-      errors
+      errors,
+      purifier
     };
   }
 });
