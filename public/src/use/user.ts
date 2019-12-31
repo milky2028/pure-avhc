@@ -105,9 +105,7 @@ export function useUser() {
 
   async function signOut() {
     const auth = await _auth();
-    console.log(user);
     setAllStateInObj(user, { ...emptyUser });
-    console.log(user);
     await clear();
     return auth.signOut();
   }
