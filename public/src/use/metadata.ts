@@ -28,5 +28,10 @@ export function useMetadata() {
     selectAndSetContent('#twitterImage', imageUrl);
   }
 
-  return { setTitle, setPageDescription, setPageImage };
+  function resetImage() {
+    const siteUrl = process.env.VUE_APP_SITE_URL;
+    setPageImage(`https://${siteUrl}/og-image.jpg`);
+  }
+
+  return { setTitle, setPageDescription, setPageImage, resetImage };
 }

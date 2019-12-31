@@ -773,7 +773,12 @@ export default createComponent({
     const articleName = 'The Definitive CBD Guide';
     const description =
       'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.';
-    const { setTitle, setPageDescription, setPageImage } = useMetadata();
+    const {
+      setTitle,
+      setPageDescription,
+      setPageImage,
+      resetImage
+    } = useMetadata();
     setTitle(articleName);
     setPageDescription(description);
     setPageImage(createUrl('/All_Products_skp9po', 675, 1200, false, true));
@@ -915,7 +920,10 @@ export default createComponent({
       ]
     });
 
-    onBeforeUnmount(() => clearStructuredData());
+    onBeforeUnmount(() => {
+      clearStructuredData();
+      resetImage();
+    });
 
     return { legalName, headerImage };
   }
