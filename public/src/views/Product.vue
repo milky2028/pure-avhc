@@ -271,11 +271,12 @@ export default createComponent({
     }
 
     const { setStructuredData, clearStructuredData } = useStructuredData();
-    const { setTitle, setPageDescription } = useMetadata();
+    const { setTitle, setPageDescription, setPageImage } = useMetadata();
     watch(() => {
       if (currentPageProduct.value) {
         setTitle(currentPageProduct.value.name);
         setPageDescription(removeTags(currentPageProduct.value.description));
+        setPageImage(createUrl(url.value, 675, 1200, false, true));
         const organizationName = process.env.VUE_APP_FULL_NAME;
         clearStructuredData();
         setStructuredData({
