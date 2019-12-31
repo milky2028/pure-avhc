@@ -63,7 +63,7 @@
         :thin-bottom="true"
       />
       <!-- eslint-disable-next-line -->
-      <div class="html-inject" v-html="currentPageProduct.description"></div>
+      <div class="html-inject" v-html="sanitizeDescription(currentPageProduct.description)"></div>
       <div>
         <h2>Strains</h2>
         <div
@@ -80,7 +80,7 @@
               name
             }}</a>
             <!-- eslint-disable-next-line -->
-            <div class="html-inject" v-html="description"></div>
+            <div class="html-inject" v-html="sanitizeDescription(description)"></div>
           </h3>
         </div>
       </div>
@@ -159,6 +159,7 @@ import Strain from '../types/Strain';
 import { useWindowWidth } from '../use/window-width';
 import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
+import purifier from 'dompurify';
 
 export default createComponent({
   components: {
@@ -266,7 +267,8 @@ export default createComponent({
     function removeTags(input: string) {
       return `${input
         .slice(0, 160)
-        .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '').trim()}...`;
+        .replace(/<h2>Description<\/h2>|<p>|<\/p>/g, '')
+        .trim()}...`;
     }
 
     const { setStructuredData, clearStructuredData } = useStructuredData();
@@ -304,6 +306,10 @@ export default createComponent({
 
     onBeforeUnmount(() => clearStructuredData());
 
+    function sanitizeDescription(description: string) {
+      return purifier.sanitize(description);
+    }
+
     return {
       capitalizeFirstLetter,
       selectedStrainType,
@@ -319,7 +325,8 @@ export default createComponent({
       alt,
       createUrl,
       getImageHeight,
-      windowWidth
+      windowWidth,
+      sanitizeDescription
     };
   }
 });

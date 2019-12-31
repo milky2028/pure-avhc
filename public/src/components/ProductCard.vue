@@ -65,6 +65,7 @@ import { ref, createComponent, inject } from '@vue/composition-api';
 import Product from '../types/Product';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
+import purifier from 'dompurify';
 
 interface Props {
   product: Product;
@@ -76,7 +77,7 @@ export default createComponent<Props>({
   },
   setup(props: Props) {
     function splitTitle(title: string) {
-      const words = title.split(' ');
+      const words = purifier.sanitize(title).split(' ');
       words.splice(1, 0, '<br>');
       return words.join(' ');
     }
