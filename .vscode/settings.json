@@ -17,8 +17,7 @@
     "html",
     "vue",
     "typescript",
-    "typescriptreact",
-    "json"
+    "typescriptreact"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
