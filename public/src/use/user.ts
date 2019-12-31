@@ -31,7 +31,7 @@ export function useUser() {
     photoURL: '',
     cart: []
   } as AvUser;
-  const user = reactive(emptyUser);
+  const user = reactive({ ...emptyUser });
 
   async function listenForAuthStateChanges() {
     const auth = await _auth();
@@ -105,7 +105,9 @@ export function useUser() {
 
   async function signOut() {
     const auth = await _auth();
-    setAllStateInObj(user, emptyUser);
+    console.log(user);
+    setAllStateInObj(user, { ...emptyUser });
+    console.log(user);
     await clear();
     return auth.signOut();
   }
