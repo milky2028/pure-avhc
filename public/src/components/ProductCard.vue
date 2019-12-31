@@ -12,7 +12,7 @@
     >
       <div class="cover">
         <!-- eslint-disable-next-line -->
-        <h2 class="subhead card-font" v-html="splitTitle(product.shortName)" />
+        <h2 class="subhead card-font" v-html="productShortTitle" />
       </div>
     </div>
   </router-link>
@@ -65,7 +65,6 @@ import { ref, createComponent, inject } from '@vue/composition-api';
 import Product from '../types/Product';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
-import purifier from 'dompurify';
 
 interface Props {
   product: Product;
@@ -76,11 +75,14 @@ export default createComponent<Props>({
     product: Object
   },
   setup(props: Props) {
-    function splitTitle(title: string) {
+    const productShortTitle = ref('');
+    async function splitTitle(title: string) {
+      const purifier = await import('dompurify');
       const words = purifier.sanitize(title).split(' ');
       words.splice(1, 0, '<br>');
-      return words.join(' ');
+      productShortTitle.value = words.join(' ');
     }
+    splitTitle(props.product.shortName);
 
     const hoverLeave = ref(false);
 
@@ -102,7 +104,7 @@ export default createComponent<Props>({
     return {
       url,
       alt,
-      splitTitle,
+      productShortTitle,
       hoverLeave
     };
   }
