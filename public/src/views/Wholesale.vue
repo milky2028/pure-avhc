@@ -102,7 +102,7 @@
         :class="{ topMargin: differentBilling }"
       >
         <!-- eslint-disable-next-line -->
-        <strong v-html="sanitize(errors).join('<br>')" />
+        <strong v-html="errors.join('<br>')" />
       </p>
       <AvButton
         :class="{ topMargin: differentBilling }"
@@ -188,7 +188,6 @@ import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import { useMetadata } from '../use/metadata';
-import purifier from 'dompurify';
 
 export default createComponent({
   components: {
@@ -337,10 +336,6 @@ export default createComponent({
       wholesaleCatalog.value = catalogs[0].url;
     });
 
-    function santize(errorsArr: string[]) {
-      return errorsArr.map((error) => purifier.sanitize(error));
-    }
-
     return {
       uid,
       isWholesaleUser,
@@ -355,8 +350,7 @@ export default createComponent({
       userInfo,
       shippingForm,
       billingForm,
-      errors,
-      santize
+      errors
     };
   }
 });
