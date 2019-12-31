@@ -27,13 +27,20 @@
         out (in products as diverse as tinctures,
         <a
           href="https://www.marieclaire.com/food-cocktails/a27091299/cbd-cocktail-recipes/"
+          target="_blank"
+          rel="noopener noreferrer"
           >cocktails</a
         >,
         <a
           href="https://www.glutenfreefollowme.com/recipe/cbd-infused-chocolate-chip-cookies/"
+          target="_blank"
+          rel="noopener noreferrer"
           >cookies</a
         >,
-        <a href="https://www.allure.com/gallery/cbd-skin-care-products"
+        <a
+          href="https://www.allure.com/gallery/cbd-skin-care-products"
+          target="_blank"
+          rel="noopener noreferrer"
           >beauty creams</a
         >, and
         <router-link to="/products/cbd-hemp-flower"
@@ -62,6 +69,8 @@
           First, CBD is just one of the compounds found in cannabis
           <a
             href="https://www.uclahealth.org/cannabis/cannabis-and-its-compounds"
+            target="_blank"
+            rel="noopener noreferrer"
             >(there are over 500 in total)</a
           >.
         </li>
@@ -76,6 +85,8 @@
         A report from the
         <a
           href="http://www.who.int/medicines/access/controlled-substances/5.2_CBD.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
           >World Health Organization</a
         >
         states:
@@ -98,21 +109,32 @@
         favorite for
         <a
           href="https://www.menshealth.com/health/a26755363/meet-the-pro-athletes-advocating-for-cbd/"
+          target="_blank"
+          rel="noopener noreferrer"
           >athletes</a
         >,
         <a
           href="https://stylecaster.com/celebs-fave-cbd-beauty-products/#slide-3"
+          target="_blank"
+          rel="noopener noreferrer"
           >fashionistas</a
         >,
         <a
           href="https://www.forbes.com/sites/laurenterry/2018/09/27/the-right-way-to-introduce-cbd-to-your-pets/"
+          target="_blank"
+          rel="noopener noreferrer"
           >pet lovers</a
         >,
-        <a href="https://www.consumerreports.org/cbd/can-cbd-help-your-child/"
+        <a
+          href="https://www.consumerreports.org/cbd/can-cbd-help-your-child/"
+          target="_blank"
+          rel="noopener noreferrer"
           >parents</a
         >, and
         <a
           href="https://medium.com/cbd-origin/7-life-changing-health-benefits-of-cbd-for-seniors-958f0818bc9d"
+          target="_blank"
+          rel="noopener noreferrer"
           >senior citizens</a
         >
         alike)?
@@ -159,6 +181,8 @@
         structure:
         <a
           href="https://www.healthline.com/health/cbd-vs-thc#chemical-structure"
+          target="_blank"
+          rel="noopener noreferrer"
           >21 carbon atoms, 30 hydrogen atoms, and 2 oxygen atoms</a
         >. A tiny difference in how the atoms are arranged leads to different
         effects on your body. Jeffrey Raber, CEO of California-based cannabis
@@ -195,6 +219,8 @@
         Drug Enforcement Administration maintains that
         <a
           href="https://www.wthr.com/article/dea-feds-wont-arrest-cbd-oil-users-neither-should-indiana"
+          target="_blank"
+          rel="noopener noreferrer"
           >CBD is federally illegal</a
         >
         (but won’t go after anyone for possessing or using it). But many argue
@@ -202,7 +228,10 @@
         away the DEA’s authority over hemp and, as a result, CBD from hemp is
         now legal nationwide. Even under that assumption however, there is still
         an important consideration -
-        <a href="https://cbdee.com/cbd-101/"
+        <a
+          href="https://cbdee.com/cbd-101/"
+          target="_blank"
+          rel="noopener noreferrer"
           >only CBD containing less 0.3% of THC is legal in all 50 states</a
         >
         so quality is key.
@@ -212,6 +241,8 @@
         On an international level, CBD is
         <a
           href="https://www.royalqueenseeds.com/blog-where-in-the-world-is-cbd-legal-n950"
+          target="_blank"
+          rel="noopener noreferrer"
           >legal in</a
         >
         Austria, Belgium, Denmark, Netherlands, Romania, Italy, and Spain. Ditto
@@ -232,6 +263,8 @@
         In June 2018, the Food and Drug Administration
         <a
           href="https://www.fda.gov/NewsEvents/Newsroom/PressAnnouncements/ucm611046.htm"
+          target="_blank"
+          rel="noopener noreferrer"
           >approved</a
         >
         the use of Epidiolex as a medication to treat rare forms of epilepsy –
@@ -267,11 +300,15 @@
         reasons people today seek out this compound in everything from
         <a
           href="https://purecbdexchange.com/product-category/cbd-gel-capsules-and-gummies/"
+          target="_blank"
+          rel="noopener noreferrer"
           >edibles</a
         >
         to
         <a
           href="https://purecbdexchange.com/product/cbd-tinctures-and-topicals/2500mg-full-spectrum-cbd-tincture/"
+          target="_blank"
+          rel="noopener noreferrer"
           >tinctures</a
         >
         to
@@ -286,7 +323,10 @@
         The skin has the highest amount and concentration of CB2 receptors in
         the body, so it’s not surprising that many CBD-infused products are
         being
-        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+        <a
+          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          target="_blank"
+          rel="noopener noreferrer"
           >touted as a treatment for acne</a
         >.
       </p>
@@ -299,6 +339,8 @@
         might
         <a
           href="https://www.consciouslifestylemag.com/foods-for-depression-diet-and-nutrition/"
+          target="_blank"
+          rel="noopener noreferrer"
           >be especially effective for depression</a
         >
         related to chronic stress.
@@ -308,7 +350,10 @@
 
       <p>
         Of all the reasons that people use CBD today, pain is the most common…
-        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+        <a
+          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          target="_blank"
+          rel="noopener noreferrer"
           >and one of the most historic</a
         >.
       </p>
@@ -331,6 +376,8 @@
         of chronic and acute pain,
         <a
           href="https://www.healthline.com/health/migraine/cbd-oil-for-migraines#research"
+          target="_blank"
+          rel="noopener noreferrer"
           >including migraines</a
         >.
       </p>
@@ -339,7 +386,10 @@
 
       <p>
         Several
-        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+        <a
+          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          target="_blank"
+          rel="noopener noreferrer"
           >studies have shown</a
         >
         that regular cannabis users have a lower body mass index and a reduced
@@ -352,7 +402,10 @@
 
       <p>
         Cannabinoids are
-        <a href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+        <a
+          href="https://www.consciouslifestylemag.com/cbd-health-benefits/"
+          target="_blank"
+          rel="noopener noreferrer"
           >neuroprotective</a
         >, which means they help maintain and regulate brain health and CBD has
         also been shown to have an anti-inflammatory effect on the brain, both
@@ -365,6 +418,8 @@
       <p>
         <a
           href="https://www.health.harvard.edu/blog/cannabidiol-cbd-what-we-know-and-what-we-dont-2018082414476"
+          target="_blank"
+          rel="noopener noreferrer"
           >Studies suggest</a
         >
         that CBD may help with both falling asleep and staying asleep,
@@ -379,6 +434,8 @@
         director turned cannabis farmer. Sara was interviewed in
         <a
           href="https://www.vogue.com/article/sara-rotman-cannabis-farmer-bluebird805"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <em>Vogue</em>
         </a>
@@ -394,32 +451,54 @@
       <p>
         Whatever your tastes, chances are you can find a CBD-infused product to
         satisfy them. There are CBD-infused
-        <a href="https://cbdonly.com/products/sacred-biology-cbd-deodorant"
+        <a
+          href="https://cbdonly.com/products/sacred-biology-cbd-deodorant"
+          target="_blank"
+          rel="noopener noreferrer"
           >deodorants</a
         >,
-        <a href="https://324brand.com/products/324-roll-on">muscle salves</a>,
-        and
+        <a
+          href="https://324brand.com/products/324-roll-on"
+          target="_blank"
+          rel="noopener noreferrer"
+          >muscle salves</a
+        >, and
         <a
           href="https://purecbdexchange.com/product/cbd-gel-capsules-and-gummies/full-spectrum-cbd-pet-treats-750mg-30ct/"
+          target="_blank"
+          rel="noopener noreferrer"
           >dog treats</a
         >. You can spread CBD on your
-        <a href="https://horaskincare.com/product/hora-1-oz/">face</a>, drop it
-        under your
+        <a
+          href="https://horaskincare.com/product/hora-1-oz/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >face</a
+        >, drop it under your
         <a
           href="https://purecbdexchange.com/product/cbd-tinctures-and-topicals/2500mg-full-spectrum-cbd-tincture/"
+          target="_blank"
+          rel="noopener noreferrer"
           >tongue</a
         >, or include it on the menu for a
-        <a href="https://getmaku.com/blogs/learn/cbd-recipes-summer"
+        <a
+          href="https://getmaku.com/blogs/learn/cbd-recipes-summer"
+          target="_blank"
+          rel="noopener noreferrer"
           >dinner party</a
         >
         with friends. Even Coca-Cola is
         <a
           href="https://www.forbes.com/sites/janetwburns/2018/09/17/coca-cola-is-considering-cbd-for-its-infused-beverages/#7468d781aab5"
+          target="_blank"
+          rel="noopener noreferrer"
           >reportedly</a
         >
         working on a CBD-infused beverage, hoping to get a piece of what
         <a
           href="https://www.vox.com/the-goods/2018/11/1/18024806/cbd-oil-vape-hemp"
+          target="_blank"
+          rel="noopener noreferrer"
           >some experts suggest</a
         >
         will be a $1 billion pie by 2020.
@@ -436,19 +515,28 @@
         A "tincture" is a fancy name for CBD oil in a
         <a
           href="https://purecbdexchange.com/product-category/cbd-tinctures-and-topicals/"
+          target="_blank"
+          rel="noopener noreferrer"
           >discreet little eye dropper</a
         >
         that you take by placing a few drops under your tongue. This is
         <a
           href="https://www.consumerreports.org/cbd/how-to-use-cbd-inhale-spray-apply-eat/"
+          target="_blank"
+          rel="noopener noreferrer"
           >the second-fastest way to absorb CBD</a
         >
         (after smoking), and one of the most popular methods to enjoy the
-        <a href="https://cbdorigin.com/cbd-benefits-many-conditions"
+        <a
+          href="https://cbdorigin.com/cbd-benefits-many-conditions"
+          target="_blank"
+          rel="noopener noreferrer"
           >many benefits of CBD</a
         >. Available in different doses
         <a
           href="https://purecbdexchange.com/product/cbd-tinctures-and-topicals/cbd-tinctures-500mg/"
+          target="_blank"
+          rel="noopener noreferrer"
           >(Pure CBD Exchange</a
         >, for example, offers tinctures in concentrations of 2500mg, 1500mg,
         1000mg, and 500mg), tinctures are generally mixed with some type of oil
@@ -465,10 +553,15 @@
         plant-like glory or ready-to-smoke in pre-rolled joints. Smoking offers
         <a
           href="https://benicepaper.com/archives/2018/12/23/cbd-you-can-smoke-hemp-premium-prerolls"
+          target="_blank"
+          rel="noopener noreferrer"
           >the highest bioavailability of CBD</a
         >, which basically means you get more CBD into your system, faster than
         other forms of consumption.
-        <a href="https://cbdoilreview.org/cbd-cannabidiol/cbd-entourage-effect/"
+        <a
+          href="https://cbdoilreview.org/cbd-cannabidiol/cbd-entourage-effect/"
+          target="_blank"
+          rel="noopener noreferrer"
           >Mounting evidence suggests</a
         >
         that CBD may be more effective in its whole and natural state (an
@@ -483,7 +576,10 @@
         CBD oil until it boils, allowing you to inhale the vapor. Controlling
         dosing can be difficult, as how much CBD you absorb depends on how hard
         and how long you inhale, but vaping is also
-        <a href="https://www.pain-health.com/blog/5-ways-consume-cbd"
+        <a
+          href="https://www.pain-health.com/blog/5-ways-consume-cbd"
+          target="_blank"
+          rel="noopener noreferrer"
           >one of the quickest ways to get CBD into the bloodstream</a
         >
         (though for the shortest period of time). This makes vaping an
@@ -498,32 +594,47 @@
         including, cookies (this
         <a
           href="https://www.vice.com/en_us/article/43z9gq/hazelnut-and-pretzel-cbd-cookie-recipe"
+          target="_blank"
+          rel="noopener noreferrer"
           >hazelnut pretzel recipe</a
         >
         is out of this world),
-        <a href="https://www.foodandwine.com/cocktails-spirits/cbd-cocktails"
+        <a
+          href="https://www.foodandwine.com/cocktails-spirits/cbd-cocktails"
+          target="_blank"
+          rel="noopener noreferrer"
           >cocktails</a
         >,
         <a
           href="https://www.leafly.com/news/lifestyle/recipe-how-to-make-basic-cannabutter"
+          target="_blank"
+          rel="noopener noreferrer"
           >butter</a
         >,
         <a
           href="https://www.delish.com/cooking/recipe-ideas/a27088454/cbd-brownies-recipe/"
+          target="_blank"
+          rel="noopener noreferrer"
           >brownies</a
         >, tea, honey, and
         <a
           href="https://purecbdexchange.com/product/cbd-gel-capsules-and-gummies/cbd-gummies/"
+          target="_blank"
+          rel="noopener noreferrer"
           >gummies</a
         >. You can even go with a straight up
         <a
           href="https://purecbdexchange.com/product/cbd-gel-capsules-and-gummies/cbd-gel-capsules/"
+          target="_blank"
+          rel="noopener noreferrer"
           >CBD capsule</a
         >
         – the equivalent of your daily vitamin. Edibles must be digested and
         absorbed into the bloodstream, so it takes a while to kick in
         <a
           href="https://www.thegrowthop.com/cannabis-culture/now-you-know-five-ways-to-take-cbd"
+          target="_blank"
+          rel="noopener noreferrer"
           >(anywhere from 30 minutes to 2 hours)</a
         >, but the effects are longer-lasting as the CBD is released more slowly
         over time.
@@ -534,11 +645,17 @@
       <p>
         The options for CBD-laced beauty balms are seemingly endless and run the
         gamut from
-        <a href="https://www.saintjanebeauty.com/products/luxury-beauty-serum"
+        <a
+          href="https://www.saintjanebeauty.com/products/luxury-beauty-serum"
+          target="_blank"
+          rel="noopener noreferrer"
           >luxury serums</a
         >
         fit for red-carpet royalty, to no-nonsense,
-        <a href="https://skindope.com/products/best-cbd-oil-skincare"
+        <a
+          href="https://skindope.com/products/best-cbd-oil-skincare"
+          target="_blank"
+          rel="noopener noreferrer"
           >uber-functional</a
         >
         balms and topical creams. Topical applications may not be as fast acting
@@ -553,6 +670,8 @@
         CBD dosing is a confusing topic. Unlike other supplements, the
         <a
           href="https://medium.com/cbd-origin/whats-the-best-cbd-dosage-81ec4f95503b"
+          target="_blank"
+          rel="noopener noreferrer"
           >FDA has not created a Recommended Daily Intake (RDI)</a
         >
         for CBD, and CBD does not have an official serving size. How much you
@@ -567,12 +686,18 @@
 
       <p>
         To give us a starting point,
-        <a href="https://www.youtube.com/watch?v=bBn8SKZoWyQ&amp;t=5s"
+        <a
+          href="https://www.youtube.com/watch?v=bBn8SKZoWyQ&amp;t=5s"
+          target="_blank"
+          rel="noopener noreferrer"
           >previous studies</a
         >
         have said that around 300 milligrams daily are required to achieve
         stress-relieving results, but
-        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6326553/"
+        <a
+          href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6326553/"
+          target="_blank"
+          rel="noopener noreferrer"
           >new research</a
         >
         shows that as little as 25 milligrams a day can elicit positive effects.
@@ -588,6 +713,8 @@
         article from
         <a
           href="https://medium.com/cbd-origin/whats-the-best-cbd-dosage-81ec4f95503b"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <em>Medium</em>
         </a>
@@ -621,18 +748,29 @@
       <p>
         Since the market for CBD is unregulated, it can be difficult to know
         what you’re getting. A 2015
-        <a href="https://jamanetwork.com/journals/jama/fullarticle/2338239"
+        <a
+          href="https://jamanetwork.com/journals/jama/fullarticle/2338239"
+          target="_blank"
+          rel="noopener noreferrer"
           >study by the F.D.A.</a
         >
         revealed that many CBD-labeled products actually contained very little
         CBD.
-        <a href="https://jamanetwork.com/journals/jama/fullarticle/2661569"
+        <a
+          href="https://jamanetwork.com/journals/jama/fullarticle/2661569"
+          target="_blank"
+          rel="noopener noreferrer"
           >A 2017 article in JAMA</a
         >
         reported that, in a study of 84 products sold online, 26% contained less
         CBD than advertised and 43% contained more. A
-        <a href="https://www.youtube.com/watch?v=bBn8SKZoWyQ">2017 study</a> by
-        the American Medical Association of 84 CBD products purchased online,
+        <a
+          href="https://www.youtube.com/watch?v=bBn8SKZoWyQ"
+          target="_blank"
+          rel="noopener noreferrer"
+          >2017 study</a
+        >
+        by the American Medical Association of 84 CBD products purchased online,
         found that almost 70% were mislabeled with respect to the amount of CBD.
       </p>
 
@@ -648,12 +786,23 @@
         Do your research. Don’t be afraid to reach out to companies and ask
         questions. Look for brands that are transparent and committed to
         quality, like
-        <a href="https://aspenvalleycbd.com/">Aspen Valley Hemp Company</a> and
-        <a href="https://purecbdexchange.com/">Pure CBD Exchange</a> who use
-        only the cleanest and most potent varieties available, grown naturally,
-        and hand selected from growers across the country, ensuring an
-        exceptionally pure product, straight from nature, and ready to consume,
-        however you choose.
+        <a
+          href="https://aspenvalleycbd.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Aspen Valley Hemp Company</a
+        >
+        and
+        <a
+          href="https://purecbdexchange.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Pure CBD Exchange</a
+        >
+        who use only the cleanest and most potent varieties available, grown
+        naturally, and hand selected from growers across the country, ensuring
+        an exceptionally pure product, straight from nature, and ready to
+        consume, however you choose.
       </p>
 
       <p>In general, be sure to look for:</p>
@@ -691,12 +840,18 @@
         <p>
           You would have to consume quite a bit of CBD before it results in any
           truly
-          <a href="https://joyorganics.com/ultimate-guide-to-cbd-oil/"
+          <a
+            href="https://joyorganics.com/ultimate-guide-to-cbd-oil/"
+            target="_blank"
+            rel="noopener noreferrer"
             >adverse health effects</a
           >
           but CBD is an organic compound, so its effects can vary from
           individual to individual. A
-          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5569602/"
+          <a
+            href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5569602/"
+            target="_blank"
+            rel="noopener noreferrer"
             >2017 literature review</a
           >
           noted that CBD oil can, in some cases, be linked to fatigue,
@@ -713,14 +868,24 @@
         <li>Is CBD legal to use in all 50 states?</li>
         <p>
           Yes. Hemp is
-          <a href="https://cbdee.com/cbd-101/">legal in the United States</a>
+          <a
+            href="https://cbdee.com/cbd-101/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >legal in the United States</a
+          >
           provided that the plant contains less than 0.3% THC by dry weight.
         </p>
         <li>Are there studies on CBD?</li>
         <p>
           Thousands of scientific studies have been carried out on CBD.
-          <a href="https://www.projectcbd.org/">Project CBD</a> is a
-          California-based nonprofit organization dedicated to publicizing
+          <a
+            href="https://www.projectcbd.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Project CBD</a
+          >
+          is a California-based nonprofit organization dedicated to publicizing
           research into the medical uses of CBD for physicians, patients,
           industry professionals, and the general public.
         </p>

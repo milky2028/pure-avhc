@@ -3,8 +3,13 @@
     <ArticlePage title="Login">
       <p class="sign-in-helper">
         If you have a
-        <a href="https://purecbdexchange.com">purecbdexchange.com</a> account,
-        you may also use it to sign in here.
+        <a
+          href="https://purecbdexchange.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          >purecbdexchange.com</a
+        >
+        account, you may also use it to sign in here.
       </p>
       <form>
         <AvInput
