@@ -4,7 +4,9 @@ export default function useStructuredData() {
   function setStructuredData(structuredData: { [key: string]: any }) {
     const structuredDataScript = document.createElement('script');
     structuredDataScript.type = 'application/ld+json';
-    structuredDataScript.textContent = purifier.sanitize(JSON.stringify(structuredData));
+    structuredDataScript.textContent = purifier.sanitize(
+      JSON.stringify(structuredData)
+    );
     document.head.insertAdjacentElement('beforeend', structuredDataScript);
   }
 
