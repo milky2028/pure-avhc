@@ -33,16 +33,17 @@ export function useCDNImages() {
     initialUrl: string,
     height: number,
     width?: number,
-    isBackgroundImage?: boolean
+    isBackgroundImage?: boolean,
+    discardDpr?: boolean
   ) {
     const baseImageUrl = 'https://res.cloudinary.com/pure-avhc/image/upload/';
     const dpr = window.devicePixelRatio;
     const imageParams = [
       'f_auto',
       'q_auto:low',
-      `h_${Math.round(height * dpr)}`,
+      `h_${discardDpr ? height : Math.round(height * dpr)}`,
       'c_fill',
-      ...(width ? [`w_${Math.round(width * dpr)}`] : [])
+      ...(width ? [`w_${discardDpr ? width : Math.round(width * dpr)}`] : [])
     ];
 
     return `${
