@@ -1,6 +1,11 @@
 <template>
   <PageWrapper with-padding>
     <ArticlePage title="The Definitive CBD Guide">
+      <img
+        loading="lazy"
+        :src="headerImage"
+        alt="A line of CBD products, including CBD cigarettes, CBD tinctures, raw CBD Flower, and more."
+      />
       <blockquote>
         <p>
           <em>
@@ -743,9 +748,12 @@
 <script lang="ts">
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import { createComponent, onBeforeUnmount } from '@vue/composition-api';
+import { createComponent, onBeforeUnmount, inject } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
+import { Modules } from '../use/store';
+import { IImages } from '../use/cdn-image';
+import { useWindowWidth } from '../use/window-width';
 
 export default createComponent({
   components: {
@@ -755,12 +763,20 @@ export default createComponent({
   setup() {
     const legalName = process.env.VUE_APP_LEGAL_NAME;
 
+    const { windowWidth } = useWindowWidth();
+    const { createUrl } = inject(Modules.images) as IImages;
+    const headerImage = createUrl(
+      '/All_Products_skp9po',
+      windowWidth.value > 835 ? 350 : 175
+    );
+
     const articleName = 'The Definitive CBD Guide';
     const description =
       'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.';
-    const { setTitle, setPageDescription } = useMetadata();
+    const { setTitle, setPageDescription, setPageImage } = useMetadata();
     setTitle(articleName);
     setPageDescription(description);
+    setPageImage(createUrl('/All_Products_skp9po', 675, 1200, false, true));
 
     const organizationName = process.env.VUE_APP_FULL_NAME;
     const siteUrl = process.env.VUE_APP_SITE_URL;
@@ -774,6 +790,7 @@ export default createComponent({
       },
       headline: articleName,
       description: description,
+      image: headerImage,
       author: {
         '@type': 'Organization',
         name: organizationName
@@ -900,7 +917,7 @@ export default createComponent({
 
     onBeforeUnmount(() => clearStructuredData());
 
-    return { legalName };
+    return { legalName, headerImage };
   }
 });
 </script>
