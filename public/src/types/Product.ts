@@ -17,4 +17,5 @@ export default interface Product {
   url: string;
   pluralizeSizes: boolean;
   description: string;
+  shortName: string;
 }
