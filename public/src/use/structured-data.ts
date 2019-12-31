@@ -1,7 +1,8 @@
-import purifier from 'dompurify';
+import { onBeforeUnmount } from '@vue/composition-api';
 
 export default function useStructuredData() {
-  function setStructuredData(structuredData: { [key: string]: any }) {
+  async function setStructuredData(structuredData: { [key: string]: any }) {
+    const purifier = await import('dompurify');
     const structuredDataScript = document.createElement('script');
     structuredDataScript.type = 'application/ld+json';
     structuredDataScript.textContent = purifier.sanitize(
@@ -18,6 +19,8 @@ export default function useStructuredData() {
       }
     }
   }
+
+  onBeforeUnmount(() => clearStructuredData());
 
   return { setStructuredData, clearStructuredData };
 }

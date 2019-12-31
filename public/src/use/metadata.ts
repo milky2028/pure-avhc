@@ -1,3 +1,5 @@
+import { onBeforeUnmount } from '@vue/composition-api';
+
 export function useMetadata() {
   const appName = (process.env.VUE_APP_NAME as string).toUpperCase();
   function selectAndSetContent(id: string, content: string) {
@@ -32,6 +34,8 @@ export function useMetadata() {
     const siteUrl = process.env.VUE_APP_SITE_URL;
     setPageImage(`https://${siteUrl}/og-image.jpg`);
   }
+
+  onBeforeUnmount(() => resetImage());
 
   return { setTitle, setPageDescription, setPageImage, resetImage };
 }

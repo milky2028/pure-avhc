@@ -748,7 +748,7 @@
 <script lang="ts">
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import { createComponent, onBeforeUnmount, inject } from '@vue/composition-api';
+import { createComponent, inject } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
 import { Modules } from '../use/store';
@@ -773,19 +773,14 @@ export default createComponent({
     const articleName = 'The Definitive CBD Guide';
     const description =
       'The Definitive Guide to everything you need to know about CBD. Is CBD Legal in your area? How much should you take? What kind of CBD is right for you? Our guide is your definitive place to get all your questions answered.';
-    const {
-      setTitle,
-      setPageDescription,
-      setPageImage,
-      resetImage
-    } = useMetadata();
+    const { setTitle, setPageDescription, setPageImage } = useMetadata();
     setTitle(articleName);
     setPageDescription(description);
     setPageImage(createUrl('/All_Products_skp9po', 675, 1200, false, true));
 
     const organizationName = process.env.VUE_APP_FULL_NAME;
     const siteUrl = process.env.VUE_APP_SITE_URL;
-    const { setStructuredData, clearStructuredData } = useStructuredData();
+    const { setStructuredData } = useStructuredData();
     setStructuredData({
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -918,11 +913,6 @@ export default createComponent({
           }
         }
       ]
-    });
-
-    onBeforeUnmount(() => {
-      clearStructuredData();
-      resetImage();
     });
 
     return { legalName, headerImage };
