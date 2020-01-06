@@ -7,7 +7,7 @@ module.exports = {
     'plugin:vue/recommended',
     'eslint:recommended',
     '@vue/prettier',
-    '@vue/typescript'
+    '@vue/typescript/recommended'
   ],
   rules: {
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
