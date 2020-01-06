@@ -41,8 +41,8 @@ const dynamicRenderer = (functionTarget: string) =>
         ? 'aspenvalleycbd.com'
         : 'pure-e0325.firebaseapp.com';
     const userAgent = req.headers['user-agent'];
-    // res.set('Cache-Control', 'public, max-age=31536000, s-maxage=86400');
-    // res.set('Vary', 'User-Agent');
+    res.set('Cache-Control', 'public, max-age=31536000, s-maxage=86400');
+    res.set('Vary', 'User-Agent');
     if (userAgent && isBot(userAgent)) {
       const pageRenderData = (
         await admin
