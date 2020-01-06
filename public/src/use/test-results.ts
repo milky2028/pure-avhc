@@ -3,7 +3,6 @@ import TestResult from '../types/TestResult';
 import workerInstance from '../workers/entry';
 import { set, get } from 'idb-keyval';
 
-export type ITestResults = ReturnType<typeof useTestResults>;
 export function useTestResults() {
   const testResults = ref([] as TestResult[]);
 
@@ -20,3 +19,4 @@ export function useTestResults() {
 
   return { testResults, loadTestResults };
 }
+export type ITestResults = ReturnType<typeof useTestResults>;

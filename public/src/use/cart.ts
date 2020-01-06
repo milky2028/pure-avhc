@@ -2,7 +2,6 @@ import { ref, computed } from '@vue/composition-api';
 import CartItem from '../types/CartItem';
 import { set, get } from 'idb-keyval';
 
-export type ICart = ReturnType<typeof useCart>;
 export function useCart() {
   const cartItems = ref([] as CartItem[]);
 
@@ -64,3 +63,4 @@ export function useCart() {
     setCartStateFromIdb
   };
 }
+export type ICart = ReturnType<typeof useCart>;

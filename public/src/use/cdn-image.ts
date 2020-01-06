@@ -4,7 +4,6 @@ import { ref } from '@vue/composition-api';
 import workerInstance from '../workers/entry';
 import { set, get } from 'idb-keyval';
 
-export type IImages = ReturnType<typeof useCDNImages>;
 export function useCDNImages() {
   const images = ref([] as AvImage[]);
 
@@ -82,3 +81,4 @@ export function useCDNImages() {
 
   return { images, loadImages, getImage, createUrl };
 }
+export type IImages = ReturnType<typeof useCDNImages>;

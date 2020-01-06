@@ -1,6 +1,5 @@
 import { ref } from '@vue/composition-api';
 
-export type INavbar = ReturnType<typeof useNavbar>;
 export function useNavbar() {
   const isNavbarExpanded = ref(false);
 
@@ -10,3 +9,4 @@ export function useNavbar() {
 
   return { isNavbarExpanded, toggleNavbar };
 }
+export type INavbar = ReturnType<typeof useNavbar>;

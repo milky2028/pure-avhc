@@ -5,7 +5,6 @@ import workerInstance from '../workers/entry';
 import { setAllStateInObj } from '@/functions/setState';
 import { clear } from 'idb-keyval';
 
-export type IUser = ReturnType<typeof useUser>;
 export function useUser() {
   async function initializeAuth(firebaseApp: Promise<firebase.app.App>) {
     const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
@@ -20,7 +19,7 @@ export function useUser() {
     return initializeAuth(app);
   }
 
-  const emptyUser = {
+  const emptyUser: AvUser = {
     isAdmin: false,
     isWholesaleUser: false,
     canSubscribe: true,
@@ -30,7 +29,7 @@ export function useUser() {
     phoneNumber: '',
     photoURL: '',
     cart: []
-  } as AvUser;
+  };
   const user = reactive({ ...emptyUser });
 
   async function listenForAuthStateChanges() {
@@ -62,6 +61,11 @@ export function useUser() {
     });
   }
 
+  async function signInWithEmail(email: string, password: string) {
+    const auth = await _auth();
+    return auth.signInWithEmailAndPassword(email, password);
+  }
+
   async function createAccountWithEmailAndPassword(
     email: string,
     password: string
@@ -76,11 +80,6 @@ export function useUser() {
         throw new Error(e);
       }
     }
-  }
-
-  async function signInWithEmail(email: string, password: string) {
-    const auth = await _auth();
-    return auth.signInWithEmailAndPassword(email, password);
   }
 
   // @ts-ignore
@@ -121,3 +120,4 @@ export function useUser() {
     signInWithProvider
   };
 }
+export type IUser = ReturnType<typeof useUser>;

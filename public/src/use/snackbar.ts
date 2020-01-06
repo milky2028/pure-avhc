@@ -1,6 +1,5 @@
 import { ref } from '@vue/composition-api';
 
-export type ISnackbar = ReturnType<typeof useSnackbar>;
 export function useSnackbar() {
   const snackbarMsg = ref('');
 
@@ -19,3 +18,4 @@ export function useSnackbar() {
 
   return { snackbarMsg, showSnackbar, hideSnackbar };
 }
+export type ISnackbar = ReturnType<typeof useSnackbar>;

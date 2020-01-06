@@ -4,7 +4,6 @@ import Strain from '@/types/Strain';
 import workerInstance from '../workers/entry';
 import { set, get } from 'idb-keyval';
 
-export type IStrains = ReturnType<typeof useStrains>;
 export function useStrains() {
   const strains = ref([] as Strain[]);
 
@@ -31,3 +30,4 @@ export function useStrains() {
 
   return { loadStrains, strains };
 }
+export type IStrains = ReturnType<typeof useStrains>;

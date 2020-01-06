@@ -1,7 +1,6 @@
 import { ref } from '@vue/composition-api';
 import { set, get } from 'idb-keyval';
 
-export type IDisclaimer = ReturnType<typeof useDisclaimer>;
 export function useDisclaimer() {
   const isDisclaimerShowing = ref(false);
 
@@ -23,3 +22,4 @@ export function useDisclaimer() {
 
   return { isDisclaimerShowing, showDisclaimer, hideDisclaimer };
 }
+export type IDisclaimer = ReturnType<typeof useDisclaimer>;

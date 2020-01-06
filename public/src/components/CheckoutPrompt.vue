@@ -189,12 +189,12 @@ export default createComponent({
   setup(_, ctx) {
     const { windowWidth } = useWindowWidth();
 
+    const expanded = ref(false);
     const btnText = computed(() =>
       windowWidth.value < 835 && !expanded.value ? 'Get 10% Off' : 'Subscribe'
     );
 
     const { cartItems, subtotal } = inject(Modules.cart) as ICart;
-    const expanded = ref(false);
     watch(() => {
       if (cartItems.value.length === 0) {
         expanded.value = false;

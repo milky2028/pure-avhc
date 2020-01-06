@@ -1,6 +1,5 @@
 import { onMounted, onBeforeUnmount } from '@vue/composition-api';
 
-export type IEvent = ReturnType<typeof useEvent>;
 export function useEvent(
   windowEvent: string,
   handler: (event?: any) => any,
@@ -9,3 +8,4 @@ export function useEvent(
   onMounted(() => element.addEventListener(windowEvent, handler));
   onBeforeUnmount(() => element.removeEventListener(windowEvent, handler));
 }
+export type IEvent = ReturnType<typeof useEvent>;

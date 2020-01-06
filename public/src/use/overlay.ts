@@ -1,6 +1,5 @@
 import { ref } from '@vue/composition-api';
 
-export type IOverlay = ReturnType<typeof useOverlay>;
 export function useOverlay() {
   const isOverlayShowing = ref(false);
 
@@ -10,3 +9,4 @@ export function useOverlay() {
 
   return { isOverlayShowing, toggleOverlay };
 }
+export type IOverlay = ReturnType<typeof useOverlay>;

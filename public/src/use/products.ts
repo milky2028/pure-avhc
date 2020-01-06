@@ -4,7 +4,6 @@ import Product from '@/types/Product';
 import workerInstance from '../workers/entry';
 import { set, get } from 'idb-keyval';
 
-export type IProducts = ReturnType<typeof useProducts>;
 export function useProducts() {
   const products = ref([] as Product[]);
 
@@ -31,3 +30,4 @@ export function useProducts() {
 
   return { loadProducts, products };
 }
+export type IProducts = ReturnType<typeof useProducts>;

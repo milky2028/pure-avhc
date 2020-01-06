@@ -205,6 +205,13 @@ export default createComponent({
     );
     const { windowWidth } = useWindowWidth();
 
+    const emailError = ref('');
+    const passwordErrorMsg = ref('');
+    const resettingPassword = ref(false);
+    const email = ref('');
+    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
+    const emailReg = new RegExp(emailPattern);
+
     const {
       uid,
       sendPasswordResetEmail,
@@ -248,14 +255,8 @@ export default createComponent({
       }
     }
 
-    const email = ref('');
     const password = ref('');
-    const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
-    const emailReg = new RegExp(emailPattern);
-    const emailError = ref('');
-    const passwordErrorMsg = ref('');
     const createAnAccount = ref(false);
-    const resettingPassword = ref(false);
     async function onLogin() {
       if (emailReg.test(email.value)) {
         emailError.value = '';

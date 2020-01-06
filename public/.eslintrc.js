@@ -11,6 +11,9 @@ module.exports = {
   ],
   rules: {
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'vue/html-self-closing': [
       'error',
       {

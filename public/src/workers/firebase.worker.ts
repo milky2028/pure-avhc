@@ -4,9 +4,31 @@ import OrderByParams from '@/types/OrderByParams';
 import Collection from '@/types/Collection';
 import initializeFirebaseApp from '../functions/initializeFirebaseApp';
 
+async function intializeFirestore(firebase: Promise<firebase.app.App>) {
+  const Firestore = import(
+    /* webpackChunkName: 'firestore' */ 'firebase/firestore'
+  );
+  const app = await firebase;
+  await Firestore;
+  return app.firestore();
+}
+
 const _firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
 const _fb = initializeFirebaseApp(_firebase);
 const _db = intializeFirestore(_fb);
+
+function processSingleTimestamp(data: { [key: string]: any }) {
+  return Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [
+      key,
+      value.toDate ? value.toDate() : value
+    ])
+  );
+}
+
+function processTimestamps(data: { [key: string]: any }[]) {
+  return data.map((d) => processSingleTimestamp(d));
+}
 
 async function addDocument(
   collection: Collection,
@@ -125,34 +147,12 @@ async function queryDocuments(
   }
 }
 
-async function intializeFirestore(firebase: Promise<firebase.app.App>) {
-  const Firestore = import(
-    /* webpackChunkName: 'firestore' */ 'firebase/firestore'
-  );
-  const app = await firebase;
-  await Firestore;
-  return app.firestore();
-}
-
-function processTimestamps(data: { [key: string]: any }[]) {
-  return data.map((d) => processSingleTimestamp(d));
-}
-
-function processSingleTimestamp(data: { [key: string]: any }) {
-  return Object.fromEntries(
-    Object.entries(data).map(([key, value]) => [
-      key,
-      value.toDate ? value.toDate() : value
-    ])
-  );
-}
-
-export type IFirebaseWorker = typeof FirebaseWorker;
 export const FirebaseWorker = {
   addDocument,
   queryDocuments,
   getDocumentById,
   getDocuments
 };
+export type IFirebaseWorker = typeof FirebaseWorker;
 
 expose(FirebaseWorker);
