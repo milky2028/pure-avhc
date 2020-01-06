@@ -277,7 +277,11 @@ export default createComponent({
         setPageImage(createUrl(url.value, 675, 1200, false, true));
         clearStructuredData();
         setStructuredData(
-          createProductStructuredData(product, url.value, fullSize.value)
+          createProductStructuredData(
+            product,
+            createUrl(url.value, 400, 300, false, true),
+            fullSize.value
+          )
         );
       }
     });

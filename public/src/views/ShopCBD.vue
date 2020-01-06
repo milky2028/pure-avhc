@@ -1,8 +1,6 @@
 <template>
   <PageWrapper with-padding class="wrapper">
-    <PageHeader class="header">
-      All Products
-    </PageHeader>
+    <PageHeader class="header">All Products</PageHeader>
     <div class="products-container">
       <LargeProductCard
         v-for="product of products"
@@ -43,6 +41,8 @@ import { createComponent, inject } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
 import { useMetadata } from '../use/metadata';
+import useStructuredData from '../use/structured-data';
+import { IImages } from '../use/cdn-image';
 
 export default createComponent({
   components: {
@@ -58,6 +58,21 @@ export default createComponent({
     );
 
     const { products } = inject(Modules.products) as IProducts;
+    const {
+      setStructuredData,
+      createProductStructuredData
+    } = useStructuredData();
+    const { images, createUrl } = inject(Modules.images) as IImages;
+    products.value.forEach((p) => {
+      const mainImage = images.value.find(({ product }) => product === p.id);
+      const lowestPriceSize = p.sizes.find(
+        (size) => size.price === Math.min(...p.sizes.map(({ price }) => price))
+      );
+      if (mainImage && lowestPriceSize) {
+        const url = createUrl(mainImage.url, 400, 300, false, true);
+        setStructuredData(createProductStructuredData(p, url, lowestPriceSize));
+      }
+    });
     return { products };
   }
 });
