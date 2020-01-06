@@ -36,15 +36,12 @@ function isBot(userAgent: string) {
 
 const dynamicRenderer = (functionTarget: string) =>
   functions.https.onRequest(async (req, res) => {
-    // if (req.method === 'OPTIONS') {
-    //   return res.sendStatus(204);
-    // }
     const domain =
       functionTarget === "avhc"
         ? "aspenvalleycbd.com"
         : "pure-e0325.firebaseapp.com";
     const userAgent = req.headers["user-agent"];
-    // res.set('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+    // res.set('Cache-Control', 'public, max-age=31536000, s-maxage=86400');
     // res.set('Vary', 'User-Agent');
     if (userAgent && isBot(userAgent)) {
       const pageRenderData = (
