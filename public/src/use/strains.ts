@@ -7,12 +7,17 @@ import { set, get } from 'idb-keyval';
 export function useStrains() {
   const strains = ref([] as Strain[]);
 
-  function loadStrains() {
+  function loadStrains(): Promise<void> {
     return new Promise((resolve) =>
       workerInstance.then((instance) =>
-        instance.getDocuments(
-          'strains',
-          proxy((wStrains) => {
+        instance.queryDocuments(
+          {
+            collection: 'strains',
+            queries: [
+              { fieldPath: 'enabled', operator: '==', compareValue: true }
+            ]
+          },
+          proxy((wStrains: Strain[]) => {
             strains.value = wStrains;
             set('strains', strains.value);
             resolve();
