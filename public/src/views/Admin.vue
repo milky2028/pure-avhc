@@ -1,7 +1,7 @@
 <template>
   <PageWrapper with-padding>
-    <ArticlePage title="Orders">
-      <p>Orders page</p>
+    <ArticlePage title="Admin">
+      <p>Admin page</p>
       <AvButton
         :full-width="windowWidth < 835"
         :long="windowWidth > 835"
@@ -42,6 +42,7 @@ export default createComponent({
         ctx.root.$router.push('/login');
       }
     });
+
     return {
       windowWidth,
       signOut

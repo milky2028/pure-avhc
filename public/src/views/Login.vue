@@ -217,10 +217,13 @@ export default createComponent({
       sendPasswordResetEmail,
       signInWithProvider,
       createAccountWithEmailAndPassword,
-      signInWithEmail
+      signInWithEmail,
+      isAdmin
     } = inject(Modules.user) as IUser;
     watch(() => {
-      if (uid.value) {
+      if (uid.value && isAdmin.value) {
+        ctx.root.$router.push('/admin');
+      } else if (uid.value) {
         ctx.root.$router.push('/orders');
       }
     });

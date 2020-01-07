@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { Store, Modules } from '@/use/store';
+import { IUser } from '@/use/user';
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const PrivacyPolicy = () =>
   import(/* webpackChunkName: "PrivacyPolicy" */ '../views/PrivacyPolicy.vue');
@@ -37,6 +38,8 @@ const DefinitiveCBDGuide = () =>
   );
 const NotFound = () =>
   import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue');
+const Admin = () =>
+  import(/* webpackChunkName: "Admin" */ '../views/Admin.vue');
 
 Vue.use(Router);
 
@@ -64,6 +67,22 @@ export default new Router({
         // @ts-ignore
         if (Store[Modules.user].uid.value) {
           next();
+        } else {
+          next('/login');
+        }
+      }
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
+      beforeEnter(_, __, next) {
+        // @ts-ignore
+        const userStore = Store[Modules.user] as IUser;
+        if (userStore.uid.value && userStore.isAdmin.value) {
+          next();
+        } else if (userStore.uid.value) {
+          next('/orders');
         } else {
           next('/login');
         }

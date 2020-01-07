@@ -34,7 +34,7 @@
       </router-link>
       <AvIconButton>
         <router-link
-          to="/orders"
+          :to="isAdmin ? '/admin' : '/orders'"
           @click.native="isNavbarExpanded ? toggleNavAndOverlay() : null"
         >
           <img
@@ -460,7 +460,10 @@ export default createComponent({
       return aa > bb ? 1 : aa < bb ? -1 : 0;
     }
 
+    const { isAdmin } = inject(Modules.user) as IUser;
+
     return {
+      isAdmin,
       products,
       toggleNavAndOverlay,
       isNavbarExpanded,
