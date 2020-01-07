@@ -4,6 +4,18 @@
       <div class="text-container">
         <h3>Disclaimer</h3>
         <p>
+          THIS SITE IS STILL UNDER CONSTRUCTION. PLEASE USE
+          <a
+            style="color: green"
+            href="https://purecbdexchange.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >PURECBDEXCHANGE.COM</a
+          >
+          UNTIL THIS SITE IS COMPLETE.
+        </p>
+        <!-- TODO: Put this back -->
+        <!-- <p>
           Statements on this website have not been evaluated by the
           <abbr title="Food and Drug Administration">FDA</abbr>
           . Products distributed by {{ legalName }} are not intended to
@@ -16,7 +28,7 @@
           <router-link class="link" to="terms-and-conditions">
             Terms and Conditions </router-link
           >.
-        </p>
+        </p> -->
       </div>
       <AvButton class="dismiss-btn" icon="close" @btn-click="hideDisclaimer">
         I understand
