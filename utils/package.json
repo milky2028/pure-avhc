@@ -9,6 +9,7 @@
   "author": "Tyler Gross",
   "license": "MIT",
   "devDependencies": {
+    "@firebase/app-types": "^0.5.0",
     "@types/node": "^12.11.7",
     "tslint": "^5.20.0",
     "typescript": "^3.6.2"
