@@ -43,6 +43,7 @@
           display-key="display"
           value-key="masterMeasurement"
           :bound-prop="selectedSizeType"
+          @select-change="selectedSizeType = $event"
         />
         <AvSelector
           :border-top="false"

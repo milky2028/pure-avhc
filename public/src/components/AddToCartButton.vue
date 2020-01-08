@@ -128,7 +128,7 @@ export default createComponent<Props>({
           quantity: 1,
           product: id,
           size: size.value.masterMeasurement,
-          strain: 'any'
+          strain: strain.value.type
         };
         addCartItem(newCartItem);
       }
