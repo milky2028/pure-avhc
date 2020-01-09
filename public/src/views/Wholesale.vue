@@ -355,7 +355,8 @@ export default createComponent({
       shippingForm,
       billingForm,
       errors,
-      purifier
+      purifier,
+      signOut
     };
   }
 });
