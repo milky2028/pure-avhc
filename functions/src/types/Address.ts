@@ -5,7 +5,6 @@ export default interface Address {
   dateCreated: Date;
   dateModified: Date;
   name: string;
-  company: string;
   address1: string;
   address2: string;
   city: string;
