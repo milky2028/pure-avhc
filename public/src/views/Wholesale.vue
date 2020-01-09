@@ -34,7 +34,7 @@
       <h2 class="last">
         Wholesale Account Application
       </h2>
-      <form v-if="!uid && !accountCreated">
+      <form v-if="!uid">
         <AvInput
           dark
           more-padding
@@ -68,12 +68,8 @@
           @on-input="userInfo.password = $event"
         />
       </form>
-      <ShippingForm
-        v-if="!uid && !accountCreated"
-        include-company
-        @form-input="shippingForm = $event"
-      />
-      <div v-if="!uid && !accountCreated" class="switch-container">
+      <ShippingForm v-if="!uid" @form-input="shippingForm = $event" />
+      <div v-if="!uid" class="switch-container">
         <AvSwitch class="switch" @switch="differentBilling = $event" />
         <p class="no-padding billing-question">
           Different billing address?
@@ -81,7 +77,6 @@
       </div>
       <ShippingForm
         v-if="differentBilling && !uid"
-        include-company
         is-billing
         @form-input="billingForm = $event"
       />
@@ -90,11 +85,11 @@
         button below to upgrade your account to a wholesale account, or, if you
         prefer, you can
         <a @click="signOut">sign out</a> and create a new wholesale account with
-        a different email. After your account is created, you will be signed out.
-        When you sign in again, your new wholesale account will be active.
+        a different email. After your account is created, you will be signed
+        out. When you sign in again, your new wholesale account will be active.
       </p>
-      <p v-if="isWholesaleUser || accountCreated" class="no-padding user-msg">
-        {{ completionMsg }}
+      <p v-if="isWholesaleUser" class="no-padding user-msg">
+        You are already a wholesale user.
       </p>
       <p
         v-if="errors.length > 0"
@@ -110,15 +105,7 @@
         :long="windowWidth > 835"
         @btn-click="onSubmit"
       >
-        {{
-          isWholesaleUser
-            ? 'Sign Out of'
-            : uid
-            ? 'Upgrade to'
-            : accountCreated
-            ? 'Login to'
-            : 'Create'
-        }}
+        {{ isWholesaleUser ? 'Sign Out of' : uid ? 'Upgrade to' : 'Create' }}
         Wholesale Account
       </AvButton>
     </ArticlePage>
@@ -189,6 +176,7 @@ import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import { useMetadata } from '../use/metadata';
+import Address from '../types/Address';
 
 export default createComponent({
   components: {
@@ -199,7 +187,7 @@ export default createComponent({
     AvButton,
     AvInput
   },
-  setup(_, ctx) {
+  setup() {
     const { setTitle, setPageDescription } = useMetadata();
     setTitle('Wholesale');
     setPageDescription(
@@ -210,8 +198,6 @@ export default createComponent({
     const fullName = process.env.VUE_APP_FULL_NAME;
     const differentBilling = ref(false);
     const { windowWidth } = useWindowWidth();
-    const accountCreated = ref(false);
-    const completionMsg = ref('You are already a wholesale user.');
 
     const userInfo = reactive({
       email: '',
@@ -219,20 +205,20 @@ export default createComponent({
       password: ''
     });
 
-    const shippingForm = reactive({
+    const shippingForm = reactive<Partial<Address>>({
       name: '',
-      company: '',
-      address: '',
+      address1: '',
+      address2: '',
       city: '',
       state: '',
       zipCode: '',
       country: ''
     });
 
-    const billingForm = reactive({
+    const billingForm = reactive<Partial<Address>>({
       name: '',
-      company: '',
-      address: '',
+      address1: '',
+      address2: '',
       city: '',
       state: '',
       zipCode: '',
@@ -241,35 +227,33 @@ export default createComponent({
 
     const errors = ref([] as string[]);
     const functionsUrl = process.env.VUE_APP_FUNCTIONS_URL;
-    const { showSnackbar, snackbarMsg, hideSnackbar } = inject(
+    const { showSnackbar, hideSnackbar } = inject(
       Modules.snackbar
     ) as ISnackbar;
     const { uid, isWholesaleUser, signOut } = inject(Modules.user) as IUser;
     async function onSubmit() {
       errors.value = [];
-      if (accountCreated.value) {
-        ctx.root.$router.push('/login');
-      } else if (isWholesaleUser.value) {
+      if (isWholesaleUser.value) {
         signOut();
       } else if (uid.value) {
         try {
-          snackbarMsg.value = 'Upgrading...';
+          showSnackbar('Upgrading...');
           const existingUserPayload = {
             isExistingUser: true,
-            uid
+            uid: uid.value
           };
           await post(
             `${functionsUrl}/createWholesaleUser`,
             existingUserPayload
           );
           signOut();
-          showSnackbar('Account upgraded', 3500);
+          showSnackbar('Account upgraded. Sign in to use.', 3500);
         } catch (e) {
           hideSnackbar();
           errors.value.push('Error upgrading account');
         }
       } else {
-        const unrequiredFields = ['company'];
+        const unrequiredFields = ['address2'];
         const userErrors = Object.entries(userInfo)
           .filter(([, value]) => !value)
           .map(([key]) => key);
@@ -291,12 +275,12 @@ export default createComponent({
         errors.value = [
           ...(userErrors.length > 0 ||
           shippingErrors.length > 0 ||
-          (differentBilling && billingErrors.length > 0)
+          (differentBilling.value && billingErrors.length > 0)
             ? ['The following fields are required:']
             : []),
           ...userErrors,
           ...shippingErrors,
-          ...(differentBilling ? billingErrors : [])
+          ...(differentBilling.value ? billingErrors : [])
         ].map((e) => uncamelize(e));
 
         if (errors.value.length === 0) {
@@ -310,10 +294,7 @@ export default createComponent({
             };
             post(`${functionsUrl}/createWholesaleUser`, newUserPayload).then(
               () => {
-                showSnackbar('Account created', 3500);
-                accountCreated.value = true;
-                completionMsg.value =
-                  'Your wholesale account has been created. Log in to use your new wholesale account.';
+                showSnackbar('Account upgraded. Sign in to use.', 3500);
               }
             );
           } catch (e) {
@@ -349,8 +330,6 @@ export default createComponent({
       fullName,
       differentBilling,
       windowWidth,
-      accountCreated,
-      completionMsg,
       userInfo,
       shippingForm,
       billingForm,
