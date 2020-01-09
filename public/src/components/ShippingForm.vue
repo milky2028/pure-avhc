@@ -4,7 +4,7 @@
     <av-input
       dark
       more-padding
-      placeholder="Name"
+      placeholder="Name/Company"
       type="text"
       autocomplete="name"
       :value="name"
@@ -14,26 +14,26 @@
       "
     />
     <av-input
-      v-if="includeCompany"
       dark
       more-padding
-      placeholder="Company"
+      placeholder="Street Address"
       type="text"
-      :value="company"
+      autocomplete="address-line1"
+      :value="address1"
       @on-input="
-        company = $event;
+        address1 = $event;
         updateForm();
       "
     />
     <av-input
       dark
       more-padding
-      placeholder="Street Address"
+      placeholder="Apt/Unit/Suite/Other"
       type="text"
-      autocomplete="street-address"
-      :value="address"
+      autocomplete="address-line2"
+      :value="address2"
       @on-input="
-        address = $event;
+        address2 = $event;
         updateForm();
       "
     />
@@ -42,7 +42,7 @@
         dark
         more-padding
         class="city"
-        placeholder="City"
+        placeholder="City/Town"
         type="text"
         autocomplete="address-level2"
         :value="city"
@@ -55,7 +55,7 @@
         dark
         more-padding
         class="state"
-        placeholder="State"
+        placeholder="State/Province"
         type="text"
         autocomplete="address-level1"
         :datalist="states"
@@ -111,7 +111,7 @@ form {
 
 .address-container {
   display: grid;
-  grid-template-columns: 1fr 145px 165px;
+  grid-template-columns: 1fr 150px 165px;
   grid-gap: 1vmax;
 }
 
@@ -142,21 +142,25 @@ form {
 import { createComponent, reactive, toRefs } from '@vue/composition-api';
 import StateTaxes from '../data/StateTaxes';
 import AvInput from './AvInput.vue';
+import Address from '../types/Address';
 
-export default createComponent({
+interface Props {
+  isBilling: boolean;
+}
+
+export default createComponent<Props>({
   components: {
     AvInput
   },
   props: {
-    includeCompany: Boolean,
     isBilling: Boolean
   },
-  setup(props, ctx) {
+  setup(props: Props, ctx) {
     const state = reactive({
       states: StateTaxes.map((st) => st.abbr),
       name: '',
-      company: '',
-      address: '',
+      address1: '',
+      address2: '',
       city: '',
       state: '',
       zipCode: '',
@@ -164,11 +168,11 @@ export default createComponent({
     });
 
     function updateForm() {
-      const form = {
+      const form: Partial<Address> = {
         isBilling: props.isBilling,
         name: state.name,
-        company: state.company,
-        address: state.address,
+        address1: state.address1,
+        address2: state.address2,
         city: state.city,
         state: state.state,
         zipCode: state.zipCode,
