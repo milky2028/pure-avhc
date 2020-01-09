@@ -90,7 +90,7 @@
         button below to upgrade your account to a wholesale account, or, if you
         prefer, you can
         <a @click="signOut">sign out</a> and create a new wholesale account with
-        a different email. After your account is created, you'll be signed out.
+        a different email. After your account is created, you will be signed out.
         When you sign in again, your new wholesale account will be active.
       </p>
       <p v-if="isWholesaleUser || accountCreated" class="no-padding user-msg">
