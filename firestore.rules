@@ -40,7 +40,7 @@ service cloud.firestore {
       allow write: if false;
     }
     match /orders/{order} {
-      allow read, write: isAdmin();
+      allow read, write: if isAdmin();
       allow read: if reqUserMatchesResUser();
       allow create: if reqUserMatchesWriteUser();
       allow update: if reqUserMatchesResUser();
