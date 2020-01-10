@@ -45,11 +45,6 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - uses: w9jds/firebase-action@v1.1.0
         with:
-          args: deploy --only storage
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - uses: w9jds/firebase-action@v1.1.0
-        with:
           args: deploy --only hosting:avhc
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
