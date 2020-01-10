@@ -28,17 +28,27 @@ jobs:
       - run: cd ${GITHUB_WORKSPACE}/public && yarn
       - run: cd ${GITHUB_WORKSPACE}/public && yarn build:avhc
       - run: cd ${GITHUB_WORKSPACE}
-      - uses: w9jds/firebase-action@v1.0.1
+      - uses: w9jds/firebase-action@v1.1.0
         with:
           args: use avhc
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - uses: w9jds/firebase-action@v1.0.1
+      - uses: w9jds/firebase-action@v1.1.0
         with:
           args: deploy --only functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - uses: w9jds/firebase-action@v1.0.1
+      - uses: w9jds/firebase-action@v1.1.0
+        with:
+          args: deploy --only firestore
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: w9jds/firebase-action@v1.1.0
+        with:
+          args: deploy --only storage
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: w9jds/firebase-action@v1.1.0
         with:
           args: deploy --only hosting:avhc
         env:

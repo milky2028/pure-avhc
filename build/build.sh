@@ -45,6 +45,8 @@ yarn build:${BUILD_TARGET}
 cd ..
 firebase use ${BUILD_TARGET}
 firebase deploy --only functions
+firebase deploy --only firestore
+firebase deploy --only storage
 firebase deploy --only hosting:${BUILD_TARGET}
 
 nvm use 12
