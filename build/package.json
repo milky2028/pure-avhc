@@ -5,7 +5,7 @@
   "description": "Node build scripts",
   "main": "index.js",
   "scripts": {
-    "build-sw": "tsc && node lib/buildSw.js",
+    "create-resource-list": "tsc && node lib/createResourceList.js",
     "create-sitemap": "tsc && node lib/createSitemap.js",
     "create-manifest": "tsc && node lib/createManifest.js",
     "prerender-all-pages": "tsc && node lib/prerenderAllPages.js",
