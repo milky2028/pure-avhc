@@ -53,7 +53,7 @@
         >
       </p>
       <p>
-        <strong>App Verison: {{ appVersion }}</strong>
+        <strong>App Verison: {{ version }}</strong>
       </p>
     </ArticlePage>
   </PageWrapper>
@@ -66,6 +66,7 @@ import { createComponent } from '@vue/composition-api';
 import PageWrapper from '@/components/PageWrapper.vue';
 import ArticlePage from '@/components/ArticlePage.vue';
 import { useMetadata } from '../use/metadata';
+import version from '../../../shared/version';
 
 export default createComponent({
   components: {
@@ -73,7 +74,6 @@ export default createComponent({
     ArticlePage
   },
   setup() {
-    const appVersion = require('../../package.json').version;
     const supportEmail = process.env.VUE_APP_EMAIL;
 
     const { setTitle, setPageDescription } = useMetadata();
@@ -82,7 +82,7 @@ export default createComponent({
       "If you're having trouble with your order, have wholesale questions or inquires, or even just general questions about CBD, you've come to the right place. Our support team is standing by to assist you for any of your CBD needs."
     );
 
-    return { appVersion, supportEmail };
+    return { version, supportEmail };
   }
 });
 </script>
