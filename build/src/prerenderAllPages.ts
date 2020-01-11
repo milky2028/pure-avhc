@@ -24,6 +24,7 @@ function injectBaseHref(origin: string) {
 }
 
 async function prerenderPage(targetPage: string, browser: puppeteer.Browser) {
+  console.log(`Prerendering ${targetPage}`);
   const page = await browser.newPage();
   await page.goto(targetPage, { waitUntil: 'networkidle0' });
   await page.waitFor(10000);
@@ -33,6 +34,7 @@ async function prerenderPage(targetPage: string, browser: puppeteer.Browser) {
   const html = await await page.evaluate(
     'document.firstElementChild.outerHTML'
   );
+  console.log('Render complete');
   return html;
 }
 
