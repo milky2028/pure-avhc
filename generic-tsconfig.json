@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "rootDir": "/",
+    "target": "esnext",
+    "composite": true,
+    "removeComments": true,
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": [
+      "node"
+    ]
+  },
+  "exclude": [
+    "**/node_modules/**"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "../generic-tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "lib": ["ESNext", "WebWorker"],
+  },
+  "include": [
+    "resources.ts",
+    "./sw.ts",
+    "../shared/version.ts"
+  ]
+}

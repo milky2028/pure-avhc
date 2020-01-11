@@ -1,14 +1,11 @@
 {
+  "extends": "../generic-tsconfig.json",
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2017",
     "module": "commonjs",
     "outDir": "./lib",
-    "removeComments": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+  },
+  "include": [
+    "src/*.ts"
+  ]
 }
