@@ -2,7 +2,7 @@
   "recommendations": [
     "christian-kohler.npm-intellisense",
     "christian-kohler.path-intellisense",
-    "CoenraadS.bracket-pair-colorizer",
+    "coenraads.bracket-pair-colorizer-2",
     "dbaeumer.vscode-eslint",
     "eamodio.gitlens",
     "firefox-devtools.vscode-firefox-debug",
@@ -15,5 +15,7 @@
     "sdras.vue-vscode-snippets",
     "tombonnike.vscode-status-bar-format-toggle"
   ],
-  "unwantedRecommendations": ["eg2.tslint"]
+  "unwantedRecommendations": [
+    "eg2.tslint"
+  ]
 }
