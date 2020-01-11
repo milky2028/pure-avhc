@@ -43,7 +43,10 @@ async function main(buildTarget: string) {
   const testFiles = readdirSync(path.join(process.cwd(), 'build/avhc-tests'));
   const nestedAsyncPaths = allMatches
     .filter(
-      (matchedPath) => !matchedPath.includes('order') && matchedPath !== '*'
+      (matchedPath) =>
+        !matchedPath.includes('order') &&
+        matchedPath !== '*' &&
+        !matchedPath.includes('admin')
     )
     .map(async (matchedPath) => {
       if (matchedPath.includes(':')) {
@@ -94,8 +97,8 @@ async function main(buildTarget: string) {
         _attributes: {
           xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9'
         },
-        url: fullPaths.map((path) => ({
-          loc: path,
+        url: fullPaths.map((loc) => ({
+          loc,
           lastmod: formatDate(new Date())
         }))
       }
