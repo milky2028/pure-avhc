@@ -5,8 +5,8 @@
     "lib": ["ESNext", "WebWorker"],
   },
   "include": [
-    "resources.ts",
-    "./sw.ts",
+    "src/resources.d.ts",
+    "src/sw.ts",
     "../shared/version.ts"
   ]
 }
