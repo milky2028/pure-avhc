@@ -183,6 +183,9 @@ export default createComponent({
     onMounted(() => {
       setCartStateFromIdb();
       listenForAuthStateChanges();
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js');
+      }
     });
 
     return { snackbarMsg, cartItems, showDisclaimer };
