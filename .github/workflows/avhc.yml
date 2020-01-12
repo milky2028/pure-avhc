@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name: Build and Deploy AVHC App
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -15,14 +16,13 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '8.x'
-      - run: |
-          cd ${GITHUB_WORKSPACE}/functions
-          yarn install
+      - working-directory: ./functions
+        run: yarn install
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      -run: |
-          cd ${GITHUB_WORKSPACE}/build
+      - working-directory: ./build
+        run: |
           yarn install
           yarn create-manifest avhc
           yarn create-sitemap avhc
