@@ -15,46 +15,53 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '8.x'
-      - run: cd ${GITHUB_WORKSPACE}/functions && yarn
+      - run: |
+          cd ${GITHUB_WORKSPACE}/functions
+          yarn install
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      # - run: cd ${GITHUB_WORKSPACE}/build && yarn
-      - run: cd ${GITHUB_WORKSPACE}/build && yarn && yarn create-manifest avhc && yarn create-sitemap avhc
-      # - run: cd ${GITHUB_WORKSPACE}/build && yarn create-sitemap avhc
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-      # - run: cd ${GITHUB_WORKSPACE}/public && yarn
-      - run: cd ${GITHUB_WORKSPACE}/public && yarn && yarn build:avhc
-      # - run: cd ${GITHUB_WORKSPACE}
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: cd ${GITHUB_WORKSPACE} && yarn && yarn build-sw
-      - uses: w9jds/firebase-action@v1.1.0
-        with:
-          args: use avhc
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - uses: w9jds/firebase-action@v1.1.0
-        with:
-          args: deploy --only functions
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - uses: w9jds/firebase-action@v1.1.0
-        with:
-          args: deploy --only firestore
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - uses: w9jds/firebase-action@v1.1.0
-        with:
-          args: deploy --only hosting:avhc
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: cd ${GITHUB_WORKSPACE}/build && yarn prerender-all-pages avhc
-        env:
-          FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
+      -run: |
+          cd ${GITHUB_WORKSPACE}/build
+          yarn install
+          yarn create-manifest avhc
+          yarn create-sitemap avhc
+      # - run: cd ${GITHUB_WORKSPACE}/functions && yarn
+      # - uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '12.x'
+      # - run: cd ${GITHUB_WORKSPACE}/build && yarn && yarn create-manifest avhc && yarn create-sitemap avhc
+      # - uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '10.x'
+      # - run: cd ${GITHUB_WORKSPACE}/public && yarn && yarn build:avhc
+      # - uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '12.x'
+      # - run: cd ${GITHUB_WORKSPACE} && yarn && yarn build-sw
+      # - uses: w9jds/firebase-action@v1.1.0
+      #   with:
+      #     args: use avhc
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      # - uses: w9jds/firebase-action@v1.1.0
+      #   with:
+      #     args: deploy --only functions
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      # - uses: w9jds/firebase-action@v1.1.0
+      #   with:
+      #     args: deploy --only firestore
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      # - uses: w9jds/firebase-action@v1.1.0
+      #   with:
+      #     args: deploy --only hosting:avhc
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      # - uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '12.x'
+      # - run: cd ${GITHUB_WORKSPACE}/build && yarn prerender-all-pages avhc
+      #   env:
+      #     FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
