@@ -28,6 +28,10 @@ jobs:
       - run: cd ${GITHUB_WORKSPACE}/public && yarn
       - run: cd ${GITHUB_WORKSPACE}/public && yarn build:avhc
       - run: cd ${GITHUB_WORKSPACE}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: yarn && yarn build-sw
       - uses: w9jds/firebase-action@v1.1.0
         with:
           args: use avhc
