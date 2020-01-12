@@ -16,12 +16,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '8.x'
-      - working-directory: ./functions
+      - name: Install dependencies for functions
+        working-directory: ./functions
         run: yarn install
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - working-directory: ./build
+      - name: Build manifest and create sitemap
+        working-directory: ./build
         run: |
           yarn install
           yarn create-manifest avhc
