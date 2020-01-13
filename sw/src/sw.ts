@@ -51,7 +51,7 @@ self.addEventListener('fetch', (fetchEvent) => {
               fetchEvent.request.url
             )
           ) {
-            cache.put(fetchEvent.request, response.clone());
+            cache.put(fetchEvent.request.url, response.clone());
           }
           return response;
         }
