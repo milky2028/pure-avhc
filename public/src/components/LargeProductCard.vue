@@ -178,13 +178,13 @@ export default createComponent<Props>({
     const anyStrain = strains.value.find(({ type }) => type === 'any');
 
     return {
-      anyStrain,
       size,
       alt,
       url,
       vh,
       lowestPriceSize,
-      price
+      price,
+      anyStrain
     };
   }
 });
