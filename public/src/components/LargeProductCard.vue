@@ -19,7 +19,11 @@
         <h3 class="body-text price">{{ price }}</h3>
       </div>
     </router-link>
-    <AddToCartButton :product="product" :size="lowestPriceSize" />
+    <AddToCartButton
+      :product="product"
+      :size="lowestPriceSize"
+      :strain="anyStrain"
+    />
   </div>
 </template>
 
@@ -116,6 +120,7 @@ import AddToCartButton from './AddToCartButton.vue';
 import { createComponent, inject, ref } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
+import { IStrains } from '../use/strains';
 
 interface Props {
   product: Product;
@@ -169,7 +174,11 @@ export default createComponent<Props>({
       alt.value = imageRes.alt;
     }
 
+    const { strains } = inject(Modules.strains) as IStrains;
+    const anyStrain = strains.value.find(({ type }) => type === 'any');
+
     return {
+      anyStrain,
       size,
       alt,
       url,
