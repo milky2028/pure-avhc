@@ -17,11 +17,9 @@ export default {
     resolve({ extensions }),
     typescript(),
     babel({
-      extensions,
-      preset: '@babel/preset-env',
-      runtimeHelpers: true,
-      include: ['src/**/*'],
-      exclude: ['node_modules/**']
+      babelrc: false,
+      exclude: 'node_modules/**',
+      presets: [['@babel/preset-env']]
     }),
     resources(),
     terser({

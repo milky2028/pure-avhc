@@ -46,7 +46,13 @@ self.addEventListener('fetch', (fetchEvent) => {
         } else {
           // Else, fetch all other requests and put them in the cache after they've been fetched.
           const response = await fetch(fetchEvent.request);
-          cache.put(fetchEvent.request, response.clone());
+          if (
+            /res\.cloudinary|\.pdf|pwacompat|analytics.js|fonts\.googleapis/.test(
+              fetchEvent.request.url
+            )
+          ) {
+            cache.put(fetchEvent.request, response.clone());
+          }
           return response;
         }
       })()
