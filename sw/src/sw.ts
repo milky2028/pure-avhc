@@ -1,6 +1,11 @@
 import version from '../../shared/version';
 import resources from 'resources:';
 
+// Some Service Worker Gotchas
+// 1. The service worker does not have access to CORs requests and marks these responses as "opaque." Without access to opaque responses, all these responses are marked with the maximum request size of 7MB.
+// 2. A refresh does keeps the servie worker alive and does not refresh it. This also is true if you have multiple tabs open. It's sort of a pain.
+// 3. Promises in install and activate events need to be awaited so that install and activate events can be completed properly.
+
 // eslint-disable-next-line
 declare var self: ServiceWorkerGlobalScope;
 
