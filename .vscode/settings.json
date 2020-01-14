@@ -11,6 +11,7 @@
   "npm.packageManager": "yarn",
   "tslint.packageManager": "yarn",
   "vetur.validation.template": false,
+  "liveServer.settings.root": "public/dist",
   "eslint.validate": [
     "javascript",
     "javascriptreact",
