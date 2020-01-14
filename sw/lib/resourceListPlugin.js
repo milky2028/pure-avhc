@@ -19,7 +19,8 @@ function createResourceList() {
           p
         )
     );
-
+  
+  process.chdir('./sw')
   return ['/', ...resources];
 }
 

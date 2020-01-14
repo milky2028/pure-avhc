@@ -10,7 +10,7 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 export default {
   input: './src/sw.ts',
   output: {
-    file: './public/dist/sw.js',
+    file: '../public/dist/sw.js',
     format: 'esm'
   },
   plugins: [
