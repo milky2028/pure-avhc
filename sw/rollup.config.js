@@ -19,6 +19,7 @@ export default {
     commonjs(),
     typescript(),
     babel({
+      runtimeHelpers: true,
       extensions,
       exclude: 'node_modules/**',
       presets: [
