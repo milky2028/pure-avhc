@@ -6,18 +6,34 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:vue/recommended',
+    '@vue/prettier/@typescript-eslint',
+    '@vue/typescript/recommended',
+    '@vue/prettier',
   ],
   rules: {
+    'vue/component-name-in-template-casing': ['error', 'PascalCase'],
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/indent': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
+    'vue/html-self-closing': [
+      'error',
+      {
+        html: {
+          void: 'always'
+        }
+      }
+    ],
     '@typescript-eslint/semi': [
       'error',
       'always',
       { omitLastInOneLineBlock: true }
     ],
-    'prettier/prettier': ['error', { singleQuote: true, arrowParens: 'always' }],
+    'prettier/prettier': [
+      'error',
+      { singleQuote: true, arrowParens: 'always' }
+    ],
     quotes: ['error', 'single', { avoidEscape: true }],
     'no-shadow': ['error', { builtinGlobals: true, hoist: 'all' }],
     'no-useless-catch': 'error',

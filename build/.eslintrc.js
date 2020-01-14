@@ -5,25 +5,13 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:vue/recommended',
-    '@vue/prettier',
-    '@vue/typescript/recommended',
-    '@vue/prettier/@typescript-eslint'
+    'plugin:@typescript-eslint/eslint-recommended',
   ],
   rules: {
-    'vue/component-name-in-template-casing': ['error', 'PascalCase'],
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/indent': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    'vue/html-self-closing': [
-      'error',
-      {
-        html: {
-          void: 'always'
-        }
-      }
-    ],
     '@typescript-eslint/semi': [
       'error',
       'always',
