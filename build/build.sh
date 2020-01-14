@@ -19,8 +19,7 @@ git pull
 
 nvm install 10
 nvm use 10
-yarn global add firebase-tools @vue/cli @vue/cli-service-global typescript
-rm -rf public/node_modules functions/node_modules build/node_modules
+yarn global add firebase-tools
 
 nvm install 12
 nvm use 12
