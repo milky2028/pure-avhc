@@ -10,16 +10,19 @@ jobs:
     name: Build and Deploy AVHC App
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout latest code
+        uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - uses: actions/setup-node@v1
+      - name: Switch to Node 8
+        uses: actions/setup-node@v1
         with:
           node-version: '8.x'
       - name: Install dependencies for functions
         working-directory: ./functions
         run: yarn install
-      - uses: actions/setup-node@v1
+      - name: Switch to Node 12
+        uses: actions/setup-node@v1
         with:
           node-version: '12.x'
       - name: Build manifest and create sitemap
@@ -28,42 +31,54 @@ jobs:
           yarn install
           yarn create-manifest avhc
           yarn create-sitemap avhc
-      # - run: cd ${GITHUB_WORKSPACE}/functions && yarn
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '12.x'
-      # - run: cd ${GITHUB_WORKSPACE}/build && yarn && yarn create-manifest avhc && yarn create-sitemap avhc
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '10.x'
-      # - run: cd ${GITHUB_WORKSPACE}/public && yarn && yarn build:avhc
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '12.x'
-      # - run: cd ${GITHUB_WORKSPACE} && yarn && yarn build-sw
-      # - uses: w9jds/firebase-action@v1.1.0
-      #   with:
-      #     args: use avhc
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      # - uses: w9jds/firebase-action@v1.1.0
-      #   with:
-      #     args: deploy --only functions
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      # - uses: w9jds/firebase-action@v1.1.0
-      #   with:
-      #     args: deploy --only firestore
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      # - uses: w9jds/firebase-action@v1.1.0
-      #   with:
-      #     args: deploy --only hosting:avhc
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '12.x'
-      # - run: cd ${GITHUB_WORKSPACE}/build && yarn prerender-all-pages avhc
-      #   env:
-      #     FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
+      - name: Switch to Node 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Build avhc app
+        working-directory: ./public
+        run: |
+          yarn install
+          yarn build:avhc
+      - name: Switch to Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Build service worker
+        working-directory: ./sw
+        run: |
+          yarn install
+          yarn build-sw
+      - name: Switch to project in Firebase
+        uses: w9jds/firebase-action@v1.1.0
+        with:
+          args: use avhc
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy firebase functions
+        uses: w9jds/firebase-action@v1.1.0
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy firestore rules
+        uses: w9jds/firebase-action@v1.1.0
+        with:
+          args: deploy --only firestore
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy avhc hosting
+        uses: w9jds/firebase-action@v1.1.0
+        with:
+          args: deploy --only hosting:avhc
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Switch to Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Prerender all pages for dynamic rendering
+        working-directory: ./build
+        run: yarn prerender-all-pages avhc
+        env:
+          FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
