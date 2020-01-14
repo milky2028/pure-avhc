@@ -1,25 +1,21 @@
 {
-  "name": "pure-avhc",
-  "version": "1.0.1",
+  "name": "sw",
+  "version": "1.0.0",
+  "description": "",
   "repository": "https://github.com/milky2028/pure-avhc.git",
   "author": "Tyler Gross <tylergross28@gmail.com>",
   "license": "MIT",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
     "build-sw": "rollup -c rollup.config.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.0",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-typescript": "^2.1.0",
-    "@typescript-eslint/eslint-plugin": "^2.15.0",
-    "@typescript-eslint/parser": "^2.15.0",
-    "@vue/cli-plugin-eslint": "^4.1.2",
-    "@vue/cli-service": "^4.1.2",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-typescript": "^5.0.1",
-    "eslint": "^6.8.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-vue": "^6.1.2",
-    "prettier": "^1.19.1",
     "rollup": "^1.29.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-node-resolve": "^5.2.0",

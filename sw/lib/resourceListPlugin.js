@@ -9,7 +9,8 @@ function deepFolderRead(folderPath) {
 }
 
 function createResourceList() {
-  const fullPath = path.join(__dirname, 'public/dist');
+  process.chdir('../');
+  const fullPath = path.join(process.cwd(), './public/dist');
   const resources = deepFolderRead(fullPath)
     .map((p) => p.split('dist')[1])
     .filter(

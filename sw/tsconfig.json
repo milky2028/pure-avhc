@@ -1,8 +1,16 @@
 {
-  "extends": "../generic-tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
+    "target": "esnext",
+    "module": "es2015",
     "lib": ["ESNext", "WebWorker"],
+    "strict": true,
+    "esModuleInterop": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true
   },
   "include": [
     "src/resources.d.ts",
