@@ -18,21 +18,21 @@ export default {
     resolve({ extensions }),
     commonjs(),
     typescript(),
-    babel({
-      runtimeHelpers: true,
-      extensions,
-      exclude: 'node_modules/**',
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            targets: {
-              browsers: '> 1% in US, last 2 versions, not dead'
-            }
-          }
-        ]
-      ]
-    }),
+    // babel({
+    //   runtimeHelpers: true,
+    //   extensions,
+    //   exclude: 'node_modules/**',
+    //   presets: [
+    //     [
+    //       '@babel/preset-env',
+    //       {
+    //         targets: {
+    //           node: 'current'
+    //         }
+    //       }
+    //     ]
+    //   ]
+    // }),
     resources(),
     terser({
       output: {
