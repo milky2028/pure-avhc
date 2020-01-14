@@ -41,7 +41,7 @@ rm -rf node_modules
 yarn install
 yarn build:${BUILD_TARGET} || error_exit "App build failed"
 
-cd ..
+cd ../sw
 nvm use 12
 rm -rf node_modules
 yarn install
@@ -49,6 +49,7 @@ echo "Building service worker..."
 yarn build-sw || error_exit "Service worker build failed"
 echo "Service worker built"
 
+cd ..
 firebase use ${BUILD_TARGET}
 firebase deploy --only functions || error_exit "Functions deploy failed"
 firebase deploy --only firestore || error_exit "Firestore deploy failed"

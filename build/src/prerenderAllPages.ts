@@ -34,7 +34,6 @@ async function prerenderPage(targetPage: string, browser: puppeteer.Browser) {
   const html = await await page.evaluate(
     'document.firstElementChild.outerHTML'
   );
-  console.log('Render complete');
   return html;
 }
 
