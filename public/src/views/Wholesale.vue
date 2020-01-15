@@ -68,16 +68,20 @@
           @on-input="userInfo.password = $event"
         />
       </form>
-      <ShippingForm v-if="!uid" @form-input="shippingForm = $event" />
+      <ShippingForm
+        v-if="!uid"
+        :form="shippingForm"
+        @form-input="shippingForm = $event"
+      />
       <div v-if="!uid" class="switch-container">
-        <AvSwitch class="switch" @switch="differentBilling = $event" />
         <p class="no-padding billing-question">
           Different billing address?
         </p>
+        <AvSwitch class="switch" @switch="differentBilling = $event" />
       </div>
       <ShippingForm
         v-if="differentBilling && !uid"
-        is-billing
+        :form="billingForm"
         @form-input="billingForm = $event"
       />
       <p v-if="uid && !isWholesaleUser" class="no-padding user-msg">
@@ -129,13 +133,13 @@ form {
 }
 
 .switch-container {
-  display: flex;
-  justify-content: flex-start;
+  display: grid;
+  grid-auto-flow: column;
   margin: 16px 0;
 }
 
-.billing-question {
-  margin-left: 16px;
+.switch {
+  justify-self: end;
 }
 
 .topMargin {
@@ -205,25 +209,8 @@ export default createComponent({
       password: ''
     });
 
-    const shippingForm = reactive<Partial<Address>>({
-      name: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      country: ''
-    });
-
-    const billingForm = reactive<Partial<Address>>({
-      name: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      country: ''
-    });
+    const shippingForm = reactive(new Address());
+    const billingForm = reactive(new Address({ isBilling: true }));
 
     const errors = ref([] as string[]);
     const functionsUrl = process.env.VUE_APP_FUNCTIONS_URL;
@@ -253,7 +240,7 @@ export default createComponent({
           errors.value.push('Error upgrading account');
         }
       } else {
-        const unrequiredFields = ['address2'];
+        const unrequiredFields = ['address2', 'country'];
         const userErrors = Object.entries(userInfo)
           .filter(([, value]) => !value)
           .map(([key]) => key);
@@ -261,14 +248,18 @@ export default createComponent({
         const shippingErrors = Object.entries(shippingForm)
           .filter(
             ([key, value]) =>
-              !unrequiredFields.includes(key) && !value && key !== 'isBilling'
+              !unrequiredFields.includes(key) &&
+              !value &&
+              !/uid|isBilling|enabled/i.test(key)
           )
           .map(([key]) => key);
 
         const billingErrors = Object.entries(billingForm)
           .filter(
             ([key, value]) =>
-              !unrequiredFields.includes(key) && !value && key !== 'isBilling'
+              !unrequiredFields.includes(key) &&
+              !value &&
+              !/uid|isBilling|enabled/i.test(key)
           )
           .map(([key]) => `billing${capitalizeFirstLetter(key)}`);
 

@@ -1,0 +1,48 @@
+<template>
+  <div>
+    <h2 class="subhead" :class="{ marginTop: address.isBilling }">
+      {{ address.isBilling ? 'Billing' : 'Shipping' }}
+    </h2>
+    <p class="body-text">{{ address.name }}</p>
+    <p class="body-text">
+      {{ `${address.address1}${address.address2 ? ',' : ''}` }}
+      {{ address.address2 }}
+    </p>
+    <p class="body-text">
+      {{ `${address.city}${address.city ? ',' : ''}` }}
+      <span>{{ address.state }}</span>
+      <span>{{ address.zipCode }}</span>
+    </p>
+    <p class="body-text">{{ address.country }}</p>
+  </div>
+</template>
+
+<style scoped>
+h2 {
+  font-size: 20px;
+  padding: 1rem 0;
+}
+
+.marginTop {
+  margin-top: 1rem;
+}
+
+p {
+  line-height: 1.1;
+}
+</style>
+
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import Address from '../types/Address';
+
+interface Props {
+  address: Address;
+}
+
+export default createComponent<Props>({
+  props: {
+    address: Object
+  }
+});
+</script>

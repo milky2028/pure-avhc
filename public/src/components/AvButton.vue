@@ -25,6 +25,7 @@ button {
   font-weight: 500;
   align-items: center;
   transition: all 150ms var(--mat-ease);
+  min-width: 140px;
 }
 
 span {

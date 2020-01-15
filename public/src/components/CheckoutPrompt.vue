@@ -88,7 +88,6 @@
 
 .btn {
   grid-area: btn;
-  min-width: 140px;
 }
 
 .checkout {

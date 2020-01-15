@@ -1,14 +1,18 @@
-export default interface Address {
-  isBilling: boolean;
-  uid: string;
-  enabled: boolean;
-  dateCreated: Date;
-  dateModified: Date;
-  name: string;
-  address1: string;
-  address2: string;
-  city: string;
-  state: string;
-  zipCode: number | string;
-  country: string;
+export default class Address {
+  isBilling = false;
+  uid = '';
+  enabled = false;
+  dateCreated = new Date();
+  dateModified = new Date();
+  name = '';
+  address1 = '';
+  address2 = '';
+  city = '';
+  state = '';
+  zipCode: string | number = '';
+  country = '';
+
+  constructor(address?: Partial<Address>) {
+    Object.assign(this, address);
+  }
 }

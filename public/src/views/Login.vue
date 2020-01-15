@@ -47,8 +47,8 @@
         <a @click="resettingPassword = true">Reset Password?</a>
       </p>
       <div v-if="!resettingPassword" class="account-create">
-        <AvSwitch :value="createAnAccount" @switch="createAnAccount = $event" />
         <p>Create an account?</p>
+        <AvSwitch :value="createAnAccount" @switch="createAnAccount = $event" />
       </div>
       <AvButton
         :full-width="windowWidth < 835"
@@ -96,11 +96,10 @@
   margin-top: 15px;
   display: flex;
   align-items: center;
-  justify-items: start;
+  justify-content: space-between;
 }
 
 p {
-  margin-left: 15px;
   padding: 0;
 }
 

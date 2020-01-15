@@ -1,6 +1,6 @@
 <template>
   <form>
-    <h2>{{ isBilling ? 'Billing' : 'Shipping' }}</h2>
+    <h2 class="subhead">{{ isBilling ? 'Billing' : 'Shipping' }}</h2>
     <av-input
       dark
       more-padding
@@ -98,9 +98,7 @@
 <style scoped>
 h2 {
   font-size: 20px;
-  font-family: var(--mukta-malar);
-  font-weight: 700;
-  line-height: 1.2;
+  padding: 1rem 0;
 }
 
 form {
@@ -146,6 +144,7 @@ import Address from '../types/Address';
 
 interface Props {
   isBilling: boolean;
+  form: Address;
 }
 
 export default createComponent<Props>({
@@ -153,10 +152,10 @@ export default createComponent<Props>({
     AvInput
   },
   props: {
-    isBilling: Boolean
+    form: Object
   },
   setup(props: Props, ctx) {
-    const state = reactive({
+    const formState = reactive({
       states: StateTaxes.map((st) => st.abbr),
       name: '',
       address1: '',
@@ -164,25 +163,15 @@ export default createComponent<Props>({
       city: '',
       state: '',
       zipCode: '',
-      country: ''
+      country: '',
+      ...props.form
     });
 
     function updateForm() {
-      const form: Partial<Address> = {
-        isBilling: props.isBilling,
-        name: state.name,
-        address1: state.address1,
-        address2: state.address2,
-        city: state.city,
-        state: state.state,
-        zipCode: state.zipCode,
-        country: state.country
-      };
-
-      ctx.emit('form-input', form);
+      ctx.emit('form-input', formState);
     }
 
-    return { ...toRefs(state), updateForm };
+    return { ...toRefs(formState), updateForm };
   }
 });
 </script>
