@@ -40,6 +40,8 @@ const NotFound = () =>
   import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue');
 const Admin = () =>
   import(/* webpackChunkName: "Admin" */ '../views/Admin.vue');
+const Shell = () =>
+  import(/* webpackChunkName: "Shell" */ '../views/Shell.vue');
 
 Vue.use(Router);
 
@@ -155,6 +157,11 @@ export default new Router({
       path: '/support',
       name: 'support',
       component: FeedbackAndSupport
+    },
+    {
+      path: '/shell',
+      name: 'shell',
+      component: Shell
     },
     {
       path: '/404',
