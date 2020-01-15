@@ -1,7 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
+// import babel from 'rollup-plugin-babel';
 import progress from 'rollup-plugin-progress';
 import resources from './lib/resourceListPlugin';
 import commonjs from '@rollup/plugin-commonjs';
