@@ -45,6 +45,7 @@
   --mat-enter: cubic-bezier(0, 0, 0.2, 1);
   --mat-leave: cubic-bezier(0.4, 0, 1, 1);
   --rounded-corner: 5px;
+  --faint-grey: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 * {

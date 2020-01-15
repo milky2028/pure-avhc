@@ -44,15 +44,15 @@ select {
 }
 
 .borderTop {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: var(--faint-grey);
 }
 
 .borderBottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: var(--faint-grey);
 }
 
 .borderRight {
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: var(--faint-grey);
 }
 </style>
 
