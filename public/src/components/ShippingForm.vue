@@ -97,7 +97,7 @@
 
 <style scoped>
 h2 {
-  font-size: 22px;
+  font-size: 20px;
   font-family: var(--mukta-malar);
   font-weight: 700;
   line-height: 1.2;
@@ -133,7 +133,7 @@ form {
       'city city'
       'state zip';
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>
