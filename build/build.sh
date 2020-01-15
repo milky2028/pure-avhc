@@ -11,6 +11,7 @@ if [ -z "$1" ]; then
 fi
 
 BUILD_TARGET=$1
+SHOULD_DEPLOY=$2
 
 cd ..
 
@@ -49,11 +50,13 @@ echo "Building service worker..."
 yarn build-sw || error_exit "Service worker build failed"
 echo "Service worker built"
 
-cd ..
-firebase use ${BUILD_TARGET}
-firebase deploy --only functions || error_exit "Functions deploy failed"
-firebase deploy --only firestore || error_exit "Firestore deploy failed"
-firebase deploy --only hosting:${BUILD_TARGET} || error_exit "Hosting deploy failed"
+if [ "${SHOULD_DEPLOY}" == "deploy" ]; then
+	cd ..
+	firebase use ${BUILD_TARGET}
+	firebase deploy --only functions || error_exit "Functions deploy failed"
+	firebase deploy --only firestore || error_exit "Firestore deploy failed"
+	firebase deploy --only hosting:${BUILD_TARGET} || error_exit "Hosting deploy failed"
 
-cd build
-yarn prerender-all-pages ${BUILD_TARGET} || error_exit "Prerender failed"
+	cd build
+	yarn prerender-all-pages ${BUILD_TARGET} || error_exit "Prerender failed"
+fi
