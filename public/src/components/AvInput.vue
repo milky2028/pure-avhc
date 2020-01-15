@@ -39,6 +39,11 @@ p {
   font-size: 14px;
 }
 
+input::placeholder {
+  color: white;
+  opacity: 0.3;
+}
+
 input {
   font-size: 2rem;
   width: 100%;
