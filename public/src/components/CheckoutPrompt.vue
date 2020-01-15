@@ -76,7 +76,7 @@
   row-gap: 5px;
   grid-template-areas: 'input btn msg checkout';
   grid-template-columns: 360px 140px 1fr 1fr;
-  grid-column-gap: 1vw;
+  grid-column-gap: 3rem;
   align-items: center;
   overflow: hidden;
   transition: all 300ms var(--mat-ease);
@@ -95,6 +95,7 @@
   grid-area: checkout;
   color: white;
   justify-self: end;
+  font-size: 22px;
 }
 
 .total-container {
