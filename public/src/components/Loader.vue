@@ -6,13 +6,13 @@
 .loader,
 .loader:before,
 .loader:after {
-  background: #ffffff;
+  background: black;
   animation: load1 1s infinite ease-in-out;
   width: 1em;
   height: 4em;
 }
 .loader {
-  color: #ffffff;
+  color: black;
   text-indent: -9999em;
   margin: 88px auto;
   position: relative;

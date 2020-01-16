@@ -4,6 +4,7 @@
 
 <style scoped>
 .container {
+  height: calc(100vh - 55px);
   display: grid;
   align-items: center;
   justify-items: center;
