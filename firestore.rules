@@ -73,7 +73,7 @@ service cloud.firestore {
       allow write: if false;
     }
     match /userExtras/{uid} {
-      allow read;
+      allow read: if uid == request.auth.uid;
       allow create: if reqUserMatchesWriteUser();
       allow update: if reqUserMatchesResUser();
     }
