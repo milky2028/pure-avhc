@@ -62,8 +62,7 @@ export function useUser() {
   }
 
   async function signInWithEmail(email: string, password: string) {
-    const auth = await _auth();
-    return auth.signInWithEmailAndPassword(email, password);
+    return (await workerInstance).signInWithEmail(email, password);
   }
 
   async function createAccountWithEmailAndPassword(
