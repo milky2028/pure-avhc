@@ -1,3 +1,4 @@
+rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -71,8 +72,8 @@ service cloud.firestore {
       allow read;
       allow write: if false;
     }
-    match /userExtras/{extras} {
-      allow read: if request.auth.uid == extras;
+    match /userExtras/{uid} {
+      allow read: if request.auth.uid == uid;
       allow create: if reqUserMatchesWriteUser();
       allow update: if reqUserMatchesResUser();
     }
