@@ -1,7 +1,7 @@
 import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
-import _workerInstance from '../workers/entry';
+import workerInstance from '../workers/entry';
 import { setAllStateInObj } from '@/functions/setState';
 import { clear } from 'idb-keyval';
 import initializeAuth from '@/functions/intializeFirebaseAuth';
@@ -46,9 +46,7 @@ export function useUser() {
           isWholesaleUser
         });
 
-        const workerInstance = await _workerInstance;
-        await workerInstance.authWorker();
-        const userExtras = (await workerInstance.getDocumentById(
+        const userExtras = (await (await workerInstance).getDocumentById(
           'userExtras',
           userDetails.uid
         )) as Partial<AvUser>;
@@ -59,7 +57,11 @@ export function useUser() {
 
   async function signInWithEmail(email: string, password: string) {
     const auth = await _auth();
-    return auth.signInWithEmailAndPassword(email, password);
+    const userCredential = await auth.signInWithEmailAndPassword(
+      email,
+      password
+    );
+    return (await workerInstance).authWorker(userCredential.credential);
   }
 
   async function createAccountWithEmailAndPassword(
@@ -68,7 +70,11 @@ export function useUser() {
   ) {
     try {
       const auth = await _auth();
-      return auth.createUserWithEmailAndPassword(email, password);
+      const userCredential = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      return (await workerInstance).authWorker(userCredential.credential);
     } catch (e) {
       if (e.code === 'auth/email-already-in-use') {
         return signInWithEmail(email, password);
@@ -78,17 +84,21 @@ export function useUser() {
     }
   }
 
-  // @ts-ignore
   async function signInWithProvider(provider: string) {
     const auth = await _auth();
     switch (provider) {
       case 'google': {
         const google = new (await firebase).auth.GoogleAuthProvider();
-        return await auth.signInWithPopup(google);
+        const userCredential = await auth.signInWithPopup(google);
+        return (await workerInstance).authWorker(userCredential.credential);
       }
       case 'facebook': {
         const facebook = new (await firebase).auth.FacebookAuthProvider();
-        return await auth.signInWithPopup(facebook);
+        const userCredential = await auth.signInWithPopup(facebook);
+        return (await workerInstance).authWorker(userCredential.credential);
+      }
+      default: {
+        return;
       }
     }
   }
@@ -102,7 +112,8 @@ export function useUser() {
     const auth = await _auth();
     setAllStateInObj(user, { ...emptyUser });
     await clear();
-    return auth.signOut();
+    auth.signOut();
+    (await workerInstance).signOutWorker();
   }
 
   return {

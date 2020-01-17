@@ -151,8 +151,18 @@ async function queryDocuments(
   }
 }
 
-async function authWorker() {
+async function signOutWorker() {
   const auth = await _auth;
+  auth.signOut();
+}
+
+async function authWorker(credential: firebase.auth.AuthCredential | null) {
+  const auth = await _auth;
+  if (credential) {
+    auth.signInWithCredential(credential);
+  } else {
+    auth.signOut();
+  }
 }
 
 export const FirebaseWorker = {
@@ -160,7 +170,8 @@ export const FirebaseWorker = {
   queryDocuments,
   getDocumentById,
   getDocuments,
-  authWorker
+  authWorker,
+  signOutWorker
 };
 export type IFirebaseWorker = typeof FirebaseWorker;
 
