@@ -55,15 +55,15 @@ h2 {
 </style>
 
 <script lang="ts">
-import PageWrapper from '../components/PageWrapper.vue';
-import ArticlePage from '../components/ArticlePage.vue';
-import CollapsableSection from '../components/CollapsableSection.vue';
-import ShippingForm from '../components/ShippingForm.vue';
-import AvSwitch from '../components/AvSwitch.vue';
-import AddressDisplay from '../components/AddressDisplay.vue';
 import { createComponent, ref, reactive } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import Address from '../types/Address';
+import PageWrapper from '../components/PageWrapper.vue';
+import ArticlePage from '../components/ArticlePage.vue';
+import ShippingForm from '../components/ShippingForm.vue';
+import AvSwitch from '../components/AvSwitch.vue';
+import AddressDisplay from '../components/AddressDisplay.vue';
+import CollapsableSection from '../components/CollapsableSection.vue';
 
 export default createComponent({
   components: {

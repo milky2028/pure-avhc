@@ -178,6 +178,7 @@ img {
 <script lang="ts">
 import { createComponent, ref, watch, inject } from '@vue/composition-api';
 import { useWindowWidth } from '../use/window-width';
+import { useMetadata } from '../use/metadata';
 import { Modules } from '../use/store';
 import { IUser } from '../use/user';
 import { ISnackbar } from '../use/snackbar';
@@ -186,7 +187,6 @@ import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
-import { useMetadata } from '../use/metadata';
 
 export default createComponent({
   components: {

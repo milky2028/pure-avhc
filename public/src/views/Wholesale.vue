@@ -157,14 +157,6 @@ form {
 </style>
 
 <script lang="ts">
-import PageWrapper from '../components/PageWrapper.vue';
-import ArticlePage from '../components/ArticlePage.vue';
-import ShippingForm from '../components/ShippingForm.vue';
-import AvSwitch from '../components/AvSwitch.vue';
-import AvButton from '../components/AvButton.vue';
-import AvInput from '../components/AvInput.vue';
-import uncamelize from '../functions/uncamelize';
-import post from '../functions/post';
 import {
   createComponent,
   ref,
@@ -173,6 +165,15 @@ import {
   inject,
   Ref
 } from '@vue/composition-api';
+import Address from '../types/Address';
+import PageWrapper from '../components/PageWrapper.vue';
+import ArticlePage from '../components/ArticlePage.vue';
+import ShippingForm from '../components/ShippingForm.vue';
+import AvSwitch from '../components/AvSwitch.vue';
+import AvButton from '../components/AvButton.vue';
+import AvInput from '../components/AvInput.vue';
+import uncamelize from '../functions/uncamelize';
+import post from '../functions/post';
 import workerInstance from '../workers/entry';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
@@ -180,7 +181,6 @@ import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import { useMetadata } from '../use/metadata';
-import Address from '../types/Address';
 
 export default createComponent({
   components: {
