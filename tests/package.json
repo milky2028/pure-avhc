@@ -1,0 +1,16 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "tsc && jest"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@firebase/testing": "^0.16.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "@types/node": "^13.1.7",
+    "typescript": "^3.7.5"
+  }
+}
