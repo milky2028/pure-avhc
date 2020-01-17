@@ -1,18 +1,12 @@
 import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
-import workerInstance from '../workers/entry';
+import _workerInstance from '../workers/entry';
 import { setAllStateInObj } from '@/functions/setState';
 import { clear } from 'idb-keyval';
+import initializeAuth from '@/functions/intializeFirebaseAuth';
 
 export function useUser() {
-  async function initializeAuth(firebaseApp: Promise<firebase.app.App>) {
-    const AuthImport = import(/* webpackChunkName: 'auth' */ 'firebase/auth');
-    const app = await firebaseApp;
-    await AuthImport;
-    return app.auth();
-  }
-
   const firebase = import(/* webpackChunkName: 'firebase' */ 'firebase/app');
   function _auth() {
     const app = initializeFirebaseApp(firebase);
@@ -52,7 +46,9 @@ export function useUser() {
           isWholesaleUser
         });
 
-        const userExtras = (await (await workerInstance).getDocumentById(
+        const workerInstance = await _workerInstance;
+        await workerInstance.authWorker();
+        const userExtras = (await workerInstance.getDocumentById(
           'userExtras',
           userDetails.uid
         )) as Partial<AvUser>;
@@ -62,7 +58,8 @@ export function useUser() {
   }
 
   async function signInWithEmail(email: string, password: string) {
-    return (await workerInstance).signInWithEmail(email, password);
+    const auth = await _auth();
+    return auth.signInWithEmailAndPassword(email, password);
   }
 
   async function createAccountWithEmailAndPassword(

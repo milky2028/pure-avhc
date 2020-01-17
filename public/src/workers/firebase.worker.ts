@@ -2,19 +2,8 @@ import { expose } from 'comlink';
 import QueryParams from '@/types/QueryParams';
 import OrderByParams from '@/types/OrderByParams';
 import Collection from '@/types/Collection';
-
-async function initializeFirebaseApp(
-  firebase: Promise<typeof import('firebase/app')>
-) {
-  const fb = await firebase;
-  if (fb.apps.length > 0) {
-    return fb.app();
-  }
-  const firebaseConfig = JSON.parse(
-    process.env.VUE_APP_FIREBASE_CONFIG as string
-  );
-  return fb.initializeApp(firebaseConfig);
-}
+import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
+import initializeAuth from '@/functions/intializeFirebaseAuth';
 
 async function intializeFirestore(firebase: Promise<firebase.app.App>) {
   const Firestore = import(
@@ -23,15 +12,6 @@ async function intializeFirestore(firebase: Promise<firebase.app.App>) {
   const app = await firebase;
   await Firestore;
   return app.firestore();
-}
-
-async function initializeAuth(firebaseApp: Promise<firebase.app.App>) {
-  const AuthImport = import(
-    /* webpackChunkName: 'firebase-auth' */ 'firebase/auth'
-  );
-  const app = await firebaseApp;
-  await AuthImport;
-  return app.auth();
 }
 
 const _firebase = import(
@@ -171,9 +151,8 @@ async function queryDocuments(
   }
 }
 
-async function signInWithEmail(email: string, password: string) {
+async function authWorker() {
   const auth = await _auth;
-  return auth.signInWithEmailAndPassword(email, password);
 }
 
 export const FirebaseWorker = {
@@ -181,7 +160,7 @@ export const FirebaseWorker = {
   queryDocuments,
   getDocumentById,
   getDocuments,
-  signInWithEmail
+  authWorker
 };
 export type IFirebaseWorker = typeof FirebaseWorker;
 
