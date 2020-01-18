@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 
 const client = new admin.firestore.v1.FirestoreAdminClient();
 const bucket = 'gs://avhc-database-backups';
-const backupDatabase = functions.pubsub
+const firestoreBackup = functions.pubsub
   .schedule('0 4 * * *')
   .onRun(async () => {
     const databaseName = client.databasePath(
@@ -30,4 +30,4 @@ const backupDatabase = functions.pubsub
     }
   });
 
-export default backupDatabase;
+export default firestoreBackup;

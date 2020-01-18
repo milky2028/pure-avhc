@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin';
 import createWholesaleUser from './functions/createWholesaleUser';
 import addSubscriberToMailchimp from './functions/addSubscriberToMailchimp';
 import dynamicRenderer from './functions/dynamicRenderer';
-import backupDatabase from './functions/backupDatabase';
+import firestoreBackup from './functions/firestoreBackup';
 
 // For Local Testing
 // import serviceAccount from './credentials/key.json';
@@ -17,4 +17,4 @@ exports.createWholesaleUser = createWholesaleUser;
 exports.addSubscriberToMailchimp = addSubscriberToMailchimp;
 exports.dynamicRendererPure = dynamicRenderer('pure');
 exports.dynamicRendererAvhc = dynamicRenderer('avhc');
-exports.backupDatabase = backupDatabase;
+exports.firestoreBackup = firestoreBackup;
