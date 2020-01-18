@@ -11,7 +11,7 @@ const backupDatabase = functions.https.onRequest(async (_, res) => {
   try {
     const responses = await client.exportDocuments({
       name: databaseName,
-      outputUriPrefix: 'gs://avhc-database-backups',
+      outputUriPrefix: 'gs://aspe-f5783.appspot.com/backups',
       // Leave collectionIds empty to export all collections
       // or set to a list of collection IDs to export,
       // collectionIds: ['users', 'posts']
