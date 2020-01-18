@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
-import * as firestore from '@google-cloud/firestore';
-const client = new firestore.v1.FirestoreAdminClient();
+import * as admin from 'firebase-admin';
+const client = new admin.firestore.v1.FirestoreAdminClient();
 
 const backupDatabase = functions.https.onRequest(async (_, res) => {
   const databaseName = client.databasePath(
