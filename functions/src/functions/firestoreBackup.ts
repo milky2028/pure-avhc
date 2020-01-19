@@ -12,7 +12,7 @@ const firestoreBackup = functions.pubsub
     );
 
     try {
-      const responses = await client.exportDocuments({
+      return client.exportDocuments({
         name: databaseName,
         outputUriPrefix: bucket,
         // Leave collectionIds empty to export all collections
@@ -20,10 +20,6 @@ const firestoreBackup = functions.pubsub
         // collectionIds: ['users', 'posts']
         collectionIds: []
       });
-
-      const response = responses[0];
-      console.log(`Operation Name: ${response['name']}`);
-      return response;
     } catch (e) {
       console.error(e);
       throw new Error('Export operation failed');
