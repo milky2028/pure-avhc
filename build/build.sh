@@ -10,8 +10,14 @@ if [ -z "$1" ]; then
   error_exit "Failed to provide a build target"
 fi
 
+# First argument is the build target. Currently, 'avhc' or 'pure'.
 BUILD_TARGET=$1
-SHOULD_DEPLOY=$2
+
+# Second arg is whether or not the app should be built.
+SHOULD_BUILD=$2
+
+# Third argument is whether or not this package should be directly deployed from a local machine to Firebase.
+SHOULD_DEPLOY=$3
 
 cd ..
 
@@ -40,15 +46,25 @@ nvm use 10
 cd ../public
 rm -rf node_modules
 yarn install
-yarn build:${BUILD_TARGET} || error_exit "App build failed"
 
 cd ../sw
 nvm use 12
 rm -rf node_modules
 yarn install
-echo "Building service worker..."
-yarn build-sw || error_exit "Service worker build failed"
-echo "Service worker built"
+
+cd ../utils
+rm -rf node_modules
+yarn install
+
+if [ "${SHOULD_BUILD}" == "build" ]; then
+	cd ../public
+	yarn build:${BUILD_TARGET} || error_exit "App build failed"
+
+	cd ../sw
+	echo "Building service worker..."
+	yarn build-sw || error_exit "Service worker build failed"
+	echo "Service worker built"
+fi
 
 if [ "${SHOULD_DEPLOY}" == "deploy" ]; then
 	cd ..
