@@ -2,7 +2,7 @@ import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 import workerInstance from '../workers/entry';
-import { setAllStateInObj } from '@/functions/setState';
+import setAllStateInObj from '@/functions/setState';
 import { clear } from 'idb-keyval';
 import initializeAuth from '@/functions/intializeFirebaseAuth';
 
