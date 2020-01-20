@@ -123,6 +123,7 @@ img {
 }
 
 .item-summary {
+  font-size: 20px;
   padding: 0;
   font-weight: 600;
 }
