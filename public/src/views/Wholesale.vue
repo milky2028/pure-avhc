@@ -71,7 +71,7 @@
       <ShippingForm
         v-if="!uid"
         :form="shippingForm"
-        @form-input="shippingForm = $event"
+        @form-input="setAllStateInObj(shippingForm, $event)"
       />
       <div v-if="!uid" class="switch-container">
         <p class="no-padding billing-question">
@@ -181,6 +181,7 @@ import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
 import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import { useMetadata } from '../use/metadata';
+import setAllStateInObj from '../functions/setState';
 
 export default createComponent({
   components: {
@@ -313,6 +314,7 @@ export default createComponent({
     import('dompurify').then((importRes) => (purifier.value = importRes));
 
     return {
+      setAllStateInObj,
       uid,
       isWholesaleUser,
       wholesaleCatalog,

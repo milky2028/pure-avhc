@@ -8,6 +8,7 @@ import { useDisclaimer } from './disclaimer';
 import { useSnackbar } from './snackbar';
 import { useOverlay } from './overlay';
 import { useNavbar } from './navbar';
+import { useOrders } from './orders';
 import VueCompositionApi from '@vue/composition-api';
 import Vue from 'vue';
 
@@ -23,7 +24,8 @@ export const Modules = {
   disclaimer: Symbol.for('Disclaimer'),
   snackbar: Symbol.for('Snackbar'),
   overlay: Symbol.for('Overlay'),
-  navbar: Symbol.for('Navbar')
+  navbar: Symbol.for('Navbar'),
+  orders: Symbol.for('Orders')
 };
 
 export const Store = {
@@ -36,5 +38,6 @@ export const Store = {
   [Modules.disclaimer]: useDisclaimer(),
   [Modules.snackbar]: useSnackbar(),
   [Modules.overlay]: useOverlay(),
-  [Modules.navbar]: useNavbar()
+  [Modules.navbar]: useNavbar(),
+  [Modules.orders]: useOrders()
 };

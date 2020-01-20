@@ -11,13 +11,13 @@
       v-if="!isExpanded"
       class="edit-icon"
       black
-      @icon-click="isExpanded = true"
+      @icon-click="$emit('edit-clicked')"
       >edit</AvIconButton
     >
     <AvButton
       v-if="isExpanded"
       class="continue"
-      @btn-click="isExpanded = false"
+      @btn-click="$emit('continue-clicked')"
     >
       Continue
     </AvButton>
@@ -42,21 +42,24 @@
 </style>
 
 <script lang="ts">
-import { createComponent, ref } from '@vue/composition-api';
+import { createComponent } from '@vue/composition-api';
 import AvButton from './AvButton.vue';
 import AvIconButton from './AvIconButton.vue';
 
-export default createComponent({
+interface Props {
+  isExpanded: boolean;
+}
+
+export default createComponent<Props>({
   components: {
     AvButton,
     AvIconButton
   },
-  setup() {
-    const isExpanded = ref(true);
-
-    return {
-      isExpanded
-    };
+  props: {
+    isExpanded: {
+      type: Boolean,
+      default: true
+    }
   }
 });
 </script>

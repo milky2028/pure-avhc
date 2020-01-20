@@ -1,11 +1,15 @@
 <template>
   <PageWrapper with-padding>
     <ArticlePage title="Checkout">
-      <CollapsableSection>
+      <CollapsableSection
+        :is-expanded="isStepOpen.addressesStep"
+        @continue-clicked="isStepOpen.addressesStep = false"
+        @edit-clicked="isStepOpen.addressesStep = true"
+      >
         <template v-slot:expanded>
           <ShippingForm
-            :form="shippingForm"
-            @form-input="shippingForm = $event"
+            :form="shippingAddress"
+            @form-input="setAllStateInObj(shippingAddress, $event)"
           />
           <div class="switch-container">
             <p class="body-text">
@@ -20,13 +24,13 @@
           <ShippingForm
             v-if="differentBilling"
             class="margin-top"
-            :form="billingForm"
-            @form-input="billingForm = $event"
+            :form="billingAddress"
+            @form-input="setAllStateInObj(billingAddress, $event)"
           />
         </template>
         <template v-slot:collapsed>
-          <AddressDisplay :address="shippingForm"/>
-          <AddressDisplay v-if="differentBilling" :address="billingForm"
+          <AddressDisplay :address="shippingAddress"/>
+          <AddressDisplay v-if="differentBilling" :address="billingAddress"
         /></template>
       </CollapsableSection>
     </ArticlePage>
@@ -55,15 +59,17 @@ h2 {
 </style>
 
 <script lang="ts">
-import { createComponent, ref, reactive } from '@vue/composition-api';
+import { createComponent, inject } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
-import Address from '../types/Address';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import ShippingForm from '../components/ShippingForm.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AddressDisplay from '../components/AddressDisplay.vue';
 import CollapsableSection from '../components/CollapsableSection.vue';
+import { Modules } from '../use/store';
+import { IOrders } from '../use/orders';
+import setAllStateInObj from '../functions/setState';
 
 export default createComponent({
   components: {
@@ -81,14 +87,19 @@ export default createComponent({
       `${process.env.VUE_APP_FULL_NAME}'s Checkout. Here, you can complete your purchase and get ready to have your CBD Flower products shipped directly to your door.`
     );
 
-    const differentBilling = ref(false);
-    const shippingForm = reactive(new Address());
-    const billingForm = reactive(new Address({ isBilling: true }));
+    const {
+      shippingAddress,
+      billingAddress,
+      differentBilling,
+      isStepOpen
+    } = inject(Modules.orders) as IOrders;
 
     return {
+      isStepOpen,
+      setAllStateInObj,
       differentBilling,
-      shippingForm,
-      billingForm
+      shippingAddress,
+      billingAddress
     };
   }
 });
