@@ -102,7 +102,7 @@ img {
 
 .main-image {
   margin: 1rem 0;
-  height: 40vh;
+  height: 36vh;
 }
 
 .gallery-container {
