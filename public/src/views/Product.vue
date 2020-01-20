@@ -24,7 +24,7 @@
         />
       </div>
       <div v-if="fullSize" class="price-container">
-        <p class="item-summary">{{ displaySize }}</p>
+        <p class="item-summary">{{ computedDisplaySize }}</p>
         <p class="item-summary price">${{ fullSize.price }}</p>
       </div>
       <AvSelector
@@ -188,7 +188,7 @@ export default createComponent({
   },
   setup(_, ctx) {
     const { windowWidth } = useWindowWidth();
-    const { products } = inject(Modules.products) as IProducts;
+    const { products, displaySize } = inject(Modules.products) as IProducts;
     const currentPageProduct = computed(() =>
       products.value.find((p) => p.url === ctx.root.$route.params.productName)
     );
@@ -304,27 +304,12 @@ export default createComponent({
       }
     });
 
-    // TODO: Split this into a service
-    const displaySize = computed(() => {
-      if (fullSize.value) {
-        const val = fullSize.value;
-        if (val.measurement !== 'gram') {
-          return `${val.measurementValue} ${val.measurement} ${val.masterMeasurement}`;
-        } else {
-          return `${val.measurementValue} ${val.measurement}${
-            val.measurementValue > 1 ? 's' : ''
-          }`;
-        }
-      }
-
-      return '';
-    });
-
+    const computedDisplaySize = displaySize(fullSize);
     const purifier: Ref<null | {}> = ref(null);
     import('dompurify').then((importRes) => (purifier.value = importRes));
 
     return {
-      displaySize,
+      computedDisplaySize,
       capitalizeFirstLetter,
       selectedStrainType,
       fullStrain,

@@ -120,6 +120,7 @@ import AddToCartButton from './AddToCartButton.vue';
 import { createComponent, inject, ref, computed } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
+import { IProducts } from '../use/products';
 
 interface Props {
   product: Product;
@@ -136,29 +137,20 @@ export default createComponent<Props>({
     }
   },
   setup(props) {
-    const lowestPriceSize = props.product.sizes.find(
-      (individualSize: Size) =>
-        individualSize.price ===
-        Math.min(...props.product.sizes.map((s: Size) => s.price))
+    const lowestPriceSize = computed(() =>
+      props.product.sizes.find(
+        (individualSize: Size) =>
+          individualSize.price ===
+          Math.min(...props.product.sizes.map((s: Size) => s.price))
+      )
     );
 
     const price = `$${Math.min(
       ...props.product.sizes.map((individualSize) => individualSize.price)
     )}`;
 
-    const size = computed(() => {
-      if (lowestPriceSize) {
-        if (lowestPriceSize.measurement !== 'gram') {
-          return `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`;
-        } else {
-          return `${lowestPriceSize.measurementValue} ${
-            lowestPriceSize.measurement
-          }${lowestPriceSize.measurementValue > 1 ? 's' : ''}`;
-        }
-      }
-
-      return '';
-    });
+    const { displaySize } = inject(Modules.products) as IProducts;
+    const size = displaySize(lowestPriceSize);
 
     const { getImage } = inject(Modules.images) as IImages;
     const vh = window.innerHeight / 100;
