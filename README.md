@@ -18,6 +18,10 @@ cd build
 ./build.sh [target environment] [build] [deploy]
 ```
 
-Passing just a 'target environment' command line option, assuming you have NVM and yarn, will download all the requisite versions of node and all the packages for each directory. This script also has two other arguments that can be passed, build and deploy. 'Build' will actually build a fully functional version of the app with Webpack, while 'build' and 'deploy' will build with Webpack, then actually deploy that to Firebase. Probably only I have the credentials to do deploy. 
+Passing just a "target environment" command line option, assuming you have NVM and yarn, will download all the requisite versions of node and all the packages for each directory. Currently, "avhc" is the only working environment. "pure" is coming soon. This script also has two other arguments that can be passed, "build" and "deploy". "Build" will actually build a fully functional version of the app with Webpack in public/dist, while "build" and "deploy" will build with Webpack, then actually deploy that to Firebase. Currently, only I have the credentials to deploy.
+  
+This script is written in Bash and only works on Unix-based systems. If you're using Windows, I'd recommend Windows Subsystem for Linux. Since this repo is dependent on [Puppeteer](https://github.com/puppeteer/puppeteer), the necessary [prerequisites for using Chrome on Linux](https://github.com/puppeteer/puppeteer/issues/3443) must be installed in order for Puppeteer to work.
+
+_TODO: Write a Powershell script for basic installation tasks._
 
 _... To Be Continued_
