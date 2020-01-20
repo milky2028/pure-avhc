@@ -86,7 +86,7 @@ body {
 }
 
 .subhead {
-  font-size: 3rem;
+  font-size: 22px;
   font-family: var(--mukta-malar);
   text-transform: uppercase;
   font-weight: 600;
