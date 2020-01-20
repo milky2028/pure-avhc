@@ -23,6 +23,10 @@
           "
         />
       </div>
+      <div v-if="fullSize" class="price-container">
+        <p class="item-summary">{{ displaySize }}</p>
+        <p class="item-summary price">${{ fullSize.price }}</p>
+      </div>
       <AvSelector
         class="product-selector"
         label="Product"
@@ -118,8 +122,20 @@ img {
   box-shadow: var(--basic-shadow);
 }
 
-.product-selector {
-  margin-top: 2rem;
+.item-summary {
+  padding: 0;
+  font-weight: 600;
+}
+
+.price-container {
+  padding: 8px 12px;
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.price {
+  color: var(--dark-accent);
+  text-align: right;
 }
 
 .detail-selectors {
@@ -287,10 +303,27 @@ export default createComponent({
       }
     });
 
+    // TODO: Split this into a service
+    const displaySize = computed(() => {
+      if (fullSize.value) {
+        const val = fullSize.value;
+        if (val.measurement !== 'gram') {
+          return `${val.measurementValue} ${val.measurement} ${val.masterMeasurement}`;
+        } else {
+          return `${val.measurementValue} ${val.measurement}${
+            val.measurementValue > 1 ? 's' : ''
+          }`;
+        }
+      }
+
+      return '';
+    });
+
     const purifier: Ref<null | {}> = ref(null);
     import('dompurify').then((importRes) => (purifier.value = importRes));
 
     return {
+      displaySize,
       capitalizeFirstLetter,
       selectedStrainType,
       fullStrain,

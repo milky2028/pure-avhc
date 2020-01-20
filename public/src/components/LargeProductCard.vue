@@ -117,7 +117,7 @@ ul {
 import Size from '../types/Size';
 import Product from '../types/Product';
 import AddToCartButton from './AddToCartButton.vue';
-import { createComponent, inject, ref } from '@vue/composition-api';
+import { createComponent, inject, ref, computed } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
 
@@ -146,13 +146,19 @@ export default createComponent<Props>({
       ...props.product.sizes.map((individualSize) => individualSize.price)
     )}`;
 
-    const size = lowestPriceSize
-      ? lowestPriceSize.measurement !== 'gram'
-        ? `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`
-        : `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement}${
-            lowestPriceSize.measurementValue > 1 ? 's' : ''
-          }`
-      : '';
+    const size = computed(() => {
+      if (lowestPriceSize) {
+        if (lowestPriceSize.measurement !== 'gram') {
+          return `${lowestPriceSize.measurementValue} ${lowestPriceSize.measurement} ${lowestPriceSize.masterMeasurement}`;
+        } else {
+          return `${lowestPriceSize.measurementValue} ${
+            lowestPriceSize.measurement
+          }${lowestPriceSize.measurementValue > 1 ? 's' : ''}`;
+        }
+      }
+
+      return '';
+    });
 
     const { getImage } = inject(Modules.images) as IImages;
     const vh = window.innerHeight / 100;
