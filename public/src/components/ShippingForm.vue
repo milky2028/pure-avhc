@@ -87,6 +87,7 @@
       type="text"
       autocomplete="country"
       :value="country"
+      @enter="$emit('last-field-enter')"
       @on-input="
         country = $event;
         updateForm();

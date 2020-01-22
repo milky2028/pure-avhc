@@ -9,12 +9,11 @@
         <template v-slot:expanded>
           <ShippingForm
             :form="shippingAddress"
+            @last-field-enter="isStepOpen.addressesStep = false"
             @form-input="setAllStateInObj(shippingAddress, $event)"
           />
           <div class="switch-container">
-            <p class="body-text">
-              Different billing address?
-            </p>
+            <p class="body-text">Different billing address?</p>
             <AvSwitch
               :value="differentBilling"
               class="switch"
@@ -26,12 +25,43 @@
             class="margin-top"
             :form="billingAddress"
             @form-input="setAllStateInObj(billingAddress, $event)"
+            @last-field-enter="isStepOpen.addressesStep = false"
           />
         </template>
         <template v-slot:collapsed>
-          <AddressDisplay :address="shippingAddress"/>
-          <AddressDisplay v-if="differentBilling" :address="billingAddress"
-        /></template>
+          <AddressDisplay :address="shippingAddress" />
+          <AddressDisplay v-if="differentBilling" :address="billingAddress" />
+        </template>
+      </CollapsableSection>
+      <CollapsableSection
+        :is-expanded="isStepOpen.paymentStep"
+        @continue-clicked="isStepOpen.paymentStep = false"
+        @edit-clicked="isStepOpen.paymentStep = true"
+      >
+        <template v-slot:header>
+          <h2 class="subhead">Payment</h2>
+        </template>
+        <template v-slot:collapsed>
+          <div>Collapsed content</div>
+        </template>
+        <template v-slot:expanded>
+          <div>Expanded content</div>
+        </template>
+      </CollapsableSection>
+      <CollapsableSection
+        :is-expanded="isStepOpen.couponStep"
+        @continue-clicked="isStepOpen.couponStep = false"
+        @edit-clicked="isStepOpen.couponStep = true"
+      >
+        <template v-slot:header>
+          <h2 class="subhead">Coupon Codes</h2>
+        </template>
+        <template v-slot:collapsed>
+          <div>Collapsed content</div>
+        </template>
+        <template v-slot:expanded>
+          <div>Expanded content</div>
+        </template>
       </CollapsableSection>
     </ArticlePage>
   </PageWrapper>

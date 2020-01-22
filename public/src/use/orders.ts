@@ -7,7 +7,9 @@ export function useOrders() {
   const differentBilling = ref(false);
   const billingAddress = reactive(new Address({ isBilling: true }));
   const isStepOpen = reactive({
-    addressesStep: true
+    addressesStep: true,
+    paymentStep: true,
+    couponStep: true
   });
 
   return { shippingAddress, billingAddress, differentBilling, isStepOpen };
