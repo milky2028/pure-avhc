@@ -15,7 +15,7 @@ function createResourceList() {
     .map((p) => p.split('dist')[1])
     .filter(
       (p) =>
-        !/.gif|.pdf|.xml|.txt|legacy|og-image|publisher-logo|sw\.js|\.ttf/.test(
+        !/404.gif|.pdf|.xml|.txt|legacy|og-image|publisher-logo|sw\.js|\.ttf|admin/i.test(
           p
         )
     );
