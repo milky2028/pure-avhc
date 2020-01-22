@@ -52,7 +52,7 @@ self.addEventListener('fetch', (fetchEvent) => {
           // Else, fetch all other requests and put them in the cache after they've been fetched.
           const response = await fetch(fetchEvent.request);
           if (
-            /res\.cloudinary|\.pdf|pwacompat|fonts\.googleapis/.test(
+            /res\.cloudinary|\.pdf|pwacompat|fonts\.googleapis/i.test(
               fetchEvent.request.url
             )
           ) {
