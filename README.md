@@ -41,9 +41,11 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
 
   There are duplications of these files in some relevant subdirectories. VSCode seems to struggle somewhat with the monorepo nature of this project. For this reason, sometimes its recommended that you navigate to a subdirectory and launch VSCode inside that specific folder. TypeScript sometimes has issues inferring types if you do not do this. There's a way I remember finding in the past to mitigate this by settings tsdk root or something, but I haven't had the time to properly configure it.
 
-  ESLint is configured in this repo to automatically format code on save.
+  ESLint is configured in this repo to automatically format code on save. ESLint configs are similarly duplicated across directories.
 
   _TODO: Unify VSCode settings files under one package to prevent mistakes in repeated code or increased maintenance. Configure mutli-root workspace or set tsdk root for proper type inference._
+
+  _TODO: Unify ESLint config files, perhaps as an npm package._
 ## Build
 ## Firebase HTML Docs
 ## Functions
