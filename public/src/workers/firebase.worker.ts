@@ -6,6 +6,7 @@ import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 import initializeAuth from '@/functions/intializeFirebaseAuth';
 
 async function intializeFirestore(firebase: Promise<firebase.app.App>) {
+  await initializeAuth(firebase);
   const Firestore = import(
     /* webpackChunkName: 'firestore' */ 'firebase/firestore'
   );
@@ -19,7 +20,6 @@ const _firebase = import(
 );
 const _fb = initializeFirebaseApp(_firebase);
 const _db = intializeFirestore(_fb);
-const _auth = initializeAuth(_fb);
 
 function processSingleTimestamp(data: { [key: string]: any }) {
   return Object.fromEntries(
@@ -93,7 +93,7 @@ async function getDocuments(
     });
   } else {
     const querySnapshot = await docs.get();
-    const data: { id: string; [key: string]: any }[] = [];
+    const data: { [key: string]: any; id: string }[] = [];
     querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }));
     return processTimestamps(data);
   }
@@ -145,23 +145,9 @@ async function queryDocuments(
     });
   } else {
     const querySnapshot = await results.get();
-    const data: { id: string; [key: string]: any }[] = [];
+    const data: { [key: string]: any; id: string }[] = [];
     querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }));
     return processTimestamps(data);
-  }
-}
-
-async function signOutWorker() {
-  const auth = await _auth;
-  auth.signOut();
-}
-
-async function authWorker(credential: firebase.auth.AuthCredential | null) {
-  const auth = await _auth;
-  if (credential) {
-    auth.signInWithCredential(credential);
-  } else {
-    auth.signOut();
   }
 }
 
@@ -169,9 +155,7 @@ export const FirebaseWorker = {
   addDocument,
   queryDocuments,
   getDocumentById,
-  getDocuments,
-  authWorker,
-  signOutWorker
+  getDocuments
 };
 export type IFirebaseWorker = typeof FirebaseWorker;
 
