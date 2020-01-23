@@ -2,22 +2,61 @@
   <PageWrapper with-padding>
     <ArticlePage title="Test Results">
       <p>
-        Though CBD has been used for centuries, it has become somewhat of a
-        recent phenomenon. Primarily because it is such a new thing, CBD is
-        currently unregulated by the FDA and most other governing bodies. Due to
-        this unregulated nature, there are few quality standards that CBD
-        companies must meet.
-      </p>
-      <p>
-        Rather than take advantage,
         <strong>{{ fullName }}</strong> seeks to maintain transparency with our
         customers by publishing up-to-date test results that showcase the purity
-        and high quality of our CBD products. We’ll publish these test results
-        as soon as they’re made available by our testing partners. Please feel
-        free to <router-link to="/support"> contact us </router-link>&nbsp;if
-        you have any questions about how to understand these results or any
+        and high quality of our CBD products. These test results are posted
+        intermittently as they’re made available by our testing partners.
+      </p>
+
+      <p>
+        There are two primary kinds of test results done for CBD products,
+        <strong>potency</strong> tests and
+        <strong>microbial contaminant</strong> tests.
+      </p>
+
+      <h3>About Potency Testing</h3>
+
+      <p>
+        Potency testing includes two rounds of analysis. The first round,
+        <strong>pre-harvest testing</strong>, occurs 30 days prior to harvest,
+        as required by federal and state laws. The exact day when this occurs
+        varies from state-to-state. During pre-harvest testing, samples are
+        tested for compliance, combining Delta-9 THC and THCa for a combined THC
+        total. After this phase, compliant samples will be certified as
+        Industrial Hemp. <strong>Post-harvest testing</strong> reflects the
+        cannabinoid content in products after they've been dried and harvested.
+        These tests are not required in order to meet compliance. We do these
+        purely to keep our clients and customers informed.
+      </p>
+
+      <h3>About Microbial Contaminants Testing</h3>
+
+      <p>
+        {{ fullName }} proudly adheres to the testing requirements of regulated
+        cannabis markets, such as, Colorado, Nevada, and Canada. As a hemp
+        company, we are not required to meet these standards. However, in the
+        interest of consumer safety, we seek to maintain the same level of
+        compliance in our products as THC products sold in recreational and
+        medical dispensaries.
+      </p>
+
+      <p>
+        Nearly all cannabis samples, as well the majority of agricultural
+        products, contain some levels of yeast/mold. The limit for yeast and
+        mold contamination in cannabis is 10,000 CFU/g. This is pass/fail test
+        that measures for dangerous thresholds of yeast/mold in cannabis
+        products. Any cannabis sample that does not exceed 10,000 CFU/g is
+        considered passing and could theoretically be sold on shelves in a
+        dispensary.
+      </p>
+
+      <p>
+        Please feel free to
+        <router-link to="/support">contact us</router-link>
+        if you have any questions about how to understand these results or any
         other quality-related questions.
       </p>
+
       <p>
         <a
           target="_blank"
