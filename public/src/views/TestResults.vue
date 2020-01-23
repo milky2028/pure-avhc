@@ -82,7 +82,7 @@
             rel="noopener noreferrer"
             type="application/pdf"
             :href="`/test-results-files/${res.url}.pdf`"
-            >{{ formatDate(res.date) }} - {{ res.title }}</a
+            >{{ formatDate(res.date) }} | {{ res.title }}</a
           >
         </li>
       </ul>
