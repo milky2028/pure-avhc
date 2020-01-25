@@ -131,6 +131,7 @@ body {
 </style>
 
 <script lang="ts">
+import Vue from 'vue';
 import {
   createComponent,
   onMounted,
@@ -181,11 +182,28 @@ export default createComponent({
     const { snackbarMsg } = inject(Modules.snackbar) as ISnackbar;
     const { showDisclaimer } = inject(Modules.disclaimer) as IDisclaimer;
 
-    onMounted(() => {
+    onMounted(async () => {
       setCartStateFromIdb();
       listenForAuthStateChanges();
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
+      const mode = process.env.NODE_ENV;
+      if (mode === 'production') {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js');
+        }
+
+        const Sentry = await import(
+          /* webpackChunkName: "SentryBrowser" */ '@sentry/browser'
+        );
+        const Integrations = await import(
+          /* webpackChunkName: "SentryIntegrations" */ '@sentry/integrations'
+        );
+
+        Sentry.init({
+          dsn: 'https://362776d26eaf4ef4a02da8d50efc9072@sentry.io/1271986',
+          integrations: [
+            new Integrations.Vue({ Vue, attachProps: true, logErrors: true })
+          ]
+        });
       }
     });
 

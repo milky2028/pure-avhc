@@ -11,6 +11,8 @@
     "serve:pure": "vue-cli-service serve --mode pure"
   },
   "dependencies": {
+    "@sentry/browser": "^5.11.1",
+    "@sentry/integrations": "^5.11.1",
     "@vue/composition-api": "^0.3.2",
     "comlink": "^4.1.0",
     "core-js": "^3.3.2",
