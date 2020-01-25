@@ -47,6 +47,7 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
 
   _TODO: Unify ESLint config files, perhaps as an npm package._
 ## Build
+  Contains the main build script for building on your local machine, as well as node scripts for compiling the application for different environments.
 ## Firebase HTML Docs
 ## Functions
 ## Public
