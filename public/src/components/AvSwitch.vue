@@ -2,7 +2,7 @@
   <div>
     <input
       :id="fieldId"
-      v-model="value"
+      :value="value"
       type="checkbox"
       class="checkbox"
       @input="$emit('switch', $event.target.checked)"
