@@ -82,3 +82,8 @@ jobs:
         run: yarn prerender-all-pages avhc
         env:
           FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
+      - name: Record build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: public/dist
