@@ -77,7 +77,9 @@ export default createComponent<Props>({
   setup(props: Props) {
     const productShortTitle = ref('');
     async function splitTitle(title: string) {
-      const purifier = await import('dompurify');
+      const purifier = await import(
+        /* webpackChunkName: "DOMPurify" */ 'dompurify'
+      );
       const words = purifier.sanitize(title).split(' ');
       words.splice(1, 0, '<br>');
       productShortTitle.value = words.join(' ');

@@ -311,7 +311,9 @@ export default createComponent({
     });
 
     const purifier: Ref<null | {}> = ref(null);
-    import('dompurify').then((importRes) => (purifier.value = importRes));
+    import(/* webpackChunkName: "DOMPurify" */ 'dompurify').then(
+      (importRes) => (purifier.value = importRes)
+    );
 
     return {
       setAllStateInObj,

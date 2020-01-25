@@ -306,7 +306,9 @@ export default createComponent({
 
     const computedDisplaySize = displaySize(fullSize);
     const purifier: Ref<null | {}> = ref(null);
-    import('dompurify').then((importRes) => (purifier.value = importRes));
+    import(/* webpackChunkName: "DOMPurify" */ 'dompurify').then(
+      (importRes) => (purifier.value = importRes)
+    );
 
     return {
       computedDisplaySize,
