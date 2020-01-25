@@ -1,5 +1,6 @@
 <template>
   <button
+    v-bind="$attrs"
     :class="{ flat, long, fullWidth, raised: !flat }"
     @click="$emit('btn-click', $event)"
   >
@@ -28,25 +29,30 @@ button {
   min-width: 140px;
 }
 
+button:disabled {
+  box-shadow: none;
+  background-color: grey;
+}
+
 span {
   text-align: center;
   line-height: 1;
 }
 
-button:hover.raised {
+button:hover.raised:not(:disabled) {
   background-color: var(--dark-accent-light-shade);
 }
 
-button:active.raised {
+button:active.raised:not(:disabled) {
   box-shadow: none;
   background-color: var(--dark-accent-dark-shade);
 }
 
-button:hover.flat {
+button:hover.flat:not(:disabled) {
   background-color: var(--light-accent-faint-shade);
 }
 
-button:active.flat {
+button:active.flat:not(:disabled) {
   box-shadow: none;
   background-color: var(--light-accent-light-shade);
 }
