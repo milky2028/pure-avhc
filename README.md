@@ -33,7 +33,9 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
 
   A proper Pull Requests system will be put in place to make sure code released to master remains stable in production. If an improper release is let loose, its easy enough to rollback, but hopefully safeguards will prevent this from needing to happen.
 
-  As of now, there is only one workflow that releases to AVHC. In the future, a Pure workflow will be triggered as well.
+  *As of 1/25/2020*, there is only one workflow that releases to AVHC. In the future, a Pure workflow will be triggered as well.
+  
+  *As of 1/25/2020*, build artifacts are now available with each deployment.
 
   _TODO: Add Pure CBD GitHub Actions workflow._
 ## .VSCode
