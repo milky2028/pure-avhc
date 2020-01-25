@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <slot name="header" />
-    <div v-if="!isExpanded" class="collapsed-section">
-      <slot name="collapsed" />
-    </div>
-    <div v-if="isExpanded" class="expanded-section">
+    <transition name="shrink">
+      <div v-if="!isExpanded">
+        <slot name="collapsed" />
+      </div>
+    </transition>
+    <div v-if="isExpanded">
       <slot name="expanded" />
     </div>
     <AvIconButton
@@ -29,6 +31,10 @@
   display: grid;
   padding: 1rem 0 2rem;
   border-bottom: var(--faint-grey);
+}
+
+.header {
+  margin-bottom: 2rem;
 }
 
 .edit-icon {

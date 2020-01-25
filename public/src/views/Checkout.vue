@@ -6,8 +6,12 @@
         @continue-clicked="isStepOpen.addressesStep = false"
         @edit-clicked="isStepOpen.addressesStep = true"
       >
+        <template v-slot:header>
+          <h2 class="subhead margin-bottom">Shipping</h2>
+        </template>
         <template v-slot:expanded>
           <ShippingForm
+            :show-header="false"
             :form="shippingAddress"
             @last-field-enter="isStepOpen.addressesStep = false"
             @form-input="setAllStateInObj(shippingAddress, $event)"
@@ -85,6 +89,10 @@ h2 {
 
 .margin-top {
   margin-top: 2rem;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
 }
 </style>
 

@@ -1,6 +1,8 @@
 <template>
   <form>
-    <h2 class="subhead">{{ isBilling ? 'Billing' : 'Shipping' }}</h2>
+    <h2 v-if="showHeader" class="subhead">
+      {{ isBilling ? 'Billing' : 'Shipping' }}
+    </h2>
     <av-input
       dark
       more-padding
@@ -150,6 +152,7 @@ import Address from '../types/Address';
 
 interface Props {
   form: Address;
+  showHeader: boolean;
 }
 
 export default createComponent<Props>({
@@ -157,7 +160,11 @@ export default createComponent<Props>({
     AvInput
   },
   props: {
-    form: Object
+    form: Object,
+    showHeader: {
+      type: Boolean,
+      default: true
+    }
   },
   setup(props: Props, ctx) {
     const formInput = computed(() => props.form);

@@ -1,7 +1,11 @@
 <template>
   <div>
-    <h2 class="subhead" :class="{ marginTop: address.isBilling }">
-      {{ address.isBilling ? 'Billing' : 'Shipping' }}
+    <h2
+      v-if="address.isBilling"
+      class="subhead"
+      :class="{ marginTop: address.isBilling }"
+    >
+      {{ address.isBilling ? 'Billing' : '' }}
     </h2>
     <p class="body-text">{{ address.name }}</p>
     <p class="body-text">
