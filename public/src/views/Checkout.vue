@@ -32,8 +32,8 @@
           <div class="switch-container">
             <p class="body-text">Different billing address?</p>
             <AvSwitch
-              :value="differentBilling"
               class="switch"
+              :value="differentBilling"
               @switch="differentBilling = $event"
             />
           </div>
