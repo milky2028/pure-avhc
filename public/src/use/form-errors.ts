@@ -6,3 +6,4 @@ export function useFormErrors() {
 
   return { errors, showErrors };
 }
+export type IFormErrors = ReturnType<typeof useFormErrors>;
