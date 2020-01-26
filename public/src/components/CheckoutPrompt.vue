@@ -9,9 +9,10 @@
         <h2 class="subhead total">Subtotal:</h2>
         <h2 class="subhead total money">${{ subtotal.toFixed(2) }}</h2>
       </div>
-      <h2 class="subhead checkout">
-        <router-link to="/checkout">Checkout ></router-link>
-      </h2>
+      <AvButton v-if="route !== 'checkout'" flat class="checkout"
+        ><router-link to="/checkout">Checkout ></router-link></AvButton
+      >
+      <AvButton v-else flat class="checkout">Place Order ></AvButton>
     </div>
   </transition>
 </template>
@@ -40,7 +41,8 @@
   grid-area: checkout;
   color: white;
   justify-self: end;
-  font-size: 22px;
+  padding-right: 0;
+  justify-content: flex-end;
 }
 
 .total-container {
@@ -89,12 +91,16 @@
 
 <script lang="ts">
 import { ref, watch, createComponent, inject } from '@vue/composition-api';
+import AvButton from './AvButton.vue';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { ICart } from '../use/cart';
 
 export default createComponent({
-  setup() {
+  components: {
+    AvButton
+  },
+  setup(_, ctx) {
     const { windowWidth } = useWindowWidth();
 
     const expanded = ref(false);
@@ -105,7 +111,16 @@ export default createComponent({
       }
     });
 
+    const route = ref('');
+    watch(
+      () => ctx.root.$route,
+      (newRoute) => {
+        route.value = newRoute.name as string;
+      }
+    );
+
     return {
+      route,
       expanded,
       windowWidth,
       cartItems,
