@@ -96,7 +96,11 @@
         <p class="no-padding billing-question">
           Different billing address?
         </p>
-        <AvSwitch class="switch" @switch="differentBilling = $event" />
+        <AvSwitch
+          class="switch"
+          :value="differentBilling"
+          @switch="differentBilling = $event"
+        />
       </div>
       <ShippingForm
         v-if="differentBilling && !uid"
@@ -121,8 +125,13 @@
         :long="windowWidth > 835"
         @btn-click="onSubmit"
       >
-        {{ isWholesaleUser ? 'Sign Out of' : uid ? 'Upgrade to' : 'Create' }}
-        Wholesale Account
+        {{
+          isWholesaleUser
+            ? 'Sign Out'
+            : uid
+            ? 'Upgrade to Wholesale Account'
+            : 'Create Wholesale Account'
+        }}
       </AvButton>
     </ArticlePage>
   </PageWrapper>
