@@ -91,7 +91,7 @@ body {
   text-transform: uppercase;
   font-weight: 600;
   line-height: 0.7;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
 }
 
 .body-text {
