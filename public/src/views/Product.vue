@@ -244,16 +244,15 @@ export default createComponent({
         : null
     );
 
-    const route = ctx.root.$route;
     watch(
-      () => route,
-      () => {
-        const strain = route.query.strain;
+      () => ctx.root.$route,
+      (newRoute) => {
+        const strain = newRoute.query.strain;
         if (strain) {
           selectedStrainType.value = strain as string;
         }
 
-        const size = route.query.size;
+        const size = newRoute.query.size;
         if (size) {
           selectedSizeType.value = size as string;
         }
