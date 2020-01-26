@@ -251,7 +251,6 @@ export default createComponent({
     const { uid, isWholesaleUser, signOut } = inject(Modules.user) as IUser;
     async function onSubmit() {
       if (isWholesaleUser.value) {
-        debugger;
         signOut();
         return;
       }
