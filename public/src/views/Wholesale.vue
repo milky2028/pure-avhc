@@ -43,7 +43,10 @@
           placeholder="Email"
           :pattern="emailPattern"
           :value="userInfo.email"
-          @on-input="userInfo.email = $event"
+          @on-input="
+            userInfo.email = $event;
+            checkUserErrors();
+          "
         />
         <AvInput
           dark
@@ -55,7 +58,8 @@
           @on-input="
             userInfo.phoneNumber = `${
               userInfo.phoneNumber.startsWith('+') ? '' : '+'
-            }${$event}`
+            }${$event}`;
+            checkUserErrors();
           "
         />
         <AvInput
@@ -65,12 +69,27 @@
           placeholder="Password"
           autocomplete="current-password"
           :value="userInfo.password"
-          @on-input="userInfo.password = $event"
+          @on-input="
+            userInfo.password = $event;
+            checkUserErrors();
+          "
         />
+        <p
+          v-if="
+            userFormErrors.showErrors.value &&
+              userFormErrors.errors.value.length > 1
+          "
+          class="body-text no-padding errors"
+          :class="{ topMargin: differentBilling }"
+        >
+          <!-- eslint-disable-next-line -->
+          <strong v-html="userFormErrors.errors.value.map((e, i) => i === 0 ? e : uncamelize(e)).join('<br>')" />
+        </p>
       </form>
       <ShippingForm
         v-if="!uid"
         :form="shippingForm"
+        :error-instance="shippingErrors"
         @form-input="setAllStateInObj(shippingForm, $event)"
       />
       <div v-if="!uid" class="switch-container">
@@ -82,6 +101,7 @@
       <ShippingForm
         v-if="differentBilling && !uid"
         :form="billingForm"
+        :error-instance="billingErrors"
         @form-input="billingForm = $event"
       />
       <p v-if="uid && !isWholesaleUser" class="no-padding user-msg">
@@ -94,14 +114,6 @@
       </p>
       <p v-if="isWholesaleUser" class="no-padding user-msg">
         You are already a wholesale user.
-      </p>
-      <p
-        v-if="errors.length > 0"
-        class="no-padding errors"
-        :class="{ topMargin: differentBilling }"
-      >
-        <!-- eslint-disable-next-line -->
-        <strong v-if="purifier" v-html="errors.map((err) => purifier.sanitize(err)).join('<br>')" />
       </p>
       <AvButton
         :class="{ topMargin: differentBilling }"
@@ -148,7 +160,7 @@ form {
 
 .errors {
   color: var(--warn);
-  margin-bottom: 16px;
+  font-size: 2rem;
 }
 
 .user-msg {
@@ -162,8 +174,7 @@ import {
   ref,
   reactive,
   onMounted,
-  inject,
-  Ref
+  inject
 } from '@vue/composition-api';
 import Address from '../types/Address';
 import PageWrapper from '../components/PageWrapper.vue';
@@ -172,16 +183,16 @@ import ShippingForm from '../components/ShippingForm.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
 import AvInput from '../components/AvInput.vue';
-import uncamelize from '../functions/uncamelize';
 import post from '../functions/post';
 import workerInstance from '../workers/entry';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
-import capitalizeFirstLetter from '../functions/capitalizeFirstLetter';
 import { useMetadata } from '../use/metadata';
+import { useFormErrors } from '../use/form-errors';
 import setAllStateInObj from '../functions/setState';
+import uncamelize from '../functions/uncamelize';
 
 export default createComponent({
   components: {
@@ -204,23 +215,46 @@ export default createComponent({
     const differentBilling = ref(false);
     const { windowWidth } = useWindowWidth();
 
+    const userFormErrors = useFormErrors();
     const userInfo = reactive({
       email: '',
       phoneNumber: '',
       password: ''
     });
 
-    const shippingForm = reactive(new Address());
-    const billingForm = reactive(new Address({ isBilling: true }));
+    function checkUserErrors() {
+      userFormErrors.errors.value = [
+        'The following fields are required:',
+        ...Object.entries(userInfo)
+          .filter(([, value]) => !value)
+          .map(([key]) => key)
+      ];
+    }
+    checkUserErrors();
 
-    const errors = ref([] as string[]);
+    const shippingForm = reactive(new Address());
+    const shippingErrors = useFormErrors();
+    const billingForm = reactive(new Address({ isBilling: true }));
+    const billingErrors = useFormErrors();
+
     const functionsUrl = process.env.VUE_APP_FUNCTIONS_URL;
     const { showSnackbar, hideSnackbar } = inject(
       Modules.snackbar
     ) as ISnackbar;
     const { uid, isWholesaleUser, signOut } = inject(Modules.user) as IUser;
     async function onSubmit() {
-      errors.value = [];
+      shippingErrors.showErrors.value = true;
+      billingErrors.showErrors.value = true;
+      userFormErrors.showErrors.value = true;
+
+      if (
+        shippingErrors.errors.value.length > 1 ||
+        billingErrors.errors.value.length > 1 ||
+        userFormErrors.errors.value.length > 1
+      ) {
+        return;
+      }
+
       if (isWholesaleUser.value) {
         signOut();
       } else if (uid.value) {
@@ -237,62 +271,24 @@ export default createComponent({
           signOut();
           showSnackbar('Account upgraded. Sign in to use.', 3500);
         } catch (e) {
-          hideSnackbar();
-          errors.value.push('Error upgrading account');
+          showSnackbar('Error creating wholesale account.', 3500);
         }
       } else {
-        const unrequiredFields = ['address2', 'country'];
-        const userErrors = Object.entries(userInfo)
-          .filter(([, value]) => !value)
-          .map(([key]) => key);
-
-        const shippingErrors = Object.entries(shippingForm)
-          .filter(
-            ([key, value]) =>
-              !unrequiredFields.includes(key) &&
-              !value &&
-              !/uid|isBilling|enabled/i.test(key)
-          )
-          .map(([key]) => key);
-
-        const billingErrors = Object.entries(billingForm)
-          .filter(
-            ([key, value]) =>
-              !unrequiredFields.includes(key) &&
-              !value &&
-              !/uid|isBilling|enabled/i.test(key)
-          )
-          .map(([key]) => `billing${capitalizeFirstLetter(key)}`);
-
-        errors.value = [
-          ...(userErrors.length > 0 ||
-          shippingErrors.length > 0 ||
-          (differentBilling.value && billingErrors.length > 0)
-            ? ['The following fields are required:']
-            : []),
-          ...userErrors,
-          ...shippingErrors,
-          ...(differentBilling.value ? billingErrors : [])
-        ].map((e) => uncamelize(e));
-
-        if (errors.value.length === 0) {
-          showSnackbar('Creating account...');
-          try {
-            const newUserPayload = {
-              isExistingUser: false,
-              userInfo: userInfo,
-              shippingAddress: shippingForm,
-              billingAddress: billingForm
-            };
-            post(`${functionsUrl}/createWholesaleUser`, newUserPayload).then(
-              () => {
-                showSnackbar('Account upgraded. Sign in to use.', 3500);
-              }
+        showSnackbar('Creating account...');
+        try {
+          const newUserPayload = {
+            isExistingUser: false,
+            userInfo: userInfo,
+            shippingAddress: shippingForm,
+            billingAddress: billingForm
+          };
+          post(`${functionsUrl}/createWholesaleUser`, newUserPayload)
+            .then(() => showSnackbar('Account upgraded. Sign in to use.', 3500))
+            .catch(() =>
+              showSnackbar('Error creating wholesale account.', 3500)
             );
-          } catch (e) {
-            hideSnackbar();
-            errors.value.push('Error creating account');
-          }
+        } catch (e) {
+          showSnackbar('Error creating wholesale account.', 3500);
         }
       }
     }
@@ -310,11 +306,6 @@ export default createComponent({
       wholesaleCatalog.value = catalogs[0].url;
     });
 
-    const purifier: Ref<null | {}> = ref(null);
-    import(/* webpackChunkName: "DOMPurify" */ 'dompurify').then(
-      (importRes) => (purifier.value = importRes)
-    );
-
     return {
       setAllStateInObj,
       uid,
@@ -328,9 +319,12 @@ export default createComponent({
       userInfo,
       shippingForm,
       billingForm,
-      errors,
-      purifier,
-      signOut
+      shippingErrors,
+      billingErrors,
+      signOut,
+      userFormErrors,
+      uncamelize,
+      checkUserErrors
     };
   }
 });

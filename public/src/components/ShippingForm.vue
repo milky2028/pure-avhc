@@ -95,6 +95,17 @@
         updateForm();
       "
     />
+    <p
+      v-if="
+        errorInstance &&
+          errorInstance.showErrors.value &&
+          errorInstance.errors.value.length > 1
+      "
+      class="body-text errors"
+    >
+      <!-- eslint-disable-next-line -->
+        <strong v-html="errorInstance.errors.value.join('<br>')" />
+    </p>
   </form>
 </template>
 
@@ -114,6 +125,10 @@ form {
   display: grid;
   grid-template-columns: 1fr 150px 165px;
   grid-gap: 1vmax;
+}
+
+.errors {
+  color: var(--warn);
 }
 
 @media (max-width: 835px) {
@@ -144,15 +159,21 @@ import {
   createComponent,
   reactive,
   toRefs,
-  computed
+  computed,
+  Ref
 } from '@vue/composition-api';
 import StateTaxes from '../data/StateTaxes';
 import AvInput from './AvInput.vue';
 import Address from '../types/Address';
+import uncamelize from '../functions/uncamelize';
 
 interface Props {
   form: Address;
   showHeader: boolean;
+  errorInstance: {
+    errors: Ref<string[]>;
+    showErrors: Ref<boolean>;
+  };
 }
 
 export default createComponent<Props>({
@@ -160,10 +181,17 @@ export default createComponent<Props>({
     AvInput
   },
   props: {
-    form: Object,
+    form: {
+      type: Object,
+      default: null
+    },
     showHeader: {
       type: Boolean,
       default: true
+    },
+    errorInstance: {
+      type: Object,
+      default: null
     }
   },
   setup(props: Props, ctx) {
@@ -181,8 +209,26 @@ export default createComponent<Props>({
       ...formInput.value
     });
 
+    const unrequiredFields = ['address2', 'country'];
+    function evaluateErrors() {
+      const fieldErrors = Object.entries(formState)
+        .filter(
+          ([key, value]) =>
+            !unrequiredFields.includes(key) &&
+            !value &&
+            !/uid|isBilling|enabled/i.test(key)
+        )
+        .map(([key]) => key);
+      props.errorInstance.errors.value = [
+        'The following fields are required:',
+        ...fieldErrors
+      ].map((e) => uncamelize(e));
+    }
+
+    evaluateErrors();
     function updateForm() {
       ctx.emit('form-input', formState);
+      evaluateErrors();
     }
 
     return { ...toRefs(formState), updateForm };
