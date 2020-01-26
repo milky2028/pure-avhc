@@ -65,7 +65,7 @@
             class="sign-in-icon google"
             src="../assets/img/google.svg"
             alt="Google icon"
-          />Log in with Google
+          />Continue with Google
         </button>
         <button
           class="sign-in-btn facebook"
@@ -79,7 +79,7 @@
               alt="Facebook icon"
             />
           </span>
-          <span>Log in with Facebook</span>
+          <span>Continue with Facebook</span>
         </button>
       </div>
     </ArticlePage>
