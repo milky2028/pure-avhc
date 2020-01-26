@@ -241,21 +241,24 @@ export default createComponent({
     const { showSnackbar } = inject(Modules.snackbar) as ISnackbar;
     const { uid, isWholesaleUser, signOut } = inject(Modules.user) as IUser;
     async function onSubmit() {
-      shippingErrors.showErrors.value = true;
-      billingErrors.showErrors.value = true;
-      userFormErrors.showErrors.value = true;
+      if (isWholesaleUser.value) {
+        debugger;
+        signOut();
+        return;
+      }
 
       if (
         shippingErrors.errors.value.length > 1 ||
         billingErrors.errors.value.length > 1 ||
         userFormErrors.errors.value.length > 1
       ) {
+        shippingErrors.showErrors.value = true;
+        billingErrors.showErrors.value = true;
+        userFormErrors.showErrors.value = true;
         return;
       }
 
-      if (isWholesaleUser.value) {
-        signOut();
-      } else if (uid.value) {
+      if (uid.value) {
         try {
           showSnackbar('Upgrading...');
           const existingUserPayload = {
