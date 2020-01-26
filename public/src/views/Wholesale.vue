@@ -129,7 +129,7 @@
           isWholesaleUser
             ? 'Sign Out'
             : uid
-            ? 'Upgrade to Wholesale Account'
+            ? 'Upgrade Account'
             : 'Create Wholesale Account'
         }}
       </AvButton>
