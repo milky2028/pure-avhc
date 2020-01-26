@@ -50,7 +50,9 @@ export function useUser() {
           'userExtras',
           userDetails.uid
         )) as Partial<AvUser>;
-        setAllStateInObj(user, userExtras);
+        if (userExtras) {
+          setAllStateInObj(user, userExtras);
+        }
       }
     });
   }
