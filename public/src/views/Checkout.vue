@@ -2,9 +2,14 @@
   <PageWrapper with-padding>
     <ArticlePage title="Checkout">
       <CollapsableSection
-        :is-expanded="isStepOpen.addressesStep"
-        @continue-clicked="isStepOpen.addressesStep = false"
-        @edit-clicked="isStepOpen.addressesStep = true"
+        :is-expanded="isStepOpen.addresses"
+        @continue-clicked="
+          onContinue(
+            [shippingErrors, differentBilling ? billingErrors : []],
+            'addresses'
+          )
+        "
+        @edit-clicked="isStepOpen.addresses = true"
       >
         <template v-slot:header>
           <h2 class="subhead margin-bottom">Shipping</h2>
@@ -13,7 +18,15 @@
           <ShippingForm
             :show-header="false"
             :form="shippingAddress"
-            @last-field-enter="isStepOpen.addressesStep = false"
+            :error-instance="shippingErrors"
+            @last-field-enter="
+              if (!differentBilling) {
+                onContinue(
+                  [shippingErrors, billingErrors],
+                  isStepOpen.addresses
+                );
+              }
+            "
             @form-input="setAllStateInObj(shippingAddress, $event)"
           />
           <div class="switch-container">
@@ -28,8 +41,11 @@
             v-if="differentBilling"
             class="margin-top"
             :form="billingAddress"
+            :error-instance="billingErrors"
             @form-input="setAllStateInObj(billingAddress, $event)"
-            @last-field-enter="isStepOpen.addressesStep = false"
+            @last-field-enter="
+              onContinue([shippingErrors, billingErrors], isStepOpen.addresses)
+            "
           />
         </template>
         <template v-slot:collapsed>
@@ -38,9 +54,9 @@
         </template>
       </CollapsableSection>
       <CollapsableSection
-        :is-expanded="isStepOpen.paymentStep"
-        @continue-clicked="isStepOpen.paymentStep = false"
-        @edit-clicked="isStepOpen.paymentStep = true"
+        :is-expanded="isStepOpen.payment"
+        @continue-clicked="isStepOpen.payment = false"
+        @edit-clicked="isStepOpen.payment = true"
       >
         <template v-slot:header>
           <h2 class="subhead">Payment</h2>
@@ -53,9 +69,9 @@
         </template>
       </CollapsableSection>
       <CollapsableSection
-        :is-expanded="isStepOpen.couponStep"
-        @continue-clicked="isStepOpen.couponStep = false"
-        @edit-clicked="isStepOpen.couponStep = true"
+        :is-expanded="isStepOpen.coupon"
+        @continue-clicked="isStepOpen.coupon = false"
+        @edit-clicked="isStepOpen.coupon = true"
       >
         <template v-slot:header>
           <h2 class="subhead">Coupon Codes</h2>
@@ -108,6 +124,7 @@ import CollapsableSection from '../components/CollapsableSection.vue';
 import { Modules } from '../use/store';
 import { IOrders } from '../use/orders';
 import setAllStateInObj from '../functions/setState';
+import { IFormErrors, useFormErrors } from '../use/form-errors';
 
 export default createComponent({
   components: {
@@ -131,8 +148,28 @@ export default createComponent({
       differentBilling,
       isStepOpen
     } = inject(Modules.orders) as IOrders;
+    const shippingErrors = useFormErrors();
+    const billingErrors = useFormErrors();
+
+    function onContinue(errorInstances: IFormErrors[], step: string) {
+      const hasErrors = errorInstances.some((instance) =>
+        instance && instance.errors ? instance.errors.value.length > 1 : false
+      );
+      if (hasErrors) {
+        for (const instance of errorInstances) {
+          if (instance.errors.value.length > 1) {
+            instance.showErrors.value = true;
+          }
+        }
+      } else {
+        isStepOpen[step] = false;
+      }
+    }
 
     return {
+      billingErrors,
+      shippingErrors,
+      onContinue,
       isStepOpen,
       setAllStateInObj,
       differentBilling,
