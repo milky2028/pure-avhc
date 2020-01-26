@@ -238,9 +238,7 @@ export default createComponent({
     const billingErrors = useFormErrors();
 
     const functionsUrl = process.env.VUE_APP_FUNCTIONS_URL;
-    const { showSnackbar, hideSnackbar } = inject(
-      Modules.snackbar
-    ) as ISnackbar;
+    const { showSnackbar } = inject(Modules.snackbar) as ISnackbar;
     const { uid, isWholesaleUser, signOut } = inject(Modules.user) as IUser;
     async function onSubmit() {
       shippingErrors.showErrors.value = true;
