@@ -59,7 +59,11 @@ export function useUser() {
 
   async function signInWithEmail(email: string, password: string) {
     const auth = await _auth();
-    return auth.signInWithEmailAndPassword(email, password);
+    const userCredential = await auth.signInWithEmailAndPassword(
+      email,
+      password
+    );
+    return (await workerInstance).authWorker(userCredential.credential);
   }
 
   async function createAccountWithEmailAndPassword(
@@ -68,7 +72,11 @@ export function useUser() {
   ) {
     try {
       const auth = await _auth();
-      return auth.createUserWithEmailAndPassword(email, password);
+      const userCredential = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      return (await workerInstance).authWorker(userCredential.credential);
     } catch (e) {
       if (e.code === 'auth/email-already-in-use') {
         return signInWithEmail(email, password);
@@ -83,11 +91,13 @@ export function useUser() {
     switch (provider) {
       case 'google': {
         const google = new (await firebase).auth.GoogleAuthProvider();
-        return auth.signInWithPopup(google);
+        const userCredential = await auth.signInWithPopup(google);
+        return (await workerInstance).authWorker(userCredential.credential);
       }
       case 'facebook': {
         const facebook = new (await firebase).auth.FacebookAuthProvider();
-        return auth.signInWithPopup(facebook);
+        const userCredential = await auth.signInWithPopup(facebook);
+        return (await workerInstance).authWorker(userCredential.credential);
       }
       default: {
         return;
@@ -104,7 +114,8 @@ export function useUser() {
     const auth = await _auth();
     setAllStateInObj(user, { ...emptyUser });
     await clear();
-    return auth.signOut();
+    auth.signOut();
+    (await workerInstance).signOutWorker();
   }
 
   return {
