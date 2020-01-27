@@ -38,7 +38,9 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
   **As of 1/25/2020**, build artifacts are now available with each deployment.
 
   _TODO: Add Pure CBD GitHub Actions workflow._
+
 ## .VSCode
+
   This directory contain various VSCode default settings and recommended extensions. It's recommended both that you use VSCode as your editor and that you install all the recommended extensions, as they'll ease the development process.
 
   There are duplications of these files in some relevant subdirectories. VSCode seems to struggle somewhat with the monorepo nature of this project. For this reason, sometimes its recommended that you navigate to a subdirectory and launch VSCode inside that specific folder. TypeScript sometimes has issues inferring types if you do not do this. There's a way I remember finding in the past to mitigate this by settings tsdk root or something, but I haven't had the time to properly configure it.
@@ -48,16 +50,21 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
   _TODO: Unify VSCode settings files under one package to prevent mistakes in repeated code or increased maintenance. Configure mutli-root workspace or set tsdk root for proper type inference._
 
   _TODO: Unify ESLint config files, perhaps as an npm package._
+
 ## Build
+
   Contains the main build script for building on your local machine (details above), as well as node scripts for compiling the application for different environments.  
 
   There are three main build scripts:
+
   - **createManifest**  
       This dynamically creates the web app manifest that allows the app to run as a standalone application if needed. It also does some other things that aren't so obvious given the name, like copying image and test files to the build directory.
+
   - **createSitemap**  
       This crawls the router index file and generates a sitemap for search engines based on the the application's routes as well as test files dumped into assets after the build.  Sitemaps are very important for SEO.
 
       _TODO: This currently uses the Firebase Rest API, but there's really no reason for it to. Switch this to use the Firebase Node SDK._
+      
   - **prerenderAllPages**  
       After the build is complete and has deployed, this script crawls each page and generates a statically rendered page using puppeteer. This is done at build time to make dynamic renders faster. When a user visits the site, if they're categorized as a bot, they're sent the dynamically rendered version. If they're a user, they're sent the full application. This has worked out pretty well thus far and enables the same type of SEO-friendly site without the pain of SSR.
 ## Firebase HTML Docs
