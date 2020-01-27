@@ -49,7 +49,15 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
 
   _TODO: Unify ESLint config files, perhaps as an npm package._
 ## Build
-  Contains the main build script for building on your local machine, as well as node scripts for compiling the application for different environments.
+  Contains the main build script for building on your local machine (details above), as well as node scripts for compiling the application for different environments.  
+
+  There are three main build scripts:
+  - createManifest
+      This dynamically creates the web app manifest that allows the app to run as a standalone application if needed. It also does some other things that aren't so obvious, given the name, like copying image and test files to the build directory.
+  - createSitemap
+      This crawls the router index file and generates a sitemap for search engines based on the the application's routes as well as test files dumped after the build. 
+      _TODO: This currently uses the Firebase Rest API, but there's really no reason for it to. Switch this to use the Firebase Node sdk._
+  - prerenderAllPages
 ## Firebase HTML Docs
 ## Functions
 ## Public
