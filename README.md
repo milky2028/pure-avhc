@@ -52,12 +52,14 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
   Contains the main build script for building on your local machine (details above), as well as node scripts for compiling the application for different environments.  
 
   There are three main build scripts:
-  - createManifest
-      This dynamically creates the web app manifest that allows the app to run as a standalone application if needed. It also does some other things that aren't so obvious, given the name, like copying image and test files to the build directory.
-  - createSitemap
-      This crawls the router index file and generates a sitemap for search engines based on the the application's routes as well as test files dumped after the build. 
-      _TODO: This currently uses the Firebase Rest API, but there's really no reason for it to. Switch this to use the Firebase Node sdk._
-  - prerenderAllPages
+  - **createManifest**  
+      This dynamically creates the web app manifest that allows the app to run as a standalone application if needed. It also does some other things that aren't so obvious given the name, like copying image and test files to the build directory.
+  - **createSitemap**  
+      This crawls the router index file and generates a sitemap for search engines based on the the application's routes as well as test files dumped into assets after the build.  Sitemaps are very important for SEO.
+
+      _TODO: This currently uses the Firebase Rest API, but there's really no reason for it to. Switch this to use the Firebase Node SDK._
+  - **prerenderAllPages**  
+      After the build is complete and has deployed, this script crawls each page and generates a statically rendered page using puppeteer. This is done at build time to make dynamic renders faster. When a user visits the site, if they're categorized as a bot, they're sent the dynamically rendered version. If they're a user, they're sent the full application. This has worked out pretty well thus far and enables the same type of SEO-friendly site without the pain of SSR.
 ## Firebase HTML Docs
 ## Functions
 ## Public
