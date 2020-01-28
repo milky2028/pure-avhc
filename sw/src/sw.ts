@@ -16,7 +16,10 @@ self.addEventListener('install', (installEvent) => {
       // Cache an essential group of items on load
       const cache = await caches.open(staticCache);
       await cache.addAll(resources);
-    })()
+    })().catch(e => new Promise((_, reject) => {
+      console.error(e);
+      reject(e)
+    })) 
   );
 });
 
@@ -29,7 +32,10 @@ self.addEventListener('activate', (activationEvent) => {
         .map((cache) => self.caches.delete(cache));
 
       await Promise.all(cachesToDelete);
-    })()
+    })().catch(e => new Promise((_, reject) => {
+      console.error(e);
+      reject(e)
+    })) 
   );
 });
 
@@ -60,7 +66,10 @@ self.addEventListener('fetch', (fetchEvent) => {
           }
           return response;
         }
-      })()
+      })().catch(e => new Promise((_, reject) => {
+        console.error(e);
+        reject(e)
+      })) 
     );
   }
 });

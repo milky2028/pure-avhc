@@ -145,6 +145,7 @@ import { ICart } from './use/cart';
 import { IUser } from './use/user';
 import { Modules, Store } from './use/store';
 import { IDisclaimer } from './use/disclaimer';
+import version from '../../shared/version';
 
 export default createComponent({
   components: {
@@ -199,6 +200,7 @@ export default createComponent({
         );
 
         Sentry.init({
+          release: `${process.env.VUE_APP_NAME}-${version}`,
           dsn: 'https://362776d26eaf4ef4a02da8d50efc9072@sentry.io/1271986',
           integrations: [
             new Integrations.Vue({ Vue, attachProps: true, logErrors: true })
