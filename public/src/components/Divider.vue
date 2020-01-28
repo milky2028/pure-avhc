@@ -1,5 +1,5 @@
 <template>
-  <div class="divider" :class="{ noBottomMargin }" />
+  <div class="divider" :class="{ noBottomMargin, white }" />
 </template>
 
 <style scoped>
@@ -12,13 +12,21 @@
 .noBottomMargin {
   margin-bottom: 0;
 }
+
+.white {
+  background-color: white;
+}
 </style>
 
 <script lang="ts">
 import { createComponent } from '@vue/composition-api';
 export default createComponent({
   props: {
-    noBottomMargin: Boolean
+    noBottomMargin: Boolean,
+    white: {
+      type: Boolean,
+      default: false
+    }
   }
 });
 </script>

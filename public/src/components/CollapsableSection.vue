@@ -21,7 +21,7 @@
       class="continue"
       @btn-click="$emit('continue-clicked')"
     >
-      Continue
+      Next
     </AvButton>
   </div>
 </template>
