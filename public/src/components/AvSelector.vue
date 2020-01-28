@@ -14,7 +14,7 @@
           >{{ opt[displayKey] }}</option
         >
       </select>
-      <AvIconButton black>expand_more</AvIconButton>
+      <AvIconButton class="icon" black>expand_more</AvIconButton>
     </div>
   </label>
 </template>
@@ -31,16 +31,23 @@ label {
 }
 
 select {
+  grid-area: main;
   appearance: none;
   width: 100%;
   font-size: 18px;
   font-weight: 600;
   color: var(--dark-accent-light-shade);
+  z-index: 100;
 }
 
 .select-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-areas: 'main';
+}
+
+.icon {
+  grid-area: main;
+  justify-self: end;
 }
 
 .borderTop {
