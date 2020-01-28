@@ -68,6 +68,7 @@ _TODO: Write a Powershell script for basic installation and setup tasks._
   - **prerenderAllPages**  
       After the build is complete and has deployed, this script crawls each page and generates a statically rendered page using puppeteer. This is done at build time to make dynamic renders faster. When a user visits the site, if they're categorized as a bot, they're sent the dynamically rendered version. If they're a user, they're sent the full application. This has worked out pretty well thus far and enables the same type of SEO-friendly site without the pain of SSR.
 ## Firebase HTML Docs
+  Some data in the app is stored as HTML in Firebase and injected via v-html. The documents in this folder are saved here for version control and just the ease of editing HTML in an editor vs editing it inside the very small Firebase input box.
 ## Functions
 ## Public
 ## Shared
