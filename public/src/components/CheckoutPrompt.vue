@@ -1,12 +1,10 @@
 <template>
   <transition name="slide-y">
-    <div
-      v-if="cartItems && cartItems.length > 0"
-      class="prompt"
-      :class="{ expanded }"
-    >
+    <div v-if="cartItems && cartItems.length > 0" class="prompt">
       <div class="total-container">
-        <h2 class="subhead total">Subtotal:</h2>
+        <h2 class="subhead total">
+          {{ route === 'checkout' ? 'Total' : 'Subtotal' }}:
+        </h2>
         <h2 class="subhead total money">${{ subtotal.toFixed(2) }}</h2>
       </div>
       <AvButton v-if="route !== 'checkout'" flat class="checkout"
@@ -68,14 +66,6 @@
   .prompt {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'btn checkout';
-  }
-
-  .expanded {
-    height: 140px;
-    grid-template-areas:
-      'msg icon'
-      'input input'
-      'btn checkout';
   }
 
   .total-container {
