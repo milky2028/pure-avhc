@@ -49,7 +49,7 @@ select {
   grid-area: main;
   padding: 0.25rem;
   border-radius: 0;
-  z-index: 10;
+  z-index: 100;
 }
 
 .icon-btn {
