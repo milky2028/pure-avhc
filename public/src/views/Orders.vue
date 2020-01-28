@@ -37,7 +37,7 @@ export default createComponent({
     const { windowWidth } = useWindowWidth();
     const { signOut, uid } = inject(Modules.user) as IUser;
 
-    watch(() => {
+    watch(uid, () => {
       if (!uid.value) {
         ctx.root.$router.push('/login');
       }

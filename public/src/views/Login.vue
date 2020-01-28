@@ -219,7 +219,7 @@ export default createComponent({
       signInWithEmail,
       isAdmin
     } = inject(Modules.user) as IUser;
-    watch(() => {
+    watch([uid, isAdmin], () => {
       if (uid.value && isAdmin.value) {
         ctx.root.$router.push('/admin');
       } else if (uid.value) {

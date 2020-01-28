@@ -105,17 +105,27 @@ export default createComponent({
 
     const expanded = ref(false);
     const { cartItems, subtotal } = inject(Modules.cart) as ICart;
-    watch(() => {
+    watch(cartItems, () => {
       if (cartItems.value.length === 0) {
         expanded.value = false;
       }
     });
 
+    function expandOnCheckout(routeName: string) {
+      if (routeName === 'checkout') {
+        expanded.value = true;
+      } else {
+        expanded.value = false;
+      }
+    }
+
+    expandOnCheckout(ctx.root.$route.name);
     const route = ref('');
     watch(
       () => ctx.root.$route,
       (newRoute) => {
         route.value = newRoute.name as string;
+        expandOnCheckout(route.value);
       }
     );
 
