@@ -12,7 +12,7 @@
     >
       <div class="cover">
         <!-- eslint-disable-next-line -->
-        <h2 class="subhead card-font" v-html="productShortTitle" />
+        <h2 class="subhead card-font" v-html="splitTitle(product.shortName)" />
       </div>
     </div>
   </router-link>
@@ -75,16 +75,10 @@ export default createComponent<Props>({
     product: Object
   },
   setup(props: Props) {
-    const productShortTitle = ref('');
     async function splitTitle(title: string) {
-      const purifier = await import(
-        /* webpackChunkName: "DOMPurify" */ 'dompurify'
-      );
-      const words = purifier.sanitize(title).split(' ');
-      words.splice(1, 0, '<br>');
-      productShortTitle.value = words.join(' ');
+      const words = title.split(' ');
+      return words.join('<br />');
     }
-    splitTitle(props.product.shortName);
 
     const hoverLeave = ref(false);
 
@@ -106,7 +100,7 @@ export default createComponent<Props>({
     return {
       url,
       alt,
-      productShortTitle,
+      splitTitle,
       hoverLeave
     };
   }

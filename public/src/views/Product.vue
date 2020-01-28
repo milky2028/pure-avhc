@@ -68,7 +68,7 @@
         :thin-bottom="true"
       />
       <!-- eslint-disable-next-line -->
-      <div v-if="purifier" class="html-inject" v-html="purifier.sanitize(currentPageProduct.description)"></div>
+      <div class="html-inject" v-html="currentPageProduct.description"></div>
       <div>
         <h2>Strains</h2>
         <div
@@ -85,7 +85,7 @@
               name
             }}</a>
             <!-- eslint-disable-next-line -->
-            <div class="html-inject" v-if="purifier" v-html="purifier.sanitize(description)"></div>
+            <div class="html-inject" v-html="description"></div>
           </h3>
         </div>
       </div>
@@ -165,8 +165,7 @@ import {
   computed,
   inject,
   watch,
-  ref,
-  Ref
+  ref
 } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
@@ -304,10 +303,6 @@ export default createComponent({
     });
 
     const computedDisplaySize = displaySize(fullSize);
-    const purifier: Ref<null | {}> = ref(null);
-    import(/* webpackChunkName: "DOMPurify" */ 'dompurify').then(
-      (importRes) => (purifier.value = importRes)
-    );
 
     return {
       computedDisplaySize,
@@ -325,8 +320,7 @@ export default createComponent({
       alt,
       createUrl,
       getImageHeight,
-      windowWidth,
-      purifier
+      windowWidth
     };
   }
 });
