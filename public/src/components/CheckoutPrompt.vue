@@ -119,7 +119,7 @@ export default createComponent({
       }
     }
 
-    expandOnCheckout(ctx.root.$route.name);
+    expandOnCheckout(ctx.root.$route.name as string);
     const route = ref('');
     watch(
       () => ctx.root.$route,
