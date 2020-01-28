@@ -14,7 +14,7 @@ self.addEventListener('install', (installEvent) => {
   installEvent.waitUntil(
     (async () => {
       // Cache an essential group of items on load
-      const cache = await caches.open(staticCache);
+      const cache = await self.caches.open(staticCache);
       await cache.addAll(resources);
     })()
   );
@@ -39,8 +39,7 @@ self.addEventListener('fetch', (fetchEvent) => {
   } else {
     fetchEvent.respondWith(
       (async () => {
-        const cache = await self.caches.open(staticCache);
-        const cachedResponse = await cache.match(fetchEvent.request, {
+        const cachedResponse = await self.caches.match(fetchEvent.request, {
           ignoreSearch: true,
           ignoreVary: true
         });
@@ -56,6 +55,7 @@ self.addEventListener('fetch', (fetchEvent) => {
               fetchEvent.request.url
             )
           ) {
+            const cache = await self.caches.open(staticCache);
             cache.put(fetchEvent.request.url, response.clone());
           }
           return response;
