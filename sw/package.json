@@ -9,7 +9,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "build-sw": "rollup -c rollup.config.js"
+    "type-check": "tsc --noEmit",
+    "build-sw": "yarn type-check && rollup -c rollup.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
