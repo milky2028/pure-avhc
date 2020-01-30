@@ -50,25 +50,25 @@ jobs:
           yarn install
           yarn build-sw
       - name: Switch to project in Firebase
-        uses: w9jds/firebase-action@v1.1.0
+        uses: w9jds/firebase-action@master
         with:
           args: use avhc
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy firebase functions
-        uses: w9jds/firebase-action@v1.1.0
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy firestore rules
-        uses: w9jds/firebase-action@v1.1.0
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only firestore
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy avhc hosting
-        uses: w9jds/firebase-action@v1.1.0
+        uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:avhc
         env:
@@ -82,8 +82,15 @@ jobs:
         run: yarn prerender-all-pages avhc
         env:
           FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
+      - name: Lighthouse Audit
+        uses: jakejarvis/lighthouse-action@master
+        with:
+          url: 'https://aspenvalleycbd.com/'
       - name: Record build artifacts
         uses: actions/upload-artifact@v1
         with:
           name: build
-          path: public/dist
+          path: ./public/dist
+        with:
+          name: report
+          path: ./report
