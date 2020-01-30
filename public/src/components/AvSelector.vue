@@ -37,7 +37,7 @@ select {
   font-size: 18px;
   font-weight: 600;
   color: var(--dark-accent-light-shade);
-  z-index: 100;
+  z-index: 15;
 }
 
 .select-container {
