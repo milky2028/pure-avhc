@@ -35,7 +35,7 @@ div {
 }
 
 .cover {
-  padding: 16px;
+  padding: 1rem 2rem;
   display: grid;
   align-items: center;
   height: 100%;
@@ -45,7 +45,7 @@ div {
 }
 
 .card-font {
-  font-size: 26px;
+  font-size: 3rem;
   line-height: 1;
 }
 
@@ -55,7 +55,7 @@ a:hover {
 
 @media (max-width: 835px) {
   .card {
-    height: 12vh;
+    height: 11vh;
   }
 }
 </style>
@@ -75,7 +75,7 @@ export default createComponent<Props>({
     product: Object
   },
   setup(props: Props) {
-    async function splitTitle(title: string) {
+    function splitTitle(title: string) {
       const words = title.split(' ');
       return words.join('<br />');
     }
