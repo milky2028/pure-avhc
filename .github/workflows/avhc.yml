@@ -91,6 +91,10 @@ jobs:
         with:
           name: build
           path: ./public/dist
+          name: report
+          path: ./report
+      - name: Upload Lighthouse Report
+        uses: actions/upload-artifact@v1
         with:
           name: report
           path: ./report
