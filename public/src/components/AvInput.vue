@@ -41,7 +41,7 @@ p {
 
 input::placeholder {
   color: white;
-  opacity: 0.3;
+  opacity: 0.4;
 }
 
 input {
@@ -60,7 +60,7 @@ input {
 }
 
 .morePadding {
-  padding: 12px;
+  padding: 10px;
 }
 
 .showError,
