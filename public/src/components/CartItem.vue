@@ -182,7 +182,7 @@ export default createComponent<Props>({
     }
 
     function truncate(val: string) {
-      return `${val.slice(0, 6)}...`;
+      return val.length > 7 ? `${val.slice(0, 6)}...` : val;
     }
 
     return {
