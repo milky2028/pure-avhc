@@ -22,7 +22,7 @@ button {
   box-shadow: var(--basic-shadow);
   padding: 10px;
   font-size: 18px;
-  border-radius: var(--rounded-corner);
+  border-radius: 19px;
   font-weight: 500;
   align-items: center;
   transition: all 150ms var(--mat-ease);
