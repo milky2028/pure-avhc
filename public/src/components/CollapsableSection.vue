@@ -18,6 +18,7 @@
     >
     <AvButton
       v-if="isExpanded"
+      long
       class="continue"
       @btn-click="$emit('continue-clicked')"
     >

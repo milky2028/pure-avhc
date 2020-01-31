@@ -21,6 +21,7 @@
             <span>{{ product.subtag }}</span>
           </h2>
           <AvButton
+            long
             flat
             class="cart-btn"
             @btn-click="$router.push(`/products/${product.url}`)"
