@@ -20,13 +20,13 @@ button {
   text-transform: uppercase;
   font-family: var(--mukta-malar);
   box-shadow: var(--basic-shadow);
-  padding: 10px;
+  padding: 10px 2rem;
   font-size: 18px;
   border-radius: 19px;
   font-weight: 500;
   align-items: center;
   transition: all 150ms var(--mat-ease);
-  min-width: 140px;
+  width: max-content;
   letter-spacing: 0.1em;
 }
 
@@ -66,12 +66,12 @@ button:active.flat:not(:disabled) {
 }
 
 .long {
-  padding: 12px 60px;
+  padding: 10px 4rem;
 }
 
 .fullWidth {
   justify-content: center;
-  width: 100%;
+  width: max-content;
 }
 
 .icon {
