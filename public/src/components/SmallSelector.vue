@@ -39,12 +39,12 @@
 }
 
 label {
-  font-size: 2rem;
+  font-size: 14px;
 }
 
 select {
   appearance: none;
-  font-size: 2rem;
+  font-size: 14px;
   width: 100%;
   grid-area: main;
   padding: 0.25rem;
@@ -69,16 +69,6 @@ select {
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
 import { createComponent } from '@vue/composition-api';
-
-// interface Props {
-//   label: string;
-//   selectValue: string;
-//   options: any[];
-//   diffKey: string;
-//   displayKey: string;
-//   valueKey: string;
-//   displayValueHandler: () => void;
-// }
 
 export default createComponent({
   components: {

@@ -45,6 +45,7 @@
           diff-key="id"
           display-key="name"
           value-key="type"
+          :display-value-handler="truncate"
           @select-changed="
             updateCartItem(cartItem.id, {
               strain: $event
@@ -98,7 +99,7 @@ img {
   margin-top: 6px;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 4fr 7fr 6fr;
+  grid-template-columns: minmax(40px, 1fr) minmax(70px, 1fr) 2fr;
   column-gap: 6px;
   align-items: center;
 }
@@ -180,7 +181,12 @@ export default createComponent<Props>({
       }
     }
 
+    function truncate(val: string) {
+      return `${val.slice(0, 6)}...`;
+    }
+
     return {
+      truncate,
       products,
       product,
       options,
