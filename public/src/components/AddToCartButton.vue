@@ -23,9 +23,8 @@
 <style scoped>
 .add-or-subtract-container {
   touch-action: manipulation;
-  display: flex;
-  align-content: center;
-  justify-content: space-around;
+  display: grid;
+  grid-auto-flow: column;
 }
 
 .btn-text {
