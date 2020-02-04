@@ -27,7 +27,7 @@
           target="_blank"
           rel="noopener noreferrer"
           type="application/pdf"
-          :href="wholesaleCatalog[0].url"
+          :href="wholesaleCatalog"
           >Wholesale Catalog</a
         >
       </p>
@@ -202,6 +202,7 @@ import { useMetadata } from '../use/metadata';
 import { useFormErrors } from '../use/form-errors';
 import setAllStateInObj from '../functions/setState';
 import uncamelize from '../functions/uncamelize';
+import { Site } from '../types/Site';
 
 export default createComponent({
   components: {
@@ -304,14 +305,15 @@ export default createComponent({
 
     const wholesaleCatalog = ref('');
     onMounted(async () => {
-      const catalogs = (await (await workerInstance).queryDocuments({
+      const instance = await workerInstance;
+      const catalogs = (await instance.queryDocuments({
         collection: 'wholesaleCatalog',
         limit: 1,
         orderBy: {
           field: 'date',
           direction: 'desc'
         }
-      })) as { id: string; url: string }[];
+      })) as { id: string; url: string; date: Date; site: Site[] }[];
       wholesaleCatalog.value = catalogs[0].url;
     });
 
