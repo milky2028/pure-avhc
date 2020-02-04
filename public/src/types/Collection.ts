@@ -1,15 +1,18 @@
 type Collection =
-  | 'submenu'
-  | 'products'
-  | 'mainMenu'
+  | 'addresses'
+  | 'coupons'
   | 'iconMenu'
   | 'images'
-  | 'subscribers'
+  | 'logos'
+  | 'mainMenu'
+  | 'pageRenders'
+  | 'products'
+  | 'shippingOptions'
+  | 'strains'
+  | 'submenu'
   | 'testResults'
-  | 'auth'
-  | 'wholesaleCatalog'
-  | 'addresses'
   | 'userExtras'
-  | 'strains';
+  | 'subscribers'
+  | 'wholesaleCatalog';
 
 export default Collection;
