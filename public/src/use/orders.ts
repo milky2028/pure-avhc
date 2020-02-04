@@ -6,13 +6,21 @@ export function useOrders() {
   const shippingAddress = reactive(new Address());
   const differentBilling = ref(false);
   const billingAddress = reactive(new Address({ isBilling: true }));
+  const couponCode = ref('');
+
   const isStepOpen: { [key: string]: boolean } = reactive({
     addresses: true,
     payment: true,
-    coupon: true
+    coupon: false
   });
 
-  return { shippingAddress, billingAddress, differentBilling, isStepOpen };
+  return {
+    shippingAddress,
+    billingAddress,
+    differentBilling,
+    couponCode,
+    isStepOpen
+  };
 }
 
 export type IOrders = ReturnType<typeof useOrders>;

@@ -190,7 +190,7 @@ h2 {
 </style>
 
 <script lang="ts">
-import { createComponent, inject } from '@vue/composition-api';
+import { createComponent, inject, ref, Ref } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
@@ -205,6 +205,9 @@ import { IFormErrors, useFormErrors } from '../use/form-errors';
 import Divider from '../components/Divider.vue';
 import { ICart } from '../use/cart';
 import { IProducts } from '../use/products';
+import workerInstance from '../workers/entry';
+import Coupon from '../types/Coupon';
+import { proxy } from 'comlink';
 
 export default createComponent({
   components: {
@@ -239,6 +242,23 @@ export default createComponent({
     } = inject(Modules.orders) as IOrders;
     const shippingErrors = useFormErrors();
     const billingErrors = useFormErrors();
+
+    const coupons: Ref<Coupon[]> = ref([]);
+    workerInstance.then((instance) =>
+      instance.queryDocuments(
+        {
+          collection: 'coupons',
+          queries: [
+            {
+              fieldPath: 'expirationDate',
+              operator: '>' as firebase.firestore.WhereFilterOp,
+              compareValue: new Date()
+            }
+          ]
+        },
+        proxy((coops) => (coupons.value = coops))
+      )
+    );
 
     function onContinue(errorInstances: IFormErrors[], step: string) {
       const hasErrors = errorInstances.some((instance) =>
