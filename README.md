@@ -1,5 +1,11 @@
 # Aspen Valley Hemp Company/Pure CBD Exchange Monorepo
 
+## Small TODOs Before Launch
+
+- Update all images
+- Make sure Wholesale Catalog is on the latest version
+- ~~Sentry~~
+
 ## Required Tools
 
 - [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm)  
