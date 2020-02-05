@@ -6,20 +6,16 @@
       v-bind="$attrs"
       :list="datalist && datalist.length > 0 ? 'list' : ' '"
       :value="value"
-      :class="{ dark, dirty, showError, morePadding }"
+      :class="{ dark, morePadding }"
       :style="{ width }"
       @input="$emit('on-input', $event.target.value)"
       @keyup.enter="$emit('enter', $event.target.value)"
-      @blur="dirty = true"
     />
     <datalist v-if="datalist && datalist.length > 0" id="list">
       <option v-for="item of datalist" :key="item" :value="item">
         {{ item }}
       </option>
     </datalist>
-    <p v-if="useNativeFieldError && showError && errorMsg" class="body-text">
-      {{ errorMsg }}
-    </p>
   </div>
 </template>
 
@@ -31,12 +27,6 @@
 
 label {
   margin-left: 10px;
-}
-
-p {
-  color: var(--warn);
-  margin: 5px 0 0 5px;
-  font-size: 14px;
 }
 
 input::placeholder {
@@ -62,16 +52,11 @@ input {
 .morePadding {
   padding: 10px;
 }
-
-.showError,
-input.dirty:invalid {
-  border-color: var(--warn);
-}
 </style>
 
 <script lang="ts">
 import createRandomId from '../functions/createRandomId';
-import { createComponent, ref } from '@vue/composition-api';
+import { createComponent } from '@vue/composition-api';
 
 export default createComponent({
   inheritAttrs: false,
@@ -81,16 +66,11 @@ export default createComponent({
     dark: Boolean,
     morePadding: Boolean,
     width: String,
-    value: String,
-    useNativeFieldError: Boolean,
-    showError: Boolean,
-    errorMsg: String
+    value: String
   },
   setup() {
-    const dirty = ref(false);
     const fieldId = createRandomId();
-
-    return { dirty, fieldId };
+    return { fieldId };
   }
 });
 </script>
