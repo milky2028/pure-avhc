@@ -159,21 +159,18 @@ import {
   createComponent,
   reactive,
   toRefs,
-  computed,
-  Ref
+  computed
 } from '@vue/composition-api';
 import StateTaxes from '../data/StateTaxes';
 import AvInput from './AvInput.vue';
 import Address from '../types/Address';
 import uncamelize from '../functions/uncamelize';
+import { IFormErrors } from '../use/form-errors';
 
 interface Props {
   form: Address;
   showHeader: boolean;
-  errorInstance: {
-    errors: Ref<string[]>;
-    showErrors: Ref<boolean>;
-  };
+  errorInstance: IFormErrors;
 }
 
 export default createComponent<Props>({
