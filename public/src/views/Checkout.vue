@@ -74,13 +74,20 @@
         @edit-clicked="isStepOpen.coupon = true"
       >
         <template v-slot:header>
-          <h2 class="subhead">Coupon Codes</h2>
+          <h2 class="subhead">Discount Codes</h2>
         </template>
         <template v-slot:collapsed>
           <div>Collapsed content</div>
         </template>
         <template v-slot:expanded>
-          <div>Expanded content</div>
+          <av-input
+            dark
+            more-padding
+            placeholder="Discount Code"
+            type="text"
+            :value="couponCode"
+            @on-input="couponCode = $event"
+          />
         </template>
       </CollapsableSection>
       <div class="itemized-total-container">
@@ -208,6 +215,7 @@ import { IProducts } from '../use/products';
 import workerInstance from '../workers/entry';
 import Coupon from '../types/Coupon';
 import { proxy } from 'comlink';
+import AvInput from '../components/AvInput.vue';
 
 export default createComponent({
   components: {
@@ -217,7 +225,8 @@ export default createComponent({
     ShippingForm,
     AvSwitch,
     AddressDisplay,
-    Divider
+    Divider,
+    AvInput
   },
   setup() {
     const { setTitle, setPageDescription } = useMetadata();
@@ -238,7 +247,8 @@ export default createComponent({
       shippingAddress,
       billingAddress,
       differentBilling,
-      isStepOpen
+      isStepOpen,
+      couponCode
     } = inject(Modules.orders) as IOrders;
     const shippingErrors = useFormErrors();
     const billingErrors = useFormErrors();
@@ -276,6 +286,7 @@ export default createComponent({
     }
 
     return {
+      couponCode,
       findProductType,
       cartItems,
       billingErrors,

@@ -74,17 +74,7 @@
             checkUserErrors();
           "
         />
-        <p
-          v-if="
-            userFormErrors.showErrors.value &&
-              userFormErrors.errors.value.length > 1
-          "
-          class="body-text no-padding errors"
-          :class="{ topMargin: differentBilling }"
-        >
-          <!-- eslint-disable-next-line -->
-          <strong v-html="userFormErrors.errors.value.map((e, i) => i === 0 ? e : uncamelize(e)).join('<br>')" />
-        </p>
+        <av-error :error-instance="userFormErrors" />
       </form>
       <ShippingForm
         v-if="!uid"
@@ -167,11 +157,6 @@ form {
   margin-top: 16px;
 }
 
-.errors {
-  color: var(--warn);
-  font-size: 2rem;
-}
-
 .user-msg {
   margin-bottom: 16px;
 }
@@ -203,6 +188,7 @@ import { useFormErrors } from '../use/form-errors';
 import setAllStateInObj from '../functions/setState';
 import uncamelize from '../functions/uncamelize';
 import { Site } from '../types/Site';
+import AvError from '../components/AvErrors.vue';
 
 export default createComponent({
   components: {
@@ -211,7 +197,8 @@ export default createComponent({
     ArticlePage,
     AvSwitch,
     AvButton,
-    AvInput
+    AvInput,
+    AvError
   },
   setup() {
     const { setTitle, setPageDescription } = useMetadata();

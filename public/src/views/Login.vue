@@ -15,14 +15,11 @@
         <AvInput
           dark
           more-padding
-          use-native-field-error
           type="email"
           autocomplete="email"
           class="field"
           placeholder="Email"
           :pattern="emailPattern"
-          :show-error="Boolean(emailError)"
-          :error-msg="emailError"
           :value="email"
           @on-input="email = $event"
           @enter="resettingPassword ? resetPassword() : onLogin()"
@@ -31,18 +28,16 @@
           v-if="!resettingPassword"
           dark
           more-padding
-          use-native-field-error
           class="field"
           type="password"
           placeholder="Password"
           autocomplete="current-password"
-          :error-msg="passwordErrorMsg"
-          :show-error="Boolean(passwordErrorMsg)"
           :value="password"
           @on-input="password = $event"
           @enter="resettingPassword ? resetPassword() : onLogin()"
         />
       </form>
+      <av-error class="error" :error-instance="loginErrors" />
       <p v-if="!resettingPassword" class="reset-password">
         <a @click="resettingPassword = true">Reset Password?</a>
       </p>
@@ -51,8 +46,8 @@
         <AvSwitch :value="createAnAccount" @switch="createAnAccount = $event" />
       </div>
       <AvButton
+        long
         :full-width="windowWidth < 835"
-        :long="windowWidth > 835"
         class="btn"
         @btn-click="resettingPassword ? resetPassword() : onLogin()"
       >
@@ -160,6 +155,10 @@ img {
   filter: brightness(90%);
 }
 
+.error {
+  padding: 1rem;
+}
+
 @media (max-width: 835px) {
   .field {
     width: 100%;
@@ -187,6 +186,8 @@ import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
+import AvError from '../components/AvErrors.vue';
+import { useFormErrors } from '../use/form-errors';
 
 export default createComponent({
   components: {
@@ -194,7 +195,8 @@ export default createComponent({
     ArticlePage,
     AvInput,
     AvButton,
-    AvSwitch
+    AvSwitch,
+    AvError
   },
   setup(_, ctx) {
     const { setTitle, setPageDescription } = useMetadata();
@@ -204,8 +206,6 @@ export default createComponent({
     );
     const { windowWidth } = useWindowWidth();
 
-    const emailError = ref('');
-    const passwordErrorMsg = ref('');
     const resettingPassword = ref(false);
     const email = ref('');
     const emailPattern = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
@@ -227,12 +227,14 @@ export default createComponent({
       }
     });
 
+    const loginErrors = useFormErrors();
+
     const { showSnackbar, hideSnackbar } = inject(
       Modules.snackbar
     ) as ISnackbar;
     async function resetPassword() {
       if (emailReg.test(email.value)) {
-        emailError.value = '';
+        loginErrors.errors.value = ['Error:'];
         showSnackbar('Sending...');
         try {
           await sendPasswordResetEmail(email.value);
@@ -241,63 +243,69 @@ export default createComponent({
           resettingPassword.value = false;
         } catch (e) {
           hideSnackbar();
-          emailError.value = e;
+          loginErrors.errors.value.push(e.message ? e.message : e);
+          loginErrors.showErrors.value = true;
         }
       } else {
-        emailError.value = 'Invalid email format';
+        loginErrors.errors.value.push('Invalid email format');
+        loginErrors.showErrors.value = true;
       }
     }
 
     async function onProviderLogin(provider: string) {
       try {
         await signInWithProvider(provider);
-        passwordErrorMsg.value = '';
+        loginErrors.errors.value = ['Error:'];
       } catch (e) {
-        passwordErrorMsg.value = e;
+        loginErrors.errors.value.push(e);
+        loginErrors.showErrors.value = true;
       }
     }
 
     const password = ref('');
     const createAnAccount = ref(false);
     async function onLogin() {
+      loginErrors.showErrors.value = false;
+      loginErrors.errors.value = ['Error:'];
       if (emailReg.test(email.value)) {
-        emailError.value = '';
         showSnackbar('Authenticating...');
         if (createAnAccount.value) {
           try {
             await createAccountWithEmailAndPassword(
               email.value,
               password.value
-            );
+            ).catch((e) => console.log('caught it here', e));
             hideSnackbar();
-            passwordErrorMsg.value = '';
+            loginErrors.errors.value = ['Error:'];
           } catch (e) {
             hideSnackbar();
-            passwordErrorMsg.value = e;
+            loginErrors.errors.value.push(e.message ? e.message : e);
+            loginErrors.showErrors.value = true;
           }
         } else {
           try {
             await signInWithEmail(email.value, password.value);
             hideSnackbar();
-            passwordErrorMsg.value = '';
+            loginErrors.errors.value = ['Error:'];
           } catch (e) {
             hideSnackbar();
-            passwordErrorMsg.value = e;
+            loginErrors.errors.value.push(e.message ? e.message : e);
+            loginErrors.showErrors.value = true;
           }
         }
       } else {
-        emailError.value = 'Invalid email format';
+        loginErrors.errors.value.push('Invalid email format');
+        loginErrors.showErrors.value = true;
       }
     }
 
     return {
+      loginErrors,
       email,
       password,
       emailPattern,
-      emailError,
       windowWidth,
       createAnAccount,
-      passwordErrorMsg,
       resettingPassword,
       uid,
       resetPassword,
