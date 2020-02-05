@@ -95,17 +95,7 @@
         updateForm();
       "
     />
-    <p
-      v-if="
-        errorInstance &&
-          errorInstance.showErrors.value &&
-          errorInstance.errors.value.length > 1
-      "
-      class="body-text errors"
-    >
-      <!-- eslint-disable-next-line -->
-        <strong v-html="errorInstance.errors.value.join('<br>')" />
-    </p>
+    <av-errors :error-instance="errorInstance" />
   </form>
 </template>
 
@@ -125,10 +115,6 @@ form {
   display: grid;
   grid-template-columns: 1fr 150px 165px;
   grid-gap: 1vmax;
-}
-
-.errors {
-  color: var(--warn);
 }
 
 @media (max-width: 835px) {
@@ -166,6 +152,7 @@ import AvInput from './AvInput.vue';
 import Address from '../types/Address';
 import uncamelize from '../functions/uncamelize';
 import { IFormErrors } from '../use/form-errors';
+import AvErrors from './AvErrors.vue';
 
 interface Props {
   form: Address;
@@ -175,7 +162,8 @@ interface Props {
 
 export default createComponent<Props>({
   components: {
-    AvInput
+    AvInput,
+    AvErrors
   },
   props: {
     form: {
