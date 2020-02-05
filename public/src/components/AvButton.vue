@@ -72,6 +72,8 @@ button:active.flat:not(:disabled) {
 .fullWidth {
   justify-content: center;
   width: max-content;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .icon {
