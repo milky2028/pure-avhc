@@ -11,7 +11,7 @@ export function useOrders() {
   const isStepOpen: { [key: string]: boolean } = reactive({
     addresses: true,
     payment: true,
-    coupon: false
+    discount: false
   });
 
   return {
