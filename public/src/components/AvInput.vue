@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="input-container">
     <label v-if="label" class="body-text" :for="fieldId">{{ label }}</label>
     <input
       :id="fieldId"
@@ -20,7 +20,7 @@
 </template>
 
 <style scoped>
-.container {
+.input-container {
   display: grid;
   grid-auto-flow: row;
 }
