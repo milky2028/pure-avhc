@@ -36,6 +36,7 @@ export function useUser() {
           : null;
         const isWholesaleUser = claims ? claims.isWholesaleUser : false;
         const isAdmin = claims && claims.isAdmin ? claims.isAdmin : false;
+
         setAllStateInObj(user, {
           email,
           phoneNumber,
@@ -45,25 +46,31 @@ export function useUser() {
           isAdmin,
           isWholesaleUser
         });
-
-        const userExtras = (await (await workerInstance).getDocumentById(
-          'userExtras',
-          userDetails.uid
-        )) as Partial<AvUser>;
-        if (userExtras) {
-          setAllStateInObj(user, userExtras);
-        }
       }
     });
   }
 
+  async function getUserExtras(uid?: string) {
+    if (uid) {
+      const instance = await workerInstance;
+      const userExtras = await instance.getDocumentById('userExtras', uid);
+      if (userExtras) {
+        setAllStateInObj(user, userExtras);
+      }
+    }
+  }
+
   async function signInWithEmail(email: string, password: string) {
     const auth = await _auth();
+    const instance = await workerInstance;
     const userCredential = await auth.signInWithEmailAndPassword(
       email,
       password
     );
-    return (await workerInstance).authWorker(userCredential.credential);
+    if (userCredential.user) {
+      await instance.authWorker(userCredential.credential);
+      return getUserExtras(userCredential.user.uid);
+    }
   }
 
   async function createAccountWithEmailAndPassword(
@@ -72,11 +79,16 @@ export function useUser() {
   ) {
     try {
       const auth = await _auth();
+      const instance = await workerInstance;
       const userCredential = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      return (await workerInstance).authWorker(userCredential.credential);
+      await instance.authWorker(userCredential.credential);
+      if (userCredential.user) {
+        await instance.authWorker(userCredential.credential);
+        return getUserExtras(userCredential.user.uid);
+      }
     } catch (e) {
       if (e.code === 'auth/email-already-in-use') {
         return signInWithEmail(email, password);
@@ -88,16 +100,27 @@ export function useUser() {
 
   async function signInWithProvider(provider: string) {
     const auth = await _auth();
+    const instance = await workerInstance;
     switch (provider) {
       case 'google': {
         const google = new (await firebase).auth.GoogleAuthProvider();
         const userCredential = await auth.signInWithPopup(google);
-        return (await workerInstance).authWorker(userCredential.credential);
+        await instance.authWorker(userCredential.credential);
+        if (userCredential.user) {
+          await instance.authWorker(userCredential.credential);
+          return getUserExtras(userCredential.user.uid);
+        }
+        break;
       }
       case 'facebook': {
         const facebook = new (await firebase).auth.FacebookAuthProvider();
         const userCredential = await auth.signInWithPopup(facebook);
-        return (await workerInstance).authWorker(userCredential.credential);
+        await instance.authWorker(userCredential.credential);
+        if (userCredential.user) {
+          await instance.authWorker(userCredential.credential);
+          return getUserExtras(userCredential.user.uid);
+        }
+        break;
       }
       default: {
         return;
@@ -112,10 +135,11 @@ export function useUser() {
 
   async function signOut() {
     const auth = await _auth();
+    const instance = await workerInstance;
     setAllStateInObj(user, { ...emptyUser });
     await clear();
     auth.signOut();
-    (await workerInstance).signOutWorker();
+    return instance.signOutWorker();
   }
 
   return {
