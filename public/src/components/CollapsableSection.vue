@@ -1,11 +1,9 @@
 <template>
   <div class="container">
     <slot name="header" />
-    <transition name="shrink">
-      <div v-if="!isExpanded">
-        <slot name="collapsed" />
-      </div>
-    </transition>
+    <div v-if="!isExpanded">
+      <slot name="collapsed" />
+    </div>
     <div v-if="isExpanded">
       <slot name="expanded" />
     </div>
@@ -39,6 +37,7 @@
 }
 
 .edit-icon {
+  margin-top: -25px;
   justify-self: end;
 }
 
