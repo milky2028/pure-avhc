@@ -69,25 +69,27 @@
         </template>
       </CollapsableSection>
       <CollapsableSection
-        :is-expanded="isStepOpen.coupon"
-        @continue-clicked="isStepOpen.coupon = false"
-        @edit-clicked="isStepOpen.coupon = true"
+        :is-expanded="isStepOpen.discount"
+        @continue-clicked="validateDiscountCode(couponCode)"
+        @edit-clicked="isStepOpen.discount = true"
       >
         <template v-slot:header>
-          <h2 class="subhead">Discount Codes</h2>
+          <h2 class="subhead margin-bottom">Discount Code</h2>
         </template>
         <template v-slot:collapsed>
-          <div>Collapsed content</div>
+          <div>{{ couponCode.toLowerCase() }}</div>
         </template>
         <template v-slot:expanded>
           <av-input
             dark
             more-padding
-            placeholder="Discount Code"
+            placeholder="Code"
             type="text"
             :value="couponCode"
             @on-input="couponCode = $event"
+            @enter="validateDiscountCode(couponCode)"
           />
+          <av-errors class="discount-errors" :error-instance="discountErrors" />
         </template>
       </CollapsableSection>
       <div class="itemized-total-container">
@@ -107,15 +109,23 @@
               class="individual-item"
             >
               <p class="item-details smaller-font">
-                {{ findProductType(product) }} | {{ size }}
+                {{ findProductType(product) }} | {{ strain }}
               </p>
-              <p class="item-details smaller-font">{{ strain }}</p>
-              <p class="item-details">{{ quantity }} x ${{ price }}</p>
+              <p class="item-details smaller-font">
+                {{ quantity }}
+                x ${{ price }}/{{ size }}
+              </p>
             </div>
           </div>
         </div>
-        <p class="subhead itemized">Discounts</p>
-        <p class="subhead itemized money">$35.00</p>
+        <p v-if="fullCoupon" class="subhead itemized">Discounts</p>
+        <p v-if="fullCoupon" class="subhead itemized money">
+          -{{
+            fullCoupon.type === 'percent'
+              ? `${fullCoupon.amount}%`
+              : `$${fullCoupon.amount}`
+          }}
+        </p>
         <p class="subhead itemized">Shipping</p>
         <p class="subhead itemized money">$35.00</p>
         <p class="subhead itemized">Tax</p>
@@ -152,6 +162,10 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.discount-errors {
+  padding: 1rem 1rem 0 1rem;
+}
+
 .itemized-total-container {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -171,7 +185,7 @@ h2 {
 
 .divider {
   grid-area: divider;
-  width: calc(100% + 16px);
+  width: calc(100% + 15px);
 }
 
 .itemized {
@@ -197,7 +211,13 @@ h2 {
 </style>
 
 <script lang="ts">
-import { createComponent, inject, ref, Ref } from '@vue/composition-api';
+import {
+  createComponent,
+  inject,
+  ref,
+  Ref,
+  computed
+} from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
@@ -216,6 +236,7 @@ import workerInstance from '../workers/entry';
 import Coupon from '../types/Coupon';
 import { proxy } from 'comlink';
 import AvInput from '../components/AvInput.vue';
+import AvErrors from '../components/AvErrors.vue';
 
 export default createComponent({
   components: {
@@ -226,7 +247,8 @@ export default createComponent({
     AvSwitch,
     AddressDisplay,
     Divider,
-    AvInput
+    AvInput,
+    AvErrors
   },
   setup() {
     const { setTitle, setPageDescription } = useMetadata();
@@ -253,6 +275,22 @@ export default createComponent({
     const shippingErrors = useFormErrors();
     const billingErrors = useFormErrors();
 
+    function onContinue(errorInstances: IFormErrors[], step: string) {
+      const hasErrors = errorInstances.some((instance) =>
+        instance && instance.errors ? instance.errors.value.length > 1 : false
+      );
+      if (hasErrors) {
+        for (const instance of errorInstances) {
+          if (instance.errors.value.length > 1) {
+            instance.showErrors.value = true;
+          }
+        }
+      } else {
+        isStepOpen[step] = false;
+      }
+    }
+
+    const discountErrors = useFormErrors();
     const coupons: Ref<Coupon[]> = ref([]);
     workerInstance.then((instance) =>
       instance.queryDocuments(
@@ -269,23 +307,31 @@ export default createComponent({
         proxy((coops) => (coupons.value = coops))
       )
     );
+    const fullCoupon = computed(() =>
+      coupons.value.find(
+        ({ code }) => code.toLowerCase() === couponCode.value.toLowerCase()
+      )
+    );
 
-    function onContinue(errorInstances: IFormErrors[], step: string) {
-      const hasErrors = errorInstances.some((instance) =>
-        instance && instance.errors ? instance.errors.value.length > 1 : false
-      );
-      if (hasErrors) {
-        for (const instance of errorInstances) {
-          if (instance.errors.value.length > 1) {
-            instance.showErrors.value = true;
-          }
-        }
+    function validateDiscountCode(discountCode: string) {
+      const isValid = coupons.value
+        .map(({ code }) => code.toLowerCase())
+        .includes(discountCode.toLowerCase());
+
+      if (isValid) {
+        discountErrors.errors.value = [];
+        discountErrors.showErrors.value = false;
+        onContinue([discountErrors], 'discount');
       } else {
-        isStepOpen[step] = false;
+        discountErrors.errors.value = ['Error:', 'Invalid discount code'];
+        discountErrors.showErrors.value = true;
       }
     }
 
     return {
+      fullCoupon,
+      validateDiscountCode,
+      discountErrors,
       couponCode,
       findProductType,
       cartItems,
