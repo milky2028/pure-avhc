@@ -274,7 +274,7 @@ export default createComponent({
             await createAccountWithEmailAndPassword(
               email.value,
               password.value
-            ).catch((e) => console.log('caught it here', e));
+            );
             hideSnackbar();
             loginErrors.errors.value = ['Error:'];
           } catch (e) {
