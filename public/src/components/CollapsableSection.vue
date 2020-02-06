@@ -17,6 +17,7 @@
     <AvButton
       v-if="isExpanded"
       long
+      :full-width="windowWidth < 835"
       class="continue"
       @btn-click="$emit('continue-clicked')"
     >
@@ -51,6 +52,7 @@
 import { createComponent } from '@vue/composition-api';
 import AvButton from './AvButton.vue';
 import AvIconButton from './AvIconButton.vue';
+import { useWindowWidth } from '../use/window-width';
 
 interface Props {
   isExpanded: boolean;
@@ -66,6 +68,10 @@ export default createComponent<Props>({
       type: Boolean,
       default: true
     }
+  },
+  setup() {
+    const { windowWidth } = useWindowWidth();
+    return { windowWidth };
   }
 });
 </script>
