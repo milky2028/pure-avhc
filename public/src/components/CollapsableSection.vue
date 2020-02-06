@@ -20,9 +20,8 @@
       :full-width="windowWidth < 835"
       class="continue"
       @btn-click="$emit('continue-clicked')"
+      >Continue</AvButton
     >
-      Next
-    </AvButton>
   </div>
 </template>
 
