@@ -3,16 +3,15 @@
     <ArticlePage title="Checkout">
       <CollapsableSection
         :is-expanded="isStepOpen.addresses"
-        @continue-clicked="
+        @edit-clicked="
           onContinue(
             [shippingErrors, differentBilling ? billingErrors : []],
             'addresses'
           )
         "
-        @edit-clicked="isStepOpen.addresses = true"
       >
         <template v-slot:header>
-          <h2 class="subhead margin-bottom">Shipping</h2>
+          <h2 class="subhead">Shipping</h2>
         </template>
         <template v-slot:expanded>
           <ShippingForm
@@ -55,8 +54,7 @@
       </CollapsableSection>
       <CollapsableSection
         :is-expanded="isStepOpen.payment"
-        @continue-clicked="isStepOpen.payment = false"
-        @edit-clicked="isStepOpen.payment = true"
+        @edit-clicked="isStepOpen.payment = !isStepOpen.payment"
       >
         <template v-slot:header>
           <h2 class="subhead">Payment</h2>
@@ -70,11 +68,10 @@
       </CollapsableSection>
       <CollapsableSection
         :is-expanded="isStepOpen.discount"
-        @continue-clicked="validateDiscountCode(couponCode)"
-        @edit-clicked="isStepOpen.discount = true"
+        @edit-clicked="validateDiscountCode(couponCode, true)"
       >
         <template v-slot:header>
-          <h2 class="subhead margin-bottom">Discount Code</h2>
+          <h2 class="subhead">Discount Code</h2>
         </template>
         <template v-slot:collapsed>
           <div>{{ couponCode.toLowerCase() }}</div>
@@ -156,10 +153,6 @@ h2 {
 
 .margin-top {
   margin-top: 2rem;
-}
-
-.margin-bottom {
-  margin-bottom: 1rem;
 }
 
 .discount-errors {
@@ -286,7 +279,7 @@ export default createComponent({
           }
         }
       } else {
-        isStepOpen[step] = false;
+        isStepOpen[step] = !isStepOpen[step];
       }
     }
 
@@ -313,18 +306,28 @@ export default createComponent({
       )
     );
 
-    function validateDiscountCode(discountCode: string) {
-      const isValid = coupons.value
-        .map(({ code }) => code.toLowerCase())
-        .includes(discountCode.toLowerCase());
+    function validateDiscountCode(discountCode: string, isIconClick?: boolean) {
+      if (isStepOpen.discount) {
+        const isValid = coupons.value
+          .map(({ code }) => code.toLowerCase())
+          .includes(discountCode.toLowerCase());
 
-      if (isValid) {
-        discountErrors.errors.value = [];
-        discountErrors.showErrors.value = false;
-        onContinue([discountErrors], 'discount');
+        if (isValid) {
+          discountErrors.errors.value = [];
+          discountErrors.showErrors.value = false;
+          onContinue([discountErrors], 'discount');
+        } else {
+          discountErrors.errors.value = ['Error:', 'Invalid discount code'];
+          discountErrors.showErrors.value = true;
+          if (isIconClick) {
+            setTimeout(
+              () => (isStepOpen.discount = !isStepOpen.discount),
+              1500
+            );
+          }
+        }
       } else {
-        discountErrors.errors.value = ['Error:', 'Invalid discount code'];
-        discountErrors.showErrors.value = true;
+        isStepOpen.discount = !isStepOpen.discount;
       }
     }
 

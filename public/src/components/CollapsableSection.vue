@@ -1,43 +1,41 @@
 <template>
-  <div class="container">
-    <slot name="header" />
+  <div class="cs-container">
+    <div class="header-container" :class="{ marginBottom: isExpanded }">
+      <slot name="header" />
+      <AvIconButton
+        class="edit-icon"
+        black
+        @icon-click="$emit('edit-clicked')"
+        >{{ isExpanded ? 'close' : 'edit' }}</AvIconButton
+      >
+    </div>
     <div v-if="!isExpanded">
       <slot name="collapsed" />
     </div>
     <div v-if="isExpanded">
       <slot name="expanded" />
     </div>
-    <AvIconButton
-      v-if="!isExpanded"
-      class="edit-icon"
-      black
-      @icon-click="$emit('edit-clicked')"
-      >edit</AvIconButton
-    >
-    <AvButton
-      v-if="isExpanded"
-      long
-      :full-width="windowWidth < 835"
-      class="continue"
-      @btn-click="$emit('continue-clicked')"
-      >Continue</AvButton
-    >
   </div>
 </template>
 
 <style scoped>
-.container {
+.cs-container {
   display: grid;
-  padding: 1rem 0 2rem;
+  padding: 1rem 0;
   border-bottom: var(--faint-grey);
 }
 
-.header {
-  margin-bottom: 2rem;
+.header-container {
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+}
+
+.marginBottom {
+  margin-bottom: 1rem;
 }
 
 .edit-icon {
-  margin-top: -25px;
   justify-self: end;
 }
 

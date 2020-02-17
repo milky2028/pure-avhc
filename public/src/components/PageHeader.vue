@@ -3,7 +3,7 @@
     <h1 class="subhead">
       <slot />
     </h1>
-    <Divider />
+    <Divider no-bottom-margin />
   </div>
 </template>
 

@@ -10,7 +10,7 @@ export function useOrders() {
 
   const isStepOpen: { [key: string]: boolean } = reactive({
     addresses: true,
-    payment: false,
+    payment: true,
     discount: false
   });
 
