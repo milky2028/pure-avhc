@@ -71,10 +71,17 @@
         @edit-clicked="validateDiscountCode(couponCode, true)"
       >
         <template v-slot:header>
-          <h2 class="subhead">Discount Code</h2>
+          <h2
+            class="subhead"
+            :class="{ marginBottom: fullCoupon && !isStepOpen.discount }"
+          >
+            Discount Code
+          </h2>
         </template>
         <template v-slot:collapsed>
-          <div>{{ couponCode.toLowerCase() }}</div>
+          <chip v-if="fullCoupon" @remove-clicked="couponCode = ''">{{
+            fullCoupon.code
+          }}</chip>
         </template>
         <template v-slot:expanded>
           <av-input
@@ -116,13 +123,18 @@
           </div>
         </div>
         <p v-if="fullCoupon" class="subhead itemized">Discounts</p>
-        <p v-if="fullCoupon" class="subhead itemized money">
-          -{{
-            fullCoupon.type === 'percent'
-              ? `${fullCoupon.amount}%`
-              : `$${fullCoupon.amount}`
-          }}
-        </p>
+        <div v-if="fullCoupon" class="chip-and-percent-container">
+          <p v-if="fullCoupon" class="subhead itemized money">
+            -{{
+              fullCoupon.type === 'percent'
+                ? `${fullCoupon.amount}%`
+                : `$${fullCoupon.amount}`
+            }}
+          </p>
+          <chip v-if="fullCoupon" @remove-clicked="couponCode = ''">{{
+            fullCoupon.code
+          }}</chip>
+        </div>
         <p class="subhead itemized">Shipping</p>
         <p class="subhead itemized money">$35.00</p>
         <p class="subhead itemized">Tax</p>
@@ -155,6 +167,10 @@ h2 {
   margin-top: 2rem;
 }
 
+.marginBottom {
+  margin-bottom: 1rem;
+}
+
 .discount-errors {
   padding: 1rem 1rem 0 1rem;
 }
@@ -184,6 +200,10 @@ h2 {
 .itemized {
   font-weight: 500;
   padding: 1rem 0;
+}
+
+.chip-and-percent-container {
+  display: grid;
 }
 
 .items {
@@ -230,9 +250,11 @@ import Coupon from '../types/Coupon';
 import { proxy } from 'comlink';
 import AvInput from '../components/AvInput.vue';
 import AvErrors from '../components/AvErrors.vue';
+import Chip from '../components/Chip.vue';
 
 export default createComponent({
   components: {
+    Chip,
     PageWrapper,
     ArticlePage,
     CollapsableSection,
