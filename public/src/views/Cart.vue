@@ -1,7 +1,7 @@
 <template>
   <PageWrapper with-padding>
     <ArticlePage title="Cart">
-      <div v-if="cartItems.length > 0">
+      <div v-if="cartItems.length > 0" :style="{ marginTop: '1rem' }">
         <CartItem
           v-for="(item, i) in cartItems"
           :key="item.id"
@@ -12,7 +12,11 @@
           :class="{ borderTop: i }"
         />
       </div>
-      <p v-if="cartItems.length === 0" class="no-items">
+      <p
+        v-if="cartItems.length === 0"
+        class="no-items"
+        :style="{ marginTop: '1rem' }"
+      >
         Your cart is empty.
       </p>
       <Divider class="divider" :class="{ marginTop: cartItems.length === 0 }" />
