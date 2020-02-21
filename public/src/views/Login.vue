@@ -92,6 +92,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 35vw;
 }
 
 p {
