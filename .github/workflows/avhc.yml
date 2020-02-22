@@ -17,14 +17,14 @@ jobs:
       - name: Switch to Node 8
         uses: actions/setup-node@v1
         with:
-          node-version: '8.x'
+          node-version: "8.x"
       - name: Install dependencies for functions
         working-directory: ./functions
         run: yarn install
       - name: Switch to Node 12
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - name: Build manifest and create sitemap
         working-directory: ./build
         run: |
@@ -34,7 +34,7 @@ jobs:
       - name: Switch to Node 10
         uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: "10.x"
       - name: Build avhc app
         working-directory: ./public
         run: |
@@ -43,7 +43,7 @@ jobs:
       - name: Switch to Node 12
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - name: Build service worker
         working-directory: ./sw
         run: |
@@ -55,6 +55,10 @@ jobs:
           args: use avhc
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Switch to Node 8
+        uses: actions/setup-node@v1
+        with:
+          node-version: "8.x"
       - name: Deploy firebase functions
         uses: w9jds/firebase-action@master
         with:
@@ -76,7 +80,7 @@ jobs:
       - name: Switch to Node 12
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - name: Prerender all pages for dynamic rendering
         working-directory: ./build
         run: yarn prerender-all-pages avhc
@@ -85,7 +89,7 @@ jobs:
       - name: Lighthouse Audit
         uses: jakejarvis/lighthouse-action@master
         with:
-          url: 'https://aspenvalleycbd.com/'
+          url: "https://aspenvalleycbd.com/"
       - name: Record build artifacts
         uses: actions/upload-artifact@v1
         with:
