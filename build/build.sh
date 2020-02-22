@@ -68,11 +68,13 @@ fi
 
 if [ "${SHOULD_DEPLOY}" == "deploy" ]; then
 	cd ..
+	nvm use 8
 	firebase use ${BUILD_TARGET}
 	firebase deploy --only functions || error_exit "Functions deploy failed"
 	firebase deploy --only firestore || error_exit "Firestore deploy failed"
 	firebase deploy --only hosting:${BUILD_TARGET} || error_exit "Hosting deploy failed"
 
 	cd build
+	nvm use 12
 	yarn prerender-all-pages ${BUILD_TARGET} || error_exit "Prerender failed"
 fi
