@@ -36,8 +36,8 @@ yarn install
 yarn create-manifest ${BUILD_TARGET} || error_exit "Create manifest failed"
 yarn create-sitemap ${BUILD_TARGET} || error_exit "Create sitemap failed"
 
-nvm install 8
-nvm use 8
+nvm install 10
+nvm use 10
 cd ../functions
 rm -rf node_modules
 yarn install
@@ -68,7 +68,7 @@ fi
 
 if [ "${SHOULD_DEPLOY}" == "deploy" ]; then
 	cd ..
-	nvm use 8
+	nvm use 10
 	firebase use ${BUILD_TARGET}
 	firebase deploy --only functions || error_exit "Functions deploy failed"
 	firebase deploy --only firestore || error_exit "Firestore deploy failed"
