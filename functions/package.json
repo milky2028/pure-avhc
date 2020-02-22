@@ -2,7 +2,7 @@
   "name": "functions",
   "version": "1.0.0-0",
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "scripts": {
     "lint": "eslint --fix  . --ext .ts ",
