@@ -1,5 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import WebCrypto from 'node-webcrypto-ossl';
+const crypto = new WebCrypto();
 
 async function createKey() {
   const alg = { name: 'AES-CTR', length: 256 };
