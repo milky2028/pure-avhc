@@ -21,7 +21,6 @@
             <span>{{ product.subtag }}</span>
           </h2>
           <AvButton
-            long
             flat
             class="cart-btn"
             @btn-click="$router.push(`/products/${product.url}`)"
@@ -98,6 +97,7 @@
 
 .cart-btn {
   margin-top: 5px;
+  color: var(--dark-accent);
 }
 
 @media (max-width: 835px) {
