@@ -49,16 +49,16 @@ jobs:
         run: |
           yarn install
           yarn build-sw
+      - name: Switch to Node 8
+        uses: actions/setup-node@v1
+        with:
+          node-version: "8.x"
       - name: Switch to project in Firebase
         uses: w9jds/firebase-action@master
         with:
           args: use avhc
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - name: Switch to Node 8
-        uses: actions/setup-node@v1
-        with:
-          node-version: "8.x"
       - name: Deploy firebase functions
         uses: w9jds/firebase-action@master
         with:
