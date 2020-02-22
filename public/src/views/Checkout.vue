@@ -5,7 +5,7 @@
         :is-expanded="isStepOpen.addresses"
         @edit-clicked="
           onContinue(
-            [shippingErrors, differentBilling ? billingErrors : []],
+            [shippingErrors, differentBilling ? billingErrors : null],
             'addresses'
           )
         "
@@ -296,7 +296,7 @@ export default createComponent({
       );
       if (hasErrors) {
         for (const instance of errorInstances) {
-          if (instance.errors.value.length > 1) {
+          if (instance && instance.errors.value.length > 1) {
             instance.showErrors.value = true;
           }
         }
