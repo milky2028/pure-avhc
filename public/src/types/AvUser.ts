@@ -1,7 +1,9 @@
 import CartItem from './CartItem';
 
 export default interface AvUser {
-  [key: string]: any;
+  [key: string]: boolean | string | null | CartItem[] | Date;
+  key: string;
+  keyCreated: Date;
   isAdmin: boolean;
   isWholesaleUser: boolean;
   canSubscribe: boolean;

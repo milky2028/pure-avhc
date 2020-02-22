@@ -14,6 +14,8 @@ export function useUser() {
   }
 
   const emptyUser: AvUser = {
+    keyCreated: new Date(),
+    key: '',
     isAdmin: false,
     isWholesaleUser: false,
     canSubscribe: true,
@@ -34,17 +36,14 @@ export function useUser() {
         const claims = auth.currentUser
           ? (await auth.currentUser.getIdTokenResult()).claims
           : null;
-        const isWholesaleUser = claims ? claims.isWholesaleUser : false;
-        const isAdmin = claims && claims.isAdmin ? claims.isAdmin : false;
 
         setAllStateInObj(user, {
+          ...claims,
           email,
           phoneNumber,
           displayName,
           uid,
-          photoURL,
-          isAdmin,
-          isWholesaleUser
+          photoURL
         });
       }
     });
