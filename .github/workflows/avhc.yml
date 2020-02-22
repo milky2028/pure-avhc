@@ -53,6 +53,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "8.17.0"
+      - name: Check node version
+        working-directory: ./public
+        run: |
+          node -v
       - name: Switch to project in Firebase
         uses: w9jds/firebase-action@master
         with:
