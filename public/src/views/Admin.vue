@@ -22,12 +22,12 @@ p {
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvButton from '../components/AvButton.vue';
-import { createComponent, inject, watch } from '@vue/composition-api';
+import { defineComponent, inject, watch } from '@vue/composition-api';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { IUser } from '../use/user';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage,

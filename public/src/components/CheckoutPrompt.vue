@@ -80,13 +80,13 @@
 </style>
 
 <script lang="ts">
-import { ref, watch, createComponent, inject } from '@vue/composition-api';
+import { ref, watch, defineComponent, inject } from '@vue/composition-api';
 import AvButton from './AvButton.vue';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { ICart } from '../use/cart';
 
-export default createComponent({
+export default defineComponent({
   components: {
     AvButton
   },

@@ -142,7 +142,7 @@ form {
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   reactive,
   toRefs,
   computed
@@ -160,7 +160,7 @@ interface Props {
   errorInstance: IFormErrors;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: {
     AvInput,
     AvErrors

@@ -88,13 +88,13 @@ import CartItem from '../components/CartItem.vue';
 import Divider from '../components/Divider.vue';
 import AvButton from '../components/AvButton.vue';
 import { useWindowWidth } from '../use/window-width';
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IStrains } from '../use/strains';
 import { ICart } from '../use/cart';
 import { useMetadata } from '../use/metadata';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage,

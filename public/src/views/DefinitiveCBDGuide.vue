@@ -913,14 +913,14 @@
 <script lang="ts">
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
 import { useWindowWidth } from '../use/window-width';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage

@@ -133,7 +133,7 @@ body {
 <script lang="ts">
 import Vue from 'vue';
 import {
-  createComponent,
+  defineComponent,
   onMounted,
   inject,
   provide
@@ -147,7 +147,7 @@ import { Modules, Store } from './use/store';
 import { IDisclaimer } from './use/disclaimer';
 import version from '../../shared/version';
 
-export default createComponent({
+export default defineComponent({
   components: {
     AvToolbar,
     AvDisclaimer: () =>

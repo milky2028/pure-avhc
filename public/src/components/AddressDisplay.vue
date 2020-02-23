@@ -37,14 +37,14 @@ p {
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import Address from '../types/Address';
 
 interface Props {
   address: Address;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   props: {
     address: Object
   }

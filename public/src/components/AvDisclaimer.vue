@@ -84,12 +84,12 @@ p {
 </style>
 
 <script lang="ts">
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import AvButton from './AvButton.vue';
 import { Modules } from '../use/store';
 import { IDisclaimer } from '../use/disclaimer';
 
-export default createComponent({
+export default defineComponent({
   components: {
     AvButton
   },

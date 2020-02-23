@@ -117,7 +117,7 @@ ul {
 import Size from '../types/Size';
 import Product from '../types/Product';
 import AddToCartButton from './AddToCartButton.vue';
-import { createComponent, inject, ref, computed } from '@vue/composition-api';
+import { defineComponent, inject, ref, computed } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
 import { IProducts } from '../use/products';
@@ -126,7 +126,7 @@ interface Props {
   product: Product;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: {
     AddToCartButton
   },

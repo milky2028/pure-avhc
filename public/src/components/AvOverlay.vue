@@ -27,12 +27,12 @@
 </style>
 
 <script lang="ts">
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IOverlay } from '../use/overlay';
 import { INavbar } from '../use/navbar';
 
-export default createComponent({
+export default defineComponent({
   setup() {
     const { toggleOverlay, isOverlayShowing } = inject(
       Modules.overlay

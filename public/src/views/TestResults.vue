@@ -97,7 +97,7 @@
 </style>
 
 <script lang="ts">
-import { createComponent, ref, inject } from '@vue/composition-api';
+import { defineComponent, ref, inject } from '@vue/composition-api';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvSelector from '../components/AvSelector.vue';
@@ -106,7 +106,7 @@ import { Modules } from '../use/store';
 import { ITestResults } from '../use/test-results';
 import { useMetadata } from '../use/metadata';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage,

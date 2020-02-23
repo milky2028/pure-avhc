@@ -176,7 +176,7 @@ img {
 </style>
 
 <script lang="ts">
-import { createComponent, ref, watch, inject } from '@vue/composition-api';
+import { defineComponent, ref, watch, inject } from '@vue/composition-api';
 import { useWindowWidth } from '../use/window-width';
 import { useMetadata } from '../use/metadata';
 import { Modules } from '../use/store';
@@ -190,7 +190,7 @@ import AvButton from '../components/AvButton.vue';
 import AvError from '../components/AvErrors.vue';
 import { useFormErrors } from '../use/form-errors';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage,

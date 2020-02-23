@@ -68,9 +68,9 @@ select {
 <script lang="ts">
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 
-export default createComponent({
+export default defineComponent({
   components: {
     AvIconButton
   },

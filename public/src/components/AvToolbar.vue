@@ -404,7 +404,7 @@ a:hover {
 import AvIconButton from './AvIconButton.vue';
 import ProductCard from './ProductCard.vue';
 import AvBadge from './AvBadge.vue';
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import { MenuItem } from '../types/MenuItem';
 import { Modules } from '../use/store';
 import { useWindowWidth } from '../use/window-width';
@@ -424,7 +424,7 @@ interface LogoFull {
   sub?: string;
 }
 
-export default createComponent({
+export default defineComponent({
   components: {
     AvIconButton,
     ProductCard,

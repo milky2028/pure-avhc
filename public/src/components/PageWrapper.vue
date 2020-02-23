@@ -15,8 +15,8 @@
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
-export default createComponent({
+import { defineComponent } from '@vue/composition-api';
+export default defineComponent({
   props: {
     withPadding: Boolean
   }

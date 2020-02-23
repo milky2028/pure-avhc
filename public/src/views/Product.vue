@@ -161,7 +161,7 @@ import ArticlePage from '../components/ArticlePage.vue';
 import AvSelector from '../components/AvSelector.vue';
 import AddToCartButton from '../components/AddToCartButton.vue';
 import {
-  createComponent,
+  defineComponent,
   computed,
   inject,
   watch,
@@ -178,7 +178,7 @@ import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
 import removeTags from '../functions/removeTags';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage,

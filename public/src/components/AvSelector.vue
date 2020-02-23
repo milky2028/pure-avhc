@@ -66,7 +66,7 @@ select {
 <script lang="ts">
 import AvIconButton from './AvIconButton.vue';
 import createRandomId from '../functions/createRandomId';
-import { createComponent, computed } from '@vue/composition-api';
+import { defineComponent, computed } from '@vue/composition-api';
 
 interface Props {
   valueKey: string;
@@ -80,7 +80,7 @@ interface Props {
   borderRight: boolean;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: {
     AvIconButton
   },

@@ -33,7 +33,7 @@
 </style>
 
 <script lang="ts">
-import { createComponent, computed, inject } from '@vue/composition-api';
+import { defineComponent, computed, inject } from '@vue/composition-api';
 import EliantoButton from './EliantoButton.vue';
 import AvIconButton from './AvIconButton.vue';
 import { Modules } from '../use/store';
@@ -53,7 +53,7 @@ interface Props {
   thinBottom: boolean;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: {
     EliantoButton,
     AvIconButton

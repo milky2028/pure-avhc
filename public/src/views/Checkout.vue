@@ -233,7 +233,7 @@ h2 {
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   inject,
   ref,
   Ref,
@@ -260,7 +260,7 @@ import AvInput from '../components/AvInput.vue';
 import AvErrors from '../components/AvErrors.vue';
 import Chip from '../components/Chip.vue';
 
-export default createComponent({
+export default defineComponent({
   components: {
     Chip,
     PageWrapper,

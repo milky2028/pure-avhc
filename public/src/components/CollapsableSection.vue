@@ -46,7 +46,7 @@
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import AvButton from './AvButton.vue';
 import AvIconButton from './AvIconButton.vue';
 import { useWindowWidth } from '../use/window-width';
@@ -55,7 +55,7 @@ interface Props {
   isExpanded: boolean;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: {
     AvButton,
     AvIconButton

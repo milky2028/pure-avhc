@@ -61,7 +61,7 @@ a:hover {
 </style>
 
 <script lang="ts">
-import { ref, createComponent, inject } from '@vue/composition-api';
+import { ref, defineComponent, inject } from '@vue/composition-api';
 import Product from '../types/Product';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
@@ -70,7 +70,7 @@ interface Props {
   product: Product;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   props: {
     product: Object
   },

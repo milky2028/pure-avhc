@@ -93,12 +93,12 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import { useMetadata } from '../use/metadata';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage

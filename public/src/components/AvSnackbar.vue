@@ -27,11 +27,11 @@ h2 {
 </style>
 
 <script lang="ts">
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { ISnackbar } from '../use/snackbar';
 
-export default createComponent({
+export default defineComponent({
   setup() {
     const { snackbarMsg } = inject(Modules.snackbar) as ISnackbar;
     return { snackbarMsg };

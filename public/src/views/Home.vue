@@ -138,13 +138,13 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import AvButton from '../components/AvButton.vue';
 import Product from '../types/Product';
-import { createComponent, inject, computed } from '@vue/composition-api';
+import { defineComponent, inject, computed } from '@vue/composition-api';
 import { useWindowWidth } from '../use/window-width';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
 import { IImages } from '../use/cdn-image';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     AvButton

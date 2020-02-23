@@ -164,7 +164,7 @@ form {
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   ref,
   reactive,
   onMounted,
@@ -190,7 +190,7 @@ import uncamelize from '../functions/uncamelize';
 import { Site } from '../types/Site';
 import AvError from '../components/AvErrors.vue';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ShippingForm,

@@ -119,7 +119,7 @@ import SmallSelector from '../components/SmallSelector.vue';
 import AvIconButton from '../components/AvIconButton.vue';
 import Strain from '../types/Strain';
 import { IProducts } from '../use/products';
-import { computed, Ref, createComponent, inject } from '@vue/composition-api';
+import { computed, Ref, defineComponent, inject } from '@vue/composition-api';
 import CartItem from '../types/CartItem';
 import { Modules } from '../use/store';
 import { IImages } from '../use/cdn-image';
@@ -130,7 +130,7 @@ interface Props {
   strains: Strain[];
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: {
     SmallSelector,
     AvIconButton

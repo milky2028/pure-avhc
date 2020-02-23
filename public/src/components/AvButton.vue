@@ -86,9 +86,9 @@ button:active.flat:not(:disabled) {
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 
-export default createComponent({
+export default defineComponent({
   props: {
     fullWidth: Boolean,
     long: Boolean,

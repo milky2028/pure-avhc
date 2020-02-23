@@ -455,10 +455,10 @@
 <script lang="ts">
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageWrapper,
     ArticlePage

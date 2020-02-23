@@ -108,9 +108,9 @@ a:hover {
 
 <script lang="ts">
 import PageHeader from './PageHeader.vue';
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 
-export default createComponent({
+export default defineComponent({
   props: {
     title: String
   },

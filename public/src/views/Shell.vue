@@ -12,10 +12,10 @@
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import Loader from '../components/Loader.vue';
 
-export default createComponent({
+export default defineComponent({
   components: {
     Loader
   }

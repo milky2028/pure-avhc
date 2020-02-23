@@ -37,14 +37,14 @@
 import PageWrapper from '../components/PageWrapper.vue';
 import PageHeader from '../components/PageHeader.vue';
 import LargeProductCard from '../components/LargeProductCard.vue';
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { IProducts } from '../use/products';
 import { useMetadata } from '../use/metadata';
 import useStructuredData from '../use/structured-data';
 import { IImages } from '../use/cdn-image';
 
-export default createComponent({
+export default defineComponent({
   components: {
     PageHeader,
     PageWrapper,

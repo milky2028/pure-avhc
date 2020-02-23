@@ -27,11 +27,11 @@
 </style>
 
 <script lang="ts">
-import { createComponent, inject } from '@vue/composition-api';
+import { defineComponent, inject } from '@vue/composition-api';
 import { Modules } from '../use/store';
 import { ICart } from '../use/cart';
 
-export default createComponent({
+export default defineComponent({
   setup() {
     const { numberOfItemsInCart } = inject(Modules.cart) as ICart;
     return { numberOfItemsInCart };

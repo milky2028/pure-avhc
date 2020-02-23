@@ -22,7 +22,7 @@
 </style>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import { IFormErrors } from '../use/form-errors';
 import uncamelize from '../functions/uncamelize';
 
@@ -30,7 +30,7 @@ interface Props {
   errorInstance: IFormErrors;
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   props: {
     errorInstance: Object
   },
