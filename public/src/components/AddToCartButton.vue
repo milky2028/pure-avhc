@@ -96,9 +96,7 @@ export default createComponent<Props>({
     );
 
     const btnText = computed(() =>
-      cartItem && cartItem.value && cartItem.value.quantity
-        ? cartItem.value.quantity
-        : 'Add to Cart'
+      cartItem?.value?.quantity ? cartItem.value.quantity : 'Add to Cart'
     );
 
     const { addCartItem, updateCartItem } = inject(Modules.cart) as ICart;
