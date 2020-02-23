@@ -2,6 +2,14 @@
   <PageWrapper with-padding>
     <ArticlePage title="Checkout">
       <CollapsableSection
+        :is-expanded="isStepOpen.login"
+        @edit-clicked="onContinue([loginErrors], 'login')"
+      >
+        <template v-slot:header>
+          <h2 class="subhead">Login</h2>
+        </template>
+      </CollapsableSection>
+      <CollapsableSection
         :is-expanded="isStepOpen.addresses"
         @edit-clicked="
           onContinue(
@@ -353,7 +361,10 @@ export default createComponent({
       }
     }
 
+    const loginErrors = useFormErrors();
+
     return {
+      loginErrors,
       fullCoupon,
       validateDiscountCode,
       discountErrors,

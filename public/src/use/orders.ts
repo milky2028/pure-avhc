@@ -9,6 +9,7 @@ export function useOrders() {
   const couponCode = ref('');
 
   const isStepOpen: { [key: string]: boolean } = reactive({
+    login: true,
     addresses: true,
     payment: true,
     discount: false
