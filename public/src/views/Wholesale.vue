@@ -170,25 +170,25 @@ import {
   onMounted,
   inject
 } from '@vue/composition-api';
+import { useMetadata } from '../use/metadata';
+import { Modules } from '../use/store';
+import { useFormErrors } from '../use/form-errors';
+import { useWindowWidth } from '../use/window-width';
+import { ISnackbar } from '../use/snackbar';
+import { IUser } from '../use/user';
+import { Site } from '../types/Site';
+import post from '../functions/post';
 import Address from '../types/Address';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import ShippingForm from '../components/ShippingForm.vue';
+import AvInput from '../components/AvInput.vue';
+import AvError from '../components/AvErrors.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
-import AvInput from '../components/AvInput.vue';
-import post from '../functions/post';
 import workerInstance from '../workers/entry';
-import { useWindowWidth } from '../use/window-width';
-import { Modules } from '../use/store';
-import { ISnackbar } from '../use/snackbar';
-import { IUser } from '../use/user';
-import { useMetadata } from '../use/metadata';
-import { useFormErrors } from '../use/form-errors';
 import setAllStateInObj from '../functions/setState';
 import uncamelize from '../functions/uncamelize';
-import { Site } from '../types/Site';
-import AvError from '../components/AvErrors.vue';
 
 export default defineComponent({
   components: {

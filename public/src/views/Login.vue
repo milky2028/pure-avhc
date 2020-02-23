@@ -177,18 +177,18 @@ img {
 
 <script lang="ts">
 import { defineComponent, ref, watch, inject } from '@vue/composition-api';
-import { useWindowWidth } from '../use/window-width';
 import { useMetadata } from '../use/metadata';
 import { Modules } from '../use/store';
-import { IUser } from '../use/user';
+import { useFormErrors } from '../use/form-errors';
+import { useWindowWidth } from '../use/window-width';
 import { ISnackbar } from '../use/snackbar';
+import { IUser } from '../use/user';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
+import AvError from '../components/AvErrors.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
-import AvError from '../components/AvErrors.vue';
-import { useFormErrors } from '../use/form-errors';
 
 export default defineComponent({
   components: {

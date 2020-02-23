@@ -234,30 +234,30 @@ h2 {
 <script lang="ts">
 import {
   defineComponent,
-  inject,
   ref,
+  inject,
   Ref,
   computed
 } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
+import { Modules } from '../use/store';
+import { IOrders } from '../use/orders';
+import { IFormErrors, useFormErrors } from '../use/form-errors';
+import { ICart } from '../use/cart';
+import { IProducts } from '../use/products';
+import { proxy } from 'comlink';
 import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import ShippingForm from '../components/ShippingForm.vue';
+import AvInput from '../components/AvInput.vue';
+import AvErrors from '../components/AvErrors.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AddressDisplay from '../components/AddressDisplay.vue';
 import CollapsableSection from '../components/CollapsableSection.vue';
-import { Modules } from '../use/store';
-import { IOrders } from '../use/orders';
 import setAllStateInObj from '../functions/setState';
-import { IFormErrors, useFormErrors } from '../use/form-errors';
 import Divider from '../components/Divider.vue';
-import { ICart } from '../use/cart';
-import { IProducts } from '../use/products';
 import workerInstance from '../workers/entry';
 import Coupon from '../types/Coupon';
-import { proxy } from 'comlink';
-import AvInput from '../components/AvInput.vue';
-import AvErrors from '../components/AvErrors.vue';
 import Chip from '../components/Chip.vue';
 
 export default defineComponent({
