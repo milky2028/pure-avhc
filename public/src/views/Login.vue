@@ -141,7 +141,7 @@ p {
 .sign-in-icon {
   width: 18px;
   margin-right: 15px;
-  padding-top: 2px;
+  margin-top: -2px;
 }
 
 .google {
