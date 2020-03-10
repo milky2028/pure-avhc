@@ -68,7 +68,7 @@
         :thin-bottom="true"
       />
       <!-- eslint-disable-next-line -->
-      <div class="html-inject" v-html="currentPageProduct.description"></div>
+      <div class="article-inject" v-html="currentPageProduct.description"></div>
       <div>
         <h2>Strains</h2>
         <div
@@ -85,7 +85,7 @@
               name
             }}</a>
             <!-- eslint-disable-next-line -->
-            <div class="html-inject" v-html="description"></div>
+            <div class="article-inject" v-html="description"></div>
           </h3>
         </div>
       </div>

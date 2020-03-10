@@ -19,7 +19,7 @@ img {
   border-radius: var(--rounded-corner);
 }
 
-.html-inject >>> h2,
+.article-inject >>> h2,
 h2 {
   font-size: 22px;
   font-family: var(--mukta-malar);
@@ -32,7 +32,7 @@ h2:first-child {
   padding-top: 1rem;
 }
 
-.html-inject >>> h3,
+.article-inject >>> h3,
 h3 {
   font-size: 18px;
   font-family: var(--mukta-malar);
@@ -41,11 +41,11 @@ h3 {
   line-height: 1.2;
 }
 
-.html-inject >>> p,
+.article-inject >>> p,
 p,
-.html-inject >>> ul,
+.article-inject >>> ul,
 ul,
-.html-inject >>> ol,
+.article-inject >>> ol,
 ol {
   padding-top: 2vh;
   font-size: 18px;
@@ -54,47 +54,47 @@ ol {
   line-height: 1.6;
 }
 
-.html-inject >>> ol,
+.article-inject >>> ol,
 ol,
-.html-inject >>> ul,
+.article-inject >>> ul,
 ul {
   padding-left: 24px;
 }
 
-.html-inject >>> li + p,
+.article-inject >>> li + p,
 li + p {
   padding-top: 0;
 }
 
-.html-inject >>> p + li,
+.article-inject >>> p + li,
 p + li {
   padding-top: 16px;
 }
 
-.html-inject >>> ul,
+.article-inject >>> ul,
 ul {
   list-style: disc;
 }
 
-.html-inject >>> ol,
+.article-inject >>> ol,
 ol {
   font-weight: bold;
 }
 
-.html-inject >>> strong,
+.article-inject >>> strong,
 strong {
   font-weight: 600;
 }
 
-.html-inject >>> a,
+.article-inject >>> a,
 a {
   font-weight: 700;
   color: var(--dark-accent);
 }
 
-.html-inject >>> a:focus,
+.article-inject >>> a:focus,
 a:focus,
-.html-inject >>> a:hover,
+.article-inject >>> a:hover,
 a:hover {
   text-decoration: underline;
 }
