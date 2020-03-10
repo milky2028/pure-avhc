@@ -101,6 +101,23 @@ body {
   line-height: 1.4;
 }
 
+.basic-link {
+  font-weight: 700;
+  color: var(--dark-accent) !important;
+}
+
+.ptop {
+  padding-top: 1rem;
+}
+
+.pbottom {
+  padding-bottom: 1rem;
+}
+
+.sub-font {
+  font-size: 14px;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   opacity: 1;
