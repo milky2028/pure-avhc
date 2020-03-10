@@ -166,12 +166,11 @@ export default defineComponent<Props>({
 
     const { updateCartItem, removeCartItem } = inject(Modules.cart) as ICart;
     function onSizeChange(newSize: string) {
-      const newItemSize =
-        product && product.value
-          ? product.value.sizes.find(
-              ({ masterMeasurement }) => masterMeasurement === newSize
-            )
-          : null;
+      const newItemSize = product?.value
+        ? product.value.sizes.find(
+            ({ masterMeasurement }) => masterMeasurement === newSize
+          )
+        : null;
 
       if (newItemSize) {
         updateCartItem(props.cartItem.id, {

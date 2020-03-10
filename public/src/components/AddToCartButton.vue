@@ -77,7 +77,7 @@ export default defineComponent<Props>({
     },
     thinBottom: Boolean
   },
-  setup(props) {
+  setup(props: Props) {
     const product = computed(() => props.product);
     const size = computed(() => props.size);
     const strain = computed(() => props.strain);
@@ -95,13 +95,11 @@ export default defineComponent<Props>({
         : null
     );
 
-    const btnText = computed(() =>
-      cartItem?.value?.quantity ? cartItem.value.quantity : 'Add to Cart'
-    );
+    const btnText = computed(() => cartItem?.value?.quantity ?? 'Add to Cart');
 
     const { addCartItem, updateCartItem } = inject(Modules.cart) as ICart;
     function descreaseCartQty(cartItemId: string) {
-      if (cartItem && cartItem.value) {
+      if (cartItem?.value) {
         updateCartItem(cartItemId, {
           quantity: cartItem.value.quantity - 1
         });
@@ -114,7 +112,7 @@ export default defineComponent<Props>({
         sendEcommerceEvent('addToCart', 'add', product.value.name);
       }
 
-      if (cartItem && cartItem.value) {
+      if (cartItem?.value) {
         updateCartItem(cartItem.value.id, {
           quantity: cartItem.value.quantity + 1
         });

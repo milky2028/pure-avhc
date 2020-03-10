@@ -31,7 +31,7 @@ export function useProducts() {
 
   function displaySize(size: Ref<Size | null | undefined>) {
     return computed(() => {
-      if (size && size.value) {
+      if (size?.value) {
         const sizeRef = size.value;
         if (sizeRef.measurement !== 'gram') {
           return `${sizeRef.measurementValue} ${sizeRef.measurement} ${sizeRef.masterMeasurement}`;

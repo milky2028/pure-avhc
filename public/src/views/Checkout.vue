@@ -301,12 +301,12 @@ export default defineComponent({
     const billingErrors = useFormErrors();
 
     function onContinue(errorInstances: IFormErrors[], step: string) {
-      const hasErrors = errorInstances.some((instance) =>
-        instance && instance.errors ? instance.errors.value.length > 1 : false
+      const hasErrors = errorInstances.some(
+        (instance) => instance?.errors?.value.length > 1
       );
       if (hasErrors) {
         for (const instance of errorInstances) {
-          if (instance && instance.errors.value.length > 1) {
+          if (instance?.errors?.value.length > 1) {
             instance.showErrors.value = true;
           }
         }
