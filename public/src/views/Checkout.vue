@@ -2,6 +2,7 @@
   <PageWrapper with-padding>
     <ArticlePage title="Checkout">
       <CollapsableSection
+        v-if="!uid"
         :is-expanded="isStepOpen.login"
         @edit-clicked="onContinue([loginErrors], 'login')"
       >
@@ -87,9 +88,9 @@
           </h2>
         </template>
         <template v-slot:collapsed>
-          <chip v-if="fullCoupon" @remove-clicked="couponCode = ''">{{
-            fullCoupon.code
-          }}</chip>
+          <chip v-if="fullCoupon" @remove-clicked="couponCode = ''">
+            {{ fullCoupon.code }}
+          </chip>
         </template>
         <template v-slot:expanded>
           <av-input
@@ -139,9 +140,9 @@
                 : `$${fullCoupon.amount}`
             }}
           </p>
-          <chip v-if="fullCoupon" @remove-clicked="couponCode = ''">{{
-            fullCoupon.code
-          }}</chip>
+          <chip v-if="fullCoupon" @remove-clicked="couponCode = ''">
+            {{ fullCoupon.code }}
+          </chip>
         </div>
         <p class="subhead itemized">Shipping</p>
         <p class="subhead itemized money">$35.00</p>
@@ -259,6 +260,7 @@ import Divider from '../components/Divider.vue';
 import workerInstance from '../workers/entry';
 import Coupon from '../types/Coupon';
 import Chip from '../components/Chip.vue';
+import { IUser } from '../use/user';
 
 export default defineComponent({
   components: {
@@ -363,7 +365,10 @@ export default defineComponent({
 
     const loginErrors = useFormErrors();
 
+    const { uid } = inject(Modules.user) as IUser;
+
     return {
+      uid,
       loginErrors,
       fullCoupon,
       validateDiscountCode,

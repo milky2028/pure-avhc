@@ -82,6 +82,12 @@
 </template>
 
 <style scoped>
+@media (min-width: 835px) {
+  .account-create {
+    max-width: 35vw;
+  }
+}
+
 .field {
   width: 35vw;
   margin-top: 10px;
@@ -92,7 +98,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 35vw;
 }
 
 p {
