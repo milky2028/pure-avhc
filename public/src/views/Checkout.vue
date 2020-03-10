@@ -2,12 +2,24 @@
   <PageWrapper with-padding>
     <ArticlePage title="Checkout">
       <CollapsableSection
-        v-if="!uid"
         :is-expanded="isStepOpen.login"
         @edit-clicked="onContinue([loginErrors], 'login')"
       >
         <template v-slot:header>
           <h2 class="subhead">Login</h2>
+        </template>
+        <template v-slot:expanded>
+          <p class="body-text sub-font ptop pbottom">
+            {{
+              email
+                ? `Logged in as`
+                : 'Login, create an account, or checkout anonymously.'
+            }}
+            <router-link v-if="email" class="body-text basic-link" to="/orders">
+              {{ email }}.
+            </router-link>
+          </p>
+          <Login v-if="!email" />
         </template>
       </CollapsableSection>
       <CollapsableSection
@@ -260,6 +272,7 @@ import Divider from '../components/Divider.vue';
 import workerInstance from '../workers/entry';
 import Coupon from '../types/Coupon';
 import Chip from '../components/Chip.vue';
+import Login from '../components/Login.vue';
 import { IUser } from '../use/user';
 
 export default defineComponent({
@@ -273,7 +286,8 @@ export default defineComponent({
     AddressDisplay,
     Divider,
     AvInput,
-    AvErrors
+    AvErrors,
+    Login
   },
   setup() {
     const { setTitle, setPageDescription } = useMetadata();
@@ -365,10 +379,10 @@ export default defineComponent({
 
     const loginErrors = useFormErrors();
 
-    const { uid } = inject(Modules.user) as IUser;
+    const { email } = inject(Modules.user) as IUser;
 
     return {
-      uid,
+      email,
       loginErrors,
       fullCoupon,
       validateDiscountCode,
