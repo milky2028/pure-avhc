@@ -20,7 +20,7 @@ const FeedbackAndSupport = () =>
 const TestResults = () =>
   import(/* webpackChunkName: "TestResults" */ '../views/TestResults.vue');
 const Login = () =>
-  import(/* webpackChunkName: "Login" */ '../views/Login.vue');
+  import(/* webpackChunkName: "LoginWrapper" */ '../views/LoginWrapper.vue');
 const Orders = () =>
   import(/* webpackChunkName: "Orders" */ '../views/Orders.vue');
 const Wholesale = () =>

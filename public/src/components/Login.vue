@@ -1,84 +1,80 @@
 <template>
-  <PageWrapper with-padding>
-    <ArticlePage title="Login">
-      <p class="sign-in-helper">
-        If you have a
-        <a
-          href="https://purecbdexchange.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          >purecbdexchange.com</a
-        >
-        account, you may also use it to sign in here.
-      </p>
-      <form>
-        <AvInput
-          dark
-          more-padding
-          type="email"
-          autocomplete="email"
-          class="field"
-          placeholder="Email"
-          :pattern="emailPattern"
-          :value="email"
-          @on-input="email = $event"
-          @enter="resettingPassword ? resetPassword() : onLogin()"
-        />
-        <AvInput
-          v-if="!resettingPassword"
-          dark
-          more-padding
-          class="field"
-          type="password"
-          placeholder="Password"
-          autocomplete="current-password"
-          :value="password"
-          @on-input="password = $event"
-          @enter="resettingPassword ? resetPassword() : onLogin()"
-        />
-      </form>
-      <av-error class="error" :error-instance="loginErrors" />
-      <p v-if="!resettingPassword" class="reset-password">
-        <a @click="resettingPassword = true">Reset Password?</a>
-      </p>
-      <div v-if="!resettingPassword" class="account-create">
-        <p>Create an account?</p>
-        <AvSwitch :value="createAnAccount" @switch="createAnAccount = $event" />
-      </div>
-      <AvButton
-        long
-        :full-width="windowWidth < 835"
-        class="btn"
-        @btn-click="resettingPassword ? resetPassword() : onLogin()"
+  <div class="pbottom">
+    <p class="body-text sign-in-helper">
+      If you have a
+      <a
+        class="basic-link"
+        href="https://purecbdexchange.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        >purecbdexchange.com</a
       >
-        {{ resettingPassword ? 'Reset Password' : 'Login' }}
-      </AvButton>
-      <div v-if="!resettingPassword" class="sign-in-container">
-        <button class="sign-in-btn" @click="onProviderLogin('google')">
+      account, you may also use it to sign in here.
+    </p>
+    <form>
+      <AvInput
+        dark
+        more-padding
+        type="email"
+        autocomplete="email"
+        class="field"
+        placeholder="Email"
+        :pattern="emailPattern"
+        :value="email"
+        @on-input="email = $event"
+        @enter="resettingPassword ? resetPassword() : onLogin()"
+      />
+      <AvInput
+        v-if="!resettingPassword"
+        dark
+        more-padding
+        class="field"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+        :value="password"
+        @on-input="password = $event"
+        @enter="resettingPassword ? resetPassword() : onLogin()"
+      />
+    </form>
+    <av-error class="error" :error-instance="loginErrors" />
+    <p v-if="!resettingPassword" class="body-text basic-link reset-password">
+      <a @click="resettingPassword = true">Reset Password?</a>
+    </p>
+    <div v-if="!resettingPassword" class="account-create">
+      <p class="body-text">Create an account?</p>
+      <AvSwitch :value="createAnAccount" @switch="createAnAccount = $event" />
+    </div>
+    <AvButton
+      long
+      :full-width="windowWidth < 835"
+      class="btn"
+      @btn-click="resettingPassword ? resetPassword() : onLogin()"
+    >
+      {{ resettingPassword ? 'Reset Password' : 'Login' }}
+    </AvButton>
+    <div v-if="!resettingPassword" class="sign-in-container">
+      <button class="sign-in-btn" @click="onProviderLogin('google')">
+        <img
+          loading="lazy"
+          class="sign-in-icon google"
+          src="../assets/img/google.svg"
+          alt="Google icon"
+        />Continue with Google
+      </button>
+      <button class="sign-in-btn facebook" @click="onProviderLogin('facebook')">
+        <span>
           <img
             loading="lazy"
-            class="sign-in-icon google"
-            src="../assets/img/google.svg"
-            alt="Google icon"
-          />Continue with Google
-        </button>
-        <button
-          class="sign-in-btn facebook"
-          @click="onProviderLogin('facebook')"
-        >
-          <span>
-            <img
-              loading="lazy"
-              class="sign-in-icon"
-              src="../assets/img/facebook.svg"
-              alt="Facebook icon"
-            />
-          </span>
-          <span>Continue with Facebook</span>
-        </button>
-      </div>
-    </ArticlePage>
-  </PageWrapper>
+            class="sign-in-icon"
+            src="../assets/img/facebook.svg"
+            alt="Facebook icon"
+          />
+        </span>
+        <span>Continue with Facebook</span>
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -86,6 +82,10 @@
   .account-create {
     max-width: 35vw;
   }
+}
+
+.article-inject {
+  padding: 2rem 0;
 }
 
 .field {
@@ -101,18 +101,18 @@
 }
 
 p {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .reset-password {
   margin-left: 5px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 14px !important;
 }
 
 .sign-in-helper {
   margin-left: 0;
-  font-size: 14px;
+  font-size: 14px !important;
 }
 
 .btn {
@@ -133,7 +133,7 @@ p {
   width: 270px;
   margin-top: 15px;
   height: 40px;
-  border-radius: var(--rounded-corner);
+  border-radius: 19px;
   box-shadow: var(--basic-shadow);
   font-weight: bold;
 }
@@ -181,15 +181,13 @@ img {
 </style>
 
 <script lang="ts">
-import { defineComponent, ref, watch, inject } from '@vue/composition-api';
+import { defineComponent, ref, inject } from '@vue/composition-api';
 import { useMetadata } from '../use/metadata';
 import { Modules } from '../use/store';
 import { useFormErrors } from '../use/form-errors';
 import { useWindowWidth } from '../use/window-width';
 import { ISnackbar } from '../use/snackbar';
 import { IUser } from '../use/user';
-import PageWrapper from '../components/PageWrapper.vue';
-import ArticlePage from '../components/ArticlePage.vue';
 import AvInput from '../components/AvInput.vue';
 import AvError from '../components/AvErrors.vue';
 import AvSwitch from '../components/AvSwitch.vue';
@@ -197,14 +195,12 @@ import AvButton from '../components/AvButton.vue';
 
 export default defineComponent({
   components: {
-    PageWrapper,
-    ArticlePage,
     AvInput,
     AvButton,
     AvSwitch,
     AvError
   },
-  setup(_, ctx) {
+  setup() {
     const { setTitle, setPageDescription } = useMetadata();
     setTitle('Login');
     setPageDescription(
@@ -222,16 +218,8 @@ export default defineComponent({
       sendPasswordResetEmail,
       signInWithProvider,
       createAccountWithEmailAndPassword,
-      signInWithEmail,
-      isAdmin
+      signInWithEmail
     } = inject(Modules.user) as IUser;
-    watch([uid, isAdmin], () => {
-      if (uid.value && isAdmin.value) {
-        ctx.root.$router.push('/admin');
-      } else if (uid.value) {
-        ctx.root.$router.push('/orders');
-      }
-    });
 
     const loginErrors = useFormErrors();
 
