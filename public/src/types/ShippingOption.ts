@@ -1,7 +1,7 @@
 export default class ShippingOption {
   id = '';
-  type = '';
-  display = '';
+  type = 'standard';
+  display = 'USPS Priority Mail (2 Days)';
   price = 7.99;
   site = [];
 
