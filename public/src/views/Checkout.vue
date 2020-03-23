@@ -43,6 +43,18 @@
         <template v-slot:header>
           <h2 class="subhead">Shipping</h2>
         </template>
+        <template v-slot:constant>
+          <AvSelector
+            class="mb"
+            label="Shipping Options"
+            :options="shippingOptions"
+            loop-key="id"
+            display-key="display"
+            value-key="type"
+            :bound-prop="selectedShippingOption.type"
+            @select-change="setShippingOption($event)"
+          />
+        </template>
         <template v-slot:expanded>
           <ShippingForm
             :show-header="false"
@@ -56,7 +68,7 @@
                 );
               }
             "
-            @form-input="setAllStateInObj(shippingAddress, $event)"
+            @form-input="Object.assign(shippingAddress, $event)"
           />
           <div class="switch-container">
             <p class="body-text">Different billing address?</p>
@@ -71,7 +83,7 @@
             class="margin-top"
             :form="billingAddress"
             :error-instance="billingErrors"
-            @form-input="setAllStateInObj(billingAddress, $event)"
+            @form-input="Object.assign(billingAddress, $event)"
             @last-field-enter="
               onContinue([shippingErrors, billingErrors], isStepOpen.addresses)
             "
@@ -90,10 +102,60 @@
           <h2 class="subhead">Payment</h2>
         </template>
         <template v-slot:collapsed>
-          <div>Collapsed content</div>
+          <div>
+            <h3 class="body-text">
+              Card: {{ formatCardNumber(payment.cardNumber, true) }}
+            </h3>
+            <h3 class="body-text">
+              Expiration Date: {{ payment.expiryMonth }}/{{
+                payment.expiryYear
+              }}
+            </h3>
+          </div>
         </template>
         <template v-slot:expanded>
-          <div>Expanded content</div>
+          <div>
+            <AvInput
+              class="mb"
+              dark
+              more-padding
+              type="text"
+              inputmode="numeric"
+              autocomplete="cc-number"
+              placeholder="Credit Card Number"
+              :value="formatCardNumber(payment.cardNumber)"
+              @on-input="payment.cardNumber = $event.replace(/ /g, '')"
+            />
+            <div class="mb split-grid">
+              <AvInputSelector
+                dark
+                placeholder="Expiration Month"
+                autocomplete="cc-exp-month"
+                :options="months"
+                :value="payment.expiryMonth"
+                @on-select="payment.expiryMonth = $event"
+              />
+              <AvInputSelector
+                dark
+                placeholder="Expiration Year"
+                autocomplete="cc-exp-year"
+                :options="years"
+                :value="payment.expiryYear"
+                @on-select="payment.expiryYear = $event"
+              />
+            </div>
+            <AvInput
+              dark
+              more-padding
+              type="text"
+              inputmode="numeric"
+              autocomplete="cc-csc"
+              placeholder="Security Code"
+              pattern="\d{3,4}"
+              :value="payment.securityCode"
+              @on-input="payment.securityCode = $event"
+            />
+          </div>
         </template>
       </CollapsableSection>
       <CollapsableSection
@@ -166,7 +228,9 @@
           </chip>
         </div>
         <p class="subhead itemized">Shipping</p>
-        <p class="subhead itemized money">$35.00</p>
+        <p class="subhead itemized money">
+          ${{ selectedShippingOption.price }}
+        </p>
         <p class="subhead itemized">Tax</p>
         <p class="subhead itemized money">$35.00</p>
         <Divider class="divider" />
@@ -187,6 +251,12 @@ h2 {
   display: grid;
   grid-auto-flow: column;
   margin-top: 2rem;
+}
+
+.split-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
 }
 
 .switch {
@@ -272,11 +342,12 @@ import PageWrapper from '../components/PageWrapper.vue';
 import ArticlePage from '../components/ArticlePage.vue';
 import ShippingForm from '../components/ShippingForm.vue';
 import AvInput from '../components/AvInput.vue';
+import AvInputSelector from '../components/AvInputSelector.vue';
+import AvSelector from '../components/AvSelector.vue';
 import AvErrors from '../components/AvErrors.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AddressDisplay from '../components/AddressDisplay.vue';
 import CollapsableSection from '../components/CollapsableSection.vue';
-import setAllStateInObj from '../functions/setState';
 import Divider from '../components/Divider.vue';
 import workerInstance from '../workers/entry';
 import Coupon from '../types/Coupon';
@@ -296,7 +367,9 @@ export default defineComponent({
     Divider,
     AvInput,
     AvErrors,
-    Login
+    Login,
+    AvInputSelector,
+    AvSelector
   },
   setup() {
     const { setTitle, setPageDescription } = useMetadata();
@@ -314,7 +387,11 @@ export default defineComponent({
     }
 
     const {
+      payment,
       shippingAddress,
+      setShippingOption,
+      selectedShippingOption,
+      shippingOptions,
       billingAddress,
       differentBilling,
       isStepOpen,
@@ -322,6 +399,39 @@ export default defineComponent({
     } = inject(Modules.orders) as IOrders;
     const shippingErrors = useFormErrors();
     const billingErrors = useFormErrors();
+
+    function formatCardNumber(cardNumber: string, useStars = false) {
+      const match = cardNumber.replace(/ /g, '').match(/.{1,4}/g);
+
+      if (match?.length === 4 && useStars) {
+        match[0] = '****';
+        match[1] = '****';
+        match[2] = '****';
+      }
+
+      return match?.join(' ');
+    }
+
+    const months = [
+      { displayValue: '01', value: '01', key: 0 },
+      { displayValue: '02', value: '02', key: 1 },
+      { displayValue: '03', value: '03', key: 2 },
+      { displayValue: '04', value: '04', key: 3 },
+      { displayValue: '05', value: '05', key: 4 },
+      { displayValue: '06', value: '06', key: 5 },
+      { displayValue: '07', value: '07', key: 6 },
+      { displayValue: '08', value: '08', key: 7 },
+      { displayValue: '09', value: '09', key: 8 },
+      { displayValue: '10', value: '10', key: 9 },
+      { displayValue: '11', value: '11', key: 10 },
+      { displayValue: '12', value: '12', key: 11 }
+    ];
+
+    const thisYear = new Date().getFullYear();
+    const years = [];
+    for (let i = thisYear; i < thisYear + 15; i++) {
+      years.push({ displayValue: String(i), value: String(i), key: i });
+    }
 
     function onContinue(errorInstances: IFormErrors[], step: string) {
       const hasErrors = errorInstances.some(
@@ -361,7 +471,7 @@ export default defineComponent({
       )
     );
 
-    function validateDiscountCode(discountCode: string, isIconClick?: boolean) {
+    function validateDiscountCode(discountCode: string, isIconClick = false) {
       if (isStepOpen.discount) {
         const isValid = coupons.value
           .map(({ code }) => code.toLowerCase())
@@ -391,6 +501,13 @@ export default defineComponent({
     const { email, signOut } = inject(Modules.user) as IUser;
 
     return {
+      setShippingOption,
+      shippingOptions,
+      years,
+      months,
+      formatCardNumber,
+      selectedShippingOption,
+      payment,
       signOut,
       email,
       loginErrors,
@@ -404,7 +521,6 @@ export default defineComponent({
       shippingErrors,
       onContinue,
       isStepOpen,
-      setAllStateInObj,
       differentBilling,
       shippingAddress,
       billingAddress
