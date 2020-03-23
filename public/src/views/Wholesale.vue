@@ -80,7 +80,7 @@
         v-if="!uid"
         :form="shippingForm"
         :error-instance="shippingErrors"
-        @form-input="setAllStateInObj(shippingForm, $event)"
+        @form-input="Object.assign(shippingForm, $event)"
       />
       <div v-if="!uid" class="switch-container">
         <p class="no-padding billing-question">
@@ -187,7 +187,6 @@ import AvError from '../components/AvErrors.vue';
 import AvSwitch from '../components/AvSwitch.vue';
 import AvButton from '../components/AvButton.vue';
 import workerInstance from '../workers/entry';
-import setAllStateInObj from '../functions/setState';
 import uncamelize from '../functions/uncamelize';
 
 export default defineComponent({
@@ -305,7 +304,6 @@ export default defineComponent({
     });
 
     return {
-      setAllStateInObj,
       uid,
       isWholesaleUser,
       wholesaleCatalog,

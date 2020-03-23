@@ -12,7 +12,7 @@ export default class Address {
   zipCode: string | number = '';
   country = '';
 
-  constructor(address?: Partial<Address>) {
+  constructor(address: Partial<Address> = {}) {
     Object.assign(this, address);
   }
 }
