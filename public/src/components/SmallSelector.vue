@@ -39,6 +39,7 @@
 }
 
 label {
+  grid-area: label;
   font-size: 14px;
 }
 
