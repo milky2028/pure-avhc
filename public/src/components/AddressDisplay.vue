@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h2
+    <h3
       v-if="address.isBilling"
       class="subhead"
       :class="{ marginTop: address.isBilling }"
     >
       {{ address.isBilling ? 'Billing' : '' }}
-    </h2>
+    </h3>
     <p class="body-text">{{ address.name }}</p>
     <p class="body-text">
       {{ `${address.address1}${address.address2 ? ',' : ''}` }}
@@ -22,7 +22,7 @@
 </template>
 
 <style scoped>
-h2 {
+h3 {
   font-size: 20px;
   padding: 1rem 0;
 }
