@@ -72,7 +72,8 @@
         more-padding
         class="zip"
         placeholder="Zip Code"
-        type="number"
+        type="text"
+        inputmode="numeric"
         pattern="\d*"
         autocomplete="postal-code"
         :value="zipCode"
