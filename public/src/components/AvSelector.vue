@@ -10,7 +10,7 @@
         <option
           v-for="opt of sortedOptions"
           :key="opt[loopKey]"
-          :value="opt[valueKey ? valueKey : 'value']"
+          :value="opt[valueKey]"
           >{{ opt[displayKey] }}</option
         >
       </select>
@@ -85,7 +85,11 @@ export default defineComponent<Props>({
     AvIconButton
   },
   props: {
-    valueKey: String,
+    valueKey: {
+      type: String,
+      default: 'value',
+      required: false
+    },
     options: Array,
     label: String,
     loopKey: String,
