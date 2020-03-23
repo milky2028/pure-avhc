@@ -109,13 +109,13 @@ h2 {
 form {
   display: grid;
   grid-auto-flow: row;
-  grid-row-gap: 1vmax;
+  grid-row-gap: 1rem;
 }
 
 .address-container {
   display: grid;
   grid-template-columns: 1fr 150px 165px;
-  grid-gap: 1vmax;
+  grid-gap: 1rem;
 }
 
 @media (max-width: 835px) {
