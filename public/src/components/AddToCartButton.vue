@@ -45,7 +45,7 @@ import Strain from '../types/Strain';
 import useAnalytics from '../use/analytics';
 
 interface Props {
-  [key: string]: any;
+  [key: string]: Product | Strain | Size | boolean;
   product: Product;
   strain: Strain;
   size: Size;
