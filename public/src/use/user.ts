@@ -2,7 +2,6 @@ import { reactive, toRefs } from '@vue/composition-api';
 import AvUser from '@/types/AvUser';
 import initializeFirebaseApp from '@/functions/initializeFirebaseApp';
 import workerInstance from '../workers/entry';
-import setAllStateInObj from '@/functions/setState';
 import { clear } from 'idb-keyval';
 import initializeAuth from '@/functions/intializeFirebaseAuth';
 
@@ -37,14 +36,17 @@ export function useUser() {
           ? (await auth.currentUser.getIdTokenResult()).claims
           : null;
 
-        setAllStateInObj(user, {
-          ...claims,
-          email,
-          phoneNumber,
-          displayName,
-          uid,
-          photoURL
-        });
+        Object.assign(
+          user,
+          new AvUser({
+            ...claims,
+            email: email ?? '',
+            phoneNumber: phoneNumber ?? '',
+            displayName: displayName ?? '',
+            uid: uid ?? '',
+            photoURL: photoURL ?? ''
+          })
+        );
       }
     });
   }
@@ -54,7 +56,7 @@ export function useUser() {
       const instance = await workerInstance;
       const userExtras = await instance.getDocumentById('userExtras', uid);
       if (userExtras) {
-        setAllStateInObj(user, userExtras);
+        Object.assign(user, userExtras);
       }
     }
   }
@@ -135,7 +137,7 @@ export function useUser() {
   async function signOut() {
     const auth = await _auth();
     const instance = await workerInstance;
-    setAllStateInObj(user, { ...emptyUser });
+    Object.assign(user, new AvUser());
     await clear();
     auth.signOut();
     return instance.signOutWorker();

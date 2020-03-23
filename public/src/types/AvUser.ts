@@ -1,16 +1,20 @@
 import CartItem from './CartItem';
 
-export default interface AvUser {
+export default class AvUser {
   [key: string]: boolean | string | null | CartItem[] | Date;
-  key: string;
-  keyCreated: Date;
-  isAdmin: boolean;
-  isWholesaleUser: boolean;
-  canSubscribe: boolean;
-  uid: string;
-  email: string | null;
-  displayName: string | null;
-  phoneNumber: string | null;
-  photoURL: string | null;
-  cart: CartItem[];
+  key = '';
+  keyCreated = new Date();
+  isAdmin = false;
+  isWholesaleUser = false;
+  canSubscribe = true;
+  uid = '';
+  email = '';
+  displayName = '';
+  phoneNumber = '';
+  photoURL = '';
+  cart = [] as CartItem[];
+
+  constructor(options: Partial<AvUser> = {}) {
+    Object.assign(this, options);
+  }
 }
