@@ -17,7 +17,7 @@
         more-padding
         type="email"
         autocomplete="email"
-        class="field"
+        class="mt field"
         placeholder="Email"
         :pattern="emailPattern"
         :value="email"
@@ -28,7 +28,7 @@
         v-if="!resettingPassword"
         dark
         more-padding
-        class="field"
+        class="mt field"
         type="password"
         placeholder="Password"
         autocomplete="current-password"
@@ -90,7 +90,6 @@
 
 .field {
   width: 35vw;
-  margin-top: 10px;
 }
 
 .account-create {
