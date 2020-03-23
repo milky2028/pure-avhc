@@ -155,7 +155,7 @@ const StateTaxes = [
     taxRate: 5.13
   },
   {
-    abbr: 'Ny',
+    abbr: 'NY',
     state: 'New York',
     taxRate: 4.0
   },
