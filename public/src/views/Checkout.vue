@@ -8,17 +8,26 @@
         <template v-slot:header>
           <h2 class="subhead">Login</h2>
         </template>
-        <template v-slot:expanded>
+        <template v-slot:collapsed>
           <p class="body-text sub-font ptop pbottom">
             {{
               email
                 ? `Logged in as`
-                : 'Login, create an account, or checkout anonymously.'
+                : 'You are not signed in. Sign in, create an account, or checkout anonymously.'
             }}
             <router-link v-if="email" class="body-text basic-link" to="/orders">
               {{ email }}.
             </router-link>
           </p>
+        </template>
+        <template v-slot:expanded>
+          <a
+            v-if="email"
+            class="body-text sub-font ptop pbottom basic-link"
+            @click="signOut()"
+          >
+            Sign out
+          </a>
           <Login v-if="!email" />
         </template>
       </CollapsableSection>
@@ -379,9 +388,10 @@ export default defineComponent({
 
     const loginErrors = useFormErrors();
 
-    const { email } = inject(Modules.user) as IUser;
+    const { email, signOut } = inject(Modules.user) as IUser;
 
     return {
+      signOut,
       email,
       loginErrors,
       fullCoupon,

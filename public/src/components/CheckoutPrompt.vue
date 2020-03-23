@@ -37,7 +37,7 @@
 
 .checkout {
   grid-area: checkout;
-  color: white;
+  color: white !important;
   justify-self: end;
   padding-right: 0;
   justify-content: flex-end;
