@@ -9,6 +9,9 @@
         >{{ isExpanded ? 'close' : 'edit' }}</AvIconButton
       >
     </div>
+    <div>
+      <slot name="constant" />
+    </div>
     <div v-if="!isExpanded">
       <slot name="collapsed" />
     </div>
