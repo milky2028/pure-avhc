@@ -21,7 +21,7 @@ const _fb = initializeFirebaseApp(_firebase);
 const _db = intializeFirestore(_fb);
 const _auth = initializeAuth(_fb);
 
-function processSingleTimestamp(data: { [key: string]: any }) {
+function processSingleTimestamp(data: Record<string, any>) {
   return Object.fromEntries(
     Object.entries(data).map(([key, value]) => [
       key,
@@ -30,7 +30,7 @@ function processSingleTimestamp(data: { [key: string]: any }) {
   );
 }
 
-function processTimestamps(data: { [key: string]: any }[]) {
+function processTimestamps(data: Record<string, any>[]) {
   return data.map((d) => processSingleTimestamp(d));
 }
 

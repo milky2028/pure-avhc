@@ -4,7 +4,7 @@ import Size from '@/types/Size';
 import removeTags from '../functions/removeTags';
 
 export default function useStructuredData() {
-  async function setStructuredData(structuredData: { [key: string]: any }) {
+  async function setStructuredData(structuredData: Record<string, any>) {
     const data = JSON.stringify(structuredData);
     const existingStructuredData = [
       ...document.getElementsByTagName('script')

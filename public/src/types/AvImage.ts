@@ -1,7 +1,7 @@
 import { Site } from './Site';
 
 export default interface AvImage {
-  [key: string]: any;
+  [key: string]: string | Site[] | boolean | undefined;
   url: string;
   id: string;
   product: string;
