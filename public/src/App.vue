@@ -106,6 +106,14 @@ body {
   color: var(--dark-accent) !important;
 }
 
+.mt {
+  margin-top: 1rem;
+}
+
+.mb {
+  margin-bottom: 1rem;
+}
+
 .ptop {
   padding-top: 1rem;
 }
