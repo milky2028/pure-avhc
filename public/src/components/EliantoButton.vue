@@ -18,7 +18,7 @@
   background-color: white;
   padding: 14px;
   font-size: 24px;
-  transition: 50ms var(--mat-ease);
+  transition: 50ms var(--ease);
   cursor: pointer;
   line-height: 32px;
 }

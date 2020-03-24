@@ -32,7 +32,7 @@
   grid-column-gap: 3rem;
   align-items: center;
   overflow: hidden;
-  transition: all 300ms var(--mat-ease);
+  transition: all 300ms var(--ease);
 }
 
 .checkout {

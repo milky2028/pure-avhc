@@ -13,7 +13,7 @@
   font-family: 'Material Icons' !important;
   color: white;
   font-size: 22px;
-  transition: color 100ms var(--mat-ease);
+  transition: color 100ms var(--ease);
   text-transform: none !important;
 }
 

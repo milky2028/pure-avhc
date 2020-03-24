@@ -114,7 +114,7 @@ img {
 
 .gallery-img {
   height: 80px;
-  transition: box-shadow 50ms var(--mat-ease);
+  transition: box-shadow 50ms var(--ease);
 }
 
 .selectedGalleryImage {

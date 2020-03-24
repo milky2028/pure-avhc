@@ -182,7 +182,7 @@
   grid-template-columns: 56px 1fr 56px;
   grid-template-areas: 'menu logo right';
   align-items: center;
-  transition: all 200ms var(--mat-ease);
+  transition: all 200ms var(--ease);
   overflow: hidden;
 }
 
@@ -308,7 +308,7 @@ a:hover {
   grid-area: logo;
   align-self: center;
   justify-self: center;
-  transition: color 200ms var(--mat-ease);
+  transition: color 200ms var(--ease);
 }
 
 .icon-link {

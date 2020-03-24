@@ -41,7 +41,7 @@
   --basic-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
   --elianto: 'Elianto', sans-serif;
   --mukta-malar: 'Mukta Malar', sans-serif;
-  --mat-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --mat-enter: cubic-bezier(0, 0, 0.2, 1);
   --mat-leave: cubic-bezier(0.4, 0, 1, 1);
   --rounded-corner: 5px;
@@ -66,7 +66,7 @@ a:visited {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-  transition: color 100ms var(--mat-ease);
+  transition: color 100ms var(--ease);
 }
 
 button {
@@ -129,7 +129,7 @@ body {
 .fade-enter-active,
 .fade-leave-active {
   opacity: 1;
-  transition: opacity 100ms var(--mat-ease);
+  transition: opacity 100ms var(--ease);
 }
 
 .fade-enter,
@@ -138,7 +138,7 @@ body {
 }
 
 .fade-move {
-  transition: all 100ms var(--mat-ease);
+  transition: all 100ms var(--ease);
 }
 
 .slide-y-enter-active {
