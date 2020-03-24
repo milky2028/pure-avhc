@@ -3,7 +3,7 @@
     <h3
       v-if="address.isBilling"
       class="subhead"
-      :class="{ marginTop: address.isBilling }"
+      :class="{ mt: address.isBilling }"
     >
       {{ address.isBilling ? 'Billing' : '' }}
     </h3>
@@ -15,7 +15,7 @@
     <p class="body-text">
       {{ `${address.city}${address.city ? ',' : ''}` }}
       <span>{{ address.state }}</span>
-      <span>{{ address.zipCode }}</span>
+      <span>&nbsp;{{ address.zipCode }}</span>
     </p>
     <p class="body-text">{{ address.country }}</p>
   </div>
@@ -25,10 +25,6 @@
 h3 {
   font-size: 20px;
   padding: 1rem 0;
-}
-
-.marginTop {
-  margin-top: 1rem;
 }
 
 p {

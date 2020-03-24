@@ -43,7 +43,7 @@
         <template v-slot:header>
           <h2 class="subhead">Shipping</h2>
         </template>
-        <template v-slot:constant>
+        <template v-slot:expanded>
           <AvSelector
             class="mb"
             label="Shipping Options"
@@ -54,8 +54,6 @@
             :bound-prop="selectedShippingOption.type"
             @select-change="setShippingOption($event)"
           />
-        </template>
-        <template v-slot:expanded>
           <ShippingForm
             :show-header="false"
             :form="shippingAddress"
@@ -90,6 +88,15 @@
           />
         </template>
         <template v-slot:collapsed>
+          <p class="body-text">
+            Shipping Method:
+          </p>
+          <p class="body-text">
+            {{ selectedShippingOption.display }} - ${{
+              selectedShippingOption.price
+            }}
+          </p>
+          <br />
           <AddressDisplay :address="shippingAddress" />
           <AddressDisplay v-if="differentBilling" :address="billingAddress" />
         </template>

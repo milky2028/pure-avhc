@@ -3,6 +3,7 @@
     <ArticlePage title="404 Error">
       <h2>Page Not Found</h2>
       <img
+        class="mt"
         loading="lazy"
         src="/404.gif"
         alt="Wile Coyote with a Wheel Helmet on"
@@ -22,7 +23,6 @@
 
 <style scoped>
 img {
-  margin-top: 16px;
   width: 100%;
 }
 </style>

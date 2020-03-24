@@ -110,7 +110,7 @@
         You are already a wholesale user.
       </p>
       <AvButton
-        :class="{ topMargin: differentBilling }"
+        :class="{ mt: differentBilling }"
         :full-width="windowWidth < 835"
         :long="windowWidth > 835"
         @btn-click="onSubmit"
@@ -151,10 +151,6 @@ form {
 
 .switch {
   justify-self: end;
-}
-
-.topMargin {
-  margin-top: 16px;
 }
 
 .user-msg {

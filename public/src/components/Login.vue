@@ -41,14 +41,14 @@
     <p v-if="!resettingPassword" class="body-text basic-link reset-password">
       <a @click="resettingPassword = true">Reset Password?</a>
     </p>
-    <div v-if="!resettingPassword" class="account-create">
+    <div v-if="!resettingPassword" class="mt account-create">
       <p class="body-text">Create an account?</p>
       <AvSwitch :value="createAnAccount" @switch="createAnAccount = $event" />
     </div>
     <AvButton
       long
       :full-width="windowWidth < 835"
-      class="btn"
+      class="mt"
       @btn-click="resettingPassword ? resetPassword() : onLogin()"
     >
       {{ resettingPassword ? 'Reset Password' : 'Login' }}
@@ -93,7 +93,6 @@
 }
 
 .account-create {
-  margin-top: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -114,10 +113,6 @@ p {
   font-size: 14px !important;
 }
 
-.btn {
-  margin-top: 15px;
-}
-
 .sign-in-container {
   display: flex;
   flex-direction: column;
@@ -130,7 +125,6 @@ p {
   align-items: center;
   justify-content: center;
   width: 270px;
-  margin-top: 15px;
   height: 40px;
   border-radius: 19px;
   box-shadow: var(--basic-shadow);
