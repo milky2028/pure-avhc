@@ -175,7 +175,7 @@
   color: white;
   position: fixed;
   height: 55px;
-  background-color: var(--primary-color);
+  background-color: var(--navy);
   box-shadow: var(--basic-shadow);
   display: grid;
   grid-template-rows: 39px 1fr;

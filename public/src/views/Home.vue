@@ -85,7 +85,7 @@
 }
 
 .subtag {
-  background-color: var(--primary-color);
+  background-color: var(--navy);
   color: white;
   margin-block-end: 0;
   margin-top: 5px;

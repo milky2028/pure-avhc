@@ -58,7 +58,7 @@ select {
 
 .dark {
   color: white;
-  background-color: var(--primary-color);
+  background-color: var(--navy);
 }
 </style>
 

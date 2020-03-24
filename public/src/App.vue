@@ -29,7 +29,7 @@
 
 :root {
   font-size: 8px;
-  --primary-color: #000a23;
+  --navy: #000a23;
   --light-accent: #25ac6a;
   --dark-accent: #004d40;
   --dark-accent-light-shade: #006352;
