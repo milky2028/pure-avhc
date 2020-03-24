@@ -38,7 +38,7 @@
   --light-accent-faint-shade: rgba(37, 172, 106, 0.08);
   --light-accent-light-shade: rgba(37, 172, 106, 0.15);
   --snackbar-color: #2e2e2e;
-  --basic-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  --basic-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
   --elianto: 'Elianto', sans-serif;
   --mukta-malar: 'Mukta Malar', sans-serif;
   --mat-ease: cubic-bezier(0.4, 0, 0.2, 1);
