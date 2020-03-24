@@ -28,7 +28,7 @@ div {
   height: 19px;
   background: linear-gradient(
       to right,
-      var(--warn) 0,
+      var(--red) 0,
       #fc8b34 45%,
       #7fd03e 55%,
       var(--dark-accent) 100%
@@ -56,7 +56,7 @@ div {
   font-family: 'Cabin', sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: var(--warn);
+  color: var(--red);
   letter-spacing: 3px;
   text-transform: uppercase;
   transition: left 200ms ease, color 200ms ease, transform 150ms ease;

@@ -16,7 +16,7 @@
 
 <style scoped>
 .errors {
-  color: var(--warn);
+  color: var(--red);
   font-size: 2rem;
 }
 </style>

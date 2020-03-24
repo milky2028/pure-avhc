@@ -15,7 +15,7 @@
   z-index: 10;
   border-radius: 50%;
   font-size: 16px;
-  background-color: var(--warn);
+  background-color: var(--red);
   color: white;
   width: 20px;
   height: 20px;
