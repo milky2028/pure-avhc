@@ -54,7 +54,7 @@
       {{ resettingPassword ? 'Reset Password' : 'Login' }}
     </AvButton>
     <div v-if="!resettingPassword" class="sign-in-container">
-      <button class="sign-in-btn" @click="onProviderLogin('google')">
+      <button class="mt sign-in-btn" @click="onProviderLogin('google')">
         <img
           loading="lazy"
           class="sign-in-icon google"
@@ -62,7 +62,10 @@
           alt="Google icon"
         />Continue with Google
       </button>
-      <button class="sign-in-btn facebook" @click="onProviderLogin('facebook')">
+      <button
+        class="mt sign-in-btn facebook"
+        @click="onProviderLogin('facebook')"
+      >
         <span>
           <img
             loading="lazy"

@@ -107,7 +107,7 @@ body {
 }
 
 .mt {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 
 .mb {
