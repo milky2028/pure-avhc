@@ -5,18 +5,12 @@
         {{ isNavbarExpanded ? 'close' : 'menu' }}
       </AvIconButton>
     </transition>
-    <router-link class="logo-link" to="/">
+    <router-link v-if="!isNavbarExpanded" class="logo-link" to="/">
       <transition name="fade">
-        <h1
-          v-if="logoMin.content && logoMin.type === 'text' && !isNavbarExpanded"
-          class="logo-text"
-        >
-          <abbr :title="legalName">{{ logoMin.content }}</abbr>
-        </h1>
         <img
-          v-if="logoMin.content && logoMin.type === 'image'"
+          class="tb-logo"
           loading="lazy"
-          :src="logoMin.content"
+          src="/logo.svg"
           :alt="`${legalName} Company Logo`"
         />
       </transition>
@@ -237,6 +231,10 @@ abbr {
   grid-area: logo;
 }
 
+.tb-logo {
+  width: 35px;
+}
+
 .logo-text {
   font-family: var(--elianto);
   font-size: 28px;
@@ -413,11 +411,6 @@ import { IOverlay } from '../use/overlay';
 import { IUser } from '../use/user';
 import { IProducts } from '../use/products';
 
-interface LogoMin {
-  type: 'text' | 'image';
-  content: string;
-}
-
 interface LogoFull {
   type: 'text' | 'image';
   content: string;
@@ -435,7 +428,6 @@ export default defineComponent({
     const { photoURL } = inject(Modules.user) as IUser;
     const { products } = inject(Modules.products) as IProducts;
 
-    const logoMin: LogoMin = JSON.parse(process.env.VUE_APP_LOGO_MIN as string);
     const logoFull: LogoFull = JSON.parse(
       process.env.VUE_APP_LOGO_FULL as string
     );
@@ -474,7 +466,6 @@ export default defineComponent({
       mainMenu,
       submenu,
       iconMenu,
-      logoMin,
       logoFull
     };
   }
