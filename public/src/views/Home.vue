@@ -5,7 +5,7 @@
       <div class="content-container">
         <h1>{{ tagline }}</h1>
         <AvButton long class="btn" @btn-click="$router.push('/shop-cbd')">
-          Shop All Products
+          Shop All CBD Products
         </AvButton>
       </div>
     </div>
