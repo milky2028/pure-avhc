@@ -239,7 +239,7 @@
           ${{ selectedShippingOption.price }}
         </p>
         <p class="subhead itemized">Tax</p>
-        <p class="subhead itemized money">$35.00</p>
+        <p class="subhead itemized money">{{ taxRate }}%</p>
         <Divider class="divider" />
         <p class="subhead itemized">Total</p>
         <p class="subhead itemized money">$35.00</p>
@@ -361,6 +361,7 @@ import Coupon from '../types/Coupon';
 import Chip from '../components/Chip.vue';
 import Login from '../components/Login.vue';
 import { IUser } from '../use/user';
+import StateTaxes from '../data/StateTaxes';
 
 export default defineComponent({
   components: {
@@ -507,7 +508,16 @@ export default defineComponent({
 
     const { email, signOut } = inject(Modules.user) as IUser;
 
+    const taxRate = computed(() => {
+      const selectedState = differentBilling.value
+        ? StateTaxes.find(({ abbr }) => abbr === billingAddress.state)
+        : StateTaxes.find(({ abbr }) => abbr === shippingAddress.state);
+
+      return selectedState?.taxRate ?? 5.25;
+    });
+
     return {
+      taxRate,
       setShippingOption,
       shippingOptions,
       years,
