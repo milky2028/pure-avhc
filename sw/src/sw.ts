@@ -1,16 +1,17 @@
-import version from '../../shared/version';
-import resources from 'resources:';
+import version from "../../shared/version";
+import resources from "resources:";
 
 // Some Service Worker Gotchas
-// 1. The service worker does not have access to CORs requests and marks these responses as "opaque." Without access to opaque responses, all these responses are marked with the maximum request size of 7MB.
+// 1. The service worker does not have access to CORs requests and marks these responses as 'opaque.' Without access to opaque responses, all these responses are marked with the maximum request size of 7MB.
 // 2. A refresh does keeps the servie worker alive and does not refresh it. This also is true if you have multiple tabs open. It's sort of a pain.
 // 3. Promises in install and activate events need to be awaited so that install and activate events can be completed properly.
+// 4. Response objects cannot be reused and must be cloned to use again.
 
 // eslint-disable-next-line
 declare var self: ServiceWorkerGlobalScope;
 
 const staticCache = `static-${version}`;
-self.addEventListener('install', (installEvent) => {
+self.addEventListener("install", (installEvent) => {
   installEvent.waitUntil(
     (async () => {
       // Cache an essential group of items on load
@@ -20,7 +21,7 @@ self.addEventListener('install', (installEvent) => {
   );
 });
 
-self.addEventListener('activate', (activationEvent) => {
+self.addEventListener("activate", (activationEvent) => {
   activationEvent.waitUntil(
     (async () => {
       // Delete old caches when a new service worker is activated
@@ -33,15 +34,15 @@ self.addEventListener('activate', (activationEvent) => {
   );
 });
 
-self.addEventListener('fetch', (fetchEvent) => {
-  if (fetchEvent.request.method !== 'GET') {
+self.addEventListener("fetch", (fetchEvent) => {
+  if (fetchEvent.request.method !== "GET") {
     return;
   } else {
     fetchEvent.respondWith(
       (async () => {
         const cachedResponse = await self.caches.match(fetchEvent.request, {
           ignoreSearch: true,
-          ignoreVary: true
+          ignoreVary: true,
         });
 
         if (cachedResponse) {
